@@ -3,7 +3,6 @@ package q.app.dashboard.helper;
 import java.util.Date;
 
 public class AppConstants {
-
     //SERVERS AND CONSTANTS
     public final static String APP_SECRET = SysProps.getValue("appSecret");
     private final static String USER_SERVICE =  SysProps.getValue("userService");
@@ -13,6 +12,8 @@ public class AppConstants {
     private final static String CUSTOMER_SERVICE = SysProps.getValue("customerService");
     private final static String PRODUCT_SERVICE = SysProps.getValue("productService");
     private final static String IMAGE_SERVER = SysProps.getValue("imageServer");
+
+    //some change in the file
 
     //USER SERVICE CALLS//
     public final static String USER_LOGIN = USER_SERVICE + "login";

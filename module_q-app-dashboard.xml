@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_q-app-dashboard" default="compile.module.q-app-dashboard">
+  <dirname property="module.q-app-dashboard.basedir" file="${ant.file.module_q-app-dashboard}"/>
+  
+  <property name="module.jdk.home.q-app-dashboard" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.q-app-dashboard" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.q-app-dashboard" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.q-app-dashboard" value="-encoding UTF-8 -source 11 -target 11 ${compiler.args}"/>
+  
+  <property name="q-app-dashboard.output.dir" value="${module.q-app-dashboard.basedir}/out/production/q-app-dashboard"/>
+  <property name="q-app-dashboard.testoutput.dir" value="${module.q-app-dashboard.basedir}/out/test/q-app-dashboard"/>
+  
+  <path id="q-app-dashboard.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="q-app-dashboard.module.production.classpath">
+    <path refid="${module.jdk.classpath.q-app-dashboard}"/>
+    <path refid="library.jboss_14.0.1.final.classpath"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/omnifaces-2.3.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/jackson-annotations-2.8.5.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/primefaces-6.2.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/aws-java-sdk-s3-1.11.482.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/aws-java-sdk-core-1.11.482.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/httpcore-4.4.10.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/httpclient-4.5.6.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/joda-time-2.8.1.jar"/>
+  </path>
+  
+  <path id="q-app-dashboard.runtime.production.module.classpath">
+    <pathelement location="${q-app-dashboard.output.dir}"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/omnifaces-2.3.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/jackson-annotations-2.8.5.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/primefaces-6.2.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/aws-java-sdk-s3-1.11.482.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/aws-java-sdk-core-1.11.482.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/httpcore-4.4.10.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/httpclient-4.5.6.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/joda-time-2.8.1.jar"/>
+  </path>
+  
+  <path id="q-app-dashboard.module.classpath">
+    <path refid="${module.jdk.classpath.q-app-dashboard}"/>
+    <pathelement location="${q-app-dashboard.output.dir}"/>
+    <path refid="library.jboss_14.0.1.final.classpath"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/omnifaces-2.3.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/jackson-annotations-2.8.5.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/primefaces-6.2.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/aws-java-sdk-s3-1.11.482.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/aws-java-sdk-core-1.11.482.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/httpcore-4.4.10.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/httpclient-4.5.6.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/joda-time-2.8.1.jar"/>
+  </path>
+  
+  <path id="q-app-dashboard.runtime.module.classpath">
+    <pathelement location="${q-app-dashboard.testoutput.dir}"/>
+    <pathelement location="${q-app-dashboard.output.dir}"/>
+    <path refid="library.jboss_14.0.1.final.classpath"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/omnifaces-2.3.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/jackson-annotations-2.8.5.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/primefaces-6.2.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/aws-java-sdk-s3-1.11.482.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/aws-java-sdk-core-1.11.482.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/httpcore-4.4.10.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/httpclient-4.5.6.jar"/>
+    <pathelement location="${basedir}/web/WEB-INF/lib/joda-time-2.8.1.jar"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.q-app-dashboard">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.q-app-dashboard">
+    <patternset refid="excluded.from.module.q-app-dashboard"/>
+  </patternset>
+  
+  <path id="q-app-dashboard.module.sourcepath">
+    <dirset dir="${module.q-app-dashboard.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.q-app-dashboard" depends="compile.module.q-app-dashboard.production,compile.module.q-app-dashboard.tests" description="Compile module q-app-dashboard"/>
+  
+  <target name="compile.module.q-app-dashboard.production" depends="register.custom.compilers" description="Compile module q-app-dashboard; production classes">
+    <mkdir dir="${q-app-dashboard.output.dir}"/>
+    <javac2 destdir="${q-app-dashboard.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.q-app-dashboard}/javac">
+      <compilerarg line="${compiler.args.q-app-dashboard}"/>
+      <bootclasspath refid="q-app-dashboard.module.bootclasspath"/>
+      <classpath refid="q-app-dashboard.module.production.classpath"/>
+      <src refid="q-app-dashboard.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.q-app-dashboard"/>
+    </javac2>
+    
+    <copy todir="${q-app-dashboard.output.dir}">
+      <fileset dir="${module.q-app-dashboard.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.q-app-dashboard.tests" depends="register.custom.compilers,compile.module.q-app-dashboard.production" description="compile module q-app-dashboard; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.q-app-dashboard" description="cleanup module">
+    <delete dir="${q-app-dashboard.output.dir}"/>
+    <delete dir="${q-app-dashboard.testoutput.dir}"/>
+  </target>
+</project>
