@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Vendor Master</title>
+    <ui:include src="/_includes/_dashboard_header.xhtml"/>
+</h:head>
+<h:body>
+    <h:outputText
+            value="#{loginBean.checkAccessRedirectHome(act.pageVendors)}"/>
+    <ui:include src="/_includes/top_dashboard.xhtml"/>
+    <ui:include src="/_includes/side.xhtml"/>
+    <div>
+        <div class="w3-main">
+            <div class="w3-container">
+                <div align="center" class="w3-padding-8">
+                    <h:outputText value="Vendor Master" styleClass="q-large-text"/>
+                </div>
+                <h:form id="form-g">
+                    <p:growl id="error-growl"
+                             rendered="#{facesContext.maximumSeverity.ordinal eq 2}"/>
+                    <p:growl id="success-growl"
+                             rendered="#{facesContext.maximumSeverity.ordinal eq 0}"/>
+                </h:form>
+                <h:form id="form">
+                    <p:panel toggleable="true" header="New Vendor" collapsed="true"
+                             toggleSpeed="100">
+                    <div class="w3-row w3-padding-24">
+                        <div class="w3-container w3-col s6">
+                            <div class="w3-padding-24">
+                                <div class="w3-col s3">
+                                    <h:outputText value="Name"/>
+                                </div>
+                                <div class="w3-col s9">
+                                    <h:inputText value="#{vendorsBean.vendor.name}" required="true"/>
+                                </div>
+                            </div>
+                            <div class="w3-padding-24">
+                                <div class="w3-col s3">
+                                    <h:outputText value="Arabic"/>
+                                </div>
+                                <div class="w3-col s9">
+                                    <h:inputText value="#{vendorsBean.vendor.nameAr}" required="true"/>
+                                </div>
+                            </div>
+                            <div class="w3-padding-24">
+                                <div class="w3-col s3">
+                                    <h:outputText value="City"/>
+                                </div>
+                                <div class="w3-col s9">
+                                    <h:selectOneMenu value="#{vendorsBean.vendor.cityId}">
+                                        <f:selectItem itemValue="#{3}" itemLabel="Khobar"/>
+                                        <f:selectItem itemValue="#{2}" itemLabel="Dammam"/>
+                                        <f:selectItem itemValue="#{1}" itemLabel="Riyadh"/>
+                                        <f:selectItem itemValue="#{5}" itemLabel="Jeddah"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </div>
+                            <div class="w3-padding-24">
+                                <div class="w3-col s3">
+                                    <h:outputText value="Status"/>
+                                </div>
+                                <div class="w3-col s9">
+                                    <h:selectOneRadio value="#{vendorsBean.vendor.status}" style="width: 100%;"
+                                                      required="true" requiredMessage="*Select status">
+                                        <f:selectItem itemValue="#{'A'}" itemLabel="Active" />
+                                        <f:selectItem itemValue="#{'I'}" itemLabel="Inactive" />
+                                    </h:selectOneRadio>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w3-container w3-col s6">
+                            <div>
+                                <div class="w3-col s12 w3-padding-24">
+                                    <h:panelGroup id="category-table-panel">
+                                       <h:dataTable value="#{vendorsBean.vendor.vendorCategories}" var="vcat" styleClass="w3-table w3-striped w3-border"
+                                                    headerClass="w3-light-grey w3-border-bottom"
+                                                    footerClass="w3-light-grey w3-border-top">
+                                            <f:facet name="header">
+                                                <div align="center">
+                                                   <h:outputText value="Vendor Operationg Categories"/>
+                                                </div>
+                                            </f:facet>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Category"/>
+                                                </f:facet>
+                                                <h:outputText value="#{categoryBean.getCategoryFromId(vcat.categoryId).name}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Percentage"/>
+                                                </f:facet>
+                                                <h:outputText value="#{vcat.percentage}">
+                                                    <f:convertNumber type="percent"/>
+                                                </h:outputText>
+                                            </h:column>
+                                           <f:facet name="footer">
+                                               <div align="center">
+                                               <p:commandButton process="@this" oncomplete="PF('dlgwv1').show()" update=":form1" value="+"
+                                                                styleClass="q-btn"/>
+                                               </div>
+                                           </f:facet>
+                                        </h:dataTable>
+                                    </h:panelGroup>
+                                </div>
+                            </div>
+
+
+                            <div>
+                                <div class="w3-col s12 w3-padding-24">
+                                    <h:panelGroup id="contact-table-panel">
+                                        <h:dataTable value="#{vendorsBean.vendor.vendorContacts}" var="contact" styleClass="w3-table w3-striped w3-border"
+                                                     headerClass="w3-light-grey w3-border-bottom"
+                                                     footerClass="w3-light-grey w3-border-top">
+                                            <f:facet name="header">
+                                                <div align="center">
+                                                    <h:outputText value="Contacts"/>
+                                                </div>
+                                            </f:facet>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Name"/>
+                                                </f:facet>
+                                                <h:outputText value="#{contact.firstName} #{contact.lastName}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Phone"/>
+                                                </f:facet>
+                                                <h:outputText value="#{contact.phone}"/>
+                                            </h:column>
+                                            <f:facet name="footer">
+                                                <div align="center">
+                                                    <p:commandButton process="@this" oncomplete="PF('dlgwv4').show()" update=":form4" value="+"
+                                                                     styleClass="q-btn"/>
+                                                </div>
+                                            </f:facet>
+                                        </h:dataTable>
+                                    </h:panelGroup>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="w3-col s12 w3-padding-24" align="center">
+                            <p:commandButton value="Create" styleClass="q-btn" ajax="false"
+                                             actionListener="#{vendorsBean.createVendor()}"/>
+
+                        </div>
+                    </div>
+                    </p:panel>
+                </h:form>
+                <br/>
+                <h:form id="form3">
+                    <h:dataTable value="#{vendorsBean.vendors}" var="vendor"
+                                 styleClass="w3-table w3-striped w3-border"
+                                 headerClass="w3-border-bottom w3-light-grey">
+                        <h:column>
+                            <f:facet name="header">
+                                Name
+                            </f:facet>
+                            <h:outputText value="#{vendor.name}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Arabic
+                            </f:facet>
+                            <h:outputText value="#{vendor.nameAr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <div align="center">
+                                    <h:outputText value="City"/>
+                                </div>
+                            </f:facet>
+                            <div align="center">
+                                <h:outputText value="#{vendor.status eq 'A' ? 'Active' : 'Inactive'}" styleClass="w3-tag w3-#{vendor.status eq 'A' ? 'green' : 'red'}"/>
+                            </div>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <div align="center">
+                                    <h:outputText value="Status"/>
+                                </div>
+                            </f:facet>
+                            <div align="center">
+                                <h:outputText value="#{vendor.status eq 'A' ? 'Active' : 'Inactive'}" styleClass="w3-tag w3-#{vendor.status eq 'A' ? 'green' : 'red'}"/>
+                            </div>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <div align="center">
+                                    <h:outputText value="Categories"/>
+                                </div>
+                            </f:facet>
+                            <div align="center">
+                                <ui:repeat value="#{vendor.vendorCategories}" var="vcat">
+                                    <h:outputText value="#{categoryBean.getCategoryFromId(vcat.categoryId).name} #{vcat.percentageInteger}%" styleClass="w3-tag w3-indigo"
+                                                  style="margin-right: 5px"/>
+                                </ui:repeat>
+                            </div>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+
+
+                <h:form id="form1">
+                    <p:dialog styleClass="q-dialog" header="Select Category" id="dlg1" widgetVar="dlgwv1">
+                        <div class="w3-padding-24">
+                            <div class="w3-col s12">
+                                <h:outputText value="Select Categories from here"/><br/>
+                                <p:tree id="categories" value="#{categoryTreeBean.root}" var="node"
+                                        animate="true" style="border: 1px solid #c8c8c8; width: 100%"
+                                        selection="#{categoryTreeBean.selectedNode}"
+                                        selectionMode="single">
+                                    <p:treeNode type="category">
+                                        <h:outputText value="#{node.name}"/>
+                                    </p:treeNode>
+                                </p:tree>
+                                <p:contextMenu for="categories" nodeType="category" styleClass="q-context-menu">
+                                    <p:menuitem value="View" update=":form2"
+                                                oncomplete="PF('dlgwv2').show()"
+                                                icon="ui-icon-plus">
+                                    </p:menuitem>
+                                </p:contextMenu>
+                            </div>
+                        </div>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="form2">
+                    <h:outputText value="#{categoryTreeBean.initSelectedNode()}"/>
+                    <p:dialog styleClass="q-dialog" header="Category" id="dlg2" widgetVar="dlgwv2">
+                        <h:panelGrid columns="2" styleClass="w3-table w3-striped">
+                            <h:outputText value="Category"/>
+                            <h:outputText
+                                    value="#{categoryTreeBean.selectedCategory.name} - #{categoryTreeBean.selectedCategory.nameAr}"
+                                    styleClass="q-bold"/>
+
+                            <h:outputText value="Default Percentage"/>
+                            <h:panelGroup>
+                            <h:inputText value="#{vendorsBean.defaultPercentage}"/>
+                                <h:outputText value="%"/>
+                            </h:panelGroup>
+                        </h:panelGrid>
+                        <p:commandButton value="Add" styleClass="q-btn"
+                                         oncomplete="PF('dlgwv2').hide();PF('dlgwv1').hide()"
+                                         actionListener="#{vendorsBean.addCategory(categoryTreeBean.selectedCategory)}"
+                                         update=":form:category-table-panel :form-g :form1"/>
+                    </p:dialog>
+                </h:form>
+
+
+                <h:form id="form4">
+                    <p:dialog styleClass="q-dialog" header="Contct" id="dlg4" widgetVar="dlgwv4">
+                        <h:panelGrid columns="2" styleClass="w3-table w3-striped">
+                            <h:outputText value="First Name"/>
+                            <h:inputText value="#{vendorsBean.vendorContact.firstName}" required="true"/>
+
+                            <h:outputText value="Last Name"/>
+                            <h:inputText value="#{vendorsBean.vendorContact.lastName}"/>
+                            <h:outputText value="Email "/>
+                            <h:inputText value="#{vendorsBean.vendorContact.email}"/>
+                            <h:outputText value="Phone"/>
+                            <h:inputText value="#{vendorsBean.vendorContact.phone}"/>
+                            <h:outputText value="Notes"/>
+                            <h:inputTextarea value="#{vendorsBean.vendorContact.notes}"/>
+                        </h:panelGrid>
+                        <p:commandButton value="Add" styleClass="q-btn"
+                                         oncomplete="PF('dlgwv4').hide()"
+                                         actionListener="#{vendorsBean.addContact()}"
+                                         update=":form:contact-table-panel :form-g :form1"/>
+                    </p:dialog>
+
+                </h:form>
+
+            </div>
+        </div>
+    </div>
+</h:body>
+</html>

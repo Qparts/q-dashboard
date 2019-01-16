@@ -1,0 +1,347 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>New Product</title>
+    <ui:include src="/_includes/_dashboard_header.xhtml"/>
+</h:head>
+<h:body>
+    <h:outputText
+            value="#{loginBean.checkAccessRedirectHome(act.pageNewProduct)}"/>
+    <ui:include src="/_includes/top_dashboard.xhtml"/>
+    <ui:include src="/_includes/side.xhtml"/>
+    <div>
+        <div class="w3-main">
+            <div class="w3-container">
+                <div align="center" class="w3-padding-8">
+                    <h:outputText value="New Product" styleClass="q-large-text"/>
+                </div>
+                <h:form id="form-g">
+                    <p:growl id="error-growl"
+                             rendered="#{facesContext.maximumSeverity.ordinal eq 2}"/>
+                    <p:growl id="success-growl"
+                             rendered="#{facesContext.maximumSeverity.ordinal eq 0}"/>
+                </h:form>
+                <h:form id="form" enctype="multipart/form-data">
+                    <div class="w3-row w3-padding-24">
+                        <div class="w3-container w3-col s12 m6">
+                            <div class="w3-padding-24" id="product-name-div">
+                                <div class="w3-col s3">
+                                    <h:outputText value="Name"/>
+                                </div>
+                                <div class="w3-col s9">
+                                    <h:inputText value="#{newProductBean.product.desc}" required="true" requiredMessage="Enter product name"
+                                                 style="width: 100%"/>
+                                </div>
+                            </div>
+                            <div class="w3-padding-24" id="brand-div" >
+                                <div class="w3-col s3">
+                                    <h:outputText value="Brand"/>
+                                </div>
+                                <div class="w3-col s9">
+                                    <p:autoComplete placeholder="Type brand name" id="themeCustom"
+                                                    styleClass="q-auto-complete" required="true"
+                                                    value="#{newProductBean.product.brand.id}" dropdown="true"
+                                                    completeMethod="#{brandsBean.completeBrandIds}" var="b"
+                                                    itemLabel="#{brandsBean.getBrandFromId(b).name}"
+                                                    itemValue="#{brandsBean.getBrandFromId(b).id}"
+                                                    forceSelection="true" style="width: 100%!important;">
+                                        <p:column>
+                                            <h:graphicImage value="#{brandsBean.getBrandFromId(b).brandImage}"
+                                                            alt="#{brandsBean.getBrandFromId(b).name}"
+                                                            styleClass="ui-theme"/>
+                                        </p:column>
+
+                                        <p:column>
+                                            <h:outputText value="#{brandsBean.getBrandFromId(b).name}"/>
+                                        </p:column>
+                                    </p:autoComplete>
+                                </div>
+                            </div>
+                            <div class="w3-padding-24" id="product-number-div">
+                                <div class="w3-col s3">
+                                    <h:outputText value="Product Number"/>
+                                </div>
+                                <div class="w3-col s9">
+                                    <h:inputText value="#{newProductBean.product.productNumber}" style="width: 100%" required="true" requiredMessage="Enter product number"/>
+                                </div>
+                            </div>
+                            <div class="w3-padding-24" id="image-div">
+                                <div class="w3-col s3">
+                                    <h:outputText value="Image"/>
+                                </div>
+                                <div class="w3-col s9">
+                                    <h:inputFile value="#{newProductBean.imagePart}" required="true"
+                                                 requiredMessage="Select Main Image" style="width:100%"/>
+                                </div>
+                            </div>
+                            <div class="w3-padding-24" id="product-details-div">
+                                <div class="w3-col s12">
+                                    <p:editor height="200" value="#{newProductBean.product.details}"
+                                              style="width: 100%; padding-bottom: 24px!important;"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w3-container w3-col s12 m6">
+                            <div class="w3-padding-24" id="category-div">
+                                <div class="w3-col s3">
+                                    <h:outputText value="Category"/>
+                                </div>
+                                <div class="w3-col s9">
+                                    <h:panelGroup id="category-table-panel">
+                                        <p:commandButton process="@this" oncomplete="PF('dlgwv1').show()"
+                                                         pdate=":form1" value="+" styleClass="q-btn"
+                                                         rendered="#{loginBean.hasAccess(act.actionProductMultiCategor) or newProductBean.categories.size() eq 0}"/>
+                                        <ui:repeat value="#{newProductBean.categories}" var="cat">
+                                            <h:outputText value="#{cat.name}" styleClass="w3-tag w3-indigo"
+                                                          style="margin-right: 5px"/>
+                                        </ui:repeat>
+                                    </h:panelGroup>
+                                </div>
+                            </div>
+                            <div class="w3-padding-24" id="category-tags-div">
+                                <div class="w3-col s3">
+                                    <h:outputText value="Tags from Categories"/>
+                                </div>
+                                <div class="w3-col s9">
+                                    <h:panelGroup id="tags-panel">
+                                        <p:chips disabled="true" rendered="#{newProductBean.defaultTags.size() gt 0}"
+                                                 value="#{newProductBean.defaultTags}"
+                                                 styleClass="q-input-undecorate q-chips q-chips-readonly"/>
+                                    </h:panelGroup>
+                                </div>
+                            </div>
+                            <div class="w3-padding-24" id="additional-tags-div">
+                                <div class="w3-col s3">
+                                    <h:outputText value="Additional Tags"/>
+                                </div>
+                                <div class="w3-col s9">
+                                    <h:panelGroup>
+                                        <p:chips value="#{newProductBean.tags}"
+                                                 styleClass="q-input-undecorate q-chips .w3-camo-black"
+                                                 style="width: 100%"/>
+                                    </h:panelGroup>
+                                </div>
+                            </div>
+                            <div class="w3-padding-24" id="specs-div">
+                                <div class="w3-col s12">
+                                    <h:panelGroup id="specs-panel">
+                                        <h:dataTable value="#{newProductBean.productSpecs}" var="ps"
+                                                     styleClass="w3-table w3-striped w3-border"
+                                                     headerClass="w3-border-bottom w3-light-grey"
+                                                     footerClass="w3-border-top w3-light-grey">
+                                            <f:facet name="header">
+                                                <div class="w3-row">
+                                                    <div class="w3-col s6">
+                                                        <h:outputText value="Product Specs"/>
+                                                    </div>
+                                                    <div align="right" class="w3-col s6">
+                                                        <p:commandButton styleClass="q-btn"
+                                                                         value="+"
+                                                                         process="@this"
+                                                                         update=":form4"
+                                                                         oncomplete="PF('dlgwv4').show()"/>
+                                                    </div>
+                                                </div>
+                                            </f:facet>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Key"/>
+                                                </f:facet>
+                                                <h:outputText value="#{ps.spec.name}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Value"/>
+                                                </f:facet>
+                                                <h:inputText value="#{ps.value}" required="true"
+                                                             requiredMessage="Enter Spec Value">
+                                                    <f:ajax execute="@this"/>
+                                                </h:inputText>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Key Ar"/>
+                                                </f:facet>
+                                                <h:outputText value="#{ps.spec.nameAr}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Value Ar"/>
+                                                </f:facet>
+                                                <h:inputText value="#{ps.valueAr}">
+                                                    <f:ajax execute="@this"/>
+                                                </h:inputText>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Remove"/>
+                                                </f:facet>
+                                                <p:commandButton actionListener="#{newProductBean.removeSpec(ps)}"
+                                                                 value="-" styleClass="q-btn" process="@this"
+                                                                 update=":form:specs-panel"/>
+                                            </h:column>
+
+                                        </h:dataTable>
+                                    </h:panelGroup>
+                                </div>
+                            </div>
+                            <div class="w3-padding-24" id="price-dive">
+                                <div class="w3-col s12 w3-padding-24">
+                                    <h:panelGroup id="price-panel">
+                                        <h:panelGrid columns="2" styleClass="w3-table w3-border w3-striped"
+                                                     columnClasses="w3-border,w3-border"
+                                                     headerClass="w3-border-bottom w3-light-grey"
+                                                     footerClass="w3-border-top w3-light-grey">
+                                            <f:facet name="header">
+                                                <div class="w3-row">
+                                                    <div class="w3-col s6">
+                                                        <h:outputText value="Pricing"/>
+                                                    </div>
+                                                    <div align="right" class="w3-col s6">
+                                                        <p:commandButton process="@this" update=":form5"
+                                                                         value="+"
+                                                                         oncomplete="PF('dlgwv5').show()"
+                                                                         styleClass="q-btn"/>
+                                                    </div>
+                                                </div>
+                                            </f:facet>
+                                            <h:outputText value="Vendor" />
+                                            <h:outputText
+                                                    value="#{vendorsBean.getVendorFromId(newProductBean.productPrice.vendorId).name}" />
+                                            <h:outputText value="Cost Price" />
+                                            <h:outputText value="#{newProductBean.productPrice.price}" >
+                                                <f:convertNumber type="currency" currencySymbol="SR "/>
+                                            </h:outputText>
+                                            <h:outputText value="Sales Percentage" />
+                                            <h:outputText value="#{newProductBean.productPrice.salesPercentage}" >
+                                                <f:convertNumber type="percent" />
+                                            </h:outputText>
+                                            <h:outputText value="Sales Price" />
+                                            <h:outputText value="#{newProductBean.productPrice.price + (newProductBean.productPrice.price * newProductBean.productPrice.salesPercentage)}" >
+                                                <f:convertNumber type="currency" currencySymbol="SR "/>
+                                            </h:outputText>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                </div>
+                            </div>
+                            <div class="w3-padding-24" id="status-div">
+                                <div class="w3-col s3">
+                                    <h:outputText value="Status"/>
+                                </div>
+                                <div class="w3-col s9">
+                                    <h:selectOneRadio value="#{newProductBean.product.status}" style="width: 100%;"
+                                                      required="true" requiredMessage="*Select status">
+                                        <f:selectItem itemValue="#{'A'}" itemLabel="Active"/>
+                                        <f:selectItem itemValue="#{'I'}" itemLabel="Inactive"/>
+                                    </h:selectOneRadio>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div align="center" class="w3-container w3-col s12">
+                            <p:commandButton value="Create" styleClass="q-btn" ajax="false"
+                                             actionListener="#{newProductBean.createProduct}"/>
+                        </div>
+                    </div>
+                </h:form>
+
+                <h:form id="form1">
+                    <p:dialog styleClass="q-dialog" header="Select Category" id="dlg1" widgetVar="dlgwv1">
+                        <div class="w3-padding-24">
+                            <div class="w3-col s12">
+                                <h:panelGroup
+                                        rendered="#{loginBean.hasAccess(act.actionProductMultiCategor) or newProductBean.categories.size() eq 0}">
+                                    <h:outputText value="Select Categories from here"/><br/>
+                                    <p:tree id="categories" value="#{categoryTreeBean.root}" var="node"
+                                            animate="true" style="border: 1px solid #c8c8c8; width: 100%"
+                                            selection="#{categoryTreeBean.selectedNode}"
+                                            selectionMode="single">
+
+                                        <p:treeNode type="category">
+                                            <h:outputText value="#{node.name}"/>
+                                        </p:treeNode>
+                                    </p:tree>
+                                    <p:contextMenu for="categories" nodeType="category" styleClass="q-context-menu">
+                                        <p:menuitem value="View" update=":form2"
+                                                    oncomplete="PF('dlgwv2').show()"
+                                                    icon="ui-icon-plus">
+                                        </p:menuitem>
+                                    </p:contextMenu>
+                                </h:panelGroup>
+                            </div>
+                        </div>
+                    </p:dialog>
+                </h:form>
+
+
+                <br/>
+                <h:form id="form2">
+                    <h:outputText value="#{categoryTreeBean.initSelectedNode()}"/>
+                    <p:dialog styleClass="q-dialog" header="Category" id="dlg2" widgetVar="dlgwv2">
+                        <h:outputText value="Are you sure you you want to add the following category?"/>
+                        <br/>
+                        <div align="center">
+                            <h:outputText
+                                    value="#{categoryTreeBean.selectedCategory.name} - #{categoryTreeBean.selectedCategory.nameAr}"
+                                    styleClass="q-bold"/>
+                        </div>
+                        <p:commandButton value="Add" styleClass="q-btn"
+                                         oncomplete="PF('dlgwv2').hide();PF('dlgwv1').hide()"
+                                         actionListener="#{newProductBean.addCategory(categoryTreeBean.selectedCategory)}"
+                                         update=":form:category-table-panel :form:price-panel :form:tags-panel :form:specs-panel :form-g :form1"/>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="form4">
+                    <p:dialog styleClass="q-dialog" header="New Spec" id="dlg4" widgetVar="dlgwv4">
+                        <h:outputText value="Select spec"/>
+                        <p:autoComplete placeholder="Type Spec"
+                                        styleClass="q-auto-complete" required="true"
+                                        value="#{newProductBean.newSpecId}" dropdown="true"
+                                        completeMethod="#{specsBean.completeSpecIds(s)}" var="s"
+                                        itemLabel="#{specsBean.getSpecFromId(s).name} - #{specsBean.getSpecFromId(s).nameAr}"
+                                        itemValue="#{specsBean.getSpecFromId(s).id}"
+                                        forceSelection="true" style="width: 100%!important;">
+                        </p:autoComplete>
+
+                        <p:commandButton value="Add" styleClass="q-btn" oncomplete="PF('dlgwv2').hide()"
+                                         actionListener="#{newProductBean.addSpec}"
+                                         update=":form:specs-panel :form-g :form4"/>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="form5">
+                    <p:dialog styleClass="q-dialog" header="Vendor and Price" id="dlg5" widgetVar="dlgwv5">
+                        <h:panelGrid columns="2" styleClass="w3-table w3-striped w3-border">
+                            <h:outputText value="Vendor"/>
+                            <p:autoComplete placeholder="Type Vendor name" id="vendorCustom"
+                                            styleClass="q-auto-complete" required="true"
+                                            value="#{newProductBean.productPrice.vendorId}" dropdown="true"
+                                            completeMethod="#{vendorsBean.completeVendorIds}" var="b"
+                                            itemLabel="#{vendorsBean.getVendorFromId(b).name}"
+                                            itemValue="#{vendorsBean.getVendorFromId(b).id}"
+                                            forceSelection="true" style="width: 100%!important;">
+                                <p:ajax/>
+                            </p:autoComplete>
+                            <h:outputText value="Price W/V"/>
+                            <h:inputText value="#{newProductBean.productPrice.price}" required="true"/>
+                        </h:panelGrid>
+
+                        <p:commandButton value="Add" actionListener="#{newProductBean.prepareProductPrice()}" styleClass="q-btn" oncomplete="PF('dlgwv5').hide()"
+                                         update=":form:price-panel :form-g :form5"/>
+
+                    </p:dialog>
+
+
+                </h:form>
+            </div>
+        </div>
+    </div>
+</h:body>
+</html>

@@ -1,0 +1,217 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+    <h:panelGroup id="left">
+        <p:panel toggleable="true" header="Quotation Information" collapsed="false"
+                 toggleSpeed="100">
+            <div class="w3-row">
+                <div class="w3-col m12 l6">
+                    <div align="center">
+                        <h:outputText value="General" styleClass="q-bold"/>
+                    </div>
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Quotation ID"/>
+                        <h:inputText readonly="true" styleClass="w3-text-grey"
+                                     value="#{liveQuotationBean.quotation.id}"/>
+                        <h:outputText value="Date"/>
+                        <h:inputText readonly="true" styleClass="w3-text-grey"
+                                     value="#{liveQuotationBean.quotation.created}">
+                            <f:convertDateTime pattern="dd-MMM-yyyy HH:mm"/>
+                        </h:inputText>
+                        <h:outputText value="Vehicle"/>
+                        <h:inputText readonly="true" styleClass="w3-text-grey"
+                                     value="#{makesBean.getModelYearFromId(liveQuotationBean.quotation.customerVehicle.vehicleYearId).fullName}"/>
+                        <h:outputText value="VIN"/>
+                        <h:inputText readonly="true" styleClass="w3-text-grey"
+                                     value="#{liveQuotationBean.quotation.customerVehicle.vin}"/>
+                        <h:outputText value="City"/>
+                        <h:inputText readonly="true" styleClass="w3-text-grey"
+                                     value="#{liveQuotationBean.quotation.cityId} - #{liveQuotationBean.quotation.cityId}"/>
+                    </h:panelGrid>
+                </div>
+                <div class="w3-col m12 l6">
+                    <div align="center">
+                        <h:outputText value="Customer" styleClass="q-bold"/>
+                    </div>
+                    <h:panelGrid columns="2">
+                        <h:outputText value="ID"/>
+                        <h:inputText readonly="true" styleClass="w3-text-grey"
+                                     value="#{liveQuotationBean.quotation.customerId}"/>
+                        <h:outputText value="Name"/>
+                        <h:inputText readonly="true" styleClass="w3-text-grey"
+                                     value="#{liveQuotationBean.quotation.customer.fullName}"/>
+                        <h:outputText value="Mobile"/>
+                        <h:inputText readonly="true" styleClass="w3-text-grey"
+                                     value="#{liveQuotationBean.quotation.customer.email}"/>
+                        <h:outputText value="Email"/>
+                        <h:inputText readonly="true" styleClass="w3-text-grey"
+                                     value="#{liveQuotationBean.quotation.customer.email}"/>
+                        <h:outputText value="Country"/>
+                        <h:inputText readonly="true" styleClass="w3-text-grey"
+                                     value="#{liveQuotationBean.quotation.customer.countryId}"/>
+                    </h:panelGrid>
+                </div>
+            </div>
+            <h:form>
+                <div align="center">
+                    <p:commandButton action="#{quotationBean.initVehicleEdit()}"
+                                     value="Edit Cart" oncomplete="PF('ecdlg').show()"
+                                     styleClass="q-btn" update=":edit-cart-form"/>
+                </div>
+            </h:form>
+            <br/>
+            <h:dataTable styleClass="w3-table w3-striped w3-border"
+                         value="#{liveQuotationBean.quotation.quotationItems}" var="item"
+                         headerClass="w3-light-grey w3-border-bottom">
+                <f:facet name="header">
+                    <div align="center">Cart Items</div>
+                </f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Item Name"/>
+                    </f:facet>
+                    <h:outputText value="#{item.name}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <div align="center">
+                            <h:outputText value="Quantity"/>
+                        </div>
+                    </f:facet>
+                    <div align="center">
+                        <h:outputText value="#{item.quantity}"/>
+                    </div>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <div align="center">
+                            <h:outputText value="Image"/>
+                        </div>
+                    </f:facet>
+                    <div align="center">
+                        <h:graphicImage value="#{item.getImageLink(liveQuotationBean.quotation.created)}" width="50"/>
+                    </div>
+                </h:column>
+            </h:dataTable>
+        </p:panel>
+        <br/>
+        <p:panel toggleable="true" header="Comments" collapsed="false"
+                 toggleSpeed="100">
+            <ui:repeat value="#{liveQuotationBean.quotation.comments}" var="comment">
+                <h:outputText value="#{comment.created}" styleClass="q-bold"
+                              style="color:#2dacd1!important;">
+                    <f:convertDateTime pattern="dd-MMM-yyyy HH:mm"/>
+                </h:outputText>
+                <h:outputText value=" #{comment.createdBy} : "
+                              style="color:#2dacd1!important;" styleClass="q-bold"/>
+                <h:outputText value=" (#{comment.visibleToCustomer ? 'visible' : 'hidden'}) : "
+                              style="color:#2dacd1!important;" styleClass="q-bold"/>
+                <h:outputText dir="RTL" value=" #{comment.text}"/>
+                <br/>
+                <br/>
+            </ui:repeat>
+            <h:form>
+                <div align="center">
+                    <p:commandButton value="+ Add Comment" styleClass="q-btn"
+                                     oncomplete="PF('commentDlgwv').show()"/>
+                </div>
+            </h:form>
+        </p:panel>
+        <h:form id="new-comment-form">
+            <p:dialog styleClass="q-dialog" header="New Comment"
+                      widgetVar="commentDlgwv">
+                <div align="center">
+                    <h:outputText value="Action"/>
+                    <br/>
+                    <h:selectOneMenu value="#{liveQuotationBean.newComment.status}"
+                                     required="true" requiredMessage="Select Type">
+                        <f:selectItem noSelectionOption="true"
+                                      itemLabel="--Select Type--"/>
+                        <f:selectItem itemValue="C" itemLabel="Comment"/>
+                        <f:selectItem itemValue="X" itemLabel="Archive"/>
+                    </h:selectOneMenu>
+                    <br/>
+                    <br/>
+                    <h:outputText value="Visible To Customer"/>
+                    <br/>
+                    <h:selectBooleanCheckbox value="#{liveQuotationBean.newComment.visibleToCustomer}"/>
+                    <br/>
+                    <div class="w3-padding-12">
+                        <h:outputText value="Comments"/>
+                        <br/>
+                        <h:inputTextarea required="true"
+                                         requiredMessage="Enter comments before submitting"
+                                         value="#{liveQuotationBean.newComment.text}" cols="70" rows="3"/>
+                    </div>
+                    <div>
+                        <p:commandButton value="Submit" styleClass="q-btn"
+                                         actionListener="#{liveQuotationBean.submitComment()}" process="@form"
+                                         ajax="false">
+                        </p:commandButton>
+                    </div>
+                </div>
+            </p:dialog>
+        </h:form>
+
+        <div align="center" class="w3-padding-24">
+
+            <br/>
+
+            <h:form id="edit-cart-form">
+                <p:dialog id="ecdlg" widgetVar="ecdlg" styleClass="q-dialog"
+                          header="Edit Cart Information">
+                    <h:panelGrid columns="3">
+                        <h:outputText value="VIN"/>
+                        <p:spacer height="1" width="50"/>
+                        <h:inputText value="#{quotationBean.cart.vin}"
+                                     validatorMessage="Invalid VIN" a:placeHolder="#{lex.vin}"
+                                     a:maxlength="17" style="text-transform: uppercase;"/>
+                        <h:outputText value="City"/>
+                        <p:spacer height="1" width="50"/>
+                        <h:selectOneMenu value="#{quotationBean.cart.cityId}">
+                            <f:selectItems
+                                    value="#{countryBean.getCountry(quotationBean.cart.customer.countryId).cities}"
+                                    var="city" itemLabel="#{city.name}" itemValue="#{city.id}"/>
+                        </h:selectOneMenu>
+                        <h:outputText value="Make"/>
+                        <p:spacer height="1" width="50"/>
+                        <h:selectOneMenu value="#{quotationBean.selectedMakeId}">
+                            <f:selectItems value="#{vehicleTreeBean.makes}" var="make"
+                                           itemLabel="#{make.name}" itemValue="#{make.id}"/>
+                            <f:ajax listener="#{quotationBean.chooseMake()}" execute="@this"
+                                    render="model-select"/>
+                        </h:selectOneMenu>
+
+                        <h:outputText value="Model"/>
+                        <p:spacer height="1" width="50"/>
+                        <h:selectOneMenu value="#{quotationBean.selectedModelId}"
+                                         id="model-select">
+                            <f:selectItems value="#{quotationBean.selectedMake.models}"
+                                           var="model" itemLabel="#{model.name}"
+                                           itemValue="#{model.id}"/>
+                            <f:ajax listener="#{quotationBean.chooseModel()}" execute="@this"
+                                    render="year-select"/>
+                        </h:selectOneMenu>
+                        <h:outputText value="Model Year"/>
+                        <p:spacer height="1" width="50"/>
+                        <h:selectOneMenu value="#{quotationBean.selectedModelYearId}"
+                                         id="year-select">
+                            <f:selectItems value="#{quotationBean.selectedModel.modelYears}"
+                                           var="year" itemLabel="#{year.year}" itemValue="#{year.id}"/>
+                            <f:ajax listener="#{quotationBean.chooseModelYear()}"
+                                    execute="@this"/>
+                        </h:selectOneMenu>
+                    </h:panelGrid>
+                    <p:commandButton value="Save Changes"
+                                     actionListener="#{quotationBean.editCart()}" styleClass="q-btn"/>
+                </p:dialog>
+            </h:form>
+
+        </div>
+    </h:panelGroup>
+
+</ui:composition>

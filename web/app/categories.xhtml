@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Categories Master</title>
+    <ui:include src="/_includes/_dashboard_header.xhtml"/>
+</h:head>
+<h:body>
+    <h:outputText value="#{loginBean.checkAccessRedirectHome(act.pageCategories)}"/>
+    <ui:include src="/_includes/top_dashboard.xhtml"/>
+    <ui:include src="/_includes/side.xhtml"/>
+    <div class="w3-container">
+        <div align="center" class="w3-padding-8">
+            <h:outputText value="Vehicles Master" styleClass="q-large-text"/>
+        </div>
+        <h:form id="form-g">
+            <p:growl id="error-growl"
+                     rendered="#{facesContext.maximumSeverity.ordinal eq 2}"/>
+            <p:growl id="success-growl"
+                     rendered="#{facesContext.maximumSeverity.ordinal eq 0}"/>
+        </h:form>
+        <div class="w3-section">
+            <div class="w3-row-padding" style="margin: 0 -16px">
+                <div>
+                    <h:form id="form">
+                        <p:panel toggleable="true" header="New Root Category" collapsed="true"
+                                 toggleSpeed="100">
+                            <div class="w3-row">
+                                <div class="w3-col m12 l6">
+                                    <h:panelGrid columns="2">
+                                        <h:outputText value="Category Name "/>
+                                        <h:inputText value="#{categoryTreeBean.rootCategory.name}" required="true"
+                                                     requiredMessage="*Enter category name"/>
+                                        <h:outputText value="Arabic Name"/>
+                                        <h:inputText value="#{categoryTreeBean.rootCategory.nameAr}"
+                                                     required="true" requiredMessage="*Enter category arabic name"/>
+                                        <h:outputText value="Status "/>
+                                        <h:selectOneRadio value="#{categoryTreeBean.rootCategory.status}"
+                                                          required="true" requiredMessage="*Select status">
+                                            <f:selectItem itemValue="#{'A'}" itemLabel="Active"/>
+                                            <f:selectItem itemValue="#{'I'}" itemLabel="Inactive"/>
+                                        </h:selectOneRadio>
+                                        <h:outputText value="Tags"/>
+                                        <p:chips styleClass="mychips" id="chips" value="#{categoryTreeBean.rootCategory.tags}">
+                                            <p:ajax event="itemSelect" update="chips"/>
+                                            <p:ajax event="itemUnselect" update="chips"/>
+                                        </p:chips>
+                                        <h:commandButton actionListener="#{categoryTreeBean.createRootCategory}"
+                                                         value="Create" styleClass="q-btn"/>
+                                    </h:panelGrid>
+                                </div>
+                                <div class="w3-col m12 l6">
+                                    <p:selectManyCheckbox id="grid2" value="#{categoryTreeBean.rootCategory.specsIds}"
+                                                          layout="responsive" columns="3">
+                                        <f:selectItems value="#{specsBean.specs}" var="spec" itemLabel="#{spec.name}"
+                                                       itemValue="#{spec.id}"/>
+                                    </p:selectManyCheckbox>
+                                </div>
+                            </div>
+                        </p:panel>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <h:form id="form1">
+            <p:tree id="categories" value="#{categoryTreeBean.root}" var="node" styleClass="q-horizontal-tree"
+                    selectionMode="single" selection="#{categoryTreeBean.selectedNode}" orientation="horizontal"  >
+                <p:treeNode type="category" styleClass="q-horizontal-tree-node">
+                    <h:outputText value="#{node.name}"
+                                  style="#{categoryTreeBean.getStyle(node.status)}"/>
+                </p:treeNode>
+                <p:treeNode>
+                    <h:outputText value="#{node}"/>
+                </p:treeNode>
+            </p:tree>
+            <p:contextMenu for="categories" nodeType="category" styleClass="q-context-menu">
+                <p:menuitem value="Add Category" update=":form3" styleClass="hh"
+                            oncomplete="PF('dlgwv3').show()" icon="ui-icon-plus"/>
+                <p:menuitem value="Edit Category" update=":form2" styleClass="hh"
+                            oncomplete="PF('dlgwv2').show()" icon="ui-icon-plus"/>
+            </p:contextMenu>
+        </h:form>
+
+
+        <h:form id="form2">
+            <h:outputText value="#{categoryTreeBean.initSelectedNode()}"/>
+            <p:dialog styleClass="q-dialog" header="Update Category" id="dlg2" widgetVar="dlgwv2">
+                <h:panelGrid columns="2">
+                    <h:outputText value="Name "/>
+                    <h:inputText value="#{categoryTreeBean.selectedCategory.name}"
+                                 required="true" requiredMessage="*Enter category name"/>
+                    <h:outputText value="Arabic "/>
+                    <h:inputText value="#{categoryTreeBean.selectedCategory.nameAr}"
+                                 required="true" requiredMessage="*Enter category arabic name"/>
+                    <h:outputText value="Active"/>
+                    <h:selectOneRadio value="#{categoryTreeBean.selectedCategory.status}"
+                                      required="true" requiredMessage="*Select status">
+                        <f:selectItem itemValue="#{'A'}" itemLabel="Active"/>
+                        <f:selectItem itemValue="#{'I'}" itemLabel="Inactive"/>
+                    </h:selectOneRadio>
+                </h:panelGrid>
+                <h:commandButton value="Update" styleClass="q-btn"
+                                 actionListener="#{categoryTreeBean.updateCategory}"/>
+            </p:dialog>
+        </h:form>
+
+        <h:form id="form3">
+            <h:outputText value="#{categoryTreeBean.initSelectedNode()}"/>
+            <p:dialog styleClass="q-dialog" header="Add Category" id="dlg3" widgetVar="dlgwv3">
+                <h:panelGrid columns="2">
+                    <h:outputText value="Parent Category"/>
+                    <h:outputText value="#{categoryTreeBean.selectedCategory.name}"/>
+                    <h:outputText value="Name:"/>
+                    <h:inputText value="#{categoryTreeBean.category.name}" required="true"/>
+                    <h:outputText value="Arabic:"/>
+                    <h:inputText value="#{categoryTreeBean.category.nameAr}" required="true"/>
+                    <h:outputText value="Status:"/>
+                    <h:selectOneRadio value="#{categoryTreeBean.category.status}" required="true">
+                        <f:selectItem itemValue="#{'A'}" itemLabel="Active"/>
+                        <f:selectItem itemValue="#{'I'}" itemLabel="Inactive"/>
+                    </h:selectOneRadio>
+                    <h:outputText value="Tags"/>
+                    <p:chips styleClass="mychips" id="chips" value="#{categoryTreeBean.category.tags}">
+                        <p:ajax event="itemSelect" update="chips"/>
+                        <p:ajax event="itemUnselect" update="chips"/>
+                    </p:chips>
+                    <h:outputText value="Specs"/>
+                    <p:selectManyCheckbox id="grid2" value="#{categoryTreeBean.category.specsIds}"
+                                          layout="responsive" columns="3">
+                        <f:selectItems value="#{specsBean.specs}" var="spec" itemLabel="#{spec.name}"
+                                       itemValue="#{spec.id}"/>
+                    </p:selectManyCheckbox>
+                    <h:commandButton value="Create Model" styleClass="q-btn"
+                                     actionListener="#{categoryTreeBean.createCategory}"/>
+                </h:panelGrid>
+            </p:dialog>
+        </h:form>
+    </div>
+</h:body>
+</html>

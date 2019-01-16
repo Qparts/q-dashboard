@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+      xmlns:c="http://java.sun.com/jstl/core">
+
+<h:head>
+    <title>Live Quotation Detail</title>
+    <ui:include src="/_includes/_dashboard_header.xhtml"/>
+</h:head>
+<h:body>
+    <h:outputText
+            value="#{loginBean.checkAccessRedirectHome(act.pageQuotations)}"/>
+
+    <ui:include src="/_includes/top_dashboard.xhtml"/>
+    <ui:include src="/_includes/side.xhtml"/>
+    <div class="w3-container">
+        <div align="center" class="w3-padding-8">
+            <h:outputText value="Quotation # #{liveQuotationBean.quotation.id}"
+                          styleClass="q-large-text"/>
+        </div>
+    </div>
+    <h:form id="form-g">
+        <p:growl id="error-growl"
+                 rendered="#{facesContext.maximumSeverity.ordinal eq 2}"/>
+        <p:growl id="success-growl"
+                 rendered="#{facesContext.maximumSeverity.ordinal eq 0}"/>
+    </h:form>
+    <div class="w3-section">
+        <div class="w3-row" style="margin: 0 -16px">
+            <div class="w3-col m12 l6">
+                <div class="w3-container">
+                    <ui:include src="/_includes/_live-quotation-left.xhtml"/>
+                </div>
+            </div>
+
+            <div class="w3-col m12 l6">
+                <div class="w3-container">
+                    <ui:include src="/_includes/_live-quotation-right.xhtml"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</h:body>
+</html>

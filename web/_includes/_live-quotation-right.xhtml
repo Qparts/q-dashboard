@@ -1,0 +1,203 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<h:panelGroup id="right">
+		<ui:repeat var="bill" value="#{liveQuotationBean.quotation.bills}">
+			<p:panel toggleable="true" header="Bill #{bill.id}"
+					 collapsed="false" toggleSpeed="100">
+				<h:panelGrid columns="2">
+					<h:outputText value="Created By" />
+					<h:inputText readonly="true" styleClass="w3-text-grey" rendered="#{bill.createdBy gt 0}"
+								 value="#{usersBean.getUserFromId(bill.createdBy).idWithName}" />
+					<h:inputText readonly="true" styleClass="w3-text-grey" rendered="#{bill.createdBy eq 0}"
+								 value="Customer" />
+					<h:outputText value="Date" />
+					<h:inputText readonly="true" styleClass="w3-text-grey" value="#{bill.created}" >
+						<f:convertDateTime pattern="dd-MMM-yyyy HH:mm" />
+					</h:inputText>
+					<h:outputText value="Status" />
+					<h:outputText value="New Bill"
+								  styleClass="w3-tag w3-orange w3-text-white"
+								  rendered="#{bill.status == 'N'}" />
+					<h:outputText value="Waiting for Price"
+								  styleClass="w3-tag w3-indigo"
+								  rendered="#{bill.status == 'W'}" />
+					<h:outputText value="Completed" styleClass="w3-tag w3-green"
+								  rendered="#{bill.status == 'C'}" />
+				</h:panelGrid>
+				<br />
+				<h:form>
+					<h:dataTable id="table"
+								 styleClass="w3-center w3-table w3-striped w3-border"
+								 value="#{bill.billItems}" var="item"
+								 headerClass="w3-border-bottom w3-light-grey">
+						<f:facet name="header">
+							<div align="center">
+								<h:outputText value="Bill Items" />
+							</div>
+						</f:facet>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Item Name" />
+							</f:facet>
+							<h:inputText value="#{item.itemDesc}"
+										 rendered="#{bill.status eq 'N'}" />
+							<h:outputText value="#{item.itemDesc}"
+										  rendered="#{not(bill.status eq 'N')}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<div align="center">
+									<h:outputText value="Quantity" />
+								</div>
+							</f:facet>
+							<div align="center">
+								<h:selectOneMenu value="#{item.quantity}"
+												 rendered="#{bill.status eq 'N'}">
+									<f:selectItems value="#{liveQuotationBean.quantityArray}" var="var"
+												   itemValue="#{var}" itemLabel="#{var}" />
+								</h:selectOneMenu>
+								<h:outputText value="#{item.quantity}"
+											  rendered="#{not(bill.status eq 'N')}" />
+							</div>
+						</h:column>
+						<h:column rendered="#{bill.status eq 'N'}">
+							<f:facet name="header">
+								<h:outputText value="Remove" />
+							</f:facet>
+							<h:commandButton value="-"
+											 actionListener="#{liveQuotationBean.removeBillItem(bill, item)}">
+								<f:ajax execute="table" render="@form" />
+							</h:commandButton>
+						</h:column>
+						<h:column >
+							<f:facet name="header">
+								<h:outputText value="Product" />
+							</f:facet>
+							<ui:repeat var="res" value="#{iztem.quotationItemResponses}" rendered="#{iztem.quotationItemResponses.size() gt 0}">
+								<h:outputText value="#{res.product.productNumber}" />
+								<h:outputText value="N/A" styleClass="w3-tag w3-orange w3-text-white" rendered="#{res.status eq 'N'}"/>
+							</ui:repeat>
+							<h:outputText rendered="#{iztem.quotationItemResponses.size() eq 0}" value="Waiting" styleClass="w3-tag w3-indigo" />
+						</h:column>
+						<h:column >
+							<f:facet name="header">
+								<h:outputText value="Price" />
+							</f:facet>
+							<ui:repeat var="res" value="#{iztem.quotationItemResponses}" rendered="#{iztem.quotationItemResponses.size() gt 0}">
+								<h:outputText value="#{res.productPrice.costPriceWv}" styleClass="w3-tag w3-green" rendered="#{item.status eq 'C'}">
+									<f:convertNumber currencySymbol="SR " type="currency"/>
+								</h:outputText>
+								<h:outputText value="Incomplete" styleClass="w3-tag w3-orange w3-text-white" rendered="#{res.status eq 'I'}"/>
+								<h:outputText value="N/A" styleClass="w3-tag w3-orange w3-text-white" rendered="#{res.status eq 'N'}"/>
+							</ui:repeat>
+							<h:outputText rendered="#{iztem.quotationItemResponses.size() eq 0}" value="Waiting" styleClass="w3-tag w3-indigo" />
+						</h:column>
+						<h:column rendered="#{bill.status != 'N'}">
+							<f:facet name="header">
+								<h:outputText value="Delete" />
+							</f:facet>
+							<p:commandButton value="X"
+											 update=":form-g"
+											 actionListener="#{liveQuotationBean.deleteBillItem(item)}"
+											 styleClass="q-btn-red" />
+						</h:column>
+					</h:dataTable>
+					<div align="center">
+						<h:commandButton rendered="#{bill.status eq 'N'}"
+										 actionListener="#{liveQuotationBean.addBillItem(bill)}" value="+">
+							<f:ajax render="table" execute="table" />
+						</h:commandButton>
+						<br/>
+						<div class="w3-padding-8">
+							<h:commandButton
+									rendered="#{bill.status eq 'N'}"
+									styleClass="q-btn" value="Create"
+									actionListener="#{liveQuotationBean.createBill(bill)}" />
+						</div>
+					</div>
+				</h:form>
+				<br />
+				<div align="center">
+					<p:commandButton value="Delete Bill"
+									 styleClass="q-btn-red"
+									 actionListener="#{liveQuotationBean.deleteBill(bill)}"
+									 update=":form-g"/>
+				</div>
+			</p:panel>
+			<br />
+		</ui:repeat>
+		<h:form>
+			<p:commandButton value="+Add new Quotation"
+							 actionListener="#{liveQuotationBean.createNewBill}" styleClass="q-btn"
+							 update=":right" />
+		</h:form>
+
+		<h:form id="form-qv">
+			<h:outputText
+					value="#{quotationBean.selectVendorItem(quotationBean.selectedVendorItem)}" />
+			<p:dialog id="qvdlg" widgetVar="qvdlgwv">
+				<h:panelGrid columns="2" styleClass="w3-table w3-border w3-striped">
+					<h:outputText value="Created" />
+					<h:outputText value="#{quotationBean.selectedVendorItem.created}">
+						<f:convertDateTime pattern="dd-MM-yyyy HH:mm" />
+					</h:outputText>
+					<h:outputText value="Status" />
+					<h:outputText
+							rendered="#{quotationBean.selectedVendorItem.status eq 'W'}"
+							value="waiting" styleClass="w3-tag w3-indigo" />
+					<h:outputText
+							rendered="#{quotationBean.selectedVendorItem.status eq 'C'}"
+							value="completed" styleClass="w3-tag w3-green" />
+					<h:outputText
+							rendered="#{quotationBean.selectedVendorItem.status eq 'N'}"
+							value="N/A" styleClass="w3-tag w3-red" />
+					<h:outputText value="Vendor" />
+					<h:selectOneMenu
+							value="#{quotationBean.selectedVendorItem.vendorId}">
+						<f:selectItems value="#{quotationBean.makeVendors}" var="vendor"
+									   itemLabel="#{vendor.name}" itemValue="#{vendor.id}" />
+					</h:selectOneMenu>
+					<h:outputText value="Item Desc" />
+					<h:outputText value="#{quotationBean.selectedVendorItem.itemDesc}" />
+					<h:outputText value="Responded" />
+					<h:outputText value="#{quotationBean.selectedVendorItem.responded}">
+						<f:convertDateTime pattern="dd-MM-yyyy HH:mm" />
+					</h:outputText>
+					<h:outputText value="Responded By" />
+					<h:outputText
+							value="#{quotationBean.selectedVendorItem.respondedBy}" />
+
+					<h:outputText value="Item Number" />
+					<h:inputText value="#{quotationBean.selectedVendorItem.itemNumber}" />
+					<h:outputText value="Unit Cost Price" />
+					<h:inputText
+							value="#{quotationBean.selectedVendorItem.itemCostPrice}">
+					</h:inputText>
+					<h:outputText value="Quantity" />
+					<h:selectOneMenu
+							value="#{quotationBean.selectedVendorItem.quantity}">
+						<f:selectItem itemLabel="0" itemValue="#{0}" />
+						<f:selectItems value="#{quotationBean.quantityArrayOfVendor}"
+									   var="q" itemValue="#{q}" itemLabel="#{q}" />
+					</h:selectOneMenu>
+					<h:outputText value="Sales Percentage" />
+					<h:outputText
+							value="#{quotationBean.selectedVendorItem.salesPercentage}">
+						<f:convertNumber type="percent" />
+					</h:outputText>
+				</h:panelGrid>
+				<br />
+				<div align="center">
+					<p:commandButton value="Update" styleClass="q-btn"
+									 actionListener="#{quotationBean.updatePriceManually()}"
+									 update="form-g" />
+				</div>
+			</p:dialog>
+		</h:form>
+	</h:panelGroup>
+	
+</ui:composition>
