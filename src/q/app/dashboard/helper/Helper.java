@@ -42,8 +42,11 @@ public class Helper {
         final byte[] bytes;
         try(is){
             bytes = is.readAllBytes();
+            return bytes;
+        } catch(Exception e){
         }
-        return bytes;
+        return new byte[0];
+
     }
 
     public static int[] getCalendarArray(Date date){
