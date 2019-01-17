@@ -38,8 +38,20 @@ public class SysProps {
 
 
     public static String getValue(String key){
-        Object o = prop.get(key);
-        return prop.get(key).toString();
+        try{
+            System.out.println("getting value of " + key);
+            Object o = prop.get(key);
+            System.out.println(o);
+            return prop.get(key).toString();
+        }catch (NullPointerException ex){
+            System.out.println("Null pointer exception");
+            return "";
+        }
+        catch (Exception ex){
+            System.out.println("an exception");
+            return "";
+        }
+
     }
 
 
