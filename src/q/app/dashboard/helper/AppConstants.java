@@ -12,8 +12,19 @@ public class AppConstants {
     private final static String CUSTOMER_SERVICE = SysProps.getValue("customerService");
     private final static String PRODUCT_SERVICE = SysProps.getValue("productService");
     private final static String IMAGE_SERVER = SysProps.getValue("imageServer");
+    private static final String AMAZON_S3_PATH = SysProps.getValue("amazonS3Path");
+    private static final String PRODUCT_BUCKET_NAME =SysProps.getValue("productBucketName");
+    private static final String BRAND_BUCKET_NAME = SysProps.getValue("brandBucketName");
 
-    //some change in the file
+    //AWS CALLS//
+    public static final String getProductImage(long id){
+        return AMAZON_S3_PATH + PRODUCT_BUCKET_NAME + "/" + id + ".png";
+    }
+
+    public static final String getBrandImage(long id){
+        return AMAZON_S3_PATH + BRAND_BUCKET_NAME + "/" +  id + ".png";
+    }
+
 
     //USER SERVICE CALLS//
     public final static String USER_LOGIN = USER_SERVICE + "login";
@@ -43,9 +54,8 @@ public class AppConstants {
         String directory = getVINDirectoryWithDate(calvals[0], calvals[1], calvals[2], quotationId) + "items/";
         return directory + itemId + ".png";
     }
-    public final static String getBrandImage(int id){
-        return IMAGE_SERVER + "brand/" + id + ".png";
-    }
+
+
     private final static String getVINDirectoryWithDate(int year, int month, int day, long id) {
         return QUOTATION_IMAGE_DIRECTORY + year + "/" + month + "/" + day + "/" + id + "/";
     }

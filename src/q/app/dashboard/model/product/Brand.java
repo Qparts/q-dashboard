@@ -17,7 +17,6 @@ public class Brand implements Serializable {
     private int createdBy;
     private String imageString;
 
-
     @JsonIgnore
     public String getBrandImage(){
         return AppConstants.getBrandImage(id);
