@@ -44,7 +44,7 @@
                                     <h:outputText value="Brand"/>
                                 </div>
                                 <div class="w3-col s9">
-                                    <p:autoComplete placeholder="Type brand name" id="themeCustom"
+                                    <p:autoComplete placeholder="Type brand name" id="themeCustom" maxResults="10"
                                                     styleClass="q-auto-complete" required="true"
                                                     value="#{newProductBean.product.brand.id}" dropdown="true"
                                                     completeMethod="#{brandsBean.completeBrandIds}" var="b"
@@ -54,7 +54,7 @@
                                         <p:column>
                                             <h:graphicImage value="#{brandsBean.getBrandFromId(b).brandImage}"
                                                             alt="#{brandsBean.getBrandFromId(b).name}"
-                                                            styleClass="ui-theme"/>
+                                                            styleClass="q-autocomplete-image"/>
                                         </p:column>
 
                                         <p:column>
@@ -301,7 +301,7 @@
                 <h:form id="form4">
                     <p:dialog styleClass="q-dialog" header="New Spec" id="dlg4" widgetVar="dlgwv4">
                         <h:outputText value="Select spec"/>
-                        <p:autoComplete placeholder="Type Spec"
+                        <p:autoComplete placeholder="Type Spec" maxResults="10"
                                         styleClass="q-auto-complete" required="true"
                                         value="#{newProductBean.newSpecId}" dropdown="true"
                                         completeMethod="#{specsBean.completeSpecIds(s)}" var="s"
@@ -321,6 +321,7 @@
                         <h:panelGrid columns="2" styleClass="w3-table w3-striped w3-border">
                             <h:outputText value="Vendor"/>
                             <p:autoComplete placeholder="Type Vendor name" id="vendorCustom"
+                                            maxResults="10"
                                             styleClass="q-auto-complete" required="true"
                                             value="#{newProductBean.productPrice.vendorId}" dropdown="true"
                                             completeMethod="#{vendorsBean.completeVendorIds}" var="b"
