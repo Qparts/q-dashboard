@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>New Product</title>
+    <ui:include src="/_includes/_dashboard_header.xhtml"/>
+</h:head>
+<h:body>
+    <h:outputText
+            value="#{loginBean.checkAccessRedirectHome(act.pageProductDetails)}"/>
+    <ui:include src="/_includes/top_dashboard.xhtml"/>
+    <ui:include src="/_includes/side.xhtml"/>
+    <div>
+        <div class="w3-main">
+            <div class="w3-container">
+                <div align="center" class="w3-padding-8">
+                    <h:outputText value="Product ID # #{productDetailsBean.productHolder.product.id}" styleClass="q-large-text"/>
+                </div>
+                <h:form id="form-g">
+                    <p:growl id="error-growl"
+                             rendered="#{facesContext.maximumSeverity.ordinal eq 2}"/>
+                    <p:growl id="success-growl"
+                             rendered="#{facesContext.maximumSeverity.ordinal eq 0}"/>
+                </h:form>
+                <h:form id="form" enctype="multipart/form-data">
+                    <div class="w3-row w3-padding-24">
+                        <div class="w3-container w3-col s12 m6">
+                            <div class="w3-padding-24" id="product-name-div">
+                                <div class="w3-col s4">
+                                    <h:graphicImage value="#{productDetailsBean.productHolder.product.image}"/>
+                                </div>
+                                <div class="w3-col s8">
+                                    <div class="w3-col s9">
+                                        <h:outputText value="#{productDetailsBean.productHolder.product.desc}" styleClass="q-med-text q-bold" style="max-width: 200px" />
+                                    </div>
+                                    <div class="w3-col s12">
+                                        <h:outputText value="#{productDetailsBean.productHolder.product.productNumber}" />
+                                    </div>
+                                    <div class="w3-padding-24" id="category-div">
+                                        <ui:repeat value="#{productDetailsBean.productHolder.categories}" var="cat">
+                                            <h:outputText value="#{cat.name}" styleClass="w3-tag w3-indigo"
+                                                          style="margin-right: 5px"/>
+                                        </ui:repeat>
+                                    </div>
+                                    <div class="w3-col s12">
+                                        <h:graphicImage value="#{productDetailsBean.productHolder.product.brand.brandImage}" style="max-height:100px"/>
+                                    </div>
+                                    <div class="w3-col s12">
+                                        <h:outputText value="#{productDetailsBean.productHolder.product.details}" />
+                                    </div>
+                                    <div class="w3-col s12">
+                                            <h:outputText value="#{productDetailsBean.productHolder.product.status eq 'A' ? 'Active' : 'Inactive'}" styleClass="w3-tag w3-#{productDetailsBean.productHolder.product.status eq 'A' ? 'green' : 'red'}"/>
+                                    </div>
+                                    <div class="w3-col s12 w3-padding-24">
+                                        <h:dataTable value="#{productDetailsBean.productHolder.productSpecs}" var="ps"
+                                                     styleClass="w3-table w3-striped w3-border">
+                                            <h:column>
+                                                <h:outputText value="#{ps.spec.name}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <h:outputText value="#{ps.value}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <h:outputText value="#{ps.valueAr}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <h:outputText value="#{ps.spec.nameAr}"/>
+                                            </h:column>
+                                        </h:dataTable>
+                                    </div>
+                                    <div class="w3-col s12">
+                                        <p:chips disabled="true" rendered="#{productDetailsBean.productHolder.tags.size() gt 0}"
+                                                 value="#{productDetailsBean.productHolder.tags}"
+                                                 styleClass="q-input-undecorate q-chips q-chips-readonly"/>
+                                    </div>
+                                </div>
+                                <div class="w3-col s12 w3-padding-24">
+                                    <h:dataTable value="#{productDetailsBean.productHolder.productPrices}" var="pp"
+                                                 styleClass="w3-table w3-striped w3-border"
+                                                 headerClass="w3-border-bottom w3-light-grey"
+                                                 footerClass="w3-border-top w3-light-grey">
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Vendor"/>
+                                            </f:facet>
+                                            <h:outputText value="#{pp.vendorId}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Cost"/>
+                                            </f:facet>
+                                            <h:outputText value="#{pp.price}">
+                                                <f:convertNumber type="currency" currencySymbol="SR "/>
+                                            </h:outputText>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Sales Percentage"/>
+                                            </f:facet>
+                                            <h:outputText value="#{pp.salesPercentage}">
+                                                <f:convertNumber type="percent"/>
+                                            </h:outputText>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Sales Price"/>
+                                            </f:facet>
+                                            <h:outputText value="#{pp.price + (pp.price * pp.salesPercentage)}">
+                                                <f:convertNumber type="currency" currencySymbol="SR "/>
+                                            </h:outputText>
+                                        </h:column>
+                                    </h:dataTable>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w3-container w3-col s12 m6">
+                            <div class="w3-col s12 w3-padding-24">
+                                Purchase history
+                            </div>
+                            <div class="w3-col s12 w3-padding-24">
+                                Sales history
+                            </div>
+                            <div class="w3-col s12 w3-padding-24">
+                                reviews
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+    </div>
+</h:body>
+</html>

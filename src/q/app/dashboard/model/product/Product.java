@@ -1,5 +1,8 @@
 package q.app.dashboard.model.product;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import q.app.dashboard.helper.AppConstants;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -14,6 +17,11 @@ public class Product implements Serializable {
     private Date created;
     private int createdBy;
     private char status;
+
+    @JsonIgnore
+    public String getImage(){
+        return AppConstants.getProductImage(id);
+    }
 
     public char getStatus() {
         return status;

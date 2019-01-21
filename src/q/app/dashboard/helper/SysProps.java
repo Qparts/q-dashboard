@@ -39,9 +39,6 @@ public class SysProps {
 
     public static String getValue(String key){
         try{
-            System.out.println("getting value of " + key);
-            Object o = prop.get(key);
-            System.out.println(o);
             return prop.get(key).toString();
         }catch (NullPointerException ex){
             System.out.println("Null pointer exception");

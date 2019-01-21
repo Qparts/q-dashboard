@@ -17,13 +17,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
 import javax.ws.rs.core.Response;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
 
 @Named
 @ViewScoped
@@ -148,12 +146,13 @@ public class NewProductBean implements Serializable {
             }
 
             if(proceed){
-                ProductCreation pc = new ProductCreation();
+                ProductHolder pc = new ProductHolder();
                 pc.setTags(tags);
                 pc.setProductSpecs(productSpecs);
                 pc.setProduct(product);
                 pc.setCategories(categories);
-                pc.setProductPrice(productPrice);
+                pc.setProductPrices(new ArrayList<>());
+                pc.getProductPrices().add(productPrice);
                 Response r = reqs.postSecuredRequest(AppConstants.POST_PRODUCT, pc);
                 if(r.getStatus() == 200){
                     Long id = r.readEntity(Number.class).longValue();

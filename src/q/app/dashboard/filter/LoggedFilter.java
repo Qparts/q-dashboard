@@ -18,7 +18,6 @@ public class LoggedFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
         if (((HttpServletRequest) request).getSession().getAttribute("user") != null) {
-            System.out.println("you are logged my friend go to home");
             ((HttpServletResponse) response).sendRedirect("/app/home");
         } else {
             chain.doFilter(request, response);
