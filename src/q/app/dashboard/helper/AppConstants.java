@@ -86,8 +86,12 @@ public class AppConstants {
     public final static String POST_CATEGORY = PRODUCT_SERVICE + "category";
     public final static String PUT_CATEGORY = PRODUCT_SERVICE + "category";
     public final static String POST_PRODUCT = PRODUCT_SERVICE + "product";
+    public final static String GET_LATELY_ADDED_PRODUCTS = PRODUCT_SERVICE + "products/latest-added";
     public final static String getProduct(long id){
         return PRODUCT_SERVICE + "product/" + id;
+    }
+    public final static String getSearchProduct(String query){
+        return PRODUCT_SERVICE + "products/search/" + query;
     }
 
     //VENDOR SERVICE CALLS//
