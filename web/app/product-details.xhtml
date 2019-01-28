@@ -31,10 +31,10 @@
                     <div class="w3-row w3-padding-24">
                         <div class="w3-container w3-col s12 m6">
                             <div class="w3-padding-24" id="product-name-div">
-                                <div class="w3-col s4">
-                                    <h:graphicImage value="#{productDetailsBean.productHolder.product.image}"/>
+                                <div class="w3-col s12">
+                                    <h:graphicImage value="#{productDetailsBean.productHolder.product.image}" style="max-width: 200px"/>
                                 </div>
-                                <div class="w3-col s8">
+                                <div class="w3-col s12">
                                     <div class="w3-col s9">
                                         <h:outputText value="#{productDetailsBean.productHolder.product.desc}" styleClass="q-med-text q-bold" style="max-width: 200px" />
                                     </div>
@@ -51,7 +51,7 @@
                                         <h:graphicImage value="#{productDetailsBean.productHolder.product.brand.brandImage}" style="max-height:100px"/>
                                     </div>
                                     <div class="w3-col s12">
-                                        <h:outputText value="#{productDetailsBean.productHolder.product.details}" />
+                                        <h:outputText value="#{productDetailsBean.productHolder.product.details}" escape="true" />
                                     </div>
                                     <div class="w3-col s12">
                                             <h:outputText value="#{productDetailsBean.productHolder.product.status eq 'A' ? 'Active' : 'Inactive'}" styleClass="w3-tag w3-#{productDetailsBean.productHolder.product.status eq 'A' ? 'green' : 'red'}"/>
