@@ -51,7 +51,7 @@
                                         <h:graphicImage value="#{productDetailsBean.productHolder.product.brand.brandImage}" style="max-height:100px"/>
                                     </div>
                                     <div class="w3-col s12">
-                                        <h:outputText value="#{productDetailsBean.productHolder.product.details}" escape="true" />
+                                        <h:outputText value="#{productDetailsBean.productHolder.product.details}" escape="false" />
                                     </div>
                                     <div class="w3-col s12">
                                             <h:outputText value="#{productDetailsBean.productHolder.product.status eq 'A' ? 'Active' : 'Inactive'}" styleClass="w3-tag w3-#{productDetailsBean.productHolder.product.status eq 'A' ? 'green' : 'red'}"/>
