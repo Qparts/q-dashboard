@@ -19,12 +19,22 @@ public class CustomerAddress implements Serializable{
 	private Double longitude;
 	private String title;
     private String mobile;
+	private boolean isDefault;
 	
 	public CustomerAddress() {
 		
 	}
 
-    public String getMobile() {
+
+	public boolean isDefault() {
+		return isDefault;
+	}
+
+	public void setDefault(boolean aDefault) {
+		isDefault = aDefault;
+	}
+
+	public String getMobile() {
         return mobile;
     }
 

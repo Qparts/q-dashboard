@@ -1,5 +1,8 @@
 package q.app.dashboard.helper;
 
+import q.app.dashboard.beans.cart.WireTransfersBean;
+import q.app.dashboard.model.cart.Cart;
+import q.app.dashboard.model.cart.CartWireTransferRequest;
 import q.app.dashboard.model.customer.Customer;
 import q.app.dashboard.model.quotation.Quotation;
 
@@ -69,10 +72,18 @@ public class Helper {
         return salt.toString();
     }
 
-    public static long[] getCustomerIds(List<Quotation> quotations) {
-        long[] ids = new long[quotations.size()];
-        for(int i = 0; i < quotations.size(); i++) {
-            ids[i] = quotations.get(i).getCustomerId();
+
+    public static long[] getCustomerIds(List objects){
+        long[] ids = new long[objects.size()];
+        for(int i = 0; i < objects.size(); i++) {
+            if(objects.get(i) instanceof Quotation){
+                ids[i] = ((Quotation) objects.get(i)).getCustomerId();
+            }else if(objects.get(i) instanceof Cart){
+                ids[i] = ((Cart) objects.get(i)).getCustomerId();
+            }else if(objects.get(i) instanceof CartWireTransferRequest){
+                ids[i] = ((CartWireTransferRequest) objects.get(i)).getCustomerId();
+            }
+
         }
         return ids;
     }
@@ -112,14 +123,34 @@ public class Helper {
     }
 
 
-    private static Thread appendCustomer(List<Customer> customers, Quotation quotation){
+    private static Thread appendCustomer(List<Customer> customers, Object object){
         Thread thread = new Thread(() -> {
             try {
                 for (Customer c : customers) {
-                    if (c.getId() == quotation.getCustomerId()) {
-                        quotation.setCustomer(c);
-                        break;
+                    if(object instanceof Quotation){
+                        Quotation quotation = (Quotation) object;
+                        if (c.getId() == quotation.getCustomerId()) {
+                            quotation.setCustomer(c);
+                            break;
+                        }
                     }
+
+                    else if(object instanceof Cart){
+                        Cart cart = (Cart) object;
+                        if (c.getId() == cart.getCustomerId()) {
+                            cart.setCustomer(c);
+                            break;
+                        }
+                    }
+
+                    else if(object instanceof CartWireTransferRequest){
+                        CartWireTransferRequest wire = (CartWireTransferRequest) object;
+                        if (c.getId() == wire.getCustomerId()) {
+                            wire.getCart().setCustomer(c);
+                            break;
+                        }
+                    }
+
                 }
 
             } catch (Exception ignore) {
@@ -129,13 +160,13 @@ public class Helper {
         return thread;
     }
 
-    public static void appendCustomersToQuotations(List<Customer> customers, List<Quotation> quotations) throws InterruptedException  {
-        Thread[] mainThreads = new Thread[quotations.size()];
+    public static void appendCustomers(List<Customer> customers, List vars) throws InterruptedException  {
+        Thread[] mainThreads = new Thread[vars.size()];
         int index = 0;
-        for (Quotation quotation : quotations) {
+        for (Object object : vars) {
             Thread t = new Thread(() -> {
                 Thread[] threads = new Thread[1];
-                threads[0] = appendCustomer(customers, quotation);
+                threads[0] = appendCustomer(customers, object);
                 for (int i = 0; i < threads.length; i++)
                     try {
                         threads[i].start();
@@ -152,5 +183,6 @@ public class Helper {
             mainThreads[i].join();
         }
     }
+
 
 }

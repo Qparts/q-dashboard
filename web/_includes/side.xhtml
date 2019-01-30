@@ -22,7 +22,7 @@
 				<div class="w3-dropdown-hover">
 					<h:button style="color:greenyellow" class="w3-button w3-camo-black" value="Customer Service" rendered="#{loginBean.hasAccessL([act.pageNoVin, act.pageWire, act.pagePosponedSalesReport, act.pageFollowUpQuotations,act.pageCustomers])}" onclick="return false;" />
 					<div class="w3-dropdown-content w3-bar-block w3-border">
-					 	<h:outputLink style="color:greenyellow;display:none" value="/app/wire_transfers" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageWire)}">Wire Transfers</h:outputLink>
+					 	<h:outputLink value="/app/wire-transfers" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageWire)}">Wire Transfers</h:outputLink>
       					<h:outputLink style="color:greenyellow;display:none" value="/app/customers" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageCustomers)}">Customers</h:outputLink>
       					<h:outputLink style="color:indianred;display:none" value="/app/followups" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageFollowUpQuotations)}">Follow Up</h:outputLink>
 						<h:outputLink style="color:indianred;display:none" value="/app/postponed-sales" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pagePosponedSalesReport)}">Postponed</h:outputLink>

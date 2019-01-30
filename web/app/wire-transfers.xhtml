@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Awaiting Carts</title>
+    <ui:include src="/_includes/_dashboard_header.xhtml"/>
+</h:head>
+<h:body>
+    <h:outputText
+            value="#{loginBean.checkAccessRedirectHome(act.pageWire)}"/>
+    <ui:include src="/_includes/top_dashboard.xhtml"/>
+    <ui:include src="/_includes/side.xhtml"/>
+    <div>
+        <div class="w3-main">
+            <div class="w3-container">
+                <div align="center" class="w3-padding-8">
+                    <h:outputText value="Wire Transfers" styleClass="q-large-text"/>
+                </div>
+                <h:form id="form">
+                    <h:dataTable value="#{wireTransfersBean.wireTransfers}" var="wire"
+                                 styleClass="w3-table w3-striped w3-border"
+                                 headerClass="w3-border-bottom w3-light-grey">
+                        <f:facet name="header">
+                            <div align="center">
+                                <h:outputText value="Carts"/>
+                            </div>
+                        </f:facet>
+                        <h:column>
+                            <f:facet name="header">
+                                TRANSFER ID#
+                            </f:facet>
+                            <h:outputText value="#{wire.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                CART ID#
+                            </f:facet>
+                            <h:outputText value="#{wire.cart.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="DATE"/>
+                            </f:facet>
+                            <h:outputText value="#{wire.created}">
+                                <f:convertDateTime type="date"/>
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                STATUS
+                            </f:facet>
+                            <h:outputText value="#{wire.status}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="CUSTOMER"/>
+                            </f:facet>
+                            <h:outputText value="#{wire.cart.customer.id} - #{wire.cart.customer.fullName}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="CITY"/>
+                            </f:facet>
+                            <h:outputText value="#{wire.cart.customer.getAddressFromId(wire.cart.cartDelivery.addressId).cityId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="AMOUNT"/>
+                            </f:facet>
+                            <h:outputText value="#{wire.amount}">
+                                <f:convertNumber type="currency" currencySymbol="SR "/>
+
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="DETAILS"/>
+                            </f:facet>
+                            <h:outputLink target="_blank"
+                                          value="wire-transfer?id=#{wire.id}">
+                                <i class="fa fa-search-plus" style="font-size: 20px;"/>
+                            </h:outputLink>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+                <br/>
+            </div>
+        </div>
+    </div>
+</h:body>
+</html>

@@ -44,7 +44,7 @@ public class LiveQuotingBean implements Serializable {
             initQuotations();
             initCurrentScore();
             initAllCustomers();
-            Helper.appendCustomersToQuotations(allCustomers, quotations);
+            Helper.appendCustomers(allCustomers, quotations);
         } catch (Exception ignore) {
 
         }

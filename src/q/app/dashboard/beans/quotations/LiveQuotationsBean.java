@@ -46,7 +46,7 @@ public class LiveQuotationsBean implements Serializable {
             this.selectedQuotation = new Quotation();
             initQuotations();
             initAllCustomers();
-            Helper.appendCustomersToQuotations(allCustomers, quotations);
+            Helper.appendCustomers(allCustomers, quotations);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -109,10 +109,10 @@ public class LiveQuotationsBean implements Serializable {
                         loadQuotation(Long.parseLong(value));
                         break;
                     case "assignment changed":
-                        reloadQuotation(Long.parseLong(value), "Cart assignment updated ");
+                        reloadQuotation(Long.parseLong(value), "Quotation assignment updated ");
                         break;
                     case "update quotation":
-                        reloadQuotation(Long.parseLong(value), "Cart updated ");
+                        reloadQuotation(Long.parseLong(value), "Quotation updated ");
                         break;
                     case "archive quotation":
                         removeQuotation(Long.parseLong(value), "Quotation Archived ");
@@ -124,7 +124,7 @@ public class LiveQuotationsBean implements Serializable {
                         reloadQuotation(Long.parseLong(value), "No items added ");
                         break;
                     case "edit quotation":
-                        reloadQuotation(Long.parseLong(value), "Cart edit requested ");
+                        reloadQuotation(Long.parseLong(value), "Quotation edit requested ");
                         break;
                     default:
                         System.out.println("default");

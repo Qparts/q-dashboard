@@ -139,21 +139,29 @@ html, body, h1, h2, h3, h4, h5, p, span, .ui-widget {
 
 .ui-panel {
 	border: none;
-	background-color: #F0F0F0
+	background-color: #dfdfdf
 }
 
 .ui-panel-titlebar {
 	background: none;
 	border: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
 }
 
 .ui-panel-titlebar-icon {
 	background: none !important;
 	border: none !important;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
 }
 
 .ui-panel-titlebar-icon:hover {
 	background: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
 	box-shadow: none;
 	border: none;
 }

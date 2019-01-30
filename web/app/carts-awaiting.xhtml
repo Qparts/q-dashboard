@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Awaiting Carts</title>
+    <ui:include src="/_includes/_dashboard_header.xhtml"/>
+</h:head>
+<h:body>
+    <h:outputText
+            value="#{loginBean.checkAccessRedirectHome(act.pageProductDetails)}"/>
+    <ui:include src="/_includes/top_dashboard.xhtml"/>
+    <ui:include src="/_includes/side.xhtml"/>
+    <div>
+        <div class="w3-main">
+            <div class="w3-container">
+                <div align="center" class="w3-padding-8">
+                    <h:outputText value="Awaiting Carts" styleClass="q-large-text"/>
+                </div>
+                <h:form id="form">
+                    <h:dataTable value="#{awaitingCartsBean.carts}" var="cart"
+                                 styleClass="w3-table w3-striped w3-border"
+                                 headerClass="w3-border-bottom w3-light-grey">
+                        <f:facet name="header">
+                            <div align="center">
+                                <h:outputText value="Carts"/>
+                            </div>
+                        </f:facet>
+                        <h:column>
+                            <f:facet name="header">
+                                CART#
+                            </f:facet>
+                            <h:outputText value="#{cart.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                STATUS
+                            </f:facet>
+                            <h:outputText value="New" rendered="#{cart.status eq 'N'}" styleClass="w3-yellow w3-tag"/>
+                            <h:outputText value="#{cart.status}" rendered="#{not (cart.status eq 'N')}" styleClass="w3-indigo w3-tag"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="PAYMENT"/>
+                            </f:facet>
+                            <h:outputText value="Wire" rendered="#{cart.paymentMethod eq 'W'}" styleClass="w3-indigo w3-tag"/>
+                            <h:outputText value="CC" rendered="#{cart.paymentMethod eq 'C'}" styleClass="w3-tag w3-blue" />
+                            <h:outputText value="Credit" rendered="#{cart.paymentMethod eq 'T'}" styleClass="w3-tag w3-grey w3-text-white" />
+                            <h:outputText value="COD" rendered="#{cart.paymentMethod eq 'D'}" styleClass="w3-tag w3-purple" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="CUSTOMER"/>
+                            </f:facet>
+                            <h:outputText value="#{cart.customer.id} - #{cart.customer.fullName}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="CITY"/>
+                            </f:facet>
+                            <h:outputText value="#{cart.customer.getAddressFromId(cart.cartDelivery.addressId).cityId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="CART DATE"/>
+                            </f:facet>
+                            <h:outputText value="#{cart.created}">
+                                    <f:convertDateTime type="date"/>
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="DETAILS"/>
+                            </f:facet>
+                            <h:outputLink target="_blank"
+                                          value="cart-awaiting?id=#{cart.id}">
+                                <i class="fa fa-search-plus" style="font-size: 20px;"/>
+                            </h:outputLink>
+                        </h:column>
+
+                    </h:dataTable>
+                </h:form>
+                <br/>
+            </div>
+        </div>
+    </div>
+</h:body>
+</html>

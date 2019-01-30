@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Wire Transfer Request</title>
+    <ui:include src="/_includes/_dashboard_header.xhtml"/>
+</h:head>
+<h:body>
+    <h:outputText
+            value="#{loginBean.checkAccessRedirectHome(act.pageBrands)}"/>
+    <ui:include src="/_includes/top_dashboard.xhtml"/>
+    <ui:include src="/_includes/side.xhtml"/>
+    <div>
+        <div class="w3-main">
+            <div class="w3-container">
+                <div id="title-div" align="center" class="w3-padding-8">
+                    <h:outputText value="Wire Transfer # #{wireTransferBean.wireTransfer.id}"
+                                  styleClass="q-large-text"/>
+                    <br/>
+                    <h:outputText value="Amount: " styleClass="q-med-text w3-text-green" />
+                    <h:outputText value="#{wireTransferBean.wireTransfer.amount}"
+                                  styleClass="q-med-text w3-text-green">
+                        <f:convertNumber type="currency" currencySymbol="SR "/>
+                    </h:outputText>
+                </div>
+                <h:form id="form-g">
+                    <p:growl id="error-growl"
+                             rendered="#{facesContext.maximumSeverity.ordinal eq 2}"/>
+                    <p:growl id="success-growl"
+                             rendered="#{facesContext.maximumSeverity.ordinal eq 0}"/>
+                </h:form>
+                <div class="w3-row">
+                    <div id="info-div" class="w3-col s12 w3-padding-24">
+                        <p:panel toggleable="true" header="Cart Information" collapsed="false"
+                                 toggleSpeed="100">
+                            <div class="w3-row">
+                                <div class="w3-col s12 m6 w3-border">
+                                    <table class="w3-table w3-striped">
+                                        <tr>
+                                            <td><h:outputLabel value="Cart ID" styleClass="q-bold"/></td>
+                                            <td><h:outputText value="#{wireTransferBean.wireTransfer.cartId}"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><h:outputLabel value="Request Date" styleClass="q-bold"/></td>
+                                            <td><h:outputText value="#{wireTransferBean.wireTransfer.created}">
+                                                <f:convertDateTime pattern="dd-MMM-yyyy HH:mm"/>
+                                            </h:outputText></td>
+                                        </tr>
+                                        <tr>
+                                            <td><h:outputLabel value="Cart Date" styleClass="q-bold"/></td>
+                                            <td><h:outputText value="#{wireTransferBean.wireTransfer.cart.created}">
+                                                <f:convertDateTime pattern="dd-MMM-yyyy HH:mm"/>
+                                            </h:outputText></td>
+                                        </tr>
+                                        <tr>
+                                            <td><h:outputLabel styleClass="q-bold" value="City"/></td>
+                                            <td><h:outputText
+                                                    value="#{wireTransferBean.wireTransfer.cart.address.cityId}"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="w3-col s12 m6 w3-border">
+                                    <table class="w3-table w3-striped">
+                                        <tr>
+                                            <td><h:outputLabel styleClass="q-bold" value="Customer ID"/></td>
+                                            <td><h:outputText value="#{wireTransferBean.wireTransfer.cart.customerId}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><h:outputLabel styleClass="q-bold" value="Name"/></td>
+                                            <td><h:outputText
+                                                    value="#{wireTransferBean.wireTransfer.cart.customer.fullName}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><h:outputLabel styleClass="q-bold" value="Mobile"/></td>
+                                            <td><h:outputText
+                                                    value="#{wireTransferBean.wireTransfer.cart.address.mobile}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><h:outputLabel styleClass="q-bold" value="Email"/></td>
+                                            <td><h:outputText readonly="true"
+                                                              value="#{wireTransferBean.wireTransfer.cart.customer.email}"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </p:panel>
+                    </div>
+                    <div id="comments-div" class="w3-col s12 w3-padding-24">
+                        <p:panel toggleable="true" id="comments-panel"
+                                 header="Comments #{wireTransferBean.wireTransfer.cart.cartComments.size() gt 0 ? wireTransferBean.wireTransfer.cart.cartComments.size() : ' '}"
+                                 collapsed="false"
+                                 toggleSpeed="100">
+                            <ui:repeat var="comment" id="comments-repeat"
+                                       value="#{wireTransferBean.wireTransfer.cart.cartComments}">
+                                <h:outputText value="#{comment.created}" styleClass="q-bold"
+                                              style="color:#2dacd1!important;">
+                                    <f:convertDateTime pattern="dd-MMM-yyyy hh:mm"/>
+                                </h:outputText>
+                                <h:outputText
+                                        value="#{comment.createdBy} - #{usersBean.getUserFromId(comment.createdBy).firstName}: "
+                                        styleClass="q-bold" style="color:#2dacd1!important;"/>
+                                <h:outputText
+                                        value=" (#{comment.visibleToCustomer ? 'visible' : 'hidden'}) : "
+                                        style="color:#2dacd1!important;" styleClass="q-bold"/>
+                                <h:outputText dir="rtl" value=" #{comment.text}"/>
+                                <br/>
+                                <br/>
+                            </ui:repeat>
+
+                            <p:commandButton value="+" styleClass="q-btn"
+                                             oncomplete="PF('commentDlgwv').show()"/>
+                        </p:panel>
+                    </div>
+                    <div id="products-div" class="w3-col s12 w3-padding-24">
+                        <p:panel toggleable="true" header="Products" collapsed="false"
+                                 toggleSpeed="100">
+                            <h:dataTable styleClass="w3-table w3-striped w3-border"
+                                         headerClass="w3-light-grey w3-border"
+                                         footerClass="w3-light-grey w3-border"
+                                         value="#{wireTransferBean.wireTransfer.cart.cartProducts}"
+                                         var="cp">
+                                <f:facet name="header">
+                                    <div align="center">Cart Products</div>
+                                </f:facet>
+                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                    <f:facet name="header">
+                                        Product ID
+                                    </f:facet>
+                                    <h:outputText value="#{cp.productId}"/>
+                                </h:column>
+                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                    <f:facet name="header">
+                                        Quantity
+                                    </f:facet>
+                                    <h:outputText value="#{cp.quantity}"/>
+                                </h:column>
+                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                    <f:facet name="header">
+                                        Unit Price
+                                    </f:facet>
+                                    <h:outputText value="#{cp.salesPrice}">
+                                        <f:convertNumber type="currency" currencySymbol="SR "/>
+                                    </h:outputText>
+                                </h:column>
+                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                    <f:facet name="header">
+                                        Gross Price
+                                    </f:facet>
+                                    <h:outputText
+                                            value="#{cp.salesPrice * cp.quantity}">
+                                        <f:convertNumber type="currency" currencySymbol="SR "/>
+                                    </h:outputText>
+                                </h:column>
+                                <f:facet name="footer">
+                                    <div class="w3-row">
+                                        <div class="w3-col s6 m1">
+                                            <h:outputText value="Total Products"/>
+                                        </div>
+                                        <div class="w3-col s6 m1">
+                                            <h:outputText value="#{wireTransferBean.wireTransfer.cart.productsTotal}">
+                                                <f:convertNumber type="currency" currencySymbol="SR "/>
+                                            </h:outputText>
+                                        </div>
+                                    </div>
+                                    <div class="w3-row">
+                                        <div class="w3-col s6 m1">
+                                            <h:outputText value="Discount" styleClass="w3-text-red"/>
+                                        </div>
+                                        <div class="w3-col s6 m1">
+                                            <h:outputText value="#{wireTransferBean.wireTransfer.cart.discountTotal}"
+                                                          styleClass="w3-text-red">
+                                                <f:convertNumber type="currency" currencySymbol="SR "/>
+                                            </h:outputText>
+                                        </div>
+                                    </div>
+                                    <div class="w3-row">
+                                        <div class="w3-col s6 m1">
+                                            <h:outputText value="Delivery"/>
+                                        </div>
+                                        <div class="w3-col s6 m1">
+                                            <h:outputText value="#{wireTransferBean.wireTransfer.cart.deliveryFees}">
+                                                <f:convertNumber type="currency" currencySymbol="SR "/>
+                                            </h:outputText>
+                                        </div>
+                                    </div>
+                                    <div class="w3-row">
+                                        <div class="w3-col s6 m1">
+                                            <h:outputText value="Subtotal" styleClass="q-bold"/>
+                                        </div>
+                                        <div class="w3-col s6 m1">
+                                            <h:outputText value="#{wireTransferBean.wireTransfer.cart.subTotal}"
+                                                          styleClass="q-bold">
+                                                <f:convertNumber type="currency" currencySymbol="SR "/>
+                                            </h:outputText>
+                                        </div>
+                                    </div>
+                                    <div class="w3-row">
+                                        <div class="w3-col s6 m1">
+                                            <h:outputText value="VAT"/>
+                                        </div>
+                                        <div class="w3-col s6 m1">
+                                            <h:outputText value="#{wireTransferBean.wireTransfer.cart.vat}">
+                                                <f:convertNumber type="currency" currencySymbol="SR "/>
+                                            </h:outputText>
+                                        </div>
+                                    </div>
+                                    <div class="w3-row">
+                                        <div class="w3-col s6 m1">
+                                            <h:outputText value="Total" styleClass="q-bold"/>
+                                        </div>
+                                        <div class="w3-col s6 m1">
+                                            <h:outputText value="#{wireTransferBean.wireTransfer.cart.grandTotal}"
+                                                          styleClass="q-bold">
+                                                <f:convertNumber type="currency" currencySymbol="SR "/>
+                                            </h:outputText>
+                                        </div>
+                                    </div>
+                                </f:facet>
+                            </h:dataTable>
+                        </p:panel>
+                    </div>
+                    <div class="w3-col s6 w3-center">
+                        <h:form>
+                            <p:commandButton value="Fund Wallet" onclick="PF('fundWalletDlgwv').show()"
+                                             styleClass="q-btn"/>
+                        </h:form>
+                    </div>
+                    <div class="w3-col s6 w3-center">
+                        <h:form>
+                            <p:commandButton value="Cencel Transfer"  onclick="PF('cancelTransferDlgwv').show()"
+                                             styleClass="q-btn-red" />
+                        </h:form>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <br/>
+            </div>
+        </div>
+    </div>
+
+
+    <h:form id="cancel-transfer-form">
+        <p:dialog styleClass="q-dialog" header="Funding Wallet" widgetVar="cancelTransferDlgwv">
+            <br/>
+            <h:outputText value="Are you sure you want to cancel the wire transfer for cart #{wireTransferBean.wireTransfer.cart.id} ? "/>
+            <br/>
+            <div align="center">
+                <p:commandButton value="Cancel Transfer"
+                                 widgetVar="SubmitFundWallet"
+                                 onclick="PF('SubmitFundWallet').disable()" styleClass="q-btn-red"
+                                 update=":form-g @all"
+                                 actionListener="#{wireTransferBean.cancelTransfer}"/>
+            </div>
+        </p:dialog>
+    </h:form>
+
+
+    <h:form id="fund-wallet-form">
+        <p:dialog styleClass="q-dialog" header="Funding Wallet" widgetVar="fundWalletDlgwv">
+
+            <br/>
+            <h:outputText value="Select Bank "/>
+            <h:selectOneMenu value="#{wireTransferBean.bankId}"
+                             required="true" requiredMessage="Select Bank">
+                <f:selectItem noSelectionOption="true" itemLabel="Select Bank"/>
+                <f:selectItems value="#{banksBean.activeBanks}" var="bank"
+                               itemLabel="#{bank.name}"
+                               itemValue="#{bank.id}"/>
+            </h:selectOneMenu>
+            <br/>
+            <br/>
+            <h:outputText value="Fund #{wireTransferBean.wireTransfer.cart.customer.fullName}'s wallet with: "/>
+            <h:outputText value="#{wireTransferBean.wireTransfer.amount}" styleClass="q-bold">
+                <f:convertNumber type="currency" currencySymbol="SR "/>
+            </h:outputText>
+            <h:outputText value=" ?"/>
+            <br/>
+            <div align="center">
+                <p:commandButton value="Fund"
+                                 widgetVar="SubmitFundWallet"
+                                 onclick="PF('SubmitFundWallet').disable()" styleClass="q-btn"
+                                 update=":form-g @all"
+                                 actionListener="#{wireTransferBean.fundWallet()}"/>
+            </div>
+        </p:dialog>
+    </h:form>
+    <h:form id="new-comment-form">
+        <p:dialog styleClass="q-dialog" header="New Comment"
+                  widgetVar="commentDlgwv">
+            <div align="center">
+                <h:outputText value="Visible to Customer"/>
+                <br/>
+                <h:selectBooleanCheckbox
+                        value="#{wireTransferBean.newComment.visibleToCustomer}"/>
+                <br/>
+                <div class="w3-padding-12">
+                    <h:outputText value="Text"/>
+                    <br/>
+                    <h:inputTextarea required="true"
+                                     requiredMessage="Enter comments before submitting"
+                                     value="#{wireTransferBean.newComment.text}" cols="70"
+                                     rows="3"/>
+                </div>
+                <div>
+                    <p:commandButton value="Submit" styleClass="q-btn"
+                                     actionListener="#{wireTransferBean.createComment()}"
+                                     process="@form" update="@form :comments-panel">
+                    </p:commandButton>
+                </div>
+            </div>
+        </p:dialog>
+    </h:form>
+</h:body>
+</html>

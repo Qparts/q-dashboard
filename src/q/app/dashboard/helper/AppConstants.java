@@ -11,10 +11,13 @@ public class AppConstants {
     private final static String VENDOR_SERVICE = SysProps.getValue("vendorService");
     private final static String CUSTOMER_SERVICE = SysProps.getValue("customerService");
     private final static String PRODUCT_SERVICE = SysProps.getValue("productService");
+    private final static String CART_SERVICE = SysProps.getValue("cartService");
+
     private final static String IMAGE_SERVER = SysProps.getValue("imageServer");
     private static final String AMAZON_S3_PATH = SysProps.getValue("amazonS3Path");
     private static final String PRODUCT_BUCKET_NAME =SysProps.getValue("productBucketName");
     private static final String BRAND_BUCKET_NAME = SysProps.getValue("brandBucketName");
+
 
     //AWS CALLS//
     public static final String getProductImage(long id){
@@ -23,6 +26,26 @@ public class AppConstants {
 
     public static final String getBrandImage(long id){
         return AMAZON_S3_PATH + BRAND_BUCKET_NAME + "/" +  id + ".png";
+    }
+
+
+    //CART SERVICE CALLS//
+    public final static String GET_AWAITING_CARTS = CART_SERVICE + "carts/awaiting";
+    public final static String GET_INITIATED_CARTS = CART_SERVICE + "carts/initiated";
+    public final static String GET_AWAITING_WIRE_TRANSFERS = CART_SERVICE + "wire-transfers/awaiting";
+    public final static String POST_CART_COMMENT = CART_SERVICE + "comment";
+    public final static String GET_BANKS = CART_SERVICE + "banks";
+    public final static String POST_PUT_DELETE_BANK = CART_SERVICE + "bank";
+    public final static String POST_FUND_WALLET = CART_SERVICE + "fund-wallet/wire-transfer";
+    public final static String PUT_CANCEL_TRANSFER = CART_SERVICE + "cancel-transfer";
+    public final static String getAwaitingWireTransfer(long id){
+      return CART_SERVICE + "wire-transfer/" +  id + "/awaiting";
+    }
+    public final static String getAwaitingCart(long id){
+        return CART_SERVICE + "cart/" +  id + "/awaiting";
+    }
+    public final static String getLiveWallet(long customerId){
+        return CART_SERVICE + "wallet-live/" + customerId;
     }
 
 
@@ -54,7 +77,6 @@ public class AppConstants {
         String directory = getVINDirectoryWithDate(calvals[0], calvals[1], calvals[2], quotationId) + "items/";
         return directory + itemId + ".png";
     }
-
 
     private final static String getVINDirectoryWithDate(int year, int month, int day, long id) {
         return QUOTATION_IMAGE_DIRECTORY + year + "/" + month + "/" + day + "/" + id + "/";
