@@ -1,7 +1,13 @@
 package q.app.dashboard.beans.quotations;
 
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.drafts.Draft_6455;
+import org.java_websocket.handshake.ServerHandshake;
+import org.omnifaces.cdi.Push;
+import org.omnifaces.cdi.PushContext;
+import org.omnifaces.cdi.ViewScoped;
 import q.app.dashboard.beans.common.LoginBean;
-import q.app.dashboard.beans.common.MakesBean;
+import q.app.dashboard.beans.common.PojoRequester;
 import q.app.dashboard.beans.common.Requester;
 import q.app.dashboard.beans.common.VendorsBean;
 import q.app.dashboard.beans.product.CategoryBean;
@@ -18,18 +24,19 @@ import q.app.dashboard.model.vendor.Vendor;
 import q.app.dashboard.model.vendor.VendorCategory;
 
 import javax.annotation.PostConstruct;
-import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.mail.Quota;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import java.io.Serializable;
+import java.net.URI;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 @Named
 @ViewScoped
@@ -46,7 +53,9 @@ public class LiveQuotingBean implements Serializable {
     private ProductHolder productHolder;
     private ProductPrice productPrice;
     private boolean newPrice;
-
+    private WebSocketClient webSocketClient;
+    private String securityHeader;
+    private int userId;
     @Inject
     private Requester reqs;
     @Inject
@@ -56,21 +65,30 @@ public class LiveQuotingBean implements Serializable {
     @Inject
     private CategoryBean categoryBean;
     @Inject
-    private MakesBean makesBean;
+    @Push(channel = "quotingChannel")
+    private PushContext channel;
 
 
     @PostConstruct
     private void init() {
         try {
+            securityHeader = reqs.getSecurityHeader();
+            userId = loginBean.getLoggedUserId();
             productPrice = new ProductPrice();
             initQuotations();
             initCurrentScore();
             initAllCustomers();
             Helper.appendCustomers(allCustomers, quotations);
             initBillItemProducts();
+            initWebSocket();
         } catch (Exception ignore) {
 
         }
+    }
+
+    @PreDestroy
+    public void destroy() {
+        webSocketClient.close();
     }
 
     private void initQuotations() {
@@ -112,33 +130,32 @@ public class LiveQuotingBean implements Serializable {
     public void findProduct() {
         Quotation quotation = this.getQuotationFromSelectedBillItem();
         String desc = this.selectedBillItem.getItemDesc();
-       // Integer catId = makesBean.getMakeFromId(quotation.getMakeId()).getDefaultCategory();
-        Map<String,Object> map = new HashMap<String,Object>();
+        // Integer catId = makesBean.getMakeFromId(quotation.getMakeId()).getDefaultCategory();
+        Map<String, Object> map = new HashMap<String, Object>();
         map.put("number", searchPartNumber);
         map.put("name", desc);
         map.put("createdBy", loginBean.getLoggedUserId());
         map.put("brandId", searchBrandId);
         Response r = reqs.postSecuredRequest(AppConstants.FIND_PRODUCT_CREATE_IF_NOT_AVAILABLE, map);
-        if(r.getStatus() == 200){
+        if (r.getStatus() == 200) {
             //we found product
             ProductHolder holder = r.readEntity(ProductHolder.class);
-            if(!productAdded(holder.getProduct(), quotation)){
+            if (!productAdded(holder.getProduct(), quotation)) {
                 this.productHolder = holder;
-            }
-            else{
+            } else {
                 Helper.addErrorMessage("This product is already added! Please change quantity instead");
             }
-        } else{
+        } else {
             Helper.addErrorMessage("Error code " + r.getStatus());
         }
     }
 
-    public void prepareProductPrice(ProductPrice pp){
-        if(pp.getVendorId() > 0){
+    public void prepareProductPrice(ProductPrice pp) {
+        if (pp.getVendorId() > 0) {
             pp.setCreatedBy(loginBean.getLoggedUserId());
             Vendor vendor = vendorsBean.getVendorFromId(pp.getVendorId());
             double salesPercentage = 0.20;
-            for(Category category : productHolder.getCategories()){
+            for (Category category : productHolder.getCategories()) {
                 salesPercentage = findLowestPercentageUpwards(vendor, category, salesPercentage);
             }
             pp.setSalesPercentage(salesPercentage);
@@ -146,7 +163,7 @@ public class LiveQuotingBean implements Serializable {
     }
 
 
-    private double findLowestPercentageUpwards(Vendor vendor, Category category, double percentage){
+    private double findLowestPercentageUpwards(Vendor vendor, Category category, double percentage) {
         try {
             for (VendorCategory vc : vendor.getVendorCategories()) {
                 if (vc.getCategoryId() == category.getId()) {
@@ -159,8 +176,7 @@ public class LiveQuotingBean implements Serializable {
                     percentage = this.findLowestPercentageUpwards(vendor, parent, percentage);
                 }
             }
-        }catch(Exception ex){
-            System.out.println("Ignored error");
+        } catch (Exception ex) {
         }
 
         return percentage;
@@ -221,7 +237,7 @@ public class LiveQuotingBean implements Serializable {
         if (ok) {
             Response r = reqs.postSecuredRequest(AppConstants.POST_BILL_ITEM_RESPONSE, bi);
             if (r.getStatus() == 201) {
-                Helper.redirect("quoting?dummy=c"+Helper.getRandomSaltString() + "#c" + bi.getQuotationId());
+                Helper.redirect("quoting?dummy=c" + Helper.getRandomSaltString() + "#c" + bi.getQuotationId());
             } else {
                 Helper.addErrorMessage("Error Code " + r.getStatus());
             }
@@ -282,18 +298,18 @@ public class LiveQuotingBean implements Serializable {
     }
 
 
-
-    private void initBillItemProducts() {
+    private void initBillItemProducts() throws Exception {
         for (Quotation quotation : quotations) {
             initBillItemProducts(quotation);
         }
     }
 
-    private void initBillItemProducts(Quotation quotation) {
+    private void initBillItemProducts(Quotation quotation) throws Exception {
         for (BillItem billItem : quotation.getAllBillItems()) {
             for (BillItemResponse res : billItem.getBillItemResponses()) {
                 if (res.getProductId() != 0) {
-                    Response r = reqs.getSecuredRequest(AppConstants.getProduct(res.getProductId()));
+                    Response r = PojoRequester.getSecuredRequest(AppConstants.getProduct(res.getProductId()), securityHeader);
+                    //Response r = reqs.getSecuredRequest(AppConstants.getProduct(res.getProductId()));
                     if (r.getStatus() == 200) {
                         ProductHolder p = r.readEntity(ProductHolder.class);
                         res.setProductHolder(p);
@@ -302,7 +318,6 @@ public class LiveQuotingBean implements Serializable {
             }
         }
     }
-
 
 
     public void unassign(long quotationId) {
@@ -347,7 +362,7 @@ public class LiveQuotingBean implements Serializable {
             Bill bill = r.readEntity(Bill.class);
             for (Quotation quotation : quotations) {
                 if (quotation.getId() == bill.getQuotationId()) {
-                    Helper.redirect("quoting?dummy=c"+Helper.getRandomSaltString() + "#c" + quotation.getId());
+                    Helper.redirect("quoting?dummy=c" + Helper.getRandomSaltString() + "#c" + quotation.getId());
                     break;
                 }
             }
@@ -370,12 +385,32 @@ public class LiveQuotingBean implements Serializable {
     }
 
 
+    private void initWebSocket() throws InterruptedException, ExecutionException {
+       webSocketClient = new WebSocketClient(URI.create(getQuotingWSLink()), new Draft_6455()) {
+           @Override
+           public void onOpen(ServerHandshake serverHandshake) {
+               channel.send("openned");
+           }
+
+           @Override
+           public void onMessage(String s) {
+               changeOccured(s);
+           }
+
+           @Override
+           public void onClose(int i, String s, boolean b) {
+           }
+
+           @Override
+           public void onError(Exception e) {
+           }
+       };
+       webSocketClient.connect();
+    }
 
 
-    public void changeOccured() {
+    private void changeOccured(String data) {
         try {
-            Map<String, String> map = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-            String data = map.get("param");
             if (data != null) {
                 String[] messages = data.split(",");
                 String function = messages[0];
@@ -391,9 +426,9 @@ public class LiveQuotingBean implements Serializable {
                         loadUpdatedQuotation(Long.parseLong(value));
                         break;
                     default:
-                        System.out.println("default");
-
                 }
+                channel.send("rerender");
+
             }
         } catch (Exception ignore) {
 
@@ -401,14 +436,14 @@ public class LiveQuotingBean implements Serializable {
     }
 
 
-    private void loadNewlyAssignedQuotations(long quotationId) {
-        Response r = reqs.getSecuredRequest(AppConstants.getAssignedQuotations(loginBean.getLoggedUserId(), quotationId));
+    private void loadNewlyAssignedQuotations(long quotationId) throws Exception {
+        Response r = PojoRequester.getSecuredRequest(AppConstants.getAssignedQuotations(userId, quotationId), securityHeader);
         if (r.getStatus() == 200) {
             Quotation reloaded = r.readEntity(Quotation.class);
             initBillItemProducts(reloaded);
             initCustomer(reloaded);
             boolean found = false;
-            for (Quotation quotation: quotations) {
+            for (Quotation quotation : quotations) {
                 if (quotation.getId() == quotationId) {
                     found = true;
                     break;
@@ -417,13 +452,13 @@ public class LiveQuotingBean implements Serializable {
 
             if (!found) {
                 this.quotations.add(reloaded);
-                Helper.addInfoMessage("Quotation Assigned " + reloaded.getId());
+                //Helper.addInfoMessage("Quotation Assigned " + reloaded.getId());
             } else {
                 // if found do this
                 for (int i = 0; i < quotations.size(); i++) {
                     if (quotations.get(i).getId() == reloaded.getId()) {
                         quotations.set(i, reloaded);
-                        Helper.addInfoMessage("Quotation Assigned " + quotations.get(i).getId());
+                        //Helper.addInfoMessage("Quotation Assigned " + quotations.get(i).getId());
                         break;
                     }
                 }
@@ -432,8 +467,9 @@ public class LiveQuotingBean implements Serializable {
         }
     }
 
-    private void loadUpdatedQuotation(long cartId) {
-        Response r = reqs.getSecuredRequest(AppConstants.getAssignedQuotations(loginBean.getLoggedUserId(), cartId));
+    private void loadUpdatedQuotation(long quotationId) throws Exception {
+        Response r = PojoRequester.getSecuredRequest(AppConstants.getAssignedQuotations(userId, quotationId), securityHeader);
+//        Response r = reqs.getSecuredRequest(AppConstants.getAssignedQuotations(loginBean.getLoggedUserId(), cartId));
         if (r.getStatus() == 200) {
             Quotation reloaded = r.readEntity(Quotation.class);
             initBillItemProducts(reloaded);
@@ -441,7 +477,7 @@ public class LiveQuotingBean implements Serializable {
             for (int i = 0; i < quotations.size(); i++) {
                 if (quotations.get(i).getId() == reloaded.getId()) {
                     quotations.set(i, reloaded);
-                        Helper.addWarMessage("Quotation updated " + quotations.get(i).getId());
+                   // Helper.addWarMessage("Quotation updated " + quotations.get(i).getId());
                     break;
                 }
             }
@@ -449,11 +485,12 @@ public class LiveQuotingBean implements Serializable {
     }
 
 
-    private void initCustomer(Quotation quotation) {
-        Response r = reqs.getSecuredRequest(AppConstants.getCustomer(quotation.getCustomerId()));
-        if(r.getStatus() == 200) {
+    private void initCustomer(Quotation quotation) throws Exception {
+        Response r = PojoRequester.getSecuredRequest(AppConstants.getCustomer(quotation.getCustomerId()), securityHeader);
+        //Response r = reqs.getSecuredRequest(AppConstants.getCustomer(quotation.getCustomerId()));
+        if (r.getStatus() == 200) {
             quotation.setCustomer(r.readEntity(Customer.class));
-        }else {
+        } else {
 
         }
     }
@@ -461,7 +498,7 @@ public class LiveQuotingBean implements Serializable {
     private void loadUnassigned(long quotationId) {
         for (Quotation quotation : this.quotations) {
             if (quotationId == quotation.getId()) {
-                Helper.addErrorMessage("Quotation " + quotation.getId() + " unassigned");
+                //Helper.addErrorMessage("Quotation " + quotation.getId() + " unassigned");
                 quotations.remove(quotation);
                 break;
             }
@@ -476,12 +513,7 @@ public class LiveQuotingBean implements Serializable {
 
     public void chooseBillItem(BillItem billItem) {
         this.selectedBillItem = billItem;
-        //this.foundProduct = new Product();
-        //this.partNumber = "";
-        //this.newPrice = false;
-        //this.productPrice = new ProductPrice();
     }
-
 
 
     public long getPositiveScore() {
@@ -564,10 +596,9 @@ public class LiveQuotingBean implements Serializable {
         this.productPrice = productPrice;
     }
 
-    public String getQuotingWSLink() {
+    private String getQuotingWSLink() {
         return WebsocketLinks.getQuotingLink(loginBean.getLoggedUserId(), loginBean.getUserHolder().getToken());
     }
-
 
 
 }

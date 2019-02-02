@@ -2,18 +2,19 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:o="http://omnifaces.org/ui">
 <h:head>
 	<title>Quoting</title>
 	<ui:include src="/_includes/_dashboard_header.xhtml" />
 </h:head>
-<h:body>
+<h:body onunload="leavingPage()">
 	<h:outputText
 		value="#{loginBean.checkAccessRedirectHome(act.pageQuoting)}" />
-	<ui:include src="/_includes/top_dashboard.xhtml" />
+	<ui:include src="/_includes/top.xhtml" />
 	<ui:include src="/_includes/side.xhtml" />
 	<div class="w3-container">
 		<h:form id="form-g">
@@ -115,7 +116,7 @@
 														</div>
 													</f:facet>
 													<div align="center">
-														<h:graphicImage value="#{item.getImageLink(quotation.created)}" width="50"/>
+														<h:graphicImage value="#{item.getImageLink(quotation.created)}" width="50" rendered="false"/>
 													</div>
 												</h:column>
 											</h:dataTable>
@@ -546,27 +547,10 @@
 					</p:dialog>
 				</h:form>
 
-
-				<h:outputScript>
-					//<![CDATA[
-					if(window.WebSocket){
-						var ws = new WebSocket("#{liveQuotingBean.quotingWSLink}");
-						ws.onmessage = function(event) {
-					 		var text = event.data;
-					 		console.log(text);
-        					updateQuotations([{name: 'param' , value : text}]);
-    					};
-					}
-					else {
-    					console.log('bad luck');
-					}
-                	//]]>
-				</h:outputScript>
-
 				<h:form>
+					<o:socket channel="quotingChannel" onmessage="updateQuotations" scope="view" />
 					<p:remoteCommand name="updateQuotations"
-						update=":repeat-panel :form-g"
-						actionListener="#{liveQuotingBean.changeOccured}" />
+						update=":repeat-panel :form-g" />
 				</h:form>
 			</div>
 		</div>

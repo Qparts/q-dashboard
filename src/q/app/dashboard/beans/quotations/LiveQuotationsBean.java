@@ -1,6 +1,14 @@
 package q.app.dashboard.beans.quotations;
 
+
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.drafts.Draft_6455;
+import org.java_websocket.handshake.ServerHandshake;
+import org.omnifaces.cdi.Push;
+import org.omnifaces.cdi.PushContext;
+import org.omnifaces.cdi.ViewScoped;
 import q.app.dashboard.beans.common.LoginBean;
+import q.app.dashboard.beans.common.PojoRequester;
 import q.app.dashboard.beans.common.Requester;
 import q.app.dashboard.helper.AppConstants;
 import q.app.dashboard.helper.Helper;
@@ -10,13 +18,14 @@ import q.app.dashboard.model.quotation.Assignment;
 import q.app.dashboard.model.quotation.Quotation;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import java.io.Serializable;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +41,14 @@ public class LiveQuotationsBean implements Serializable {
     private long mergingQuotationId;
     private Assignment assignment;
     private List<Customer> allCustomers;
+    private WebSocketClient webSocketClient;
+    private String securityHeader;
+    FacesContext context;
+    private int userId;
 
+    @Inject
+    @Push(channel = "liveQuotationChannel")
+    private PushContext channel;
 
     @Inject
     private Requester reqs;
@@ -44,9 +60,12 @@ public class LiveQuotationsBean implements Serializable {
         try {
             this.assignment= new Assignment();
             this.selectedQuotation = new Quotation();
+            securityHeader = reqs.getSecurityHeader();
+            context = FacesContext.getCurrentInstance();
             initQuotations();
             initAllCustomers();
             Helper.appendCustomers(allCustomers, quotations);
+            initWebSocket();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -96,40 +115,44 @@ public class LiveQuotationsBean implements Serializable {
     }
 
 
-    public void changeOccured() {
+    private void changeOccured(String data) {
         try {
-            Map<String, String> map = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-            String data = map.get("param");
             if (data != null) {
                 String[] messages = data.split(",");
                 String function = messages[0];
-                String value = messages[1];
+                Long value = Long.parseLong(messages[1]);
+                String clientMessage = "";
                 switch (function) {
                     case "new quotation":
-                        loadQuotation(Long.parseLong(value));
+                        loadQuotation(value);
                         break;
                     case "assignment changed":
-                        reloadQuotation(Long.parseLong(value), "Quotation assignment updated ");
+                        clientMessage = "Quotation assignment updated " + value;
+                        reloadQuotation(value);
                         break;
                     case "update quotation":
-                        reloadQuotation(Long.parseLong(value), "Quotation updated ");
+                        clientMessage = "Quotation updated " + value;
+                        reloadQuotation(value);
                         break;
                     case "archive quotation":
-                        removeQuotation(Long.parseLong(value), "Quotation Archived ");
+                        clientMessage = "Quotation archived " + value;
+                        removeQuotation(value);
                         break;
                     case "submit quotation":
-                        removeQuotation(Long.parseLong(value), "Quotation Submitted ");
+                        clientMessage = "Quotation submitted " + value;
+                        removeQuotation(value);
                         break;
                     case "not available quotation":
-                        reloadQuotation(Long.parseLong(value), "No items added ");
+                        clientMessage = "No items added " + value;
+                        reloadQuotation(value);
                         break;
                     case "edit quotation":
-                        reloadQuotation(Long.parseLong(value), "Quotation edit requested ");
+                        clientMessage = "Quotation edit requested " + value;
+                        reloadQuotation(value);
                         break;
                     default:
-                        System.out.println("default");
-
                 }
+                channel.send(clientMessage);
             }
         } catch (Exception ignored) {
 
@@ -138,29 +161,30 @@ public class LiveQuotationsBean implements Serializable {
     }
 
 
-    private void removeQuotation(long cartId, String message) {
+    private void removeQuotation(long cartId) {
         for (Quotation quotation : quotations) {
             if (quotation.getId() == cartId) {
                 quotations.remove(quotation);
-                Helper.addErrorMessage(message + quotation.getId());
                 break;
             }
         }
     }
 
-    private void reloadQuotation(long quotationId, String message){
+    private void reloadQuotation(long quotationId){
         try {
-            Response r = reqs.getSecuredRequest(AppConstants.getQuotation(quotationId));
+            Response r = PojoRequester.getSecuredRequest(AppConstants.getQuotation(quotationId), securityHeader);
             if (r.getStatus() == 200) {
                 Quotation reloaded = r.readEntity(Quotation.class);
                 for(int i=0; i < quotations.size(); i++) {
                     if (quotations.get(i).getId() == reloaded.getId()) {
+                        Customer customer = quotations.get(i).getCustomer();
+                        reloaded.setCustomer(customer);
                         quotations.set(i, reloaded);
-                        Helper.addWarMessage(message + quotations.get(i).getId());
                         break;
                     }
                 }
             }
+
         } catch (Exception ignored) {
 
         }
@@ -177,7 +201,8 @@ public class LiveQuotationsBean implements Serializable {
                 }
             }
             if (!found) {
-                Response r = reqs.getSecuredRequest(AppConstants.getQuotation(quotationId));
+                Response r = PojoRequester.getSecuredRequest(AppConstants.getQuotation(quotationId), securityHeader);
+                //Response r = reqs.getSecuredRequest(AppConstants.getQuotation(quotationId));
                 if (r.getStatus() == 200) {
                     Quotation quotation = r.readEntity(Quotation.class);
                     this.quotations.add(quotation);
@@ -193,9 +218,11 @@ public class LiveQuotationsBean implements Serializable {
     private void loadCustomer(Quotation quotation) throws Exception{
         Customer customer = getCustomerFromId(quotation.getCustomerId());
         if(customer == null){
-            Response r = reqs.getSecuredRequest(AppConstants.getCustomer(quotation.getCustomerId()));
+            Response r = PojoRequester.getSecuredRequest(AppConstants.getCustomer(quotation.getCustomerId()), securityHeader);
+//            Response r = reqs.getSecuredRequest(AppConstants.getCustomer(quotation.getCustomerId()));
             if(r.getStatus() == 200){
                 Customer c = r.readEntity(Customer.class);
+                allCustomers.add(c);
                 quotation.setCustomer(c);
             }else{
                 throw new Exception();
@@ -210,9 +237,8 @@ public class LiveQuotationsBean implements Serializable {
         map.put("userId", loginBean.getLoggedUserId());
         Response r = reqs.putSecuredRequest(AppConstants.PUT_MERGE_QUOTATIONS, map);
         if (r.getStatus() == 201) {
-            this.reloadQuotation(selectedQuotation.getId(), "Merged");
-            this.removeQuotation(mergingQuotationId, "Archived");
-//            Helper.redirect("quotations");
+            this.reloadQuotation(selectedQuotation.getId());
+            this.removeQuotation(mergingQuotationId);
         } else {
             Helper.addErrorMessage("An error occured");
         }
@@ -235,8 +261,6 @@ public class LiveQuotationsBean implements Serializable {
     private void initQuotations() {
         quotations = new ArrayList<>();
         Response r = reqs.getSecuredRequest(AppConstants.GET_PENDING_QUOTATIONS);
-        System.out.println(AppConstants.GET_PENDING_QUOTATIONS);
-        System.out.println("getting quotaitons response " + r.getStatus());
         if (r.getStatus() == 200) {
             this.quotations = r.readEntity(new GenericType<List<Quotation>>() {
             });
@@ -262,7 +286,33 @@ public class LiveQuotationsBean implements Serializable {
 
     }
 
-    public String getQuotationsWSLink() {
+
+    private void initWebSocket() {
+        webSocketClient = new WebSocketClient(URI.create(this.getQuotationsWSLink()), new Draft_6455()) {
+            @Override
+            public void onOpen(ServerHandshake serverHandshake) {
+
+            }
+
+            @Override
+            public void onMessage(String s) {
+                changeOccured(s);
+            }
+
+            @Override
+            public void onClose(int i, String s, boolean b) {
+
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+        };
+        webSocketClient.connect();
+    }
+
+    private String getQuotationsWSLink() {
         return WebsocketLinks.getQuotationsLink(loginBean.getLoggedUserId(), loginBean.getUserHolder().getToken());
     }
 
