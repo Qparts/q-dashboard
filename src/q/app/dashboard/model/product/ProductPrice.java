@@ -1,5 +1,7 @@
 package q.app.dashboard.model.product;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -15,6 +17,8 @@ public class ProductPrice implements Serializable {
     private double salesPercentage;
     private char status;
     private double vendorVatPercentage;
+    @JsonIgnore
+    private boolean vatIncluded;
 
     public double getVendorVatPercentage() {
         return vendorVatPercentage;
@@ -86,6 +90,14 @@ public class ProductPrice implements Serializable {
 
     public void setStatus(char status) {
         this.status = status;
+    }
+
+    public boolean isVatIncluded() {
+        return vatIncluded;
+    }
+
+    public void setVatIncluded(boolean vatIncluded) {
+        this.vatIncluded = vatIncluded;
     }
 
     @Override

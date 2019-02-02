@@ -72,7 +72,7 @@ public class NewProductBean implements Serializable {
         if(productPrice.getVendorId() > 0){
             productPrice.setCreatedBy(loginBean.getLoggedUserId());
             Vendor vendor = vendorsBean.getVendorFromId(productPrice.getVendorId());
-            double salesPercentage = 0.40;
+            double salesPercentage = 0.20;
             for(Category category : this.categories){
                 salesPercentage = findLowestPercentageUpwards(vendor, category, salesPercentage);
             }

@@ -1,6 +1,9 @@
 package q.app.dashboard.model.vehicle;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import q.app.dashboard.model.product.Brand;
+import q.app.dashboard.model.product.Category;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -17,10 +20,35 @@ public class Make implements Serializable{
 	private Date created;
 	private int createdBy;
 	private List<Model> models;
-	
-	
+	private Integer defaultCategory;
+	private List<Integer> brandIds;
+	@JsonIgnore
+	private List<Brand> brands;
 
-	
+	public List<Brand> getBrands() {
+		return brands;
+	}
+
+	public void setBrands(List<Brand> brands) {
+		this.brands = brands;
+	}
+
+	public List<Integer> getBrandIds() {
+		return brandIds;
+	}
+
+	public void setBrandIds(List<Integer> brandIds) {
+		this.brandIds = brandIds;
+	}
+
+	public Integer getDefaultCategory() {
+		return defaultCategory;
+	}
+
+	public void setDefaultCategory(Integer defaultCategory) {
+		this.defaultCategory = defaultCategory;
+	}
+
 	public List<Model> getModels() {
 		return models;
 	}

@@ -108,14 +108,18 @@ public class AppConstants {
     public final static String POST_CATEGORY = PRODUCT_SERVICE + "category";
     public final static String PUT_CATEGORY = PRODUCT_SERVICE + "category";
     public final static String POST_PRODUCT = PRODUCT_SERVICE + "product";
+    public final static String PUT_PRODUCT_PRICE = PRODUCT_SERVICE + "product-price";
     public final static String GET_LATELY_ADDED_PRODUCTS = PRODUCT_SERVICE + "products/latest-added";
+    public final static String FIND_PRODUCT_CREATE_IF_NOT_AVAILABLE = PRODUCT_SERVICE +  "find-or-create-product";
     public final static String getProduct(long id){
         return PRODUCT_SERVICE + "product/" + id;
     }
     public final static String getSearchProduct(String query){
         return PRODUCT_SERVICE + "products/search/" + query;
     }
-
+    public final static String getMakeCategories(long makeId){
+        return PRODUCT_SERVICE + "categories/make/" + makeId;
+    }
     //VENDOR SERVICE CALLS//
     public final static String POST_VENDOR = VENDOR_SERVICE + "vendor";
     public final static String GET_ALL_VENDORS = VENDOR_SERVICE + "vendors";
@@ -132,6 +136,7 @@ public class AppConstants {
     public final static String PUT_UNASSIGN_QUOTATION = QUOTATION_SERVICE + "unassign";
     public final static String GET_PENDING_QUOTATIONS = QUOTATION_SERVICE + "quotations/pending";
     public final static String PUT_MERGE_QUOTATIONS = QUOTATION_SERVICE + "merge-quotations";
+    public final static String POST_BILL_ITEM_RESPONSE = QUOTATION_SERVICE + "bill-item-response";
     public final static String getQuotation(long quotationId) {
         return QUOTATION_SERVICE + "quotation/" + quotationId;
     }

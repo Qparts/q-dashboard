@@ -2,7 +2,7 @@ package q.app.dashboard.helper;
 
 public class WebsocketLinks {
 
-	private static final String BASE = "ws://localhost:8081/";
+	private static final String BASE = SysProps.getValue("dashboardWSBase");
 	//private static final String BASE = "wss://www.qetaa.com/";
 	private static final String CART_SERVICE_WS = BASE + "service-q-quotation/ws/";
 

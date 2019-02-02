@@ -42,6 +42,8 @@ public class VendorsBean implements Serializable {
     }
 
 
+
+
     public void createVendor(){
         vendor.setCreatedBy(loginBean.getLoggedUserId());
         Response r = reqs.postSecuredRequest(AppConstants.POST_VENDOR, vendor);

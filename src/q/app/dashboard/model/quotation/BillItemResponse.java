@@ -1,6 +1,8 @@
 package q.app.dashboard.model.quotation;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import q.app.dashboard.model.product.ProductHolder;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -16,7 +18,16 @@ public class BillItemResponse implements Serializable {
     private Date created;
     private int createdBy;
     private char status;
+    @JsonIgnore
+    private ProductHolder productHolder;
 
+    public ProductHolder getProductHolder() {
+        return productHolder;
+    }
+
+    public void setProductHolder(ProductHolder productHolder) {
+        this.productHolder = productHolder;
+    }
 
     public long getId() {
         return id;

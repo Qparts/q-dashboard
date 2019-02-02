@@ -50,7 +50,7 @@
 								<header class="w3-container w3-camo-dark-grey w3-padding-8">
 								<div class="w3-container">
 									<div align="center" class="q-med-text">
-										<h:outputText value="Quotation# #{quotation.id}" />
+										<h:outputText value="Quotation # #{quotation.id}" />
 										<h:form>
 											<p:commandButton value="Unassign"
 												actionListener="#{liveQuotingBean.unassign(quotation.id)}"
@@ -124,7 +124,7 @@
 									</p:panel>
 									<br />
 									<p:panel toggleable="true"
-										header="Reviews (#{quotation.comments.size()})" collapsed="true"
+										header="Comments (#{quotation.comments.size()})" collapsed="true"
 										toggleSpeed="100">
 										<div class="w3-row">
 											<div class="w3-col m12 w3-padding">
@@ -278,17 +278,17 @@
 																		<f:facet name="header">
 																			<h:outputText value="Number" />
 																		</f:facet>
-																		<h:outputText value="#{res.product.productNumber}"
-																			rendered="#{not (res.status eq 'N')}" />
+																		<h:outputText value="#{biresponse.productHolder.product.productNumber}"
+																			rendered="#{not (biresponse.status eq 'N')}" />
 																		<h:outputText value="N/A"
-																			rendered="#{(res.status eq 'N')}" />
+																			rendered="#{(biresponse.status eq 'N')}" />
 																	</h:column>
 																	<h:column>
 																		<f:facet name="header">
 																			<h:outputText value="Price" />
 																		</f:facet>
-																		<h:outputText value="#{res.productPrice.costPriceWv}"
-																			rendered="#{res.status eq 'C'}">
+																		<h:outputText value="#{biresponse.productHolder.productPrices.get(0).price}"
+																			rendered="#{biresponse.status eq 'C'}">
 																			<f:convertNumber currencySymbol="SR " type="currency" />
 																		</h:outputText>
 																		<p:commandLink value="Complete"
@@ -297,19 +297,7 @@
 																			oncomplete="PF('dlg4wv').show()" update=":form4"
 																			actionListener="#{quotingBean.chooseQuotationItemResponse(res)}" />
 																		<h:outputText value="N/A"
-																			rendered="#{(res.status eq 'N')}" />
-																	</h:column>
-																	<h:column>
-																		<f:facet name="header">
-																			<h:outputText value="Vendor" />
-																		</f:facet>
-																		<h:outputText
-																			value="#{vendorBean.getVendorFromId(res.productPrice.vendorId).name}"
-																			rendered="#{res.status eq 'C'}" />
-																		<h:outputText value="N/A"
-																			rendered="#{res.status eq 'I'}" />
-																		<h:outputText value="N/A"
-																			rendered="#{(res.status eq 'N')}" />
+																			rendered="#{(biresponse.status eq 'N')}" />
 																	</h:column>
 																	<h:column>
 																		<f:facet name="header">
@@ -324,10 +312,10 @@
 																<div align="center">
 																	<br />
 																	<p:commandButton styleClass="q-btn-indigo" value="Save"
-																		disabled="#{not qi.notAvailable and qi.quotationItemResponses.size() eq 0}"
-																		actionListener="#{quotingBean.saveResponse(qi)}"
+																		disabled="#{not billItem.notAvailable and billItem.billItemResponses.size() eq 0}"
+																		actionListener="#{liveQuotingBean.saveResponse(billItem)}"
 																		process="@this" update=":form-g"
-																		rendered="#{not (qi.status eq 'N') and not (qi.status eq 'C') and not qi.edit}" />
+																		rendered="#{not (billItem.status eq 'N') and not (billItem.status eq 'C') and not billItem.edit}" />
 																</div>
 															</div>
 															<br />
@@ -351,93 +339,92 @@
 						<h:panelGrid columns="2" id="search-panel">
 							<h:outputText value="Description" />
 							<h:outputText
-								value="#{quotingBean.selectedQuotationItem.itemDesc}" />
+								value="#{liveQuotingBean.selectedBillItem.itemDesc}" />
 							<h:outputText value="Enter Part Number" />
-							<h:inputText value="#{quotingBean.partNumber}" required="true"
+							<h:inputText value="#{liveQuotingBean.searchPartNumber}" required="true"
 								id="part-number" />
+							<h:outputText value="Select Brand"/>
+							<h:selectOneMenu id="brand-id" value="#{liveQuotingBean.searchBrandId}" requiredMessage="Select brand" required="true" >
+								<f:selectItem noSelectionOption="true" itemLabel="--Select Brand--"/>
+								<f:selectItems
+										value="#{makesBean.getMakeFromId(liveQuotingBean.quotationFromSelectedBillItem.makeId).brands}"
+										var="brand" itemLabel="#{brand.name}" itemValue="#{brand.id}"/>
+							</h:selectOneMenu>
 						</h:panelGrid>
 						<div align="center">
 							<p:commandButton styleClass="q-btn"
-								actionListener="#{quotingBean.findProduct()}" value="Search"
-								process="@this part-number" update="found :form-g" />
+								actionListener="#{liveQuotingBean.findProduct()}" value="Search / Create"
+								process="@this part-number brand-id" update="found :form-g" />
 						</div>
 						<br />
 						<h:panelGroup id="found">
-							<h:outputText value="#{quotingBean.foundProduct  eq null}" />
+							<h:outputText value="#{liveQuotingBean.productHolder  eq null}" />
 							<h:panelGrid columns="2"
 								styleClass="w3-table w3-striped w3-border"
-								rendered="#{quotingBean.foundProduct.id gt 0}">
+								rendered="#{not (liveQuotingBean.productHolder.product eq null)}">
 								<h:outputText value="Product Number" />
-								<h:outputText value="#{quotingBean.foundProduct.productNumber}" />
+								<h:outputText value="#{liveQuotingBean.productHolder.product.productNumber}" />
 								<h:outputText value="Product Name" />
-								<h:outputText
-									value="#{quotingBean.foundProduct.productNameCheck}" />
+								<h:outputText value="#{liveQuotingBean.productHolder.product.desc}" />
+								<h:outputText value="Brand" />
+								<h:outputText value="#{liveQuotingBean.productHolder.product.brand.name}" />
 							</h:panelGrid>
 
-							<div align="center" class="w3-padding-12">
-								<p:commandButton value="No Price"
-									actionListener="#{quotingBean.selectProductWithoutPrice()}"
-									update=":form-g :repeat-panel" oncomplete="PF('dlg3wv').hide()"
-									rendered="#{quotingBean.foundProduct.id gt 0}"
-									styleClass="q-btn-red" />
-							</div>
-							<h:dataTable value="#{quotingBean.foundProduct.priceList}"
+							<h:dataTable value="#{liveQuotingBean.productHolder.productPrices}"
 								var="price" styleClass="w3-table w3-striped w3-border"
-								rendered="#{quotingBean.foundProduct.id gt 0}"
+								rendered="#{not (liveQuotingBean.productHolder.productPrices eq null) and (not (liveQuotingBean.productHolder.productPrices.isEmpty()))}"
 								headerClass="w3-light-grey w3-border-bottom">
-								<f:facet name="header">
-									<div align="center">
-										<h:outputText value="Vendor Prices" />
-									</div>
-								</f:facet>
 								<h:column>
 									<f:facet name="header">
 										<h:outputText value="Price" />
 									</f:facet>
-									<h:outputText value="#{price.costPriceWv}" />
+									<h:outputText value="#{price.price}" />
 								</h:column>
 								<h:column>
 									<f:facet name="header">
 										<h:outputText value="Vendor" />
 									</f:facet>
 									<h:outputText
-										value="#{vendorBean.getVendorFromId(price.vendorId).name}" />
+										value="#{vendorsBean.getVendorFromId(price.vendorId).name}" />
 								</h:column>
 								<h:column>
 									<f:facet name="header">
 										<h:outputText value="Select Price" />
 									</f:facet>
 									<p:commandButton
-										actionListener="#{quotingBean.selectPrice(price)}"
-										update=":form-g :repeat-panel" styleClass="q-btn"
-										value="Select" oncomplete="PF('dlg3wv').hide()" />
+											actionListener="#{liveQuotingBean.selectPrice(price)}"
+											update=":form-g :repeat-panel" styleClass="q-btn"
+											value="Select" oncomplete="PF('dlg3wv').hide()" />
 								</h:column>
 							</h:dataTable>
 							<h:outputText value="New Price " />
-							<h:selectBooleanCheckbox value="#{quotingBean.newPrice}">
+							<h:selectBooleanCheckbox value="#{liveQuotingBean.newPrice}">
 								<f:ajax execute="@this" render="new-price-panel"></f:ajax>
 							</h:selectBooleanCheckbox>
 							<h:panelGroup id="new-price-panel">
-								<h:panelGrid rendered="#{quotingBean.newPrice}" columns="2"
-									styleClass="w3-table w3-striped">
+								<h:panelGrid rendered="#{liveQuotingBean.newPrice}" columns="2" styleClass="w3-table w3-striped">
 									<h:outputText value="Price" />
-									<h:inputText value="#{quotingBean.productPrice.costPrice}"
+									<h:inputText value="#{liveQuotingBean.productPrice.price}"
 										required="true" />
 									<h:outputText value="Vat Included?" />
 									<h:selectBooleanCheckbox
-										value="#{quotingBean.productPrice.vatIncluded}" />
+										value="#{liveQuotingBean.productPrice.vatIncluded}" />
 									<h:outputText value="Vendor" />
-									<h:selectOneMenu value="#{quotingBean.productPrice.vendorId}">
-										<f:selectItems
-											value="#{vendorBean.getMakeVendors(quotingBean.cartFromSelectedQuotation.makeId)}"
-											var="vendor" itemLabel="#{vendor.name}"
-											itemValue="#{vendor.id}" />
-									</h:selectOneMenu>
+									<p:autoComplete placeholder="Type Vendor name" id="vendorCustom"
+													maxResults="10"
+													styleClass="q-auto-complete" required="true"
+													value="#{liveQuotingBean.productPrice.vendorId}" dropdown="true"
+													completeMethod="#{vendorsBean.completeVendorIds}" var="b"
+													itemLabel="#{vendorsBean.getVendorFromId(b).name}"
+													itemValue="#{vendorsBean.getVendorFromId(b).id}"
+													forceSelection="true" style="width: 100%!important;">
+										<p:ajax/>
+									</p:autoComplete>
 								</h:panelGrid>
 								<p:commandButton value="Add New Price"
-									rendered="#{quotingBean.newPrice}" styleClass="q-btn"
-									actionListener="#{quotingBean.updateNewPrice(quotingBean.productPrice, quotingBean.foundProduct, false)}"
-									process="new-price-panel @this" update="found :form-g"></p:commandButton>
+									rendered="#{liveQuotingBean.newPrice}" styleClass="q-btn"
+									actionListener="#{liveQuotingBean.updateNewPrice(liveQuotingBean.productHolder.product)}"
+									process="new-price-panel @this" update="found :form-g"/>
 							</h:panelGroup>
 						</h:panelGroup>
 					</p:dialog>
@@ -483,6 +470,7 @@
 										update=":form-g :repeat-panel" styleClass="q-btn"
 										value="Select" oncomplete="PF('dlg4wv').hide()" />
 								</h:column>
+
 							</h:dataTable>
 							<h:outputText value="New Price " />
 							<h:selectBooleanCheckbox value="#{quotingBean.newPrice}">
@@ -517,8 +505,7 @@
 				</h:form>
 
 				<h:form id="form5">
-					<p:dialog id="dlg5" widgetVar="dlg5wv" styleClass="q-dialog"
-						header="New Bill Item">
+					<p:dialog id="dlg5" widgetVar="dlg5wv" styleClass="q-dialog" header="New Bill Item">
 						<h:panelGrid columns="2"
 							styleClass="w3-table w3-striped w3-border">
 							<h:outputText value="Quotation ID" />

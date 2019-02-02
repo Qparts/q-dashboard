@@ -1,6 +1,9 @@
 package q.app.dashboard.beans.common;
 
+import q.app.dashboard.beans.product.BrandsBean;
 import q.app.dashboard.helper.AppConstants;
+import q.app.dashboard.model.product.Brand;
+import q.app.dashboard.model.product.Category;
 import q.app.dashboard.model.vehicle.Make;
 import q.app.dashboard.model.vehicle.Model;
 import q.app.dashboard.model.vehicle.ModelYear;
@@ -25,23 +28,39 @@ public class MakesBean implements Serializable {
     @Inject
     private Requester reqs;
 
+    @Inject
+    private BrandsBean brandsBean;
+
     @PostConstruct
     private void init(){
         makes = new ArrayList<>();
         modelYears = new ArrayList<>();
         initMakes();
+        initBrands();
     }
 
 
     private void initMakes() {
         Response r = reqs.getSecuredRequest(AppConstants.GET_ALL_MAKES);
         if (r.getStatus() == 200) {
-            makes = r.readEntity(new GenericType<List<Make>>() {
-            });
+            makes = r.readEntity(new GenericType<List<Make>>() {});
             initModelYears();
         }
     }
 
+
+    private void initBrands(){
+        for(Make make  : makes){
+            make.setBrands(new ArrayList<>());
+            if(make.getBrandIds() != null){
+                for(Integer i : make.getBrandIds()){
+                    Brand brand = brandsBean.getBrandFromId(i);
+                    make.getBrands().add(brand);
+                }
+            }
+
+        }
+    }
 
     private void initModelYears(){
         for(Make make : makes){
@@ -53,9 +72,11 @@ public class MakesBean implements Serializable {
 
 
     public Make getMakeFromId(Integer id) {
-        for(Make m : makes){
-            if(m.getId() == id) {
-                return m;
+        if(id != null ) {
+            for (Make m : makes) {
+                if (m.getId() == id) {
+                    return m;
+                }
             }
         }
         return null;
@@ -64,10 +85,13 @@ public class MakesBean implements Serializable {
     public ModelYear getModelYearFromId(Integer id){
         if(id != null && id > 0) {
             for (ModelYear modelYear : modelYears) {
-                if (modelYear.getId() == id)
+                if (modelYear.getId() == id) {
                     return modelYear;
+                }
+
             }
         }
+        System.out.println("we didnt find shit");
         return null;
     }
 
