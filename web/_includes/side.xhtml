@@ -8,22 +8,23 @@
 		<div class="w3-container">
 			<h:form>
 				<div class="w3-dropdown-hover">
-					<h:button style="color:greenyellow"  class="w3-button w3-camo-black" value="Configurations" rendered="#{loginBean.hasAccessL([act.pageUsers, act.pageCouriers, act.pageRole, act.pageBanks, act.pageCountries, act.pageCities, act.pageVehicles])}" onclick="return false;"/>
+					<h:button class="w3-button w3-camo-black" value="Configurations" rendered="#{loginBean.hasAccessL([act.pageUsers, act.pageCouriers, act.pageRole, act.pageBanks, act.pageCountries, act.pageCities, act.pageVehicles])}" onclick="return false;"/>
 					 <div class="w3-dropdown-content w3-bar-block w3-border">
-					 	<h:outputLink style="color:greenyellow;display:none" value="/app/users" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageUsers)}">Users</h:outputLink>
-      					<h:outputLink style="color:greenyellow;display:none" value="/app/roles" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageRole)}">Roles</h:outputLink>
-     					<h:outputLink style="color:greenyellow;display:none" value="/app/banks" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageBanks)}">Banks</h:outputLink>
-      					<h:outputLink style="color:greenyellow;display:none" value="/app/countries" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageCountries)}">Countries</h:outputLink>
- 						<h:outputLink style="color:greenyellow;display:none" value="/app/cities" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageCities)}">Cities</h:outputLink>
- 						<h:outputLink value="/app/vehicles" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageVehicles)}">Vehicles</h:outputLink>
-						<h:outputLink style="color:greenyellow" value="/app/couriers" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageCouriers)}">Couriers</h:outputLink>
+						 <h:outputLink value="/app/users" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageUsers)}">Users</h:outputLink>
+						 <h:outputLink value="/app/roles" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageRole)}">Roles</h:outputLink>
+						 <h:outputLink value="/app/banks" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageBanks)}">Banks</h:outputLink>
+						 <h:outputLink value="/app/countries" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageCountries)}">Countries</h:outputLink>
+						 <h:outputLink value="/app/regions" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageCountries)}">Regions</h:outputLink>
+						 <h:outputLink value="/app/cities" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageCities)}">Cities</h:outputLink>
+						 <h:outputLink value="/app/vehicles" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageVehicles)}">Vehicles</h:outputLink>
+						 <h:outputLink style="color:greenyellow;display: none;" value="/app/couriers" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageCouriers)}">Couriers</h:outputLink>
     				</div>
 				</div>
 				<div class="w3-dropdown-hover">
-					<h:button style="color:greenyellow" class="w3-button w3-camo-black" value="Customer Service" rendered="#{loginBean.hasAccessL([act.pageNoVin, act.pageWire, act.pagePosponedSalesReport, act.pageFollowUpQuotations,act.pageCustomers])}" onclick="return false;" />
+					<h:button style="color:greenyellow" class="w3-button w3-camo-black" value="Customer" rendered="#{loginBean.hasAccessL([act.pageNoVin, act.pageWire, act.pagePosponedSalesReport, act.pageFollowUpQuotations,act.pageCustomers])}" onclick="return false;" />
 					<div class="w3-dropdown-content w3-bar-block w3-border">
 					 	<h:outputLink value="/app/wire-transfers" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageWire)}">Wire Transfers</h:outputLink>
-      					<h:outputLink style="color:greenyellow;display:none" value="/app/customers" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageCustomers)}">Customers</h:outputLink>
+      					<h:outputLink value="/app/customer-search" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageCustomers)}">Customers</h:outputLink>
       					<h:outputLink style="color:indianred;display:none" value="/app/followups" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageFollowUpQuotations)}">Follow Up</h:outputLink>
 						<h:outputLink style="color:indianred;display:none" value="/app/postponed-sales" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pagePosponedSalesReport)}">Postponed</h:outputLink>
 						<h:outputLink style="color:indianred;display:none" value="/app/no-vin-carts" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageNoVin)}">No Vins</h:outputLink>

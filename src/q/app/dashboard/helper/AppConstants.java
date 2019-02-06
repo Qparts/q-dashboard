@@ -12,6 +12,7 @@ public class AppConstants {
     private final static String CUSTOMER_SERVICE = SysProps.getValue("customerService");
     private final static String PRODUCT_SERVICE = SysProps.getValue("productService");
     private final static String CART_SERVICE = SysProps.getValue("cartService");
+    private final static String LOCATION_SERVICE = SysProps.getValue("locationService");
 
     private final static String IMAGE_SERVER = SysProps.getValue("imageServer");
     private static final String AMAZON_S3_PATH = SysProps.getValue("amazonS3Path");
@@ -27,6 +28,14 @@ public class AppConstants {
     public static final String getBrandImage(long id){
         return AMAZON_S3_PATH + BRAND_BUCKET_NAME + "/" +  id + ".png";
     }
+
+    //LOCATION SERVICE CALLS//
+    public final static String GET_COUNTRIES = LOCATION_SERVICE + "countries";
+    public final static String POST_COUNTRY = LOCATION_SERVICE + "country";
+    public final static String GET_REGIONS = LOCATION_SERVICE + "regions";
+    public final static String POST_REGION = LOCATION_SERVICE + "region";
+    public final static String GET_CITIES = LOCATION_SERVICE + "cities";
+    public final static String POST_CITY = LOCATION_SERVICE + "city";
 
     //CART SERVICE CALLS//
     public final static String GET_AWAITING_CARTS = CART_SERVICE + "carts/awaiting";
@@ -93,9 +102,12 @@ public class AppConstants {
 
     //CUSTOMER SERVICE CALLS//
     public final static String POST_CUSTOMER_FROM_IDS = CUSTOMER_SERVICE + "customers-from-ids";
-
+    public final static String GET_NEWEST_CUSTOMERS = CUSTOMER_SERVICE + "newest";
     public final static String getCustomer(long customerId){
         return CUSTOMER_SERVICE + "customer/" + customerId;
+    }
+    public final static String getSearchCustomer(String query){
+        return PRODUCT_SERVICE + "search/" + query;
     }
 
     //PRODUCT SERVICE CALLS//
@@ -109,7 +121,7 @@ public class AppConstants {
     public final static String PUT_CATEGORY = PRODUCT_SERVICE + "category";
     public final static String POST_PRODUCT = PRODUCT_SERVICE + "product";
     public final static String PUT_PRODUCT_PRICE = PRODUCT_SERVICE + "product-price";
-    public final static String GET_LATELY_ADDED_PRODUCTS = PRODUCT_SERVICE + "products/latest-added";
+    public final static String GET_NEWEST_PRODUCTS = PRODUCT_SERVICE + "products/newest";
     public final static String FIND_PRODUCT_CREATE_IF_NOT_AVAILABLE = PRODUCT_SERVICE +  "find-or-create-product";
     public final static String getProduct(long id){
         return PRODUCT_SERVICE + "product/" + id;
