@@ -13,14 +13,14 @@ public class CustomerVehicle implements Serializable {
     private Date created;
     private Integer createdBy;
     private char status;
-    private boolean isDefault;
+    private boolean defaultVehicle;
 
-    public boolean isDefault() {
-        return isDefault;
+    public boolean isDefaultVehicle() {
+        return defaultVehicle;
     }
 
-    public void setDefault(boolean aDefault) {
-        isDefault = aDefault;
+    public void setDefaultVehicle(boolean defaultVehicle) {
+        this.defaultVehicle = defaultVehicle;
     }
 
     public CustomerVehicle(){

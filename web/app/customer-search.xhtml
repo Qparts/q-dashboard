@@ -73,6 +73,12 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
+                                <h:outputText value="Statuss"/>
+                            </f:facet>
+                            <h:outputText value="#{var.status eq 'V' ? 'Active' : 'Unverified'}" styleClass="w3-tag w3-#{var eq 'V' ? 'green' : 'red'}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
                                 <h:outputText value="Details"/>
                             </f:facet>
                             <h:outputLink target="_blank"
