@@ -86,7 +86,8 @@
                         </div>
                     </f:facet>
                     <div align="center">
-                        <h:graphicImage value="#{item.getImageLink(liveQuotationBean.quotation.created)}" width="50"/>
+                        <h:graphicImage value="#{item.imageLink}" width="50" rendered="#{item.imageAttached}"/>
+                        <h:graphicImage value="https://s3.eu-central-1.amazonaws.com/q-product/na.png" width="50" rendered="#{not item.imageAttached}"/>
                     </div>
                 </h:column>
             </h:dataTable>

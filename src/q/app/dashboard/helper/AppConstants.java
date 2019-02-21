@@ -18,15 +18,22 @@ public class AppConstants {
     private static final String AMAZON_S3_PATH = SysProps.getValue("amazonS3Path");
     private static final String PRODUCT_BUCKET_NAME =SysProps.getValue("productBucketName");
     private static final String BRAND_BUCKET_NAME = SysProps.getValue("brandBucketName");
+    public  static final String QUOTATION_ITEM_BUCKET_NAME = SysProps.getValue("quotationItemBucketName");
 
 
     //AWS CALLS//
+    public static final String AWS_REGION = "eu-central-1";
+
     public static final String getProductImage(long id){
         return AMAZON_S3_PATH + PRODUCT_BUCKET_NAME + "/" + id + ".png";
     }
 
     public static final String getBrandImage(long id){
         return AMAZON_S3_PATH + BRAND_BUCKET_NAME + "/" +  id + ".png";
+    }
+
+    public static final String getQuotationItemImage(long id){
+        return  "/app/quotation-item/" + id + ".png";
     }
 
     //LOCATION SERVICE CALLS//
@@ -80,11 +87,6 @@ public class AppConstants {
         int[] calvals = Helper.getCalendarArray(date);
         String directory = getVINDirectoryWithDate(calvals[0], calvals[1], calvals[2], id);
         return directory + id + ".png";
-    }
-    public final static String getQuotationItemImageLink(Date date, long quotationId, long itemId){
-        int[] calvals = Helper.getCalendarArray(date);
-        String directory = getVINDirectoryWithDate(calvals[0], calvals[1], calvals[2], quotationId) + "items/";
-        return directory + itemId + ".png";
     }
 
     private final static String getVINDirectoryWithDate(int year, int month, int day, long id) {

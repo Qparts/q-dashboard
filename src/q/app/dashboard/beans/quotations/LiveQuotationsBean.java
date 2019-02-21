@@ -219,7 +219,6 @@ public class LiveQuotationsBean implements Serializable {
         Customer customer = getCustomerFromId(quotation.getCustomerId());
         if(customer == null){
             Response r = PojoRequester.getSecuredRequest(AppConstants.getCustomer(quotation.getCustomerId()), securityHeader);
-//            Response r = reqs.getSecuredRequest(AppConstants.getCustomer(quotation.getCustomerId()));
             if(r.getStatus() == 200){
                 Customer c = r.readEntity(Customer.class);
                 allCustomers.add(c);

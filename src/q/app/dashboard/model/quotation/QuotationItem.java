@@ -50,8 +50,8 @@ public class QuotationItem implements Serializable {
     }
 
     @JsonIgnore
-    public String getImageLink(Date date){
-        return AppConstants.getQuotationItemImageLink(date, quotationId, id);
+    public String getImageLink(){
+        return AppConstants.getQuotationItemImage(id);
     }
 
     public void setImageAttached(boolean imageAttached) {
