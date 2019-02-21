@@ -162,25 +162,6 @@
 							</h:dataTable>
 						</div>
 						<br />
-						<h:panelGroup
-							rendered="#{not liveQuotationsBean.similarQuotations.isEmpty()}">
-							<div align="center">
-								<h:outputText value="Merge Quotations" styleClass="q-med-text" />
-								<br />
-								<h:selectOneMenu value="#{liveQuotationsBean.mergingQuotationId}" required="true">
-									<f:selectItem noSelectionOption="true"
-										itemLabel="--Select Quotation--" />
-									<f:selectItems value="#{liveQuotationsBean.similarQuotations}"
-										var="quotation" itemValue="#{quotation.id}" itemLabel="#{quotation.id}" />
-								</h:selectOneMenu>
-								<br /> <br />
-								<p:commandButton value="Merge"
-												 actionListener="#{liveQuotationsBean.mergeQuotation}" update=":form-g"
-												 styleClass="q-btn" />
-							</div>
-
-						</h:panelGroup>
-						<br />
 						<h:panelGroup id="assignment-panel">
 							<h:panelGrid columns="3"
 								styleClass="w3-table w3-striped w3-border"

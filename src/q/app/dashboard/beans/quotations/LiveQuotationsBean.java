@@ -230,34 +230,6 @@ public class LiveQuotationsBean implements Serializable {
         }
     }
 
-    public void mergeQuotation() {
-        Map<String,Object> map = new HashMap<>();
-        map.put("mainId", selectedQuotation.getId());
-        map.put("slaveId", mergingQuotationId);
-        map.put("userId", loginBean.getLoggedUserId());
-        Response r = reqs.putSecuredRequest(AppConstants.PUT_MERGE_QUOTATIONS, map);
-        if (r.getStatus() == 201) {
-            this.reloadQuotation(selectedQuotation.getId());
-            this.removeQuotation(mergingQuotationId);
-        } else {
-            Helper.addErrorMessage("An error occured");
-        }
-
-    }
-
-    public List<Quotation> getSimilarQuotations() {
-        List<Quotation> foundQuotations = new ArrayList<>();
-        if (quotations != null) {
-            for (Quotation qt : quotations) {
-                if (qt.getCustomerId() == selectedQuotation.getCustomerId() && qt.getCustomerVehicleId() == selectedQuotation.getCustomerVehicleId()
-                        && qt.getId() != selectedQuotation.getId()) {
-                    foundQuotations.add(qt);
-                }
-            }
-        }
-        return foundQuotations;
-    }
-
     private void initQuotations() {
         quotations = new ArrayList<>();
         Response r = reqs.getSecuredRequest(AppConstants.GET_PENDING_QUOTATIONS);

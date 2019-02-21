@@ -30,7 +30,7 @@
                                      value="#{liveQuotationBean.quotation.customerVehicle.vin}"/>
                         <h:outputText value="City"/>
                         <h:inputText readonly="true" styleClass="w3-text-grey"
-                                     value="#{liveQuotationBean.quotation.cityId} - #{liveQuotationBean.quotation.cityId}"/>
+                                     value="#{cityBean.getCityFromId(liveQuotationBean.quotation.cityId).region.name} - #{cityBean.getCityFromId(liveQuotationBean.quotation.cityId).name}"/>
                     </h:panelGrid>
                 </div>
                 <div class="w3-col m12 l6">
@@ -52,17 +52,10 @@
                                      value="#{liveQuotationBean.quotation.customer.email}"/>
                         <h:outputText value="Country"/>
                         <h:inputText readonly="true" styleClass="w3-text-grey"
-                                     value="#{liveQuotationBean.quotation.customer.countryId}"/>
+                                     value="#{countryBean.getCountryFromId(liveQuotationBean.quotation.customer.countryId).name}"/>
                     </h:panelGrid>
                 </div>
             </div>
-            <h:form>
-                <div align="center">
-                    <p:commandButton action="#{quotationBean.initVehicleEdit()}"
-                                     value="Edit Cart" oncomplete="PF('ecdlg').show()"
-                                     styleClass="q-btn" update=":edit-cart-form"/>
-                </div>
-            </h:form>
             <br/>
             <h:dataTable styleClass="w3-table w3-striped w3-border"
                          value="#{liveQuotationBean.quotation.quotationItems}" var="item"
@@ -156,62 +149,6 @@
                 </div>
             </p:dialog>
         </h:form>
-
-        <div align="center" class="w3-padding-24">
-
-            <br/>
-
-            <h:form id="edit-cart-form">
-                <p:dialog id="ecdlg" widgetVar="ecdlg" styleClass="q-dialog"
-                          header="Edit Cart Information">
-                    <h:panelGrid columns="3">
-                        <h:outputText value="VIN"/>
-                        <p:spacer height="1" width="50"/>
-                        <h:inputText value="#{quotationBean.cart.vin}"
-                                     validatorMessage="Invalid VIN" a:placeHolder="#{lex.vin}"
-                                     a:maxlength="17" style="text-transform: uppercase;"/>
-                        <h:outputText value="City"/>
-                        <p:spacer height="1" width="50"/>
-                        <h:selectOneMenu value="#{quotationBean.cart.cityId}">
-                            <f:selectItems
-                                    value="#{countryBean.getCountry(quotationBean.cart.customer.countryId).cities}"
-                                    var="city" itemLabel="#{city.name}" itemValue="#{city.id}"/>
-                        </h:selectOneMenu>
-                        <h:outputText value="Make"/>
-                        <p:spacer height="1" width="50"/>
-                        <h:selectOneMenu value="#{quotationBean.selectedMakeId}">
-                            <f:selectItems value="#{vehicleTreeBean.makes}" var="make"
-                                           itemLabel="#{make.name}" itemValue="#{make.id}"/>
-                            <f:ajax listener="#{quotationBean.chooseMake()}" execute="@this"
-                                    render="model-select"/>
-                        </h:selectOneMenu>
-
-                        <h:outputText value="Model"/>
-                        <p:spacer height="1" width="50"/>
-                        <h:selectOneMenu value="#{quotationBean.selectedModelId}"
-                                         id="model-select">
-                            <f:selectItems value="#{quotationBean.selectedMake.models}"
-                                           var="model" itemLabel="#{model.name}"
-                                           itemValue="#{model.id}"/>
-                            <f:ajax listener="#{quotationBean.chooseModel()}" execute="@this"
-                                    render="year-select"/>
-                        </h:selectOneMenu>
-                        <h:outputText value="Model Year"/>
-                        <p:spacer height="1" width="50"/>
-                        <h:selectOneMenu value="#{quotationBean.selectedModelYearId}"
-                                         id="year-select">
-                            <f:selectItems value="#{quotationBean.selectedModel.modelYears}"
-                                           var="year" itemLabel="#{year.year}" itemValue="#{year.id}"/>
-                            <f:ajax listener="#{quotationBean.chooseModelYear()}"
-                                    execute="@this"/>
-                        </h:selectOneMenu>
-                    </h:panelGrid>
-                    <p:commandButton value="Save Changes"
-                                     actionListener="#{quotationBean.editCart()}" styleClass="q-btn"/>
-                </p:dialog>
-            </h:form>
-
-        </div>
     </h:panelGroup>
 
 </ui:composition>
