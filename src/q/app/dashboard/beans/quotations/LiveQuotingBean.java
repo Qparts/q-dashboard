@@ -64,6 +64,7 @@ public class LiveQuotingBean implements Serializable {
     private VendorsBean vendorsBean;
     @Inject
     private CategoryBean categoryBean;
+
     @Inject
     @Push(channel = "quotingChannel")
     private PushContext channel;
@@ -127,10 +128,10 @@ public class LiveQuotingBean implements Serializable {
         }
     }
 
+/*
     public void findProduct() {
         Quotation quotation = this.getQuotationFromSelectedBillItem();
         String desc = this.selectedBillItem.getItemDesc();
-        // Integer catId = makesBean.getMakeFromId(quotation.getMakeId()).getDefaultCategory();
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("number", searchPartNumber);
         map.put("name", desc);
@@ -149,6 +150,7 @@ public class LiveQuotingBean implements Serializable {
             Helper.addErrorMessage("Error code " + r.getStatus());
         }
     }
+    */
 
     public void prepareProductPrice(ProductPrice pp) {
         if (pp.getVendorId() > 0) {
@@ -246,7 +248,27 @@ public class LiveQuotingBean implements Serializable {
         }
     }
 
+    public void removeResponse(BillItem billItem){
+        billItem.getBillItemResponses().clear();
+    }
+    public void addProductToResponse(ProductHolder holder){
+        BillItemResponse bir = new BillItemResponse();
+        BillItem bi = this.selectedBillItem;
+        bir.setQuotationId(bi.getQuotationId());
+        bir.setCreatedBy(this.loginBean.getLoggedUserId());
+        bir.setItemDesc(bi.getItemDesc());
+        bir.setProductId(holder.getProduct().getId());
+        bir.setQuantity(bi.getQuantity());
+        bir.setBillId(bi.getBillId());
+        bir.setBillItemId(bi.getId());
+        bir.setStatus('C');
+        bir.setProductHolder(holder);
+        this.selectedBillItem.getBillItemResponses().clear();
+        this.selectedBillItem.getBillItemResponses().add(bir);
+        Helper.addInfoMessage("Product Added");
+    }
 
+/*
     public void selectPrice(ProductPrice pp) {
         BillItemResponse bir = new BillItemResponse();
         BillItem bi = this.selectedBillItem;
@@ -265,7 +287,7 @@ public class LiveQuotingBean implements Serializable {
         Helper.addInfoMessage("Price selected");
         productHolder = new ProductHolder();
     }
-
+*/
 
     private boolean productAdded(Product p, Quotation quotation) {
         for (BillItem billItem : quotation.getAllBillItems()) {

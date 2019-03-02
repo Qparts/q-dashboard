@@ -124,13 +124,14 @@ public class AppConstants {
     public final static String POST_PRODUCT = PRODUCT_SERVICE + "product";
     public final static String PUT_PRODUCT_PRICE = PRODUCT_SERVICE + "product-price";
     public final static String GET_NEWEST_PRODUCTS = PRODUCT_SERVICE + "products/newest";
-    public final static String FIND_PRODUCT_CREATE_IF_NOT_AVAILABLE = PRODUCT_SERVICE +  "find-or-create-product";
+    public final static String SEARCH_PRODUCT_BY_NUMBER = PRODUCT_SERVICE +  "search-product-by-number";
     public final static String getProduct(long id){
         return PRODUCT_SERVICE + "product/" + id;
     }
     public final static String getSearchProduct(String query){
         return PRODUCT_SERVICE + "products/search/" + query;
     }
+
     public final static String getMakeCategories(long makeId){
         return PRODUCT_SERVICE + "categories/make/" + makeId;
     }

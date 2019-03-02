@@ -15,6 +15,19 @@ public class ProductHolder implements Serializable {
         return product;
     }
 
+    public Double getAverageSalesPrices(){
+        Double total = 0D;
+        if(productPrices != null && productPrices.size() > 0){
+            for(ProductPrice pp : productPrices){
+                total += ( pp.getPrice() + (pp.getPrice() * pp.getSalesPercentage()));
+            }
+            return total / productPrices.size();
+        }
+        else{
+            return null;
+        }
+    }
+
     public void setProduct(Product product) {
         this.product = product;
     }

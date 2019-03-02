@@ -18,7 +18,6 @@ import q.app.dashboard.model.quotation.Assignment;
 import q.app.dashboard.model.quotation.Quotation;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -202,7 +201,6 @@ public class LiveQuotationsBean implements Serializable {
             }
             if (!found) {
                 Response r = PojoRequester.getSecuredRequest(AppConstants.getQuotation(quotationId), securityHeader);
-                //Response r = reqs.getSecuredRequest(AppConstants.getQuotation(quotationId));
                 if (r.getStatus() == 200) {
                     Quotation quotation = r.readEntity(Quotation.class);
                     this.quotations.add(quotation);
@@ -214,6 +212,7 @@ public class LiveQuotationsBean implements Serializable {
         } catch (Exception ignored) {
         }
     }
+
 
     private void loadCustomer(Quotation quotation) throws Exception{
         Customer customer = getCustomerFromId(quotation.getCustomerId());
@@ -262,7 +261,6 @@ public class LiveQuotationsBean implements Serializable {
         webSocketClient = new WebSocketClient(URI.create(this.getQuotationsWSLink()), new Draft_6455()) {
             @Override
             public void onOpen(ServerHandshake serverHandshake) {
-
             }
 
             @Override
