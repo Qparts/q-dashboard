@@ -15,6 +15,17 @@
             value="#{loginBean.checkAccessRedirectHome(act.pageProductDetails)}"/>
     <ui:include src="/_includes/top.xhtml"/>
     <ui:include src="/_includes/side.xhtml"/>
+    <h:outputScript>
+
+        //<![CDATA[
+        function handleErrorImage(mvar){
+            if (mvar.src != 'https://s3.eu-central-1.amazonaws.com/q-product/na.png') {
+                mvar.src = 'https://s3.eu-central-1.amazonaws.com/q-product/na.png';
+            }
+        }
+        //]]>
+
+    </h:outputScript>
     <div>
         <div class="w3-main">
             <div class="w3-container">
@@ -32,7 +43,8 @@
                         <div class="w3-container w3-col s12 m6">
                             <div class="w3-padding-24" id="product-name-div">
                                 <div class="w3-col s12">
-                                    <h:graphicImage value="#{productDetailsBean.productHolder.product.image}" style="max-width: 200px"/>
+                                    <img src="#{productDetailsBean.productHolder.product.imageUncached}"  alt="" style="max-width: 200px" onerror="handleErrorImage(this)"  />
+                                    <p:commandButton value="+" onclick="PF('dlgwv').show()" styleClass="q-btn"/>
                                 </div>
                                 <div class="w3-col s12">
                                     <div class="w3-col s9">
@@ -48,7 +60,9 @@
                                         </ui:repeat>
                                     </div>
                                     <div class="w3-col s12">
-                                        <h:graphicImage value="#{productDetailsBean.productHolder.product.brand.brandImage}" style="max-height:100px"/>
+                                        <h:graphicImage value="#{productDetailsBean.productHolder.product.brand.brandImage}" style="max-height:100px"
+                                                        onerror="if (this.src != 'https://s3.eu-central-1.amazonaws.com/q-product/na.png' &amp;&amp; this.attribute('src') != 'https://s3.eu-central-1.amazonaws.com/q-product/na.png') this.src = 'https://s3.eu-central-1.amazonaws.com/q-product/na.png';"  />
+
                                     </div>
                                     <div class="w3-col s12">
                                         <h:outputText value="#{productDetailsBean.productHolder.product.details}" escape="false" />
@@ -130,6 +144,18 @@
                             </div>
                         </div>
                     </div>
+                </h:form>
+
+                <h:form id="form1" enctype="multipart/form-data">
+                    <p:dialog id="dlg" widgetVar="dlgwv" styleClass="q-dialog" header="Upload or Replace Image">
+                        <div class="w3-col s9">
+                            <h:inputFile value="#{productDetailsBean.imagePart}" required="true"
+                                     requiredMessage="Select Image" style="width:100%"/>
+                        </div>
+                        <p:commandButton value="Upload" styleClass="q-btn" ajax="false"
+                                         actionListener="#{productDetailsBean.uploadImage()}"
+                                         update=":form" />
+                    </p:dialog>
                 </h:form>
             </div>
         </div>

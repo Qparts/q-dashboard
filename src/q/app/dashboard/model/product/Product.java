@@ -23,6 +23,11 @@ public class Product implements Serializable {
         return AppConstants.getProductImage(id);
     }
 
+    @JsonIgnore
+    public String getImageUncached(){
+        return AppConstants.getProductImage(id) + "?" + new Date().getTime();
+    }
+
     public char getStatus() {
         return status;
     }

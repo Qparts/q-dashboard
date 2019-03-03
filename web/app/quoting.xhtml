@@ -264,7 +264,7 @@
                                                         <f:facet name="header">
                                                             <h:outputText value="Product"/>
                                                         </f:facet>
-                                                        <h:outputLink target="_blank" value="product-details?id=#{billItem.billItemResponses.get(0).id}" rendered="#{(not (billItem.billItemResponses eq null)) and billItem.billItemResponses.size() gt 0}">#{billItem.billItemResponses.get(0).productHolder.product.productNumber}</h:outputLink>
+                                                        <h:outputLink target="_blank" value="product-details?id=#{billItem.billItemResponses.get(0).productHolder.product.id}" rendered="#{(not (billItem.billItemResponses eq null)) and billItem.billItemResponses.size() gt 0}"> #{billItem.billItemResponses.get(0).productHolder.product.productNumber}</h:outputLink>
                                                     </h:column>
                                                     <h:column>
                                                         <f:facet name="header">
