@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Catalog</title>
+	<ui:include src="/_includes/header.xhtml" />
+</h:head>
+<h:body>
+<h:outputText value="#{loginBean.checkAccessRedirectHome(act.pageCatalog)}" />
+	<ui:include src="/_includes/top.xhtml" />
+	<ui:include src="/_includes/side.xhtml" />
+			<div class="w3-container">
+				<div align="center" class="w3-padding-8">
+					<h:outputText value="Catalog" styleClass="q-large-text" />
+				</div>
+				<h:form id="form-g">
+					<p:growl id="error-growl"
+						rendered="#{facesContext.maximumSeverity.ordinal eq 2}" />
+					<p:growl id="success-growl"
+						rendered="#{facesContext.maximumSeverity.ordinal eq 0}" />
+				</h:form>
+				<h:form id="form">
+					<div class="w3-row">
+						<div class="w3-col s6 m2">
+							<h:outputText value="Vin Number" rendered="#{catalogBean.mainGroup eq null}" />
+						</div>
+						<div class="w3-col s6 m10">
+							<h:inputText value="#{catalogBean.vin}" required="true"  requiredMessage="Enter Vin" rendered="#{catalogBean.mainGroup eq null}" />
+						</div>
+						<div class="w3-col s6 m2">
+							<h:outputText value="Make" rendered="#{catalogBean.mainGroup eq null}"/>
+						</div>
+						<div class="w3-col s6 m10">
+							<h:selectOneMenu value="#{catalogBean.makeId}" required="true" requiredMessage="Select Make" rendered="#{catalogBean.mainGroup eq null}">
+								<f:selectItem noSelectionOption="true" itemValue="--Select Make--"/>
+								<f:selectItems value="#{makesBean.makes}" var="make" itemLabel="#{make.name}" itemValue="#{make.id}"/>
+							</h:selectOneMenu>
+						</div>
+						<div class="w3-col s12" align="center">
+							<h:outputText value="#{catalogBean.vin}" rendered="#{not (catalogBean.mainGroup eq null)}" styleClass="q-med-text" />
+						</div>
+						<div class="w3-col s12">
+							<p:commandButton value="Search" actionListener="#{catalogBean.searchVin}" styleClass="q-btn" update="@form :form-1 :form-g" rendered="#{catalogBean.mainGroup eq null}" />
+						</div>
+					</div>
+				</h:form>
+
+				<h:form id="form-1">
+					<h:dataTable value="#{catalogBean.catalogCars}" var="car" rendered="#{catalogBean.catalogCars.size() gt 0}"
+								 styleClass="w3-table w3-striped w3-bordered">
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Title"/>
+							</f:facet>
+							<h:outputText value="#{car.brand} #{car.title}"/>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Parameters"/>
+							</f:facet>
+							<ui:repeat value="#{car.parameters}" var="par">
+								<h:outputText value="#{par.name} : "/>
+								<h:outputText value="#{par.value}"/>
+								<br/>
+							</ui:repeat>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Groups"/>
+							</f:facet>
+							<p:commandButton value="Select" actionListener="#{catalogBean.selectCar(car)}" styleClass="q-btn" update="@form :form :form-2 :form-g" disabled="#{not (catalogBean.mainGroup eq null)}"/>
+						</h:column>
+					</h:dataTable>
+				</h:form>
+				<br />
+
+	<div class="w3-row">
+		<div class="w3-col s12 m4">
+				<h:form id="form-2">
+					<div class="w3-col s12">
+						<p:commandButton styleClass="q-btn" value="Back" actionListener="#{catalogBean.setSelectedGroup(catalogBean.mainGroup)}" update="@form :form-3 :form-4" rendered="#{not(catalogBean.mainGroup eq null)}"  />
+					</div>
+					<div class="w3-col s12">
+						<ui:repeat value="#{catalogBean.selectedGroup.catalogGroups}" var="group" rendered="#{not(catalogBean.selectedGroup.catalogGroups eq null) and (catalogBean.selectedGroup.hasSubgroups)}">
+							<div class="w3-container w3-border">
+							<h:graphicImage value="#{group.img}"/>
+							<p:commandLink value="#{group.name}" actionListener="#{catalogBean.loadGroup(group)}" update="@form :form-3" rendered="#{group.hasSubgroups}"/>
+							<p:commandLink value="#{group.name}" actionListener="#{catalogBean.loadParts(group)}" update="@form :form-3" rendered="#{group.hasParts}" />
+							<br/>
+								<div class="w3-container">
+								<ui:repeat value="#{group.catalogGroups}" rendered="#{not (group.catalogGroups eq null) and (group.hasSubgroups)}" var="subgroup">
+									<p:commandLink value="#{subgroup.name}" actionListener="#{catalogBean.loadGroup(subgroup)}" update="@form :form-3" rendered="#{subgroup.hasSubgroups}"/>
+									<p:commandLink value="#{subgroup.name}" actionListener="#{catalogBean.loadParts(subgroup)}" update="@form :form-3" rendered="#{subgroup.hasParts}" />
+									<br/>
+								</ui:repeat>
+								</div>
+							<br/>
+							</div>
+							<br/>
+						</ui:repeat>
+					</div>
+				</h:form>
+		</div>
+		<div class="w3-col s12">
+			<h:form id="form-3">
+				<h:panelGroup rendered="#{not (catalogBean.selectedGroup.catalogPart eq null)}">
+					<div class="w3-col s12">
+						<h:graphicImage value="#{catalogBean.selectedGroup.catalogPart.img}" usemap="#partsmap" />
+						<map name="partsmap">
+							<ui:repeat value="#{catalogBean.selectedGroup.catalogPart.positions}" var="pos">
+								<area shape="rect" coords="#{pos.coordinatesString}" alt="#{pos.number}" style="color: red;" onclick="selectParts([{name: 'param' , value : '#{pos.number}'}]);	" />
+								<p:remoteCommand name="selectParts"  actionListener="#{catalogBean.selectPosition}" oncomplete="PF('dlg1wv').show()" update=":form-4"/>
+							</ui:repeat>
+						</map>
+					</div>
+					<div class="w3-col s12">
+						<h:dataTable value="#{catalogBean.selectedGroup.catalogPart.partGroups.get(0).parts}" var="part" styleClass="w3-table w3-striped w3-border" headerClass="w3-border-bottom w3-light-grey">
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Position"/>
+								</f:facet>
+								<h:outputText value="#{part.positionNumber}"/>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Number"/>
+								</f:facet>
+								<h:outputText value="#{part.number}"/>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Name"/>
+								</f:facet>
+								<h:outputText value="#{part.name}"/>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Desc."/>
+								</f:facet>
+								<h:panelGroup layout="block" style="max-width: 500px">
+									<h:outputText value="#{part.description}"/>
+								</h:panelGroup>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Product ID"/>
+								</f:facet>
+								<h:outputLink target="_blank" value="product-details?id=#{part.productHolder.product.id}" rendered="#{not (part.productHolder eq null)}">#{part.productHolder.product.id}</h:outputLink>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Sales Price"/>
+								</f:facet>
+								<h:outputText value="#{part.productHolder.averageSalesPrices}" rendered="#{not (part.productHolder eq  null)}">
+									<f:convertNumber type="currency" currencySymbol="SR "/>
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Copy"/>
+								</f:facet>
+								<p:button styleClass="q-btn" onclick="copyText('#{part.number}'); return false;" value="Copy"/>
+							</h:column>
+						</h:dataTable>
+					</div>
+				</h:panelGroup>
+			</h:form>
+
+			<h:outputScript>
+				function copyText(number){
+					var textArea = document.createElement("textarea");
+					textArea.value = number;
+					document.body.appendChild(textArea);
+					textArea.select();
+					document.execCommand("copy");
+					textArea.remove();
+				}
+			</h:outputScript>
+
+			<h:form id="form-4">
+				<p:dialog id="dlg1" widgetVar="dlg1wv" header="Position Detail" styleClass="q-dialog">
+					<h:dataTable value="#{catalogBean.selectedPartsList}" var="part" styleClass="w3-table w3-striped w3-border" headerClass="w3-light-grey w3-border-bottom">
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Position"/>
+							</f:facet>
+							<h:outputText value="#{part.positionNumber}"/>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Number"/>
+							</f:facet>
+							<h:outputText value="#{part.number}"/>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Name"/>
+							</f:facet>
+							<h:outputText value="#{part.name}"/>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Desc."/>
+							</f:facet>
+							<h:panelGroup layout="block" style="max-width: 500px">
+								<h:outputText value="#{part.description}"/>
+							</h:panelGroup>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Product ID"/>
+							</f:facet>
+							<h:outputLink target="_blank" value="product-details?id=#{part.productHolder.product.id}" rendered="#{not (part.productHolder eq null)}">#{part.productHolder.product.id}</h:outputLink>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Sales Price"/>
+							</f:facet>
+							<h:outputText value="#{part.productHolder.averageSalesPrices}" rendered="#{not (part.productHolder eq null)}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Copy"/>
+							</f:facet>
+							<p:button styleClass="q-btn" onclick="copyText('#{part.number}');return false;" value="Copy"/>
+						</h:column>
+					</h:dataTable>
+				</p:dialog>
+			</h:form>
+		</div>
+	</div>
+
+
+
+			</div>
+</h:body>
+</html>

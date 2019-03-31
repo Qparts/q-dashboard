@@ -11,6 +11,8 @@ public class AppConstants {
     private final static String VENDOR_SERVICE = SysProps.getValue("vendorService");
     private final static String CUSTOMER_SERVICE = SysProps.getValue("customerService");
     private final static String PRODUCT_SERVICE = SysProps.getValue("productService");
+    //private final static String CATALOG_SERVICE = PRODUCT_SERVICE + "catalog/";
+    private final static String CATALOG_SERVICE = "http://qtest.fareed9.com:8081/service-q-product/rest/internal/api/v2/catalog/";
     private final static String CART_SERVICE = SysProps.getValue("cartService");
     private final static String LOCATION_SERVICE = SysProps.getValue("locationService");
 
@@ -135,6 +137,28 @@ public class AppConstants {
     public final static String getMakeCategories(long makeId){
         return PRODUCT_SERVICE + "categories/make/" + makeId;
     }
+
+
+    //CATALOG SERVICE CALLS//
+    public final static String getSearchCatalogCarsByVin(int makeId, String vin){
+        return CATALOG_SERVICE + "cars/make/"+makeId+"/vin/" + vin;
+    }
+
+    public final static String getCatalogGroups(int makeId, String carId, String groupId){
+        String link = CATALOG_SERVICE + "groups/make/"+makeId+"/car/" + carId;
+        if(groupId != null){
+            link += "?groupid=" + groupId;
+        }
+        return link;
+    }
+
+    public final static String getCatalogParts(int makeId, String carId, String groupId){
+        return CATALOG_SERVICE + "parts/make/"+makeId+"/car/" + carId +"/group/" + groupId;
+    }
+
+
+
+
     //VENDOR SERVICE CALLS//
     public final static String POST_VENDOR = VENDOR_SERVICE + "vendor";
     public final static String GET_ALL_VENDORS = VENDOR_SERVICE + "vendors";
