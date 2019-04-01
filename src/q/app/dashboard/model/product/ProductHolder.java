@@ -1,5 +1,7 @@
 package q.app.dashboard.model.product;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -15,6 +17,7 @@ public class ProductHolder implements Serializable {
         return product;
     }
 
+    @JsonIgnore
     public Double getAverageSalesPrices(){
         Double total = 0D;
         if(productPrices != null && productPrices.size() > 0){

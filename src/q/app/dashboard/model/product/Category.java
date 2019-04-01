@@ -140,7 +140,6 @@ public class Category implements Serializable {
 
     @JsonIgnore
     public void populateSpecs(List<Spec> allSpecs){
-        System.out.println("specsIds size" + specsIds.size());
         for(Long specId : specsIds){
             for(Spec spec :allSpecs){
                 System.out.println(spec.getId() + " " + specId.longValue() + " " + (spec.getId() == specId.longValue()));

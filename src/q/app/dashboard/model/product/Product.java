@@ -12,7 +12,9 @@ public class Product implements Serializable {
     private long id;
     private String productNumber;
     private String desc;
+    private String descAr;
     private String details;
+    private String detailsAr;
     private Brand brand;
     private Date created;
     private int createdBy;
@@ -26,6 +28,23 @@ public class Product implements Serializable {
     @JsonIgnore
     public String getImageUncached(){
         return AppConstants.getProductImage(id) + "?" + new Date().getTime();
+    }
+
+
+    public String getDescAr() {
+        return descAr;
+    }
+
+    public void setDescAr(String descAr) {
+        this.descAr = descAr;
+    }
+
+    public String getDetailsAr() {
+        return detailsAr;
+    }
+
+    public void setDetailsAr(String detailsAr) {
+        this.detailsAr = detailsAr;
     }
 
     public char getStatus() {

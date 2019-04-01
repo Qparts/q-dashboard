@@ -39,6 +39,15 @@
                                                  style="width: 100%"/>
                                 </div>
                             </div>
+                            <div class="w3-padding-24" id="product-name-div_ar">
+                                <div class="w3-col s3">
+                                    <h:outputText value="Name Arabic"/>
+                                </div>
+                                <div class="w3-col s9">
+                                    <h:inputText value="#{newProductBean.product.descAr}" required="true" requiredMessage="Enter product name"
+                                                 style="width: 100%"/>
+                                </div>
+                            </div>
                             <div class="w3-padding-24" id="brand-div" >
                                 <div class="w3-col s3">
                                     <h:outputText value="Brand"/>
@@ -81,8 +90,20 @@
                                 </div>
                             </div>
                             <div class="w3-padding-24" id="product-details-div">
-                                <div class="w3-col s12">
-                                    <p:editor height="200" value="#{newProductBean.product.details}"
+                                <div class="w3-col s3">
+                                    <h:outputText value="Details"/>
+                                </div>
+                                <div class="w3-col s9">
+                                    <h:inputTextarea height="200" value="#{newProductBean.product.details}"
+                                              style="width: 100%; padding-bottom: 24px!important;"/>
+                                </div>
+                            </div>
+                            <div class="w3-padding-24" id="product-details-div_ar">
+                                <div class="w3-col s3">
+                                    <h:outputText value="Details Arabic"/>
+                                </div>
+                                <div class="w3-col s9">
+                                    <h:inputTextarea height="200" value="#{newProductBean.product.detailsAr}"
                                               style="width: 100%; padding-bottom: 24px!important;"/>
                                 </div>
                             </div>
