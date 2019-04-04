@@ -12,7 +12,7 @@ public class AppConstants {
     private final static String CUSTOMER_SERVICE = SysProps.getValue("customerService");
     private final static String PRODUCT_SERVICE = SysProps.getValue("productService");
     //private final static String CATALOG_SERVICE = PRODUCT_SERVICE + "catalog/";
-    private final static String CATALOG_SERVICE = "http://qtest.fareed9.com:8081/service-q-product/rest/internal/api/v2/catalog/";
+    private final static String CATALOG_SERVICE = PRODUCT_SERVICE + "catalog/";
     private final static String CART_SERVICE = SysProps.getValue("cartService");
     private final static String LOCATION_SERVICE = SysProps.getValue("locationService");
 
