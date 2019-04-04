@@ -14,6 +14,15 @@ public class CustomerVehicle implements Serializable {
     private Integer createdBy;
     private char status;
     private boolean defaultVehicle;
+    private boolean imageAttached;
+
+    public boolean isImageAttached() {
+        return imageAttached;
+    }
+
+    public void setImageAttached(boolean imageAttached) {
+        this.imageAttached = imageAttached;
+    }
 
     public boolean isDefaultVehicle() {
         return defaultVehicle;
