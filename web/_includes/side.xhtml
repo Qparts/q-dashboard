@@ -31,6 +31,16 @@
     				</div>
 				</div>
 				<div class="w3-dropdown-hover">
+					<h:button class="w3-button w3-camo-black" value="Carts" rendered="#{loginBean.hasAccessL([act.pageWalletAwaiting])}" onclick="return false;" />
+					<div class="w3-dropdown-content w3-bar-block w3-border">
+						<h:outputLink value="/app/carts-awaiting" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageWalletAwaiting)}">Awaiting</h:outputLink>
+						<h:outputLink value="/app/carts-initiated" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageWalletAwaiting)}">Inititated</h:outputLink>
+						<h:outputLink style="color:indianred;display:none" value="/app/followups" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageFollowUpQuotations)}">Follow Up</h:outputLink>
+						<h:outputLink style="color:indianred;display:none" value="/app/postponed-sales" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pagePosponedSalesReport)}">Postponed</h:outputLink>
+						<h:outputLink style="color:indianred;display:none" value="/app/no-vin-carts" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageNoVin)}">No Vins</h:outputLink>
+					</div>
+				</div>
+				<div class="w3-dropdown-hover">
 					<h:button style="color:greenyellow" class="w3-button w3-camo-black" value="Products" rendered="#{loginBean.hasAccessL([act.pageNewProduct, act.pageSpecs, act.pageBrands, act.pageCategories])}" onclick="return false;" />
 					<div class="w3-dropdown-content w3-bar-block w3-border">
 						<h:outputLink value="/app/specs" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageSpecs)}">Specs</h:outputLink>

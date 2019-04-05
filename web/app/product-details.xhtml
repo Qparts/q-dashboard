@@ -94,6 +94,7 @@
                                     </div>
                                 </div>
                                 <div class="w3-col s12 w3-padding-24">
+                                    <p:commandButton value="+" onclick="PF('dlg2wv').show()" styleClass="q-btn"/>
                                     <h:dataTable value="#{productDetailsBean.productHolder.productPrices}" var="pp"
                                                  styleClass="w3-table w3-striped w3-border"
                                                  headerClass="w3-border-bottom w3-light-grey"
@@ -102,7 +103,7 @@
                                             <f:facet name="header">
                                                 <h:outputText value="Vendor"/>
                                             </f:facet>
-                                            <h:outputText value="#{pp.vendorId}"/>
+                                            <h:outputText value="#{vendorsBean.getVendorFromId(pp.vendorId).name}"/>
                                         </h:column>
                                         <h:column>
                                             <f:facet name="header">
@@ -155,6 +156,31 @@
                         <p:commandButton value="Upload" styleClass="q-btn" ajax="false"
                                          actionListener="#{productDetailsBean.uploadImage()}"
                                          update=":form" />
+                    </p:dialog>
+                </h:form>
+                <h:form id="form2">
+                    <p:dialog id="dlg2" widgetVar="dlg2wv" styleClass="q-dialog" header="Sales Price">
+                        <h:panelGrid columns="2" styleClass="w3-table w3-striped w3-border">
+                            <h:outputText value="Vendor"/>
+                            <p:autoComplete placeholder="Type Vendor name" id="vendorCustom"
+                                            maxResults="10"
+                                            styleClass="q-auto-complete" required="true"
+                                            value="#{productDetailsBean.productPrice.vendorId}" dropdown="true"
+                                            completeMethod="#{vendorsBean.completeVendorIds}" var="b"
+                                            itemLabel="#{vendorsBean.getVendorFromId(b).name}"
+                                            itemValue="#{vendorsBean.getVendorFromId(b).id}"
+                                            forceSelection="true" style="width: 100%!important;">
+                                <p:ajax/>
+                            </p:autoComplete>
+                            <h:outputText value="Cost W/V"/>
+                            <h:inputText value="#{productDetailsBean.productPrice.price}" required="true"/>
+                            <h:outputText value="Sales Percentage"/>
+                            <h:inputText value="#{productDetailsBean.productPrice.salesPercentage}">
+                                <f:convertNumber type="percent"/>
+                            </h:inputText>
+                            <p:commandButton value="Add" actionListener="#{productDetailsBean.addNewPrice}"
+                                             styleClass="q-btn" update=":form-g"/>
+                        </h:panelGrid>
                     </p:dialog>
                 </h:form>
             </div>

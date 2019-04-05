@@ -82,11 +82,11 @@
 										readonly="true" />
 									<h:outputText value="Country" />
 									<h:inputText
-										value="#{awaitingCartBean.cart.customer.countryId}"
+										value="#{countryBean.getCountryFromId(awaitingCartBean.cart.customer.countryId).name}"
 										readonly="true" />
 									<h:outputText value="City" />
 									<h:inputText
-										value="#{awaitingCartBean.cart.address.cityId}"
+										value="#{cityBean.getCityFromId(awaitingCartBean.cart.address.cityId).region.name} - #{cityBean.getCityFromId(awaitingCartBean.cart.address.cityId).name}"
 										readonly="true" />
 								</h:panelGrid>
 							</div>
@@ -219,15 +219,15 @@
 					</h:column>
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="Desc." />
+							<h:outputText value="Name" />
 						</f:facet>
-						<h:outputText value="#{item.product.productNameCheck}" />
+						<h:outputText value="#{cp.productHolder.product.desc}" />
 					</h:column>
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="Item Number" />
+							<h:outputText value="Product Number" />
 						</f:facet>
-						<h:outputText value="#{item.itemNumber}" />
+						<h:outputText value="#{cp.productHolder.product.productNumber}" />
 					</h:column>
 					<h:column>
 						<f:facet name="header">
@@ -239,6 +239,8 @@
 							styleClass="w3-tag w3-red" />
 						<h:outputText rendered="#{cp.status eq 'P'}" value="Purchased"
 							styleClass="w3-tag w3-green" />
+						<h:outputText rendered="#{cp.status eq 'N'}" value="New"
+									  styleClass="w3-tag w3-yellow" />
 					</h:column>
 					<h:column>
 						<f:facet name="header">

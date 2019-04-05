@@ -10,6 +10,7 @@ import q.app.dashboard.model.cart.Cart;
 import q.app.dashboard.model.cart.CartComment;
 import q.app.dashboard.model.cart.CartProduct;
 import q.app.dashboard.model.customer.Customer;
+import q.app.dashboard.model.product.ProductHolder;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -45,6 +46,7 @@ public class AwaitingCartBean implements Serializable {
                 throw new Exception();
             initCart(param);
             initCustomer();
+            initProducts();
         }catch(Exception ex){
             ex.printStackTrace();
         }
@@ -58,6 +60,16 @@ public class AwaitingCartBean implements Serializable {
         }
         else{
             throw new Exception();
+        }
+    }
+
+    private void initProducts(){
+        for(CartProduct cp : cart.getCartProducts()){
+            Response response = reqs.getSecuredRequest(AppConstants.getProduct(cp.getId()));
+            if(response.getStatus() == 200){
+                ProductHolder holder = response.readEntity(ProductHolder.class);
+                cp.setProductHolder(holder);
+            }
         }
     }
 
