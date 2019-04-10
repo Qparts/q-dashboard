@@ -7,15 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b051513-06e8-4d02-8a21-6dcfa3f3a358" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/q_app_dashboard.war/q-app-dashboard.war" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/q_app_dashboard.war/q-app-dashboard.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/q-app-dashboard/q/app/dashboard/helper/AppConstants.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/q-app-dashboard/q/app/dashboard/helper/AppConstants.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/beans/cart/AwaitingCartBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/beans/cart/AwaitingCartBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/beans/product/ProductDetailsBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/beans/product/ProductDetailsBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/model/cart/CartProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/model/cart/CartProduct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/_includes/side.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/_includes/side.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/app/cart-awaiting.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/cart-awaiting.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/app/product-details.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/product-details.xhtml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -38,16 +30,16 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/app/cart-awaiting.xhtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3795">
-              <caret line="253" column="44" selection-start-line="253" selection-start-column="44" selection-end-line="253" selection-end-column="44" />
+            <state relative-caret-position="203">
+              <caret line="223" column="54" selection-start-line="223" selection-start-column="54" selection-end-line="223" selection-end-column="54" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/app/product-details.xhtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2835">
+            <state relative-caret-position="1816">
               <caret line="189" column="7" lean-forward="true" selection-start-line="189" selection-start-column="7" selection-end-line="189" selection-end-column="7" />
             </state>
           </provider>
@@ -91,25 +83,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/cart/AwaitingCartBean.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="795">
-              <caret line="70" column="43" selection-start-line="70" selection-start-column="43" selection-end-line="70" selection-end-column="43" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/model/cart/CartProduct.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="31" column="45" selection-start-line="31" selection-start-column="45" selection-end-line="31" selection-end-column="45" />
-              <folding>
-                <element signature="e#863#864#0" expanded="true" />
-                <element signature="e#928#929#0" expanded="true" />
-                <element signature="e#978#979#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="184">
+              <caret line="67" column="96" selection-start-line="67" selection-start-column="96" selection-end-line="67" selection-end-column="96" />
             </state>
           </provider>
         </entry>
@@ -233,10 +211,10 @@
         <option value="$PROJECT_DIR$/src/q/app/dashboard/helper/AppConstants.java" />
         <option value="$PROJECT_DIR$/web/_includes/side.xhtml" />
         <option value="$PROJECT_DIR$/src/q/app/dashboard/model/cart/CartProduct.java" />
-        <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/cart/AwaitingCartBean.java" />
         <option value="$PROJECT_DIR$/web/app/cart-awaiting.xhtml" />
         <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/product/ProductDetailsBean.java" />
         <option value="$PROJECT_DIR$/web/app/product-details.xhtml" />
+        <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/cart/AwaitingCartBean.java" />
       </list>
     </option>
   </component>
@@ -420,12 +398,12 @@
       <workItem from="1551442141002" duration="17310000" />
       <workItem from="1552307472438" duration="28354000" />
       <workItem from="1553799171129" duration="10193000" />
-      <workItem from="1554466524604" duration="1681000" />
+      <workItem from="1554466524604" duration="2637000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="376640000" />
+    <option name="totallyTimeSpent" value="377596000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -440,7 +418,7 @@
     <frame x="0" y="24" width="1432" height="797" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22517985" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22517985" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -450,7 +428,7 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32765958" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.27659574" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.27659574" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -896,25 +874,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/cart/AwaitingCartBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="795">
-          <caret line="70" column="43" selection-start-line="70" selection-start-column="43" selection-end-line="70" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/model/cart/CartProduct.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="31" column="45" selection-start-line="31" selection-start-column="45" selection-end-line="31" selection-end-column="45" />
-          <folding>
-            <element signature="e#863#864#0" expanded="true" />
-            <element signature="e#928#929#0" expanded="true" />
-            <element signature="e#978#979#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/cart/AwaitingCartsBean.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="675">
@@ -923,13 +882,6 @@
             <element signature="e#1661#1662#0" expanded="true" />
             <element signature="e#1689#1690#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/app/cart-awaiting.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3795">
-          <caret line="253" column="44" selection-start-line="253" selection-start-column="44" selection-end-line="253" selection-end-column="44" />
         </state>
       </provider>
     </entry>
@@ -999,8 +951,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/app/product-details.xhtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2835">
+        <state relative-caret-position="1816">
           <caret line="189" column="7" lean-forward="true" selection-start-line="189" selection-start-column="7" selection-end-line="189" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/app/cart-awaiting.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="223" column="54" selection-start-line="223" selection-start-column="54" selection-end-line="223" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/model/cart/CartProduct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="31" column="25" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
+          <folding>
+            <element signature="e#827#828#0" expanded="true" />
+            <element signature="e#863#864#0" expanded="true" />
+            <element signature="e#928#929#0" expanded="true" />
+            <element signature="e#978#979#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/cart/AwaitingCartBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="67" column="96" selection-start-line="67" selection-start-column="96" selection-end-line="67" selection-end-column="96" />
         </state>
       </provider>
     </entry>

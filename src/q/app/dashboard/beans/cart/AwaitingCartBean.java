@@ -65,7 +65,7 @@ public class AwaitingCartBean implements Serializable {
 
     private void initProducts(){
         for(CartProduct cp : cart.getCartProducts()){
-            Response response = reqs.getSecuredRequest(AppConstants.getProduct(cp.getId()));
+            Response response = reqs.getSecuredRequest(AppConstants.getProduct(cp.getProductId()));
             if(response.getStatus() == 200){
                 ProductHolder holder = response.readEntity(ProductHolder.class);
                 cp.setProductHolder(holder);
