@@ -35,15 +35,8 @@ public class ProductSearchBean implements Serializable {
         foundProducts = new ArrayList<>();
         foundProductHolders = new ArrayList<>();
         query = "";
-        initLatelyAdded();
     }
 
-    private void initLatelyAdded() {
-        Response r = reqs.getSecuredRequest(AppConstants.GET_NEWEST_PRODUCTS);
-        if(r.getStatus() == 200){
-            this.foundProducts = r.readEntity(new GenericType<List<Product>>(){});
-        }
-    }
 
     public void searchByNumber(){
         Map<String,Object> map = new HashMap();

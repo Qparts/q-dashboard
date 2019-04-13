@@ -11,7 +11,8 @@ public class AppConstants {
     private final static String VENDOR_SERVICE = SysProps.getValue("vendorService");
     private final static String CUSTOMER_SERVICE = SysProps.getValue("customerService");
     private final static String PRODUCT_SERVICE = SysProps.getValue("productService");
-    //private final static String CATALOG_SERVICE = PRODUCT_SERVICE + "catalog/";
+    private final static String INVOICE_SERVICE = SysProps.getValue("invoiceService");
+
     private final static String CATALOG_SERVICE = PRODUCT_SERVICE + "catalog/";
     private final static String CART_SERVICE = SysProps.getValue("cartService");
     private final static String LOCATION_SERVICE = SysProps.getValue("locationService");
@@ -190,6 +191,14 @@ public class AppConstants {
         return QUOTATION_SERVICE + "assigned-quotations/user/"+userId+"/quotation/" + quotationId;
     }
 
+    //INVOICE SERVICE CALLS//
+    public final static String POST_PURCHASE_ORDER = INVOICE_SERVICE + "purchase";
+    public final static String getPurchase(long purchaseId){
+        return INVOICE_SERVICE + "purchase/" + purchaseId;
+    }
+    public final static String getProductPurchaseS(long productId){
+        return INVOICE_SERVICE + "purchases/product/" + productId;
+    }
 
 
 

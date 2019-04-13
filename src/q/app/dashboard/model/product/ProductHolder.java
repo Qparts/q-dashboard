@@ -12,10 +12,16 @@ public class ProductHolder implements Serializable {
     private List<String> tags;
     private List<ProductSpec> productSpecs;
     private List<ProductPrice> productPrices;
+    private List<Stock> liveStock;
 
-    public Product getProduct() {
-        return product;
+    public List<Stock> getLiveStock() {
+        return liveStock;
     }
+
+    public void setLiveStock(List<Stock> liveStock) {
+        this.liveStock = liveStock;
+    }
+
 
     @JsonIgnore
     public Double getAverageSalesPrices(){
@@ -29,6 +35,38 @@ public class ProductHolder implements Serializable {
         else{
             return null;
         }
+    }
+
+
+    @JsonIgnore
+    public Double getAverageCost(){
+        Double sum = 0D;
+        Integer quantity = 0;
+        Double average = 0D;
+        if(liveStock != null && liveStock.size() > 0){
+            for(Stock stock : liveStock){
+                quantity += stock.getQuantity();
+                sum += (stock.getQuantity() * stock.getCostActual());
+            }
+            average = sum / quantity;
+        }
+        return average;
+    }
+
+    @JsonIgnore
+    public Integer getStockQuantity(){
+        Integer quantity = 0;
+        if(liveStock != null && liveStock.size() > 0 ){
+            for(Stock stock : liveStock){
+                quantity += stock.getQuantity();
+            }
+        }
+        return quantity;
+    }
+
+
+    public Product getProduct() {
+        return product;
     }
 
     public void setProduct(Product product) {

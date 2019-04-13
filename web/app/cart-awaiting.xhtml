@@ -260,7 +260,7 @@
 						<f:facet name="header">
 							<h:outputText value="Stock Quantity" />
 						</f:facet>
-						<h:outputText value="#{item.product.stockQuantity}" />
+						<h:outputText value="#{cp.productHolder.stockQuantity}" />
 					</h:column>
 					<h:column>
 						<f:facet name="header">
@@ -283,28 +283,28 @@
 					<f:facet name="footer">
 						<div align="center" class="q-bold">
 							<h:outputText value="Total Products: " />
-							<h:outputText value="#{awaitingWalletBean.totalProductsSales}">
+							<h:outputText value="#{awaitingCartBean.cart.productsTotal}">
 								<f:convertNumber currencySymbol="SR " type="currency" />
 							</h:outputText>
 							<br />
 							<h:outputText value="Delivery: " />
-							<h:outputText value="#{awaitingWalletBean.delivery}">
+							<h:outputText value="#{awaitingCartBean.cart.deliveryFees}">
 								<f:convertNumber currencySymbol="SR " type="currency" />
 							</h:outputText>
 							<br />
 							<h:outputText value="VAT: " />
-							<h:outputText value="#{awaitingWalletBean.totalVat}">
+							<h:outputText value="#{awaitingCartBean.cart.vat}">
 								<f:convertNumber currencySymbol="SR " type="currency" />
 							</h:outputText>
 							<br />
 							<h:outputText value="Discounts: " style="color:red" />
-							<h:outputText value="#{awaitingWalletBean.totalDiscounts}"
+							<h:outputText value="#{awaitingCartBean.cart.discountTotal}"
 								style="color:red">
 								<f:convertNumber currencySymbol="SR " type="currency" />
 							</h:outputText>
 							<br />
 							<h:outputText value="Net Total: " />
-							<h:outputText value="#{awaitingWalletBean.totalNet}">
+							<h:outputText value="#{awaitingCartBean.cart.grandTotal}">
 								<f:convertNumber currencySymbol="SR " type="currency" />
 							</h:outputText>
 						</div>
