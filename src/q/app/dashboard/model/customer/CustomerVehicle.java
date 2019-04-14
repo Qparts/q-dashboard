@@ -1,5 +1,8 @@
 package q.app.dashboard.model.customer;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import q.app.dashboard.helper.AppConstants;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -15,6 +18,11 @@ public class CustomerVehicle implements Serializable {
     private char status;
     private boolean defaultVehicle;
     private boolean imageAttached;
+
+    @JsonIgnore
+    public String getImageLink(){
+        return AppConstants.getCustomerVehicleImage(id);
+    }
 
     public boolean isImageAttached() {
         return imageAttached;

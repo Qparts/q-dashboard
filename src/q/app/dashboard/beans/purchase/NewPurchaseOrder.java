@@ -79,15 +79,13 @@ public class NewPurchaseOrder implements Serializable {
                 this.purchase.getPurchaseProducts().add(pp);
                 newPurchaseProduct = new PurchaseProduct();
             }
-            else{
+            else {
                 Helper.addErrorMessage("This Product is already added");
             }
         }
-        else{
+        else {
             Helper.addErrorMessage("Quantity must be greater than 0");
         }
-
-
     }
 
     public Purchase getPurchase() {

@@ -91,6 +91,17 @@ function w3_close() {
 									</ui:fragment>
 								</h:outputLink>
 							</div>
+							<div class="w3-col s1">
+								<h:outputLink
+										styleClass="q-nav-button w3-hover-text-blue q-large-text"
+										rendered="#{loginBean.hasAccess(act.pageNoVin)}"
+										value="customer-no-vin" title="no vins">
+									<i class="fa fa-car"> </i>
+									<ui:fragment rendered="#{notificationBean.wires gt 0}">
+										<span class="q-notification-badge">#{notificationBean.wires}</span>
+									</ui:fragment>
+								</h:outputLink>
+							</div>
 
 							<div class="w3-col s1">
 								<h:outputLink

@@ -27,7 +27,7 @@
       					<h:outputLink value="/app/customer-search" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageCustomers)}">Customers</h:outputLink>
       					<h:outputLink style="color:indianred;display:none" value="/app/followups" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageFollowUpQuotations)}">Follow Up</h:outputLink>
 						<h:outputLink style="color:indianred;display:none" value="/app/postponed-sales" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pagePosponedSalesReport)}">Postponed</h:outputLink>
-						<h:outputLink style="color:indianred;display:none" value="/app/no-vin-carts" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageNoVin)}">No Vins</h:outputLink>
+						<h:outputLink value="/app/customer-no-vin" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageNoVin)}">No Vins</h:outputLink>
     				</div>
 				</div>
 				<div class="w3-dropdown-hover">

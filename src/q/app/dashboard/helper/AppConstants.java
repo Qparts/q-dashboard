@@ -22,6 +22,7 @@ public class AppConstants {
     private static final String PRODUCT_BUCKET_NAME =SysProps.getValue("productBucketName");
     private static final String BRAND_BUCKET_NAME = SysProps.getValue("brandBucketName");
     public  static final String QUOTATION_ITEM_BUCKET_NAME = SysProps.getValue("quotationItemBucketName");
+    public  static final String CUSTOMER_VEHICLE_BUCKET_NAME = SysProps.getValue("quotationBucketName");
 
 
     //AWS CALLS//
@@ -37,6 +38,10 @@ public class AppConstants {
 
     public static final String getQuotationItemImage(long id){
         return  "/app/quotation-item/" + id + ".png";
+    }
+
+    public static final String getCustomerVehicleImage(long id){
+        return  "/app/customer-vehicle/" + id + ".png";
     }
 
     //LOCATION SERVICE CALLS//
@@ -108,6 +113,8 @@ public class AppConstants {
     //CUSTOMER SERVICE CALLS//
     public final static String POST_CUSTOMER_FROM_IDS = CUSTOMER_SERVICE + "customers-from-ids";
     public final static String GET_NEWEST_CUSTOMERS = CUSTOMER_SERVICE + "newest";
+    public final static String GET_INCOMPLETE_CUSTOMER_VEHICLES = CUSTOMER_SERVICE + "customer-vehicles/no-vin";
+    public final static String PUT_CUSTOMER_VEHICLE_VIN = CUSTOMER_SERVICE + "customer-vehicle/vin";
     public final static String getCustomer(long customerId){
         return CUSTOMER_SERVICE + "customer/" + customerId;
     }
