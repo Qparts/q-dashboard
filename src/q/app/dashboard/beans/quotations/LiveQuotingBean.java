@@ -411,7 +411,7 @@ public class LiveQuotingBean implements Serializable {
        webSocketClient = new WebSocketClient(URI.create(getQuotingWSLink()), new Draft_6455()) {
            @Override
            public void onOpen(ServerHandshake serverHandshake) {
-               channel.send("openned");
+               channel.send("opened");
            }
 
            @Override

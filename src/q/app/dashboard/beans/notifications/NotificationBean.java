@@ -6,48 +6,43 @@ import org.java_websocket.handshake.ServerHandshake;
 import org.omnifaces.cdi.Push;
 import org.omnifaces.cdi.PushContext;
 import q.app.dashboard.beans.common.LoginBean;
-import q.app.dashboard.beans.common.Requester;
 import q.app.dashboard.helper.WebsocketLinks;
 
 import javax.annotation.PostConstruct;
+
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.net.URI;
+import java.util.concurrent.TimeUnit;
 
 @Named
 @SessionScoped
 public class NotificationBean implements Serializable {
 
     private int liveQuotations;
+    private int quotingQuotations;
+    private WebSocketClient quotationClient;
+    private int index;
+
+
 
     @Inject
-    @Push(channel = "notificationQuotationsChannel")
+    @Push(channel = "notificationChannel")
     private PushContext channel;
-
-
-    private WebSocketClient quotationClient;
 
     @Inject
     private LoginBean loginBean;
 
+
     @PostConstruct
     private void init(){
-        this.initWebSocket();
+        index = 0;
+        this.initQuotationWebSocket();
     }
 
-
-    public int getLiveQuotations() {
-        return liveQuotations;
-    }
-
-    public void setLiveQuotations(int liveQuotations) {
-        this.liveQuotations = liveQuotations;
-    }
-
-
-    private void initWebSocket() {
+    private void initQuotationWebSocket() {
         quotationClient = new WebSocketClient(URI.create(this.getQuotationsWSLink()), new Draft_6455()) {
             @Override
             public void onOpen(ServerHandshake serverHandshake) {
@@ -60,7 +55,7 @@ public class NotificationBean implements Serializable {
 
             @Override
             public void onClose(int i, String s, boolean b) {
-
+                System.out.println("Session closed");
             }
 
             @Override
@@ -77,23 +72,34 @@ public class NotificationBean implements Serializable {
                 String[] messages = data.split(",");
                 String function = messages[0];
                 Integer value = Integer.parseInt(messages[1]);
-                String clientMessage = "";
                 switch (function) {
                     case "pendingQuotations":
                         liveQuotations = value;
                         break;
+                    case "quotingQuotations":
+                        quotingQuotations = value;
+                        break;
                 }
-                System.out.println("pushing now " + liveQuotations);
+                if(index == 0){
+                    TimeUnit.SECONDS.sleep(3);
+                }
                 channel.send("rerender");
+                index++;
             }
-
-    } catch (Exception ignored) {
-
-    }
+        } catch (Exception ignored) {
+        }
     }
 
     private String getQuotationsWSLink() {
         return WebsocketLinks.getNotificationsLink(loginBean.getLoggedUserId(), loginBean.getUserHolder().getToken());
     }
 
+
+    public int getLiveQuotations() {
+        return liveQuotations;
+    }
+
+    public int getQuotingQuotations() {
+        return quotingQuotations;
+    }
 }

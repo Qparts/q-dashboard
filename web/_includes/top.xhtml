@@ -1,8 +1,10 @@
+
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:o="http://omnifaces.org/ui">
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
 
 <script>
 function w3_open() {
@@ -20,11 +22,7 @@ function w3_close() {
 }
 </script>
 
-	<h:form>
-		<o:socket channel="notificationQuotationsChannel" onmessage="updateNotifications" scope="session"/>
-		<p:remoteCommand name="updateNotifications" update=":notification-form" onstart="alert('halawalla');" />
-	</h:form>
-
+	<f:view>
 	<div class="w3-container w3-camo-black" style="width:100%" >
 		<div class="">
 			<div align="left" class="w3-padding-16 w3-col s12 m12 l6">
@@ -63,8 +61,8 @@ function w3_close() {
 									styleClass="q-nav-button w3-hover-text-blue q-large-text"
 									title="my quotations">
 									<i class="fa fa-file"> </i>
-									<ui:fragment rendered="#{notificationBeans.quotations gt 0}">
-										<span class="q-notification-badge">#{notificationBeans.quotations}</span>
+									<ui:fragment rendered="#{notificationBean.quotingQuotations gt 0}">
+										<span class="q-notification-badge">#{notificationBean.quotingQuotations}</span>
 									</ui:fragment>
 								</h:outputLink>
 							</div>
@@ -128,6 +126,13 @@ function w3_close() {
 					width="61" rendered="true" />
 			</div>
 		</div>
-		<p:separator rendered="false" height="0"></p:separator>
+		<p:separator rendered="false" height="0"/>
 	</div>
+	</f:view>
+	<h:form>
+		<o:socket channel="notificationChannel" onmessage="updateNotificationBar" scope="session" />
+		<p:remoteCommand name="updateNotificationBar" update=":notification-form" />
+	</h:form>
+
+
 </ui:composition>

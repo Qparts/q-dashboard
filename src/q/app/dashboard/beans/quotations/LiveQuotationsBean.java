@@ -42,8 +42,6 @@ public class LiveQuotationsBean implements Serializable {
     private List<Customer> allCustomers;
     private WebSocketClient webSocketClient;
     private String securityHeader;
-    FacesContext context;
-    private int userId;
 
     @Inject
     @Push(channel = "liveQuotationChannel")
@@ -60,7 +58,6 @@ public class LiveQuotationsBean implements Serializable {
             this.assignment= new Assignment();
             this.selectedQuotation = new Quotation();
             securityHeader = reqs.getSecurityHeader();
-            context = FacesContext.getCurrentInstance();
             initQuotations();
             initAllCustomers();
             Helper.appendCustomers(allCustomers, quotations);

@@ -192,14 +192,13 @@
 						</div>
 
 					</p:dialog>
-					
 				</h:form>
 
 
 				<h:form>
 					<o:socket channel="liveQuotationChannel" onmessage="updateQuotations" scope="view" />
 					<p:remoteCommand name="updateQuotations"
-									 update=":form-table :form-g" oncomplete="console.log('something happened');" />
+									 update=":form-table :form-g" />
 				</h:form>
 
 			</div>
