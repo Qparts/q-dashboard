@@ -23,7 +23,9 @@ public class NotificationBean implements Serializable {
 
     private int liveQuotations;
     private int quotingQuotations;
+    private int noVins;
     private WebSocketClient quotationClient;
+    private WebSocketClient customerClient;
     private int index;
 
 
@@ -40,10 +42,35 @@ public class NotificationBean implements Serializable {
     private void init(){
         index = 0;
         this.initQuotationWebSocket();
+        this.initCustomerWebSocket();
+    }
+
+    private void initCustomerWebSocket() {
+        quotationClient = new WebSocketClient(URI.create(this.getQuotationsWSLink()), new Draft_6455()) {
+            @Override
+            public void onOpen(ServerHandshake serverHandshake) {
+            }
+
+            @Override
+            public void onMessage(String s){
+                changeOccured(s);
+            }
+
+            @Override
+            public void onClose(int i, String s, boolean b) {
+                System.out.println("Session closed");
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+        };
+        quotationClient.connect();
     }
 
     private void initQuotationWebSocket() {
-        quotationClient = new WebSocketClient(URI.create(this.getQuotationsWSLink()), new Draft_6455()) {
+        quotationClient = new WebSocketClient(URI.create(this.getCustomerWSLink()), new Draft_6455()) {
             @Override
             public void onOpen(ServerHandshake serverHandshake) {
             }
@@ -79,6 +106,9 @@ public class NotificationBean implements Serializable {
                     case "quotingQuotations":
                         quotingQuotations = value;
                         break;
+                    case "noVins":
+                        noVins = value;
+                        break;
                 }
                 if(index == 0){
                     TimeUnit.SECONDS.sleep(3);
@@ -91,7 +121,11 @@ public class NotificationBean implements Serializable {
     }
 
     private String getQuotationsWSLink() {
-        return WebsocketLinks.getNotificationsLink(loginBean.getLoggedUserId(), loginBean.getUserHolder().getToken());
+        return WebsocketLinks.getQuotationNotificationsLink(loginBean.getLoggedUserId(), loginBean.getUserHolder().getToken());
+    }
+
+    private String getCustomerWSLink() {
+        return WebsocketLinks.getCustomerNotificationsLink(loginBean.getLoggedUserId(), loginBean.getUserHolder().getToken());
     }
 
 
@@ -101,5 +135,9 @@ public class NotificationBean implements Serializable {
 
     public int getQuotingQuotations() {
         return quotingQuotations;
+    }
+
+    public int getNoVins() {
+        return noVins;
     }
 }

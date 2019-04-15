@@ -139,7 +139,7 @@ public class NotificationBean implements Serializable {
 
 
 	public String getNotificationsWSLink() {
-		return WebsocketLinks.getNotificationsLink(loginBean.getLoggedUserId(), loginBean.getUserHolder().getToken());
+		return WebsocketLinks.getQuotationNotificationsLink(loginBean.getLoggedUserId(), loginBean.getUserHolder().getToken());
 	}
 
 }

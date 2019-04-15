@@ -94,8 +94,8 @@ function w3_close() {
 										rendered="#{loginBean.hasAccess(act.pageNoVin)}"
 										value="customer-no-vin" title="no vins">
 									<i class="fa fa-car"> </i>
-									<ui:fragment rendered="#{notificationBeans.wires gt 0}">
-										<span class="q-notification-badge">#{notificationBeans.wires}</span>
+									<ui:fragment rendered="#{notificationBean.noVins gt 0}">
+										<span class="q-notification-badge">#{notificationBean.noVins}</span>
 									</ui:fragment>
 								</h:outputLink>
 							</div>
