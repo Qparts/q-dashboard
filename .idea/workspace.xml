@@ -7,13 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b051513-06e8-4d02-8a21-6dcfa3f3a358" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/q/app/dashboard/beans/notifications/NotificationBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/q_app_dashboard.war/q-app-dashboard.war" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/q_app_dashboard.war/q-app-dashboard.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/q-app-dashboard/q/app/dashboard/helper/WebsocketLinks.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/q-app-dashboard/q/app/dashboard/helper/WebsocketLinks.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/helper/WebsocketLinks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/helper/WebsocketLinks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/_includes/_live-quotation-left.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/_includes/_live-quotation-left.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/_includes/top.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/_includes/top.xhtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/app/quoting.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/quoting.xhtml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,13 +18,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/_includes/_live-quotation-left.xhtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="164">
-              <caret line="268" column="49" selection-start-line="268" selection-start-column="49" selection-end-line="268" selection-end-column="49" />
+            <state relative-caret-position="329">
+              <caret line="290" column="21" lean-forward="true" selection-start-line="166" selection-start-column="3" selection-end-line="290" selection-end-column="21" />
               <folding>
                 <element signature="e#5636#5643#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/app/quoting.xhtml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="622" column="33" selection-start-line="622" selection-start-column="33" selection-end-line="622" selection-end-column="33" />
+              <folding>
+                <element signature="e#37670#37677#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -39,7 +45,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/app/customer-no-vin.xhtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
+            <state relative-caret-position="-320">
               <caret line="32" column="33" lean-forward="true" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
             </state>
           </provider>
@@ -59,10 +65,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Price w</find>
-      <find>Total Pr</find>
-      <find>stock</find>
-      <find>auto</find>
       <find>addPr</find>
       <find>customoer</find>
       <find>loadModal</find>
@@ -89,6 +91,10 @@
       <find>form</find>
       <find>info-</find>
       <find>datat</find>
+      <find>image</find>
+      <find>graphic</find>
+      <find>repeat</find>
+      <find>repeat&quot;</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -151,10 +157,10 @@
         <option value="$PROJECT_DIR$/web/app/customer-no-vin.xhtml" />
         <option value="$PROJECT_DIR$/web/_includes/side.xhtml" />
         <option value="$PROJECT_DIR$/src/q/app/dashboard/helper/WebsocketLinks.java" />
-        <option value="$PROJECT_DIR$/web/app/quoting.xhtml" />
         <option value="$PROJECT_DIR$/web/_includes/top.xhtml" />
         <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/notifications/NotificationBean.java" />
         <option value="$PROJECT_DIR$/web/_includes/_live-quotation-left.xhtml" />
+        <option value="$PROJECT_DIR$/web/app/quoting.xhtml" />
       </list>
     </option>
   </component>
@@ -194,12 +200,6 @@
               <item name="q-app-deshboard" type="b2602c69:ProjectViewProjectNode" />
               <item name="q-app-deshboard" type="462c0819:PsiDirectoryNode" />
               <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="_includes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="q-app-deshboard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="q-app-deshboard" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -214,7 +214,7 @@
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="q-app-deshboard" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555318950671" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555319622387" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -345,12 +345,12 @@
       <workItem from="1551442141002" duration="17310000" />
       <workItem from="1552307472438" duration="28354000" />
       <workItem from="1553799171129" duration="10193000" />
-      <workItem from="1554466524604" duration="30076000" />
+      <workItem from="1554466524604" duration="30721000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="405035000" />
+    <option name="totallyTimeSpent" value="405680000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -853,13 +853,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/app/quoting.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="504" column="25" selection-start-line="504" selection-start-column="25" selection-end-line="504" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/model/quotation/QuotationItem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="350">
@@ -922,13 +915,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/app/customer-no-vin.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="32" column="33" lean-forward="true" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JSF/lib/jsf-support.jar!/resources/schemas/html_basic.taglib.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1812">
@@ -936,12 +922,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web/app/customer-no-vin.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-320">
+          <caret line="32" column="33" lean-forward="true" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/web/_includes/_live-quotation-left.xhtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="268" column="49" selection-start-line="268" selection-start-column="49" selection-end-line="268" selection-end-column="49" />
+        <state relative-caret-position="329">
+          <caret line="290" column="21" lean-forward="true" selection-start-line="166" selection-start-column="3" selection-end-line="290" selection-end-column="21" />
           <folding>
             <element signature="e#5636#5643#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/app/quoting.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="622" column="33" selection-start-line="622" selection-start-column="33" selection-end-line="622" selection-end-column="33" />
+          <folding>
+            <element signature="e#37670#37677#0" expanded="true" />
           </folding>
         </state>
       </provider>

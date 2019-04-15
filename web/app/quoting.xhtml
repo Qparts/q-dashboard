@@ -45,7 +45,7 @@
         <div class="w3-container">
             <div class="w3-row">
                 <h:panelGroup id="repeat-panel">
-                    <ui:repeat id="repeat" var="quotation" value="#{liveQuotingBean.quotations}">
+                    <ui:repeat id="repeat" varStatus="repeatVarStatus" var="quotation" value="#{liveQuotingBean.quotations}">
                         <div class="w3-container" id="c#{quotation.id}">
                             <div class="w3-card-4">
                                 <header class="w3-container w3-camo-dark-grey w3-padding-8">
@@ -93,8 +93,8 @@
                                                 </h:panelGrid>
                                             </div>
                                             <div class="w3-col s12 l6">
-                                                <h:dataTable value="#{quotation.quotationItems}" var="item"
-                                                             styleClass="w3-table w3-striped w3-border"
+                                                <h:dataTable value="#{quotation.quotationItems}" var="item" binding="#{table}"
+                                                             styleClass="w3-table w3-striped w3-border" id="items-table"
                                                              headerClass="w3-border-bottom w3-light-grey">
                                                     <f:facet name="header">
                                                         <h:outputText value="Quotation Items"/>
@@ -118,9 +118,8 @@
                                                             </div>
                                                         </f:facet>
                                                         <div align="center">
-                                                            <h:graphicImage
-                                                                    value="#{item.getImageLink(quotation.created)}"
-                                                                    width="50" rendered="false"/>
+                                                            <h:graphicImage value="#{item.imageLink}" width="50" rendered="#{item.imageAttached}" id="myImg" onclick="loadModal(#{repeatVarStatus.index} + ':items-table:' + #{table.rowIndex} + ':myImg');" />
+                                                            <h:graphicImage value="https://s3.eu-central-1.amazonaws.com/q-product/na.png" width="50" rendered="#{not item.imageAttached}"/>
                                                         </div>
                                                     </h:column>
                                                 </h:dataTable>
@@ -508,5 +507,142 @@
             </div>
         </div>
     </div>
+    <div id="myModal" class="modal">
+        <!-- The Close Button -->
+        <span class="close">&times;</span>
+        <!-- Modal Content (The Image) -->
+        <img class="modal-content" id="img01" />
+        <!-- Modal Caption (Image Text) -->
+        <div id="caption"></div>
+    </div>
+
+    <h:outputStylesheet>
+        #myImg {
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #myImg:hover {
+            opacity: 0.7;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0); /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
+        }
+
+        /* Modal Content (image) */
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        /* Caption of Modal Image */
+        #caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
+        }
+
+        /* Add Animation */
+        .modal-content, #caption {
+            -webkit-animation-name: zoom;
+            -webkit-animation-duration: 0.6s;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        @
+        -webkit-keyframes zoom {
+        from {-webkit-transform: scale(0)
+        }
+
+        to {
+            -webkit-transform: scale(1)
+        }
+
+        }
+        @
+        keyframes zoom {
+        from {transform: scale(0)
+        }
+
+        to {
+            transform: scale(1)
+        }
+        }
+
+        /* The Close Button */
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close:hover, .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    </h:outputStylesheet>
+
+    <style>
+
+    </style>
+
+    <h:outputScript>
+        //<![CDATA[
+        // Get the modal
+        function loadModal(id){
+            console.log(id);
+            var modal = document.getElementById('myModal');
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var imgName = 'repeat:' + id;
+            console.log(imgName);
+            var img = document.getElementById(imgName);
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+
+            modal.style.display = "block";
+            modalImg.src = img.src;
+            captionText.innerHTML = img.alt;
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+        }
+
+        //]]>
+    </h:outputScript>
+
+
+
 </h:body>
 </html>
