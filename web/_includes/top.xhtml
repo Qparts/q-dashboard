@@ -1,7 +1,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:o="http://omnifaces.org/ui">
 
 <script>
 function w3_open() {
@@ -19,12 +20,10 @@ function w3_close() {
 }
 </script>
 
-
-    <h:form>
-	    <p:remoteCommand name="updateNotifications"
-		update=":notification-form"
-		actionListener="#{notificationBean.changeOccured}" />
-    </h:form>
+	<h:form>
+		<o:socket channel="notificationQuotationsChannel" onmessage="updateNotifications" scope="session"/>
+		<p:remoteCommand name="updateNotifications" update=":notification-form" onstart="alert('halawalla');" />
+	</h:form>
 
 	<div class="w3-container w3-camo-black" style="width:100%" >
 		<div class="">
@@ -53,8 +52,8 @@ function w3_close() {
 									styleClass="q-nav-button w3-hover-text-blue q-large-text"
 									title="all quotations">
 									<i class="fa fa-file-text"> </i>
-									<ui:fragment rendered="#{notificationBean.allQuotations gt 0}">
-										<span class="q-notification-badge">#{notificationBean.allQuotations}</span>
+									<ui:fragment rendered="#{notificationBean.liveQuotations gt 0}">
+										<span class="q-notification-badge">#{notificationBean.liveQuotations}</span>
 									</ui:fragment>
 								</h:outputLink>
 							</div>
@@ -64,8 +63,8 @@ function w3_close() {
 									styleClass="q-nav-button w3-hover-text-blue q-large-text"
 									title="my quotations">
 									<i class="fa fa-file"> </i>
-									<ui:fragment rendered="#{notificationBean.quotations gt 0}">
-										<span class="q-notification-badge">#{notificationBean.quotations}</span>
+									<ui:fragment rendered="#{notificationBeans.quotations gt 0}">
+										<span class="q-notification-badge">#{notificationBeans.quotations}</span>
 									</ui:fragment>
 								</h:outputLink>
 							</div>
@@ -75,8 +74,8 @@ function w3_close() {
 									styleClass="q-nav-button w3-hover-text-blue q-large-text"
 									title="Carts">
 									<i class="fas fa-wallet"> </i>
-									<ui:fragment rendered="#{notificationBean.carts gt 0}">
-										<span class="q-notification-badge">#{notificationBean.carts}</span>
+									<ui:fragment rendered="#{notificationBeans.carts gt 0}">
+										<span class="q-notification-badge">#{notificationBeans.carts}</span>
 									</ui:fragment>
 								</h:outputLink>
 							</div>
@@ -86,8 +85,8 @@ function w3_close() {
 									rendered="#{loginBean.hasAccess(act.pageWire)}"
 									value="wire-transfers" title="wire transfers">
 									<i class="fa fa-dollar"> </i>
-									<ui:fragment rendered="#{notificationBean.wires gt 0}">
-										<span class="q-notification-badge">#{notificationBean.wires}</span>
+									<ui:fragment rendered="#{notificationBeans.wires gt 0}">
+										<span class="q-notification-badge">#{notificationBeans.wires}</span>
 									</ui:fragment>
 								</h:outputLink>
 							</div>
@@ -97,8 +96,8 @@ function w3_close() {
 										rendered="#{loginBean.hasAccess(act.pageNoVin)}"
 										value="customer-no-vin" title="no vins">
 									<i class="fa fa-car"> </i>
-									<ui:fragment rendered="#{notificationBean.wires gt 0}">
-										<span class="q-notification-badge">#{notificationBean.wires}</span>
+									<ui:fragment rendered="#{notificationBeans.wires gt 0}">
+										<span class="q-notification-badge">#{notificationBeans.wires}</span>
 									</ui:fragment>
 								</h:outputLink>
 							</div>
