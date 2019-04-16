@@ -1,17 +1,13 @@
 package q.app.dashboard.beans.product;
 
-import org.primefaces.component.export.ExcelXExporter;
 import q.app.dashboard.beans.common.LoginBean;
 import q.app.dashboard.beans.common.Requester;
 import q.app.dashboard.helper.AWSClient;
 import q.app.dashboard.helper.AppConstants;
 import q.app.dashboard.helper.Helper;
 import q.app.dashboard.helper.SysProps;
-import q.app.dashboard.model.product.Category;
-import q.app.dashboard.model.product.Product;
 import q.app.dashboard.model.product.ProductHolder;
 import q.app.dashboard.model.product.ProductPrice;
-import q.app.dashboard.model.vendor.Vendor;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;

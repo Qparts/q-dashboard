@@ -197,6 +197,9 @@ public class AppConstants {
     public final static String getAssignedQuotations(int userId, long quotationId) {
         return QUOTATION_SERVICE + "assigned-quotations/user/"+userId+"/quotation/" + quotationId;
     }
+    public final static String getCustomerQuotations(long customerId){
+        return QUOTATION_SERVICE + "quotations/customer/" + customerId;
+    }
 
     //INVOICE SERVICE CALLS//
     public final static String POST_PURCHASE_ORDER = INVOICE_SERVICE + "purchase";

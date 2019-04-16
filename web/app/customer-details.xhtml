@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Customer Details</title>
+    <ui:include src="/_includes/header.xhtml"/>
+</h:head>
+<h:body>
+    <h:outputText
+            value="#{loginBean.checkAccessRedirectHome(act.pageCustomers)}"/>
+    <ui:include src="/_includes/top.xhtml"/>
+    <ui:include src="/_includes/side.xhtml"/>
+    <div>
+        <div class="w3-main">
+            <div class="w3-container">
+                <div align="center" class="w3-padding-8">
+                    <h:outputText value="Customer ID # #{customerDetailsBean.customer.id}" styleClass="q-large-text"/>
+                </div>
+                <h:form id="form-g">
+                    <p:growl id="error-growl"
+                             rendered="#{facesContext.maximumSeverity.ordinal eq 2}"/>
+                    <p:growl id="success-growl"
+                             rendered="#{facesContext.maximumSeverity.ordinal eq 0}"/>
+                </h:form>
+                <h:form id="form" enctype="multipart/form-data">
+                    <div class="w3-row w3-padding-24">
+                        <div class="w3-container w3-col s12 m6">
+                            <div class="w3-padding-24" id="product-name-div">
+                                <div class="w3-col s3">
+                                    <h:outputText value="ID"/>
+                                </div>
+                                <div class="w3-col s9">
+                                    <h:inputText value="#{customerDetailsBean.customer.id}" readonly="true" />
+                                </div>
+                                <div class="w3-col s3">
+                                    <h:outputText value="First Name"/>
+                                </div>
+                                <div class="w3-col s9">
+                                    <h:inputText value="#{customerDetailsBean.customer.firstName}" readonly="true" />
+                                </div>
+                                <div class="w3-col s3">
+                                    <h:outputText value="Last Name"/>
+                                </div>
+                                <div class="w3-col s9">
+                                    <h:inputText value="#{customerDetailsBean.customer.lastName}" readonly="true" />
+                                </div>
+                                <div class="w3-col s3">
+                                    <h:outputText value="Email"/>
+                                </div>
+                                <div class="w3-col s9">
+                                    <h:inputText value="#{customerDetailsBean.customer.email}" readonly="true" />
+                                </div>
+                                <div class="w3-col s3">
+                                    <h:outputText value="Registration Date"/>
+                                </div>
+                                <div class="w3-col s9">
+                                    <h:inputText value="#{customerDetailsBean.customer.created}" readonly="true" >
+                                        <f:convertDateTime pattern="dd-MMM-yyyy HH:mm"/>
+                                    </h:inputText>
+                                </div>
+                                <div class="w3-col s3">
+                                    <h:outputText value="Status"/>
+                                </div>
+                                <div class="w3-col s9">
+                                    <h:outputText value="#{customerDetailsBean.customer.status eq 'V' ? 'Verified' : 'Unverified'}" styleClass="w3-tag w3-#{customerDetailsBean.customer.status eq 'V' ? 'green' : 'red'}" />
+                                </div>
+                                <div class="w3-col s3">
+                                    <h:outputText value="Newsletters"/>
+                                </div>
+                                <div class="w3-col s9">
+                                    <h:outputText value="#{customerDetailsBean.customer.newsletterActive eq true ? 'Yes' : 'No'}" styleClass="w3-tag w3-#{customerDetailsBean.customer.newsletterActive eq true ? 'green' : 'red'}" />
+                                </div>
+                                <div class="w3-col s3">
+                                    <h:outputText value="Language"/>
+                                </div>
+                                <div class="w3-col s9">
+                                    <h:inputText value="#{customerDetailsBean.customer.defaultLang}" readonly="true" />
+                                </div>
+                                <div class="w3-col s12">
+                                    <h:dataTable value="#{customerDetailsBean.customer.vehicles}" var="cv" styleClass="w3-table w3-striped w3-border" headerClass="w3-light-grey w3-border-bottom">
+                                        <f:facet name="header">
+                                            <div align="center">
+                                                <h:outputText value="Garage"/>
+                                            </div>
+                                        </f:facet>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="ID"/>
+                                            </f:facet>
+                                            <h:outputText value="#{cv.id}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Vehicle"/>
+                                            </f:facet>
+                                            <h:outputText value="#{makesBean.getModelYearFromId(cv.vehicleYearId).fullName}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Vin"/>
+                                            </f:facet>
+                                            <h:outputText value="#{cv.vin}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Created"/>
+                                            </f:facet>
+                                            <h:outputText value="#{cv.created}">
+                                                <f:convertDateTime type="date"/>
+                                            </h:outputText>
+                                        </h:column>
+                                    </h:dataTable>
+                                </div>
+                                <div class="w3-col s12">
+                                    <h:dataTable value="#{customerDetailsBean.customer.addresses}" var="ca" styleClass="w3-table w3-striped w3-border" headerClass="w3-light-grey w3-border-bottom">
+                                        <f:facet name="header">
+                                            <div align="center">
+                                                <h:outputText value="Addresses"/>
+                                            </div>
+                                        </f:facet>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="ID"/>
+                                            </f:facet>
+                                            <h:outputText value="#{ca.id}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="City"/>
+                                            </f:facet>
+                                            <h:outputText value="#{cityBean.getCityFromId(ca.cityId).region.name} - #{cityBean.getCityFromId(ca.cityId).name}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Mobile"/>
+                                            </f:facet>
+                                            <h:outputText value="#{ca.mobile}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Address"/>
+                                            </f:facet>
+                                            <h:outputText value="#{ca.line1}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Address"/>
+                                            </f:facet>
+                                            <h:outputText value="#{ca.line2}"/>
+                                        </h:column>
+                                    </h:dataTable>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w3-container w3-col s12 m6">
+                            <div class="w3-col s12 w3-padding-24">
+                                <div class="w3-col s12">
+                                    <h:dataTable value="#{customerDetailsBean.quotations}" var="qu" styleClass="w3-table w3-striped w3-border" headerClass="w3-light-grey w3-border-bottom">
+                                        <f:facet name="header">
+                                            <div align="center">
+                                                <h:outputText value="Quotations"/>
+                                            </div>
+                                        </f:facet>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="ID"/>
+                                            </f:facet>
+                                            <h:outputText value="#{qu.id}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Created"/>
+                                            </f:facet>
+                                            <h:outputText value="#{qu.created}">
+                                                <f:convertDateTime pattern="dd-MMM-yyyy HH:mm"/>
+                                            </h:outputText>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="City"/>
+                                            </f:facet>
+                                            <h:outputText value="#{cityBean.getCityFromId(qu.cityId).region.name} - #{cityBean.getCityFromId(qu.cityId).name}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Vehicle"/>
+                                            </f:facet>
+                                            <h:outputText value="#{makesBean.getModelYearFromId(customerDetailsBean.customer.getVehicleFromId(qu.customerVehicleId).vehicleYearId).fullName}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Status"/>
+                                            </f:facet>
+                                            <h:outputText value="#{qu.status}"/>
+                                        </h:column>
+                                    </h:dataTable>
+                                </div>
+                            </div>
+                            <div class="w3-col s12 w3-padding-24">
+                                Carts history
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+    </div>
+</h:body>
+</html>

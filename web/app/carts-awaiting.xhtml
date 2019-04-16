@@ -56,7 +56,9 @@
                             <f:facet name="header">
                                 <h:outputText value="CUSTOMER"/>
                             </f:facet>
-                            <h:outputText value="#{cart.customer.id} - #{cart.customer.fullName}"/>
+                            <h:outputLink value="customer-details?id=#{cart.customerId}">
+                                <h:outputText value="#{cart.customer.id} - #{cart.customer.fullName}"/>
+                            </h:outputLink>
                         </h:column>
                         <h:column>
                             <f:facet name="header">

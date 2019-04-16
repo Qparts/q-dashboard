@@ -47,12 +47,6 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                Customer ID
-                            </f:facet>
-                            <h:outputText value="#{holder.customer.id}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
                                 Date
                             </f:facet>
                             <h:outputText value="#{holder.customerVehicle.created}">
@@ -63,7 +57,9 @@
                             <f:facet name="header">
                                 Customer
                             </f:facet>
-                            <h:outputText value="#{holder.customer.fullName}"/>
+                            <h:outputLink value="customer-details?id=#{holder.customer.id}">
+                                <h:outputText value="#{holder.customer.id} - #{holder.customer.fullName}"/>
+                            </h:outputLink>
                         </h:column>
                         <h:column>
                             <f:facet name="header">

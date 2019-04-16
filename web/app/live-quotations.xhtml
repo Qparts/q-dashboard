@@ -50,8 +50,9 @@
 							<f:facet name="header">
 								<h:outputText value="Customer" />
 							</f:facet>
-							<h:outputText
-								value="#{quotation.customer.fullName}" />
+							<h:outputLink value="customer-details?id=#{quotation.customerId}">
+								<h:outputText value="#{quotation.customer.fullName}" />
+							</h:outputLink>
 						</h:column>
 						<h:column>
 							<f:facet name="header">
