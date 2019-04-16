@@ -24,11 +24,9 @@ public class NotificationBean implements Serializable {
     private int liveQuotations;
     private int quotingQuotations;
     private int noVins;
-    private WebSocketClient quotationClient;
-    private WebSocketClient customerClient;
+    private int wireRequets;
+    private int processCarts;
     private int index;
-
-
 
     @Inject
     @Push(channel = "notificationChannel")
@@ -43,22 +41,22 @@ public class NotificationBean implements Serializable {
         index = 0;
         this.initQuotationWebSocket();
         this.initCustomerWebSocket();
+        this.initCartWebSocket();
     }
 
     private void initCustomerWebSocket() {
-        quotationClient = new WebSocketClient(URI.create(this.getQuotationsWSLink()), new Draft_6455()) {
+        WebSocketClient customerClient = new WebSocketClient(URI.create(this.getCustomerWSLink()), new Draft_6455()) {
             @Override
             public void onOpen(ServerHandshake serverHandshake) {
             }
 
             @Override
             public void onMessage(String s){
-                changeOccured(s);
+                changeOccurred(s);
             }
 
             @Override
             public void onClose(int i, String s, boolean b) {
-                System.out.println("Session closed");
             }
 
             @Override
@@ -66,23 +64,46 @@ public class NotificationBean implements Serializable {
 
             }
         };
-        quotationClient.connect();
+        customerClient.connect();
+    }
+
+    private void initCartWebSocket() {
+        WebSocketClient customerClient = new WebSocketClient(URI.create(this.getCartWSLink()), new Draft_6455()) {
+            @Override
+            public void onOpen(ServerHandshake serverHandshake) {
+            }
+
+            @Override
+            public void onMessage(String s){
+                changeOccurred(s);
+            }
+
+            @Override
+            public void onClose(int i, String s, boolean b) {
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+        };
+        customerClient.connect();
     }
 
     private void initQuotationWebSocket() {
-        quotationClient = new WebSocketClient(URI.create(this.getCustomerWSLink()), new Draft_6455()) {
+        WebSocketClient quotationClient = new WebSocketClient(URI.create(this.getQuotationsWSLink()), new Draft_6455()) {
             @Override
             public void onOpen(ServerHandshake serverHandshake) {
             }
 
             @Override
             public void onMessage(String s){
-                changeOccured(s);
+                changeOccurred(s);
             }
 
             @Override
             public void onClose(int i, String s, boolean b) {
-                System.out.println("Session closed");
+
             }
 
             @Override
@@ -93,7 +114,9 @@ public class NotificationBean implements Serializable {
         quotationClient.connect();
     }
 
-    private void changeOccured(String data){
+
+
+    private void changeOccurred(String data){
         try {
             if (data != null) {
                 String[] messages = data.split(",");
@@ -108,6 +131,12 @@ public class NotificationBean implements Serializable {
                         break;
                     case "noVins":
                         noVins = value;
+                        break;
+                    case "wireRequests":
+                        wireRequets = value;
+                        break;
+                    case "processCarts":
+                        processCarts = value;
                         break;
                 }
                 if(index == 0){
@@ -128,6 +157,10 @@ public class NotificationBean implements Serializable {
         return WebsocketLinks.getCustomerNotificationsLink(loginBean.getLoggedUserId(), loginBean.getUserHolder().getToken());
     }
 
+    private String getCartWSLink() {
+        return WebsocketLinks.getCartNotificationsLink(loginBean.getLoggedUserId(), loginBean.getUserHolder().getToken());
+    }
+
 
     public int getLiveQuotations() {
         return liveQuotations;
@@ -139,5 +172,13 @@ public class NotificationBean implements Serializable {
 
     public int getNoVins() {
         return noVins;
+    }
+
+    public int getWireRequets() {
+        return wireRequets;
+    }
+
+    public int getProcessCarts() {
+        return processCarts;
     }
 }

@@ -7,7 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b051513-06e8-4d02-8a21-6dcfa3f3a358" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/beans/common/NotificationBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/beans/common/NotificationBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/beans/notifications/NotificationBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/beans/notifications/NotificationBean.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/helper/WebsocketLinks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/helper/WebsocketLinks.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/_includes/top.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/_includes/top.xhtml" afterDir="false" />
@@ -30,46 +30,38 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/notifications/NotificationBean.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="784">
-              <caret line="139" column="15" selection-start-line="139" selection-start-column="15" selection-end-line="139" selection-end-column="15" />
+            <state relative-caret-position="374">
+              <caret line="148" column="9" lean-forward="true" selection-start-line="148" selection-start-column="9" selection-end-line="148" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1478#1479#0" expanded="true" />
-                <element signature="e#1526#1527#0" expanded="true" />
-                <element signature="e#1611#1612#0" expanded="true" />
-                <element signature="e#1679#1680#0" expanded="true" />
-                <element signature="e#1233#1234#0" expanded="true" />
-                <element signature="e#1281#1282#0" expanded="true" />
-                <element signature="e#1366#1367#0" expanded="true" />
-                <element signature="e#1434#1435#0" expanded="true" />
-                <element signature="e#2514#2515#0" expanded="true" />
-                <element signature="e#2551#2552#0" expanded="true" />
-                <element signature="e#2838#2839#0" expanded="true" />
-                <element signature="e#2878#2879#0" expanded="true" />
-                <element signature="e#3908#3909#0" expanded="true" />
-                <element signature="e#3937#3938#0" expanded="true" />
+                <element signature="method#initCustomerWebSocket#0;class#NotificationBean#0" />
+                <element signature="e#1470#1471#0" expanded="true" />
+                <element signature="e#1518#1519#0" expanded="true" />
+                <element signature="method#initCustomerWebSocket#1;class#NotificationBean#0" />
+                <element signature="method#onOpen#0;class#1837:2323" />
+                <element signature="e#2079#2080#0" expanded="true" />
+                <element signature="e#2128#2129#0" expanded="true" />
+                <element signature="method#onClose#0;class#1837:2323" />
+                <element signature="method#onError#0;class#1837:2323" />
+                <element signature="method#initQuotationWebSocket#0;class#NotificationBean#0" />
+                <element signature="method#onOpen#0;class#1888:2427" />
+                <element signature="e#2109#2110#0" expanded="true" />
+                <element signature="e#2158#2159#0" expanded="true" />
+                <element signature="method#onClose#0;class#1865:2370" />
+                <element signature="method#onError#0;class#1888:2427" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/_includes/top.xhtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="97" column="98" selection-start-line="97" selection-start-column="98" selection-end-line="97" selection-end-column="98" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/helper/WebsocketLinks.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="23" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+            <state relative-caret-position="132">
+              <caret line="74" column="90" selection-start-line="74" selection-start-column="90" selection-end-line="74" selection-end-column="90" />
             </state>
           </provider>
         </entry>
@@ -180,15 +172,15 @@
         <option value="$PROJECT_DIR$/web/app/home.xhtml" />
         <option value="$PROJECT_DIR$/web/app/live-quotations.xhtml" />
         <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/notifications/TopBarBean.java" />
-        <option value="$PROJECT_DIR$/src/q/app/dashboard/helper/WebsocketLinks.java" />
         <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/common/NotificationBean.java" />
+        <option value="$PROJECT_DIR$/src/q/app/dashboard/helper/WebsocketLinks.java" />
         <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/notifications/NotificationBean.java" />
         <option value="$PROJECT_DIR$/web/_includes/top.xhtml" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="24" />
+    <option name="y" value="23" />
     <option name="width" value="1432" />
     <option name="height" value="797" />
   </component>
@@ -201,7 +193,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -219,16 +210,11 @@
               <item name="q-app-deshboard" type="462c0819:PsiDirectoryNode" />
               <item name="web" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="q-app-deshboard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="q-app-deshboard" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="_includes" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -237,7 +223,7 @@
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="q-app-deshboard" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555344367430" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555362122404" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -368,12 +354,13 @@
       <workItem from="1551442141002" duration="17310000" />
       <workItem from="1552307472438" duration="28354000" />
       <workItem from="1553799171129" duration="10193000" />
-      <workItem from="1554466524604" duration="42736000" />
+      <workItem from="1554466524604" duration="43237000" />
+      <workItem from="1555418782509" duration="2481000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="417695000" />
+    <option name="totallyTimeSpent" value="420677000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -385,7 +372,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1432" height="797" extended-state="0" />
+    <frame x="0" y="23" width="1432" height="797" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22517985" />
@@ -705,13 +692,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/model/customer/CustomerHolder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/model/customer/CustomerHolder.java" />
     <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/model/customer/Customer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -893,16 +874,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/notifications/TopBarBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/notifications/TopBarBean.java" />
     <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/LiveQuotationsBean.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1663">
@@ -910,6 +882,13 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/common/NotificationBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="16" column="14" lean-forward="true" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -922,46 +901,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/helper/WebsocketLinks.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="23" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/common/NotificationBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="16" column="14" lean-forward="true" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/_includes/top.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="97" column="98" selection-start-line="97" selection-start-column="98" selection-end-line="97" selection-end-column="98" />
+        <state relative-caret-position="105">
+          <caret line="7" column="78" lean-forward="true" selection-start-line="7" selection-start-column="78" selection-end-line="7" selection-end-column="78" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/notifications/NotificationBean.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="784">
-          <caret line="139" column="15" selection-start-line="139" selection-start-column="15" selection-end-line="139" selection-end-column="15" />
+        <state relative-caret-position="374">
+          <caret line="148" column="9" lean-forward="true" selection-start-line="148" selection-start-column="9" selection-end-line="148" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1478#1479#0" expanded="true" />
-            <element signature="e#1526#1527#0" expanded="true" />
-            <element signature="e#1611#1612#0" expanded="true" />
-            <element signature="e#1679#1680#0" expanded="true" />
-            <element signature="e#1233#1234#0" expanded="true" />
-            <element signature="e#1281#1282#0" expanded="true" />
-            <element signature="e#1366#1367#0" expanded="true" />
-            <element signature="e#1434#1435#0" expanded="true" />
-            <element signature="e#2514#2515#0" expanded="true" />
-            <element signature="e#2551#2552#0" expanded="true" />
-            <element signature="e#2838#2839#0" expanded="true" />
-            <element signature="e#2878#2879#0" expanded="true" />
-            <element signature="e#3908#3909#0" expanded="true" />
-            <element signature="e#3937#3938#0" expanded="true" />
+            <element signature="method#initCustomerWebSocket#0;class#NotificationBean#0" />
+            <element signature="e#1470#1471#0" expanded="true" />
+            <element signature="e#1518#1519#0" expanded="true" />
+            <element signature="method#initCustomerWebSocket#1;class#NotificationBean#0" />
+            <element signature="method#onOpen#0;class#1837:2323" />
+            <element signature="e#2079#2080#0" expanded="true" />
+            <element signature="e#2128#2129#0" expanded="true" />
+            <element signature="method#onClose#0;class#1837:2323" />
+            <element signature="method#onError#0;class#1837:2323" />
+            <element signature="method#initQuotationWebSocket#0;class#NotificationBean#0" />
+            <element signature="method#onOpen#0;class#1888:2427" />
+            <element signature="e#2109#2110#0" expanded="true" />
+            <element signature="e#2158#2159#0" expanded="true" />
+            <element signature="method#onClose#0;class#1865:2370" />
+            <element signature="method#onError#0;class#1888:2427" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/_includes/top.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="74" column="90" selection-start-line="74" selection-start-column="90" selection-end-line="74" selection-end-column="90" />
         </state>
       </provider>
     </entry>

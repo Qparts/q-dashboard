@@ -72,8 +72,8 @@ function w3_close() {
 									styleClass="q-nav-button w3-hover-text-blue q-large-text"
 									title="Carts">
 									<i class="fas fa-wallet"> </i>
-									<ui:fragment rendered="#{notificationBeans.carts gt 0}">
-										<span class="q-notification-badge">#{notificationBeans.carts}</span>
+									<ui:fragment rendered="#{notificationBean.processCarts gt 0}">
+										<span class="q-notification-badge">#{notificationBean.processCarts}</span>
 									</ui:fragment>
 								</h:outputLink>
 							</div>
@@ -83,8 +83,8 @@ function w3_close() {
 									rendered="#{loginBean.hasAccess(act.pageWire)}"
 									value="wire-transfers" title="wire transfers">
 									<i class="fa fa-dollar"> </i>
-									<ui:fragment rendered="#{notificationBeans.wires gt 0}">
-										<span class="q-notification-badge">#{notificationBeans.wires}</span>
+									<ui:fragment rendered="#{notificationBean.wireRequets gt 0}">
+										<span class="q-notification-badge">#{notificationBean.wireRequets}</span>
 									</ui:fragment>
 								</h:outputLink>
 							</div>
