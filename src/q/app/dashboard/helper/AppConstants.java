@@ -152,16 +152,17 @@ public class AppConstants {
         return CATALOG_SERVICE + "cars/make/"+makeId+"/vin/" + vin;
     }
 
-    public final static String getCatalogGroups(int makeId, String carId, String groupId){
+    public final static String getCatalogGroups(int makeId, String carId, String groupId, String criteria){
         String link = CATALOG_SERVICE + "groups/make/"+makeId+"/car/" + carId;
+        link += "?criteria=" + criteria;
         if(groupId != null){
-            link += "?groupid=" + groupId;
+            link += "&groupid=" + groupId;
         }
         return link;
     }
 
-    public final static String getCatalogParts(int makeId, String carId, String groupId){
-        return CATALOG_SERVICE + "parts/make/"+makeId+"/car/" + carId +"/group/" + groupId;
+    public final static String getCatalogParts(int makeId, String carId, String groupId, String criteria){
+        return CATALOG_SERVICE + "parts/make/"+makeId+"/car/" + carId +"/group/" + groupId + "/criteria/" + criteria;
     }
 
 
