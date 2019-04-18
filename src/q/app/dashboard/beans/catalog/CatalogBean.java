@@ -60,7 +60,10 @@ public class CatalogBean implements Serializable {
 
     public void selectCar(CatalogCar car){
         this.selectedCar = car;
-        Response r = reqs.getSecuredRequest(AppConstants.getCatalogGroups(makeId, car.getCarId(), null, Helper.getEncodedUrl(car.getCriteria())));
+        String encoded = Helper.getEncodedUrl(car.getCriteria());
+        System.out.println(encoded);
+        Response r = reqs.getSecuredRequest(AppConstants.getCatalogGroups(makeId, car.getCarId(), null, encoded));
+        System.out.println("Response is " + r.getStatus());
         if(r.getStatus() == 200){
             List<CatalogGroup> groups = r.readEntity(new GenericType<List<CatalogGroup>>(){});
             mainGroup = new CatalogGroup();
