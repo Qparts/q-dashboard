@@ -45,17 +45,8 @@ public class LiveQuotationBean implements Serializable {
             this.initCustomer();
             this.newComment = new Comment();
             initquantityArray();
-            /*
-
-            initCartVariables();
-            initQuotationItemProducts();
-            selectedVendorItem = new QuotationVendorItem();
-            this.selectedMake = new Make();
-            this.selectedModel = new Model();
-            this.selectedModelYear = new ModelYear();
-             */
         } catch (Exception ex) {
-            ex.printStackTrace();
+            Helper.redirect("live-quotations");
         }
     }
 
@@ -124,8 +115,7 @@ public class LiveQuotationBean implements Serializable {
         Response r = reqs.getSecuredRequest(AppConstants.getQuotation(id));
         if (r.getStatus() == 200) {
             quotation = r.readEntity(Quotation.class);
-            if (!(quotation.getStatus() == 'W' || quotation.getStatus() == 'N' || quotation.getStatus() == 'Q'
-                    || quotation.getStatus() == 'A' || quotation.getStatus() == 'R')) {
+            if(quotation.getStatus() == 'X' || quotation.getStatus() == 'S'){
                 throw new Exception();
             }
         } else

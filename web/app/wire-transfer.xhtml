@@ -12,7 +12,7 @@
 </h:head>
 <h:body>
     <h:outputText
-            value="#{loginBean.checkAccessRedirectHome(act.pageBrands)}"/>
+            value="#{loginBean.checkAccessRedirectHome(act.pageWire)}"/>
     <ui:include src="/_includes/top.xhtml"/>
     <ui:include src="/_includes/side.xhtml"/>
     <div>
@@ -60,7 +60,7 @@
                                         <tr>
                                             <td><h:outputLabel styleClass="q-bold" value="City"/></td>
                                             <td><h:outputText
-                                                    value="#{wireTransferBean.wireTransfer.cart.address.cityId}"/>
+                                                    value="#{cityBean.getCityFromId(wireTransferBean.wireTransfer.cart.address.cityId).region.name} - #{cityBean.getCityFromId(wireTransferBean.wireTransfer.cart.address.cityId).name}"/>
                                             </td>
                                         </tr>
                                     </table>

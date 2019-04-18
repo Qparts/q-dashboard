@@ -34,6 +34,16 @@ public class BillItem implements Serializable {
         return false;
     }
 
+    @JsonIgnore
+    public BillItemResponse getBillItemResponse(){
+        if(this.hasSavedResponse()){
+            return billItemResponses.get(0);
+        }
+        else{
+            return null;
+        }
+    }
+
 
     @JsonIgnore
     public void chooseNotAvailable() {

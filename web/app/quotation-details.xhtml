@@ -1,0 +1,297 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Quotation Details</title>
+    <ui:include src="/_includes/header.xhtml"/>
+</h:head>
+<h:body>
+    <h:outputText
+            value="#{loginBean.checkAccessRedirectHome(act.pageQuotationDetails)}"/>
+    <ui:include src="/_includes/top.xhtml"/>
+    <ui:include src="/_includes/side.xhtml"/>
+    <div>
+        <div class="w3-main">
+            <div class="w3-container">
+                <div id="title-div" align="center" class="w3-padding-8">
+                    <h:outputText value="Quotation ID # #{wireTransferBean.wireTransfer.id}"
+                                  styleClass="q-large-text"/>
+                    <br/>
+                    <h:outputText value="Amount: " styleClass="q-med-text w3-text-green" />
+                    <h:outputText value="#{quotationDetailsBean.quotation.totalSalesPrice + 35 + (quotationDetailsBean.quotation.totalSalesPrice * 0.05)}"
+                                  styleClass="q-med-text w3-text-green">
+                        <f:convertNumber type="currency" currencySymbol="SR "/>
+                    </h:outputText>
+                </div>
+                <h:form id="form-g">
+                    <p:growl id="error-growl"
+                             rendered="#{facesContext.maximumSeverity.ordinal eq 2}"/>
+                    <p:growl id="success-growl"
+                             rendered="#{facesContext.maximumSeverity.ordinal eq 0}"/>
+                </h:form>
+                <div class="w3-row">
+                    <div id="info-div" class="w3-col s12 w3-padding-24">
+                        <p:panel toggleable="true" header="Cart Information" collapsed="false"
+                                 toggleSpeed="100">
+                            <div class="w3-row">
+                                <div class="w3-col s12 m6 w3-border">
+                                    <table class="w3-table w3-striped">
+                                        <tr>
+                                            <td><h:outputLabel value="Quotation ID" styleClass="q-bold"/></td>
+                                            <td><h:outputText value="#{quotationDetailsBean.quotation.id}"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><h:outputLabel value="Request Date" styleClass="q-bold"/></td>
+                                            <td><h:outputText value="#{quotationDetailsBean.quotation.created}">
+                                                <f:convertDateTime pattern="dd-MMM-yyyy HH:mm"/>
+                                            </h:outputText></td>
+                                        </tr>
+                                        <tr>
+                                            <td><h:outputLabel value="Vehicle" styleClass="q-bold"/></td>
+                                            <td><h:outputText value="#{makesBean.getModelYearFromId(quotationDetailsBean.quotation.customerVehicle.vehicleYearId).fullName}"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><h:outputLabel styleClass="q-bold" value="City"/></td>
+                                            <td><h:outputText
+                                                    value="#{cityBean.getCityFromId(quotationDetailsBean.quotation.cityId).name}"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="w3-col s12 m6 w3-border">
+                                    <table class="w3-table w3-striped">
+                                        <tr>
+                                            <td><h:outputLabel styleClass="q-bold" value="Customer ID"/></td>
+                                            <td><h:outputText value="#{quotationDetailsBean.customer.id}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><h:outputLabel styleClass="q-bold" value="Name"/></td>
+                                            <td><h:outputText
+                                                    value="#{quotationDetailsBean.customer.fullName}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><h:outputLabel styleClass="q-bold" value="Joined"/></td>
+                                            <td><h:outputText
+                                                    value="#{quotationDetailsBean.customer.created}">
+                                                <f:convertDateTime pattern="dd-MMM-yyyy HH:mm"/>
+                                            </h:outputText>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><h:outputLabel styleClass="q-bold" value="Email"/></td>
+                                            <td><h:outputText readonly="true"
+                                                              value="#{quotationDetailsBean.customer.created}"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </p:panel>
+                    </div>
+                    <div id="comments-div" class="w3-col s12 w3-padding-24">
+                        <p:panel toggleable="true" id="comments-panel"
+                                 header="Comments #{quotationDetailsBean.quotation.comments.size() gt 0 ? quotationDetailsBean.quotation.comments.size() : ' '}"
+                                 collapsed="false"
+                                 toggleSpeed="100">
+                            <ui:repeat var="comment" id="comments-repeat"
+                                       value="#{quotationDetailsBean.quotation.comments}">
+                                <h:outputText value="#{comment.created}" styleClass="q-bold"
+                                              style="color:#2dacd1!important;">
+                                    <f:convertDateTime pattern="dd-MMM-yyyy hh:mm"/>
+                                </h:outputText>
+                                <h:outputText
+                                        value="#{comment.createdBy} - #{usersBean.getUserFromId(comment.createdBy).firstName}: "
+                                        styleClass="q-bold" style="color:#2dacd1!important;"/>
+                                <h:outputText
+                                        value=" (#{comment.visibleToCustomer ? 'visible' : 'hidden'}) : "
+                                        style="color:#2dacd1!important;" styleClass="q-bold"/>
+                                <h:outputText dir="rtl" value=" #{comment.text}"/>
+                                <br/>
+                                <br/>
+                            </ui:repeat>
+
+                            <p:commandButton value="+" styleClass="q-btn"
+                                             oncomplete="PF('commentDlgwv').show()"/>
+                        </p:panel>
+                    </div>
+                    <div id="products-div" class="w3-col s12 w3-padding-24">
+                        <p:panel toggleable="true" header="Products" collapsed="false"
+                                 toggleSpeed="100">
+                            <h:dataTable styleClass="w3-table w3-striped w3-border"
+                                         headerClass="w3-light-grey w3-border"
+                                         footerClass="w3-light-grey w3-border"
+                                         value="#{quotationDetailsBean.quotation.allBillItems}"
+                                         var="bi">
+                                <f:facet name="header">
+                                    <div align="center">Bill Items</div>
+                                </f:facet>
+                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                    <f:facet name="header">
+                                        Item ID
+                                    </f:facet>
+                                    <h:outputText value="#{bi.id}"/>
+                                </h:column>
+                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                    <f:facet name="header">
+                                        Desc
+                                    </f:facet>
+                                    <h:outputText value="#{bi.itemDesc}"/>
+                                </h:column>
+                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                    <f:facet name="header">
+                                        Status
+                                    </f:facet>
+                                    <h:outputText value="#{bi.status}"/>
+                                </h:column>
+                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                    <f:facet name="header">
+                                        Product ID
+                                    </f:facet>
+                                    <h:outputText value="#{bi.billItemResponse.productId}" rendered="#{bi.hasSavedResponse() and bi.status eq 'C'}"/>
+                                </h:column>
+                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                    <f:facet name="header">
+                                        Product Name
+                                    </f:facet>
+                                    <h:outputText value="#{bi.billItemResponse.productHolder.product.desc}" rendered="#{bi.hasSavedResponse() and bi.status eq 'C'}"/>
+                                </h:column>
+                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                    <f:facet name="header">
+                                        Product Number
+                                    </f:facet>
+                                    <h:outputText value="#{bi.billItemResponse.productHolder.product.productNumber}" rendered="#{bi.hasSavedResponse() and bi.status eq 'C'}"/>
+                                </h:column>
+                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                    <f:facet name="header">
+                                        Quantity
+                                    </f:facet>
+                                    <h:outputText value="#{bi.billItemResponse.quantity}" rendered="#{bi.hasSavedResponse() and bi.status eq 'C'}"/>
+                                </h:column>
+                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                    <f:facet name="header">
+                                        Unit Price
+                                    </f:facet>
+                                    <h:outputText value="#{bi.billItemResponse.productHolder.averageSalesPrices}" rendered="#{bi.hasSavedResponse() and bi.status eq 'C'}">
+                                        <f:convertNumber type="currency" currencySymbol="SR "/>
+                                    </h:outputText>
+                                </h:column>
+                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                    <f:facet name="header">
+                                        Gross Price
+                                    </f:facet>
+                                    <h:outputText value="#{bi.billItemResponse.productHolder.averageSalesPrices * bi.quantity}"
+                                                  rendered="#{bi.hasSavedResponse() and bi.status eq 'C'}">
+                                        <f:convertNumber type="currency" currencySymbol="SR "/>
+                                    </h:outputText>
+                                </h:column>
+                                <f:facet name="footer">
+                                    <div class="w3-row">
+                                        <div class="w3-col s6 m1">
+                                            <h:outputText value="Total Products"/>
+                                        </div>
+                                        <div class="w3-col s6 m1">
+                                            <h:outputText value="#{quotationDetailsBean.quotation.totalSalesPrice}">
+                                                <f:convertNumber type="currency" currencySymbol="SR "/>
+                                            </h:outputText>
+                                        </div>
+                                    </div>
+                                    <div class="w3-row">
+                                        <div class="w3-col s6 m1">
+                                            <h:outputText value="Delivery"/>
+                                        </div>
+                                        <div class="w3-col s6 m1">
+                                            <h:outputText value="#{35}">
+                                                <f:convertNumber type="currency" currencySymbol="SR "/>
+                                            </h:outputText>
+                                        </div>
+                                    </div>
+                                    <div class="w3-row">
+                                        <div class="w3-col s6 m1">
+                                            <h:outputText value="Subtotal" styleClass="q-bold"/>
+                                        </div>
+                                        <div class="w3-col s6 m1">
+                                            <h:outputText value="#{quotationDetailsBean.quotation.totalSalesPrice + 35}"
+                                                          styleClass="q-bold">
+                                                <f:convertNumber type="currency" currencySymbol="SR "/>
+                                            </h:outputText>
+                                        </div>
+                                    </div>
+                                    <div class="w3-row">
+                                        <div class="w3-col s6 m1">
+                                            <h:outputText value="VAT"/>
+                                        </div>
+                                        <div class="w3-col s6 m1">
+                                            <h:outputText value="#{quotationDetailsBean.quotation.totalSalesPrice * 0.05}">
+                                                <f:convertNumber type="currency" currencySymbol="SR "/>
+                                            </h:outputText>
+                                        </div>
+                                    </div>
+                                    <div class="w3-row">
+                                        <div class="w3-col s6 m1">
+                                            <h:outputText value="Total" styleClass="q-bold"/>
+                                        </div>
+                                        <div class="w3-col s6 m1">
+                                            <h:outputText value="#{quotationDetailsBean.quotation.totalSalesPrice + 35 + (quotationDetailsBean.quotation.totalSalesPrice * 0.05)}"
+                                                          styleClass="q-bold">
+                                                <f:convertNumber type="currency" currencySymbol="SR "/>
+                                            </h:outputText>
+                                        </div>
+                                    </div>
+                                </f:facet>
+                            </h:dataTable>
+                        </p:panel>
+                    </div>
+                    <div class="w3-col s6 w3-center">
+                        <h:form>
+                            <p:commandButton value="Fund Wallet" onclick="PF('fundWalletDlgwv').show()"
+                                             styleClass="q-btn"/>
+                        </h:form>
+                    </div>
+                    <div class="w3-col s6 w3-center">
+                        <h:form>
+                            <p:commandButton value="Cencel Transfer"  onclick="PF('cancelTransferDlgwv').show()"
+                                             styleClass="q-btn-red" />
+                        </h:form>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <br/>
+            </div>
+        </div>
+    </div>
+
+    <h:form id="new-comment-form">
+        <p:dialog styleClass="q-dialog" header="New Comment"
+                  widgetVar="commentDlgwv">
+            <div align="center">
+                <h:outputText value="Visible to Customer"/>
+                <br/>
+                <h:selectBooleanCheckbox
+                        value="#{quotationDetailsBean.newComment.visibleToCustomer}"/>
+                <br/>
+                <div class="w3-padding-12">
+                    <h:outputText value="Text"/>
+                    <br/>
+                    <h:inputTextarea required="true"
+                                     requiredMessage="Enter comments before submitting"
+                                     value="#{quotationDetailsBean.newComment.text}" cols="70"
+                                     rows="3"/>
+                </div>
+                <div>
+                    <p:commandButton value="Submit" styleClass="q-btn"
+                                     actionListener="#{quotationDetailsBean.createComment()}"  update=":form-g">
+                    </p:commandButton>
+                </div>
+            </div>
+        </p:dialog>
+    </h:form>
+</h:body>
+</html>

@@ -36,6 +36,17 @@ public class Quotation implements Serializable {
 
 
     @JsonIgnore
+    public double getTotalSalesPrice(){
+        double total = 0;
+        for(BillItem billItem : getAllBillItems()){
+            if(billItem.getStatus() == 'C'){
+                total += billItem.getBillItemResponse().getProductHolder().getAverageSalesPrices();
+            }
+        }
+        return total;
+    }
+
+    @JsonIgnore
     public List<BillItem> getAllBillItems(){
         List<BillItem> billItems = new ArrayList<>();
         for(Bill bill : bills) {
