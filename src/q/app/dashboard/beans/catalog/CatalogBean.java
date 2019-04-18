@@ -13,6 +13,8 @@ import javax.inject.Named;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -58,7 +60,7 @@ public class CatalogBean implements Serializable {
 
     public void selectCar(CatalogCar car){
         this.selectedCar = car;
-        Response r = reqs.getSecuredRequest(AppConstants.getCatalogGroups(makeId, car.getCarId(), null, car.getCriteria()));
+        Response r = reqs.getSecuredRequest(AppConstants.getCatalogGroups(makeId, car.getCarId(), null, Helper.getEncodedUrl(car.getCriteria())));
         if(r.getStatus() == 200){
             List<CatalogGroup> groups = r.readEntity(new GenericType<List<CatalogGroup>>(){});
             mainGroup = new CatalogGroup();
@@ -71,7 +73,7 @@ public class CatalogBean implements Serializable {
 
     public void loadParts(CatalogGroup catalogGroup){
         if(catalogGroup.getCatalogPart() == null){
-            Response r = reqs.getSecuredRequest(AppConstants.getCatalogParts(makeId, selectedCar.getCarId(), catalogGroup.getId(), selectedCar.getCriteria()));
+            Response r = reqs.getSecuredRequest(AppConstants.getCatalogParts(makeId, selectedCar.getCarId(), catalogGroup.getId(), Helper.getEncodedUrl(selectedCar.getCriteria())));
             System.out.println(r.getStatus());
             if(r.getStatus() == 200){
                 CatalogPart cp = r.readEntity(CatalogPart.class);
@@ -98,7 +100,7 @@ public class CatalogBean implements Serializable {
 
     public void loadGroup(CatalogGroup catalogGroup){
         if(catalogGroup.getCatalogGroups() == null){
-            Response r = reqs.getSecuredRequest(AppConstants.getCatalogGroups(makeId, selectedCar.getCarId(), catalogGroup.getId(), selectedCar.getCriteria()));
+            Response r = reqs.getSecuredRequest(AppConstants.getCatalogGroups(makeId, selectedCar.getCarId(), catalogGroup.getId(), Helper.getEncodedUrl(selectedCar.getCriteria())));
             if(r.getStatus() == 200){
                 List<CatalogGroup> groups = r.readEntity(new GenericType<List<CatalogGroup>>(){});
                 catalogGroup.setCatalogGroups(groups);

@@ -10,6 +10,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Helper {
@@ -50,6 +53,10 @@ public class Helper {
         }
         return new byte[0];
 
+    }
+
+    public static String getEncodedUrl(String url){
+        return URLEncoder.encode(url, StandardCharsets.UTF_8);
     }
 
     public static int[] getCalendarArray(Date date){
