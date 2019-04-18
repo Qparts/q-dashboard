@@ -19,7 +19,7 @@
         <div class="w3-main">
             <div class="w3-container">
                 <div id="title-div" align="center" class="w3-padding-8">
-                    <h:outputText value="Quotation ID # #{wireTransferBean.wireTransfer.id}"
+                    <h:outputText value="Quotation ID # #{quotationDetailsBean.quotation.id}"
                                   styleClass="q-large-text"/>
                     <br/>
                     <h:outputText value="Amount: " styleClass="q-med-text w3-text-green" />
@@ -42,6 +42,16 @@
                                 <div class="w3-col s12 m6 w3-border">
                                     <table class="w3-table w3-striped">
                                         <tr>
+                                            <td><h:outputLabel value="Quotation Status" styleClass="q-bold"/></td>
+                                            <td>
+                                                <h:outputText value="Waiting for Quotation" rendered="#{quotationDetailsBean.quotation.status eq 'W'}" styleClass="w3-tag w3-indigo" />
+                                                <h:outputText value="Archived" rendered="#{quotationDetailsBean.quotation.status eq 'X'}" styleClass="w3-tag" />
+                                                <h:outputText value="Submitted" rendered="#{quotationDetailsBean.quotation.status eq 'S'}" styleClass="w3-tag w3-green" />
+                                                <h:outputText value="Edit Request" rendered="#{quotationDetailsBean.quotation.status eq 'A'}" styleClass="w3-tag w3-teal" />
+                                                <h:outputText value="No Items found" rendered="#{quotationDetailsBean.quotation.status eq 'R'}" styleClass="w3-tag w3-indigo" />
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td><h:outputLabel value="Quotation ID" styleClass="q-bold"/></td>
                                             <td><h:outputText value="#{quotationDetailsBean.quotation.id}"/></td>
                                         </tr>
@@ -58,7 +68,7 @@
                                         <tr>
                                             <td><h:outputLabel styleClass="q-bold" value="City"/></td>
                                             <td><h:outputText
-                                                    value="#{cityBean.getCityFromId(quotationDetailsBean.quotation.cityId).name}"/>
+                                                    value="#{cityBean.getCityFromId(quotationDetailsBean.quotation.cityId).region.name} - #{cityBean.getCityFromId(quotationDetailsBean.quotation.cityId).name}"/>
                                             </td>
                                         </tr>
                                     </table>
@@ -67,8 +77,7 @@
                                     <table class="w3-table w3-striped">
                                         <tr>
                                             <td><h:outputLabel styleClass="q-bold" value="Customer ID"/></td>
-                                            <td><h:outputText value="#{quotationDetailsBean.customer.id}"/>
-                                            </td>
+                                            <td><h:outputLink value="customer-details?id=#{quotationDetailsBean.customer.id}"><h:outputText value="#{quotationDetailsBean.customer.id}"/></h:outputLink></td>
                                         </tr>
                                         <tr>
                                             <td><h:outputLabel styleClass="q-bold" value="Name"/></td>
@@ -87,7 +96,13 @@
                                         <tr>
                                             <td><h:outputLabel styleClass="q-bold" value="Email"/></td>
                                             <td><h:outputText readonly="true"
-                                                              value="#{quotationDetailsBean.customer.created}"/>
+                                                              value="#{quotationDetailsBean.customer.email}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><h:outputLabel styleClass="q-bold" value="Status"/></td>
+                                            <td>
+                                                <h:outputText value="#{quotationDetailsBean.customer.status eq 'V' ? 'Active' : 'Unverified'}" styleClass="w3-tag w3-#{quotationDetailsBean.customer.status eq 'V' ? 'green' : 'red'}"/>
                                             </td>
                                         </tr>
                                     </table>
@@ -148,7 +163,10 @@
                                     <f:facet name="header">
                                         Status
                                     </f:facet>
-                                    <h:outputText value="#{bi.status}"/>
+                                    <h:outputText value="Completed" rendered="#{bi.status eq 'C'}" styleClass="w3-tag w3-green"/>
+                                    <h:outputText value="Under Review" rendered="#{bi.status eq 'W'}" styleClass="w3-tag w3-indigo"/>
+                                    <h:outputText value="Not Available" rendered="#{bi.status eq 'N'}" styleClass="w3-tag w3-red"/>
+                                    <h:outputText value="Deleted" rendered="#{bi.status eq 'X'}" styleClass="w3-tag" />
                                 </h:column>
                                 <h:column headerClass="w3-border-bottom w3-light-grey">
                                     <f:facet name="header">
