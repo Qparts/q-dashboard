@@ -480,3 +480,10 @@ div[id="form-g:warning-growl_container"]>div {
 	-webkit-box-shadow: none;
 	text-shadow: none !important;
 }
+
+.q-dialog-catalog{
+	height: 600px;
+	overflow-x: auto;
+	overflow-y: scroll;
+	max-width: 900px;
+}
