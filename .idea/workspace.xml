@@ -7,7 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b051513-06e8-4d02-8a21-6dcfa3f3a358" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/web/_includes/catalog.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/_includes/catalog.xhtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/app/quoting.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/quoting.xhtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/resources/css/dashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/resources/css/dashboard.css" afterDir="false" />
     </list>
@@ -32,11 +32,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/app/quoting.xhtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-90">
-              <caret line="18" column="97" lean-forward="true" selection-start-line="18" selection-start-column="97" selection-end-line="18" selection-end-column="97" />
+            <state relative-caret-position="270">
+              <caret line="18" column="121" selection-start-line="18" selection-start-column="121" selection-end-line="18" selection-end-column="121" />
               <folding>
                 <element signature="n#div#1;n#h:body#0;n#html#0;n#!!top" />
                 <element signature="n#h:outputStylesheet#0;n#h:body#0;n#html#0;n#!!top" />
@@ -62,20 +62,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/_includes/catalog.xhtml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="120">
-              <caret line="9" column="28" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/app/catalog.xhtml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="314">
-              <caret line="26" column="23" selection-start-line="26" selection-start-column="23" selection-end-line="26" selection-end-column="23" />
+              <caret line="9" column="29" lean-forward="true" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -234,9 +225,9 @@
         <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/catalog/CatalogBean.java" />
         <option value="$PROJECT_DIR$/web/app/live-quotations.xhtml" />
         <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/LiveQuotingBean.java" />
-        <option value="$PROJECT_DIR$/web/app/quoting.xhtml" />
-        <option value="$PROJECT_DIR$/web/resources/css/dashboard.css" />
         <option value="$PROJECT_DIR$/web/_includes/catalog.xhtml" />
+        <option value="$PROJECT_DIR$/web/resources/css/dashboard.css" />
+        <option value="$PROJECT_DIR$/web/app/quoting.xhtml" />
       </list>
     </option>
   </component>
@@ -303,7 +294,7 @@
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="q-app-deshboard" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555789080152" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555789502117" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -436,12 +427,12 @@
       <workItem from="1553799171129" duration="10193000" />
       <workItem from="1554466524604" duration="43237000" />
       <workItem from="1555418782509" duration="18695000" />
-      <workItem from="1555786583293" duration="2394000" />
+      <workItem from="1555786583293" duration="2773000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="439285000" />
+    <option name="totallyTimeSpent" value="439664000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -968,13 +959,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/catalog/CatalogBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="50" column="18" lean-forward="true" selection-start-line="50" selection-start-column="18" selection-end-line="50" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/app/live-quotations.xhtml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="433">
@@ -1006,15 +990,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/app/quoting.xhtml">
+    <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/catalog/CatalogBean.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-90">
-          <caret line="18" column="97" lean-forward="true" selection-start-line="18" selection-start-column="97" selection-end-line="18" selection-end-column="97" />
-          <folding>
-            <element signature="n#div#1;n#h:body#0;n#html#0;n#!!top" />
-            <element signature="n#h:outputStylesheet#0;n#h:body#0;n#html#0;n#!!top" />
-            <element signature="n#h:outputScript#0;n#h:body#0;n#html#0;n#!!top" />
-          </folding>
+        <state relative-caret-position="292">
+          <caret line="50" column="18" lean-forward="true" selection-start-line="50" selection-start-column="18" selection-end-line="50" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/resources/css/dashboard.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="484" column="4" selection-start-line="484" selection-start-column="4" selection-end-line="484" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -1025,17 +1011,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/resources/css/dashboard.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="483" column="1" selection-start-line="483" selection-start-column="1" selection-end-line="483" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/_includes/catalog.xhtml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
-          <caret line="9" column="28" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+          <caret line="9" column="29" lean-forward="true" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/app/quoting.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="121" selection-start-line="18" selection-start-column="121" selection-end-line="18" selection-end-column="121" />
+          <folding>
+            <element signature="n#div#1;n#h:body#0;n#html#0;n#!!top" />
+            <element signature="n#h:outputStylesheet#0;n#h:body#0;n#html#0;n#!!top" />
+            <element signature="n#h:outputScript#0;n#h:body#0;n#html#0;n#!!top" />
+          </folding>
         </state>
       </provider>
     </entry>
