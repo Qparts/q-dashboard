@@ -7,13 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b051513-06e8-4d02-8a21-6dcfa3f3a358" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/web/_includes/catalog.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/beans/catalog/CatalogBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/beans/catalog/CatalogBean.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/LiveQuotingBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/LiveQuotingBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/app/live-quotations.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/live-quotations.xhtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/app/quoting.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/quoting.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/app/quoting2.xhtml" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,11 +31,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/app/quoting.xhtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="44" lean-forward="true" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
+            <state relative-caret-position="278">
+              <caret line="76" column="184" selection-start-line="76" selection-start-column="184" selection-end-line="76" selection-end-column="184" />
               <folding>
                 <element signature="n#div#1;n#h:body#0;n#html#0;n#!!top" />
                 <element signature="n#h:outputStylesheet#0;n#h:body#0;n#html#0;n#!!top" />
@@ -50,11 +45,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/LiveQuotingBean.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="379">
-              <caret line="108" column="50" selection-start-line="108" selection-start-column="50" selection-end-line="108" selection-end-column="50" />
+            <state relative-caret-position="199">
+              <caret line="111" column="32" selection-start-line="111" selection-start-column="32" selection-end-line="111" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#9122#9123#0" expanded="true" />
@@ -154,7 +149,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>reloadQuotation</find>
       <find>notification-form</find>
       <find>quotation</find>
       <find>customer</find>
@@ -184,6 +178,7 @@
       <find>position</find>
       <find>map</find>
       <find>form</find>
+      <find>load</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -248,8 +243,8 @@
         <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/catalog/CatalogBean.java" />
         <option value="$PROJECT_DIR$/web/app/live-quotations.xhtml" />
         <option value="$PROJECT_DIR$/web/_includes/catalog.xhtml" />
-        <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/LiveQuotingBean.java" />
         <option value="$PROJECT_DIR$/web/app/quoting.xhtml" />
+        <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/LiveQuotingBean.java" />
       </list>
     </option>
   </component>
@@ -315,7 +310,7 @@
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="q-app-deshboard" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555787820906" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555788415680" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -448,12 +443,12 @@
       <workItem from="1553799171129" duration="10193000" />
       <workItem from="1554466524604" duration="43237000" />
       <workItem from="1555418782509" duration="18695000" />
-      <workItem from="1555786583293" duration="1233000" />
+      <workItem from="1555786583293" duration="1749000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="438124000" />
+    <option name="totallyTimeSpent" value="438640000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1025,28 +1020,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web/app/quoting.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="76" column="184" selection-start-line="76" selection-start-column="184" selection-end-line="76" selection-end-column="184" />
+          <folding>
+            <element signature="n#div#1;n#h:body#0;n#html#0;n#!!top" />
+            <element signature="n#h:outputStylesheet#0;n#h:body#0;n#html#0;n#!!top" />
+            <element signature="n#h:outputScript#0;n#h:body#0;n#html#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/LiveQuotingBean.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="379">
-          <caret line="108" column="50" selection-start-line="108" selection-start-column="50" selection-end-line="108" selection-end-column="50" />
+        <state relative-caret-position="199">
+          <caret line="111" column="32" selection-start-line="111" selection-start-column="32" selection-end-line="111" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#9122#9123#0" expanded="true" />
             <element signature="e#9177#9178#0" expanded="true" />
             <element signature="e#15307#15308#0" expanded="true" />
             <element signature="e#15359#15360#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/app/quoting.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="44" lean-forward="true" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
-          <folding>
-            <element signature="n#div#1;n#h:body#0;n#html#0;n#!!top" />
-            <element signature="n#h:outputStylesheet#0;n#h:body#0;n#html#0;n#!!top" />
-            <element signature="n#h:outputScript#0;n#h:body#0;n#html#0;n#!!top" />
           </folding>
         </state>
       </provider>
