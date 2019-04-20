@@ -12,7 +12,7 @@
 		<div class="w3-col s12 m4">
 			<h:form id="cat-form-2">
 				<div class="w3-col s12">
-					<p:commandButton styleClass="q-btn" value="Back" actionListener="#{catalogBean.setSelectedGroup(catalogBean.mainGroup)}" update="@form :cat-form-3 :form-4" rendered="#{not(catalogBean.mainGroup eq null)}"  />
+					<p:commandButton styleClass="q-btn" value="Back" actionListener="#{catalogBean.setSelectedGroup(catalogBean.mainGroup)}" update="@form :cat-form-3 :cat-form-4" rendered="#{not(catalogBean.mainGroup eq null)}"  />
 				</div>
 				<div class="w3-col s12">
 					<ui:repeat value="#{catalogBean.selectedGroup.catalogGroups}" var="group" rendered="#{not(catalogBean.selectedGroup.catalogGroups eq null) and (catalogBean.selectedGroup.hasSubgroups)}">
