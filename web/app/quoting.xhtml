@@ -74,7 +74,7 @@
                                                 <h:outputText value="#{quotation.customerVehicle.vin}" rendered="#{not (quotation.makeId eq 4 or quotation.makeId eq 3)}"/>
                                                 <h:outputLink value="catalog?vin=#{quotation.customerVehicle.vin}&amp;makeId=#{quotation.makeId}" rendered="#{quotation.makeId eq 4 or quotation.makeId eq 3}">#{quotation.customerVehicle.vin}</h:outputLink>
                                                 <br/>
-                                                <h:commandLink value="Load Catalog" rendered="#{quotation.makeId eq 4 or quotation.makeId eq 3}" actionListener="#{liveQuotingBean.loadCatalog(quotation.makeId, quotation.customerVehicle.vin)}" update=":catalog-panel" oncomplete="PF('cat-dlgwv').show()" />
+                                                <p:commandLink value="Load Catalog" rendered="#{quotation.makeId eq 4 or quotation.makeId eq 3}" actionListener="#{liveQuotingBean.loadCatalog(quotation.makeId, quotation.customerVehicle.vin)}" update=":catalog-panel" oncomplete="PF('cat-dlgwv').show()" />
                                             </div>
                                         </div>
                                     </div>
