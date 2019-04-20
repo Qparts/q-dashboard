@@ -61,9 +61,7 @@ public class CatalogBean implements Serializable {
     public void selectCar(CatalogCar car){
         this.selectedCar = car;
         String encoded = Helper.getEncodedUrl(car.getCriteria());
-        System.out.println(encoded);
         Response r = reqs.getSecuredRequest(AppConstants.getCatalogGroups(makeId, car.getCarId(), null, encoded));
-        System.out.println("Response is " + r.getStatus());
         if(r.getStatus() == 200){
             List<CatalogGroup> groups = r.readEntity(new GenericType<List<CatalogGroup>>(){});
             mainGroup = new CatalogGroup();
@@ -77,7 +75,6 @@ public class CatalogBean implements Serializable {
     public void loadParts(CatalogGroup catalogGroup){
         if(catalogGroup.getCatalogPart() == null){
             Response r = reqs.getSecuredRequest(AppConstants.getCatalogParts(makeId, selectedCar.getCarId(), catalogGroup.getId(), Helper.getEncodedUrl(selectedCar.getCriteria())));
-            System.out.println(r.getStatus());
             if(r.getStatus() == 200){
                 CatalogPart cp = r.readEntity(CatalogPart.class);
                 catalogGroup.setCatalogPart(cp);
@@ -90,7 +87,6 @@ public class CatalogBean implements Serializable {
         Map<String, String> map = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String positionNumber = map.get("param");
         this.setSelectedPosition(positionNumber);
-        System.out.println(positionNumber);
         this.selectedPartsList = new ArrayList<>();
         for(CatalogPartsGroup partsGroup : this.selectedGroup.getCatalogPart().getPartGroups()){
             for(CatalogPartsList list : partsGroup.getParts()){

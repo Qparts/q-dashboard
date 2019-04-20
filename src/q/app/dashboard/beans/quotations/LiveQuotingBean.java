@@ -6,6 +6,7 @@ import org.java_websocket.handshake.ServerHandshake;
 import org.omnifaces.cdi.Push;
 import org.omnifaces.cdi.PushContext;
 import org.omnifaces.cdi.ViewScoped;
+import q.app.dashboard.beans.catalog.CatalogBean;
 import q.app.dashboard.beans.common.LoginBean;
 import q.app.dashboard.beans.common.PojoRequester;
 import q.app.dashboard.beans.common.Requester;
@@ -64,6 +65,8 @@ public class LiveQuotingBean implements Serializable {
     private VendorsBean vendorsBean;
     @Inject
     private CategoryBean categoryBean;
+    @Inject
+    private CatalogBean catalogBean;
 
     @Inject
     @Push(channel = "quotingChannel")
@@ -100,6 +103,12 @@ public class LiveQuotingBean implements Serializable {
         } else {
             quotations = new ArrayList<>();
         }
+    }
+
+
+    public void loadCatalog(int makeId, String vin){
+        catalogBean.setMakeId(makeId);
+        catalogBean.setVin(vin);
     }
 
     private void initAllCustomers() {
