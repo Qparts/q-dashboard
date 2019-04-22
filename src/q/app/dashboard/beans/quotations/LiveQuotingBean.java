@@ -107,9 +107,11 @@ public class LiveQuotingBean implements Serializable {
 
 
     public void loadCatalog(int makeId, String vin){
-        catalogBean.setMakeId(makeId);
-        catalogBean.setVin(vin);
-        catalogBean.searchVin();
+        if(catalogBean.getSelectedCar().getCarId() == null && !catalogBean.getVin().equals(vin)){
+            catalogBean.setMakeId(makeId);
+            catalogBean.setVin(vin);
+            catalogBean.searchVin();
+        }
     }
 
     private void initAllCustomers() {

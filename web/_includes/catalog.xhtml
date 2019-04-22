@@ -51,7 +51,7 @@
 
 						<ui:repeat value="#{catalogBean.selectedGroup.catalogGroups}" var="group" rendered="#{not(catalogBean.selectedGroup.catalogGroups eq null) and (catalogBean.selectedGroup.hasSubgroups)}">
 							<div class="w3-container w3-border">
-								<h:graphicImage value="#{group.img}" width="50%"/>
+								<h:graphicImage value="#{group.img}" width="80"/>
 								<p:commandLink value="#{group.name}" actionListener="#{catalogBean.loadGroup(group)}" update="@form :cat-form-3" rendered="#{group.hasSubgroups}"/>
 								<p:commandLink value="#{group.name}" actionListener="#{catalogBean.loadParts(group)}" update="@form :cat-form-3" rendered="#{group.hasParts}" />
 								<br/>
@@ -127,7 +127,7 @@
 				</h:form>
 
 				<h:form id="cat-form-4">
-					<p:dialog id="dlg1" widgetVar="dlg1wv" header="Position Detail" styleClass="q-dialog" style="max-width: 500px">
+					<p:dialog id="dlg1" widgetVar="dlg1wv" header="Position Detail" styleClass="q-dialog">
 						<ui:repeat value="#{catalogBean.selectedPartsList}" var="part">
 							<h:panelGrid styleClass="w3-table w3-striped w3-border" columns="2">
 								<h:outputText value="Position"/>
@@ -142,8 +142,10 @@
 								</h:panelGroup>
 								<h:outputText value="Product ID"/>
 								<h:outputLink target="_blank" value="product-details?id=#{part.productHolder.product.id}" rendered="#{not (part.productHolder eq null)}">#{part.productHolder.product.id}</h:outputLink>
+								<h:outputText value=" " rendered="#{part.productHolder eq null}"/>
 								<h:outputText value="Sales Price"/>
 								<h:outputText value="#{part.productHolder.averageSalesPrices}" rendered="#{not (part.productHolder eq null)}" />
+								<h:outputText value=" " rendered="#{part.productHolder eq null}"/>
 							</h:panelGrid>
 							<div align="center">
 								<p:button styleClass="q-btn" onclick="copyText('#{part.number}');return false;" value="Copy"/>

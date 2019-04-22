@@ -482,8 +482,7 @@ div[id="form-g:warning-growl_container"]>div {
 }
 
 .q-dialog-catalog{
-	max-height: 600px;
+	max-height: 500px;
 	overflow-x: auto;
 	overflow-y: scroll;
-	max-width: 900px;
 }
