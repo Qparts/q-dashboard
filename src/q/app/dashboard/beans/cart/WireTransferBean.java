@@ -74,7 +74,7 @@ public class WireTransferBean implements Serializable {
     }
 
     public void cancelTransfer(){
-        Response r = reqs.postSecuredRequest(AppConstants.PUT_CANCEL_TRANSFER, wireTransfer);
+        Response r = reqs.putSecuredRequest(AppConstants.PUT_CANCEL_TRANSFER, wireTransfer);
         if(r.getStatus() == 201){
             Helper.redirect("wire-transfers");
         }
