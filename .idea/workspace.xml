@@ -7,7 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b051513-06e8-4d02-8a21-6dcfa3f3a358" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/web/app/carts-initiated.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/carts-initiated.xhtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/app/carts-awaiting.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/carts-awaiting.xhtml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -51,11 +51,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/app/carts-initiated.xhtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
+            <state relative-caret-position="308">
               <caret line="25" column="54" selection-start-line="25" selection-start-column="54" selection-end-line="25" selection-end-column="54" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/app/carts-awaiting.xhtml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="191">
+              <caret line="62" column="34" lean-forward="true" selection-start-line="62" selection-start-column="34" selection-end-line="62" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -74,7 +83,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>change</find>
       <find>loadG</find>
       <find>New Qu</find>
       <find>URI</find>
@@ -104,6 +112,7 @@
       <find>selectedCar</find>
       <find>catalog</find>
       <find>cancelTr</find>
+      <find>city</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -146,7 +155,6 @@
         <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/product/ProductDetailsBean.java" />
         <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/customer/CustomerDetailsBean.java" />
         <option value="$PROJECT_DIR$/web/app/product-details.xhtml" />
-        <option value="$PROJECT_DIR$/web/app/carts-awaiting.xhtml" />
         <option value="$PROJECT_DIR$/web/app/wire-transfers.xhtml" />
         <option value="$PROJECT_DIR$/web/app/customer-no-vin.xhtml" />
         <option value="$PROJECT_DIR$/src/q/app/dashboard/helper/activities.properties" />
@@ -170,6 +178,7 @@
         <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/LiveQuotingBean.java" />
         <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/cart/WireTransferBean.java" />
         <option value="$PROJECT_DIR$/web/app/carts-initiated.xhtml" />
+        <option value="$PROJECT_DIR$/web/app/carts-awaiting.xhtml" />
       </list>
     </option>
   </component>
@@ -223,7 +232,7 @@
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="q-app-deshboard" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555936098993" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555936979496" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -356,12 +365,12 @@
       <workItem from="1553799171129" duration="10193000" />
       <workItem from="1554466524604" duration="43237000" />
       <workItem from="1555418782509" duration="18695000" />
-      <workItem from="1555786583293" duration="10746000" />
+      <workItem from="1555786583293" duration="11619000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="447637000" />
+    <option name="totallyTimeSpent" value="448510000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -376,7 +385,7 @@
     <frame x="0" y="23" width="1432" height="797" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49803922" visible="true" weight="0.22517985" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49803922" visible="true" weight="0.22517985" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -386,7 +395,7 @@
       <window_info id="Web" order="7" sideWeight="0.5019608" side_tool="true" weight="0.22517985" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32765958" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.27659574" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.27659574" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -645,13 +654,6 @@
             <element signature="method#onClose#0;class#1865:2370" />
             <element signature="method#onError#0;class#1888:2427" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/app/carts-awaiting.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="62" column="34" lean-forward="true" selection-start-line="62" selection-start-column="34" selection-end-line="62" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -949,8 +951,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/app/carts-initiated.xhtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
+        <state relative-caret-position="308">
           <caret line="25" column="54" selection-start-line="25" selection-start-column="54" selection-end-line="25" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/app/carts-awaiting.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="62" column="34" lean-forward="true" selection-start-line="62" selection-start-column="34" selection-end-line="62" selection-end-column="34" />
         </state>
       </provider>
     </entry>
