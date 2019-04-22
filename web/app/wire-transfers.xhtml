@@ -68,7 +68,7 @@
                             <f:facet name="header">
                                 <h:outputText value="CITY"/>
                             </f:facet>
-                            <h:outputText value="#{wire.cart.customer.getAddressFromId(wire.cart.cartDelivery.addressId).cityId}"/>
+                            <h:outputText value="#{cityBean.getCityFromId(wire.cart.customer.getAddressFromId(wire.cart.cartDelivery.addressId).cityId).region.name} - #{cityBean.getCityFromId(wire.cart.customer.getAddressFromId(wire.cart.cartDelivery.addressId).cityId).name}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">

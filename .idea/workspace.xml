@@ -7,7 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b051513-06e8-4d02-8a21-6dcfa3f3a358" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/q_app_dashboard.war/q-app-dashboard.war" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/q_app_dashboard.war/q-app-dashboard.war" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/app/carts-awaiting.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/carts-awaiting.xhtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/app/wire-transfers.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/wire-transfers.xhtml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -60,11 +63,29 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/app/carts-awaiting.xhtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="62" column="34" lean-forward="true" selection-start-line="62" selection-start-column="34" selection-end-line="62" selection-end-column="34" />
+            <state relative-caret-position="251">
+              <caret line="66" column="258" selection-start-line="66" selection-start-column="28" selection-end-line="66" selection-end-column="258" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/app/wire-transfers.xhtml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="173">
+              <caret line="70" column="238" selection-start-line="70" selection-start-column="238" selection-end-line="70" selection-end-column="238" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/app/wire-transfer.xhtml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="185">
+              <caret line="63" selection-start-line="63" selection-end-line="63" />
             </state>
           </provider>
         </entry>
@@ -83,7 +104,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>loadG</find>
       <find>New Qu</find>
       <find>URI</find>
       <find>getCriter</find>
@@ -113,6 +133,7 @@
       <find>catalog</find>
       <find>cancelTr</find>
       <find>city</find>
+      <find>wire</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -155,7 +176,6 @@
         <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/product/ProductDetailsBean.java" />
         <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/customer/CustomerDetailsBean.java" />
         <option value="$PROJECT_DIR$/web/app/product-details.xhtml" />
-        <option value="$PROJECT_DIR$/web/app/wire-transfers.xhtml" />
         <option value="$PROJECT_DIR$/web/app/customer-no-vin.xhtml" />
         <option value="$PROJECT_DIR$/src/q/app/dashboard/helper/activities.properties" />
         <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/CustomerDetailsBean.java" />
@@ -179,6 +199,7 @@
         <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/cart/WireTransferBean.java" />
         <option value="$PROJECT_DIR$/web/app/carts-initiated.xhtml" />
         <option value="$PROJECT_DIR$/web/app/carts-awaiting.xhtml" />
+        <option value="$PROJECT_DIR$/web/app/wire-transfers.xhtml" />
       </list>
     </option>
   </component>
@@ -232,7 +253,7 @@
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="q-app-deshboard" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555936979496" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555937184273" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -365,12 +386,12 @@
       <workItem from="1553799171129" duration="10193000" />
       <workItem from="1554466524604" duration="43237000" />
       <workItem from="1555418782509" duration="18695000" />
-      <workItem from="1555786583293" duration="11619000" />
+      <workItem from="1555786583293" duration="11801000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="448510000" />
+    <option name="totallyTimeSpent" value="448692000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -678,13 +699,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/app/wire-transfers.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="64" column="43" selection-start-line="64" selection-start-column="43" selection-end-line="64" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/LiveQuotationBean.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
@@ -697,13 +711,6 @@
             <element signature="e#5453#5454#0" expanded="true" />
             <element signature="e#5560#5561#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/app/wire-transfer.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="62" column="146" selection-start-line="62" selection-start-column="146" selection-end-line="62" selection-end-column="146" />
         </state>
       </provider>
     </entry>
@@ -958,8 +965,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/app/carts-awaiting.xhtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="62" column="34" lean-forward="true" selection-start-line="62" selection-start-column="34" selection-end-line="62" selection-end-column="34" />
+        <state relative-caret-position="251">
+          <caret line="66" column="258" selection-start-line="66" selection-start-column="28" selection-end-line="66" selection-end-column="258" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/app/wire-transfers.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="70" column="238" selection-start-line="70" selection-start-column="238" selection-end-line="70" selection-end-column="238" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/app/wire-transfer.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="63" selection-start-line="63" selection-end-line="63" />
         </state>
       </provider>
     </entry>
