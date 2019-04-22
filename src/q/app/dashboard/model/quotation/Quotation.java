@@ -5,6 +5,9 @@ import q.app.dashboard.helper.AppConstants;
 import q.app.dashboard.model.customer.Customer;
 import q.app.dashboard.model.customer.CustomerVehicle;
 
+import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,6 +30,8 @@ public class Quotation implements Serializable {
     private List<Bill> bills;
     private Assignment activeAssignment;
     private List<Comment> comments;
+    private boolean read;
+    private Date readOn;
 
     @JsonIgnore
     private Comment newComment = new Comment();
@@ -195,6 +200,22 @@ public class Quotation implements Serializable {
 
     public void setNewComment(Comment newComment) {
         this.newComment = newComment;
+    }
+
+    public boolean isRead() {
+        return read;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
+    }
+
+    public Date getReadOn() {
+        return readOn;
+    }
+
+    public void setReadOn(Date readOn) {
+        this.readOn = readOn;
     }
 
     @Override
