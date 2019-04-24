@@ -5,9 +5,6 @@ import q.app.dashboard.helper.AppConstants;
 import q.app.dashboard.model.customer.Customer;
 import q.app.dashboard.model.customer.CustomerVehicle;
 
-import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;

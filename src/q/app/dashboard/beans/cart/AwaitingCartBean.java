@@ -18,7 +18,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.core.Response;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.*;
 
 @Named
 @ViewScoped
@@ -29,6 +29,8 @@ public class AwaitingCartBean implements Serializable {
     private boolean doRefund;
     private boolean doPurchase;
     private boolean doQuotation;
+    private int bankId;
+    private double liveWallet;
 
     @Inject
     private Requester reqs;
@@ -47,6 +49,7 @@ public class AwaitingCartBean implements Serializable {
             initCart(param);
             initCustomer();
             initProducts();
+            initLiveWallet();
         }catch(Exception ex){
             ex.printStackTrace();
         }
@@ -62,6 +65,14 @@ public class AwaitingCartBean implements Serializable {
             throw new Exception();
         }
     }
+
+    private void initLiveWallet(){
+        Response r = reqs.getSecuredRequest(AppConstants.getLiveWallet(cart.getCustomerId()));
+        if(r.getStatus() == 200){
+            this.liveWallet = r.readEntity(Double.class);
+        }
+    }
+
 
     private void initProducts(){
         for(CartProduct cp : cart.getCartProducts()){
@@ -86,6 +97,30 @@ public class AwaitingCartBean implements Serializable {
 
 
 
+    public boolean isRefundable() {
+        boolean refund = false;
+        if (cart.getCartProducts() != null) {
+            for (CartProduct cartProduct : this.cart.getCartProducts()) {
+                if (cartProduct.isDoRefund()) {
+                    refund = true;
+                    break;
+                }
+            }
+        }
+        return refund;
+    }
+
+
+
+    public List<CartProduct> getSelectedRefundItems() {
+        List<CartProduct> items = new ArrayList<>();
+        for (CartProduct cartProduct : cart.getCartProducts()) {
+            if (cartProduct.isDoRefund()) {
+                items.add(cartProduct);
+            }
+        }
+        return items;
+    }
 
     public void editRefund() {
         if (doRefund) {
@@ -143,6 +178,46 @@ public class AwaitingCartBean implements Serializable {
         }
     }
 
+    private List<CartProduct> copyRefundItems(){
+        List<CartProduct> cartProducts = this.getSelectedRefundItems();
+        List<CartProduct> cps = new ArrayList<>();
+        for(CartProduct orig : cartProducts){
+            CartProduct cartProduct = new CartProduct();
+            cartProduct.setQuantity(orig.getNewQuantity());
+            cartProduct.setCartId(orig.getCartId());
+            cartProduct.setCreatedBy(orig.getCreatedBy());
+            cartProduct.setCreated(orig.getCreated());
+            cartProduct.setId(orig.getId());
+            cartProduct.setProductId(orig.getProductId());
+            cartProduct.setSalesPrice(orig.getSalesPrice());
+            cartProduct.setStatus(orig.getStatus());
+            cps.add(cartProduct);
+        }
+        return cps;
+    }
+
+    public void refundProducts() {
+        Response r = reqs.postSecuredRequest(AppConstants.POST_EMPTY_WALLET, cart.getCustomerId());
+        if(r.getStatus() == 200){
+            long walletId = ((Number) r.readEntity(Number.class)).longValue();
+            List<CartProduct> refundProducts = copyRefundItems();
+            Map<String, Object> map = new HashMap<>();
+            map.put("cartProducts", refundProducts);
+            map.put("cartId", this.cart.getId());
+            map.put("refundItemType", 'P');//products
+            map.put("method", 'W');
+            map.put("bankId", bankId);
+            map.put("walletId", walletId);
+            Response r2 = reqs.putSecuredRequest(AppConstants.PUT_REFUND_WALLET_WIRE, map);
+            if(r2.getStatus() == 201){
+                Helper.redirect("cart-awaiting?id=" + this.cart.getId());
+            }
+            else{
+                Helper.addErrorMessage("Error code " + r.getStatus());
+            }
+        }
+    }
+
     public Cart getCart() {
         return cart;
     }
@@ -182,5 +257,21 @@ public class AwaitingCartBean implements Serializable {
 
     public void setDoQuotation(boolean doQuotation) {
         this.doQuotation = doQuotation;
+    }
+
+    public int getBankId() {
+        return bankId;
+    }
+
+    public void setBankId(int bankId) {
+        this.bankId = bankId;
+    }
+
+    public double getLiveWallet() {
+        return liveWallet;
+    }
+
+    public void setLiveWallet(double liveWallet) {
+        this.liveWallet = liveWallet;
     }
 }

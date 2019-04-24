@@ -42,7 +42,8 @@ public class Cart implements Serializable {
         double total = 0;
         try{
             for(CartProduct cartProduct : cartProducts){
-                total += (cartProduct.getSalesPrice() * cartProduct.getQuantity());
+                if(cartProduct.getStatus() != 'R')
+                    total += (cartProduct.getSalesPrice() * cartProduct.getQuantity());
             }
 
         }catch(NullPointerException ex){

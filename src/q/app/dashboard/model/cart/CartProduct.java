@@ -3,7 +3,6 @@ package q.app.dashboard.model.cart;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import q.app.dashboard.model.product.ProductHolder;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -27,6 +26,18 @@ public class CartProduct implements Serializable {
     private boolean doQuotation;
     @JsonIgnore
     private boolean doPurchase;
+
+
+
+
+    @JsonIgnore
+    public int[] getQuantityArray(){
+        int[] quantityArray = new int[quantity];
+        for (int i = 0; i < quantityArray.length; i++) {
+            quantityArray[i] = i + 1;
+        }
+        return quantityArray;
+    }
 
 
     public ProductHolder getProductHolder() {

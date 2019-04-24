@@ -60,8 +60,10 @@ public class AppConstants {
     public final static String GET_BANKS = CART_SERVICE + "banks";
     public final static String POST_PUT_DELETE_BANK = CART_SERVICE + "bank";
     public final static String POST_FUND_WALLET = CART_SERVICE + "fund-wallet/wire-transfer";
+    public final static String PUT_REFUND_WALLET_WIRE = CART_SERVICE + "cart-refund/wire-transfer";
     public final static String PUT_CANCEL_TRANSFER = CART_SERVICE + "cancel-transfer";
     public final static String GET_NOTIFICATION_CARTS = CART_SERVICE + "carts-notification";
+    public final static String POST_EMPTY_WALLET = CART_SERVICE + "empty-wallet";
     public final static String getAwaitingWireTransfer(long id){
       return CART_SERVICE + "wire-transfer/" +  id + "/awaiting";
     }
