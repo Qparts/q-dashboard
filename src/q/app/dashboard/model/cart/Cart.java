@@ -27,7 +27,6 @@ public class Cart implements Serializable {
     @JsonIgnore
     private Customer customer;
 
-
     @JsonIgnore
     public CustomerAddress getAddress(){
         try{
@@ -55,7 +54,10 @@ public class Cart implements Serializable {
     @JsonIgnore
     public double getDeliveryFees(){
         try{
-            return cartDelivery.getDeliveryCharges();
+            if(cartDelivery.getStatus() != 'R') {
+                return cartDelivery.getDeliveryCharges();
+            }
+            return 0;
         }catch(NullPointerException ex){
             return 0;
         }

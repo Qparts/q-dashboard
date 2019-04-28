@@ -45,14 +45,19 @@
 										<f:convertDateTime type="date" />
 									</h:inputText>
 									<h:outputText value="Delivery Fees" />
-									<h:inputText value="#{awaitingCartBean.cart.deliveryFees}"
-												 readonly="true">
-										<f:convertNumber type="currency" currencySymbol="SR "/>
-									</h:inputText>
+									<h:panelGroup>
+										<h:inputText value="#{awaitingCartBean.cart.deliveryFees}" readonly="true">
+											<f:convertNumber type="currency" currencySymbol="SR "/>
+										</h:inputText>
+										<h:selectBooleanCheckbox value="#{awaitingCartBean.refundDelivery}"
+																 rendered="#{awaitingCartBean.doRefund and awaitingCartBean.cart.cartDelivery.status eq 'N' and awaitingCartBean.cart.deliveryFees gt 0}">
+											<f:ajax execute="@this" render=":form3" />
+										</h:selectBooleanCheckbox>
+									</h:panelGroup>
 									<h:outputText value="Live Wallet" />
-									<h:inputText value="#{awaitingCartBean.liveWallet}" readonly="true" styleClass="w3-text-green q-bold">
-										<f:convertNumber type="currency" currencySymbol="SR "/>
-									</h:inputText>
+										<h:inputText value="#{awaitingCartBean.liveWallet}" readonly="true" styleClass="w3-text-#{awaitingCartBean.liveWallet lt 0 ? 'red' : 'green'} q-bold">
+											<f:convertNumber type="currency" currencySymbol="SR "/>
+										</h:inputText>
 								</h:panelGrid>
 							</div>
 						</div>
@@ -162,7 +167,7 @@
 						<p:commandButton
 							value="#{awaitingCartBean.doRefund ? 'Cancel Refund' : 'Refund'}"
 							actionListener="#{awaitingCartBean.editRefund()}"
-							update="@form :form2 :form3" styleClass="q-btn-red"
+							update="@form :form :form2 :form3" styleClass="q-btn-red"
 							disabled="#{awaitingCartBean.doPurchase or awaitingCartBean.doQuotation}" />
 					</div>
 					<div align="center" class="w3-third">
@@ -321,6 +326,66 @@
 				</h:dataTable>
 			</h:form>
 			<br />
+			<h:form id="form3">
+				<h:panelGroup rendered="#{awaitingCartBean.refundable}">
+					<h:dataTable value="#{awaitingCartBean.selectedRefundItems}"
+								 var="cp" styleClass="w3-table w3-striped w3-border"
+								 headerClass="w3-border-bottom w3-light-grey"
+								 footerClass="w3-border-top w3-light-grey">
+						<f:facet name="header">
+							<h:outputText value="Refund Details"/>
+						</f:facet>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Product ID" />
+							</f:facet>
+							<h:outputText value="#{cp.productHolder.product.id}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Desc." />
+							</f:facet>
+							<h:outputText value="#{cp.productHolder.product.desc}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Number" />
+							</f:facet>
+							<h:outputText value="#{cp.productHolder.product.productNumber}" />
+						</h:column>
+						<h:column>
+							<h:selectOneMenu value="#{cp.newQuantity}">
+								<f:selectItems value="#{cp.quantityArray}" var="q" itemValue="#{q}" itemLabel="#{q}" />
+								<f:ajax execute="@this"/>
+							</h:selectOneMenu>
+						</h:column>
+						<f:facet name="footer">
+							<div class="q-bold">
+								<h:outputText value="Delivery Refund:" rendered="#{awaitingCartBean.refundDelivery}" />
+								<h:outputText rendered="#{awaitingCartBean.refundDelivery}" value="#{awaitingCartBean.cart.deliveryFees}">
+									<f:convertNumber currencySymbol="SR " type="currency" />
+								</h:outputText>
+							</div>
+						</f:facet>
+					</h:dataTable>
+
+					<div align="center">
+						<h:selectOneMenu value="#{awaitingCartBean.bankId}"
+										 required="true" requiredMessage="Select Bank">
+							<f:selectItem noSelectionOption="true"
+										  itemLabel="--Select Bank--" />
+							<f:selectItems value="#{banksBean.banks}" var="bank"
+										   itemValue="#{bank.id}" itemLabel="#{bank.name}"/>
+							<f:ajax execute="@this"/>
+						</h:selectOneMenu>
+						<br /> <br />
+						<p:commandButton update=":form-g" widgetVar="submitRefund"
+										 onclick="PF('submitRefund').disable()"
+										 actionListener="#{awaitingCartBean.refundProducts()}"
+										 value="Refund" styleClass="q-btn" />
+					</div>
+				</h:panelGroup>
+			</h:form>
 			<h:form id="form8">
 				<p:dialog styleClass="q-dialog" id="dlg8" widgetVar="dlg8wv"
 					header="Alter Purchase Item">
@@ -492,54 +557,7 @@
 					</h:form>
 				</p:panel>
 			<br />
-			<h:form id="form3">
-				<h:panelGroup rendered="#{awaitingCartBean.refundable}">
-					<h:dataTable value="#{awaitingCartBean.selectedRefundItems}"
-						var="cp" styleClass="w3-table w3-striped w3-border"
-						headerClass="w3-border-bottom w3-light-grey">
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Product ID" />
-							</f:facet>
-							<h:outputText value="#{cp.productHolder.product.id}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Desc." />
-							</f:facet>
-							<h:outputText value="#{cp.productHolder.product.desc}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Number" />
-							</f:facet>
-							<h:outputText value="#{cp.productHolder.product.productNumber}" />
-						</h:column>
-						<h:column>
-							<h:selectOneMenu value="#{cp.newQuantity}">
-								<f:selectItems value="#{cp.quantityArray}" var="q" itemValue="#{q}" itemLabel="#{q}" />
-								<f:ajax execute="@this"/>
-							</h:selectOneMenu>
-						</h:column>
-					</h:dataTable>
 
-					<div align="center">
-						<h:selectOneMenu value="#{awaitingCartBean.bankId}"
-							required="true" requiredMessage="Select Bank">
-							<f:selectItem noSelectionOption="true"
-								itemLabel="--Select Bank--" />
-							<f:selectItems value="#{banksBean.banks}" var="bank"
-								itemValue="#{bank.id}" itemLabel="#{bank.name}"/>
-							<f:ajax execute="@this"/>
-						</h:selectOneMenu>
-						<br /> <br />
-						<p:commandButton update=":form-g" widgetVar="submitRefund"
-							onclick="PF('submitRefund').disable()"
-							actionListener="#{awaitingCartBean.refundProducts()}"
-							value="Refund" styleClass="q-btn" />
-					</div>
-				</h:panelGroup>
-			</h:form>
 
 
 			<h:form id="form4">

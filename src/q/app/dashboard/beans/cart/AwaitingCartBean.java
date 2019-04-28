@@ -1,7 +1,5 @@
 package q.app.dashboard.beans.cart;
 
-
-import org.primefaces.component.export.ExcelXExporter;
 import q.app.dashboard.beans.common.LoginBean;
 import q.app.dashboard.beans.common.Requester;
 import q.app.dashboard.helper.AppConstants;
@@ -31,6 +29,7 @@ public class AwaitingCartBean implements Serializable {
     private boolean doQuotation;
     private int bankId;
     private double liveWallet;
+    private boolean refundDelivery;
 
     @Inject
     private Requester reqs;
@@ -51,7 +50,7 @@ public class AwaitingCartBean implements Serializable {
             initProducts();
             initLiveWallet();
         }catch(Exception ex){
-            ex.printStackTrace();
+            Helper.redirect("carts-awaiting");
         }
     }
 
@@ -107,6 +106,9 @@ public class AwaitingCartBean implements Serializable {
                 }
             }
         }
+        if(this.isRefundDelivery()){
+            refund = true;
+        }
         return refund;
     }
 
@@ -129,6 +131,7 @@ public class AwaitingCartBean implements Serializable {
                 cp.setDoRefund(false);
             }
             doRefund = false;
+            refundDelivery = false;
         } else {
             doRefund = true;
         }
@@ -204,16 +207,19 @@ public class AwaitingCartBean implements Serializable {
             Map<String, Object> map = new HashMap<>();
             map.put("cartProducts", refundProducts);
             map.put("cartId", this.cart.getId());
-            map.put("refundItemType", 'P');//products
+            map.put("refundProducts", !refundProducts.isEmpty());//products
+            map.put("refundDelivery", isRefundDelivery());//products
+            map.put("deliveryFees", cart.getDeliveryFees());
             map.put("method", 'W');
             map.put("bankId", bankId);
             map.put("walletId", walletId);
+            map.put("createdBy", loginBean.getLoggedUserId());
             Response r2 = reqs.putSecuredRequest(AppConstants.PUT_REFUND_WALLET_WIRE, map);
             if(r2.getStatus() == 201){
                 Helper.redirect("cart-awaiting?id=" + this.cart.getId());
             }
             else{
-                Helper.addErrorMessage("Error code " + r.getStatus());
+                Helper.addErrorMessage("Error code " + r2.getStatus());
             }
         }
     }
@@ -273,5 +279,13 @@ public class AwaitingCartBean implements Serializable {
 
     public void setLiveWallet(double liveWallet) {
         this.liveWallet = liveWallet;
+    }
+
+    public boolean isRefundDelivery() {
+        return refundDelivery;
+    }
+
+    public void setRefundDelivery(boolean refundDelivery) {
+        this.refundDelivery = refundDelivery;
     }
 }

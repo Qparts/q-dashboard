@@ -251,7 +251,7 @@
 
 
     <h:form id="cancel-transfer-form">
-        <p:dialog styleClass="q-dialog" header="Funding Wallet" widgetVar="cancelTransferDlgwv">
+        <p:dialog styleClass="q-dialog" header="Cancel Transfer" widgetVar="cancelTransferDlgwv">
             <br/>
             <h:outputText value="Are you sure you want to cancel the wire transfer for cart #{wireTransferBean.wireTransfer.cart.id} ? "/>
             <br/>
@@ -268,7 +268,6 @@
 
     <h:form id="fund-wallet-form">
         <p:dialog styleClass="q-dialog" header="Funding Wallet" widgetVar="fundWalletDlgwv">
-
             <br/>
             <h:outputText value="Select Bank "/>
             <h:selectOneMenu value="#{wireTransferBean.bankId}"
