@@ -41,7 +41,7 @@
                                 STATUS
                             </f:facet>
                             <h:outputText value="New" rendered="#{cart.status eq 'N'}" styleClass="w3-yellow w3-tag"/>
-                            <h:outputText value="#{cart.status}" rendered="#{not (cart.status eq 'N')}" styleClass="w3-indigo w3-tag"/>
+                            <h:outputText value="Sold" rendered="#{cart.status eq 'S'}" styleClass="w3-green w3-tag"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
@@ -83,7 +83,6 @@
                                 <i class="fa fa-search-plus" style="font-size: 20px;"/>
                             </h:outputLink>
                         </h:column>
-
                     </h:dataTable>
                 </h:form>
                 <br/>

@@ -31,7 +31,7 @@ public class NewPurchaseOrder implements Serializable {
 
 
     @PostConstruct
-    private void init(){
+    public void init(){
         purchase = new Purchase();
         purchase.setPurchaseProducts(new ArrayList<>());
         selectedProductHolder = new ProductHolder();

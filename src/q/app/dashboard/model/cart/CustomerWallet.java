@@ -15,7 +15,7 @@ public class CustomerWallet implements Serializable {
     private int createdBy;
     private String transactionId;
     private String currency;
-    private char walletType;
+    private char walletType;//P = payment, S = sales, R = refund, T = return
     private String ccCompany;
     private Integer bankId;
 

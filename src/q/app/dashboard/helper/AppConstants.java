@@ -143,7 +143,7 @@ public class AppConstants {
     public final static String getSearchProduct(String query){
         return PRODUCT_SERVICE + "products/search/" + query;
     }
-
+    public final static String POST_STOCK_DEDUCT = PRODUCT_SERVICE + "stock/deduct";
     public final static String getMakeCategories(long makeId){
         return PRODUCT_SERVICE + "categories/make/" + makeId;
     }
@@ -206,6 +206,8 @@ public class AppConstants {
 
     //INVOICE SERVICE CALLS//
     public final static String POST_PURCHASE_ORDER = INVOICE_SERVICE + "purchase";
+    public final static String POST_EMPTY_SALES = INVOICE_SERVICE + "empty-sales";
+    public final static String PUT_SALES = INVOICE_SERVICE + "sales";
     public final static String getPurchase(long purchaseId){
         return INVOICE_SERVICE + "purchase/" + purchaseId;
     }

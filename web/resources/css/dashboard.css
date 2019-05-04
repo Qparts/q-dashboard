@@ -322,6 +322,16 @@ div[id="form-g:warning-growl_container"]>div {
 	border-color: #3f51b5 !important;
 }
 
+.q-btn-orange {
+	background: none !important;
+	background-color: #ff9800!important;
+	color: #fff !important;
+	text-shadow: none !important;
+	box-shadow: none;
+	border: 1px solid transparent !important;
+	border-color: #ff9800 !important;
+}
+
 
 
 .q-btn:hover {

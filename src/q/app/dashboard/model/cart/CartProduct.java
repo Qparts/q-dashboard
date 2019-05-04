@@ -15,7 +15,7 @@ public class CartProduct implements Serializable {
     private double salesPrice;
     private Date created;
     private int createdBy;
-    private char status;
+    private char status;//N = new, S=sold
     @JsonIgnore
     private ProductHolder productHolder;
     @JsonIgnore
@@ -26,6 +26,8 @@ public class CartProduct implements Serializable {
     private boolean doQuotation;
     @JsonIgnore
     private boolean doPurchase;
+    @JsonIgnore
+    private boolean doSales;
 
 
 
@@ -33,6 +35,16 @@ public class CartProduct implements Serializable {
     @JsonIgnore
     public int[] getQuantityArray(){
         int[] quantityArray = new int[quantity];
+        for (int i = 0; i < quantityArray.length; i++) {
+            quantityArray[i] = i + 1;
+        }
+        return quantityArray;
+    }
+
+
+    @JsonIgnore
+    public int[] getQuantityArray20(){
+        int[] quantityArray = new int[20];
         for (int i = 0; i < quantityArray.length; i++) {
             quantityArray[i] = i + 1;
         }
@@ -142,5 +154,13 @@ public class CartProduct implements Serializable {
 
     public void setDoPurchase(boolean doPurchase) {
         this.doPurchase = doPurchase;
+    }
+
+    public boolean isDoSales() {
+        return doSales;
+    }
+
+    public void setDoSales(boolean doSales) {
+        this.doSales = doSales;
     }
 }

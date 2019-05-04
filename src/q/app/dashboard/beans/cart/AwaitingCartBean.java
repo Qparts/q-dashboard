@@ -1,19 +1,26 @@
 package q.app.dashboard.beans.cart;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import q.app.dashboard.beans.common.LoginBean;
 import q.app.dashboard.beans.common.Requester;
+import q.app.dashboard.beans.purchase.NewPurchaseOrder;
 import q.app.dashboard.helper.AppConstants;
 import q.app.dashboard.helper.Helper;
-import q.app.dashboard.model.cart.Cart;
-import q.app.dashboard.model.cart.CartComment;
-import q.app.dashboard.model.cart.CartProduct;
+import q.app.dashboard.model.cart.*;
 import q.app.dashboard.model.customer.Customer;
 import q.app.dashboard.model.product.ProductHolder;
+import q.app.dashboard.model.product.Stock;
+import q.app.dashboard.model.product.StockDeduct;
+import q.app.dashboard.model.purchase.Purchase;
+import q.app.dashboard.model.purchase.PurchaseProduct;
+import q.app.dashboard.model.sales.Sales;
+import q.app.dashboard.model.sales.SalesProduct;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import java.io.Serializable;
 import java.util.*;
@@ -26,6 +33,7 @@ public class AwaitingCartBean implements Serializable {
     private CartComment newComment;
     private boolean doRefund;
     private boolean doPurchase;
+    private boolean doSales;
     private boolean doQuotation;
     private int bankId;
     private double liveWallet;
@@ -36,6 +44,9 @@ public class AwaitingCartBean implements Serializable {
 
     @Inject
     private LoginBean loginBean;
+
+    @Inject
+    private NewPurchaseOrder purchaseOrderBean;
 
     @PostConstruct
     private void init(){
@@ -94,6 +105,18 @@ public class AwaitingCartBean implements Serializable {
         }
     }
 
+    public boolean isPurchasable() {
+        boolean purchasable = false;
+        if (cart.getCartProducts() != null) {
+            for (CartProduct cartProduct : this.cart.getCartProducts()) {
+                if (cartProduct.isDoPurchase()) {
+                    purchasable = true;
+                    break;
+                }
+            }
+        }
+        return purchasable;
+    }
 
 
     public boolean isRefundable() {
@@ -112,12 +135,88 @@ public class AwaitingCartBean implements Serializable {
         return refund;
     }
 
+    public boolean isSellable() {
+        boolean sales = false;
+        if (cart.getCartProducts() != null) {
+            for (CartProduct cartProduct : this.cart.getCartProducts()) {
+                if (cartProduct.isDoSales()) {
+                    sales = true;
+                    break;
+                }
+            }
+        }
+        return sales;
+    }
+
+
+
+    public List<CartProduct> getSelectedPurchaseItems() {
+        List<CartProduct> items = new ArrayList<>();
+        for (CartProduct cartProduct : cart.getCartProducts()) {
+            if (cartProduct.isDoPurchase()) {
+                items.add(cartProduct);
+            }
+        }
+        return items;
+    }
+
 
 
     public List<CartProduct> getSelectedRefundItems() {
         List<CartProduct> items = new ArrayList<>();
         for (CartProduct cartProduct : cart.getCartProducts()) {
             if (cartProduct.isDoRefund()) {
+                items.add(cartProduct);
+            }
+        }
+        return items;
+    }
+
+    public double getSalesVat(){
+        return getSalesSubTotal() * cart.getVatPercentage();
+    }
+
+
+    public double getSalesProductsTotal(){
+        double total = 0;
+        try{
+            for(CartProduct cartProduct : getSelectedSalesItems()){
+                total += (cartProduct.getSalesPrice() * cartProduct.getQuantity());
+            }
+        }catch(NullPointerException ex){
+            total = 0;
+        }
+        return total;
+    }
+
+
+    public double getSalesGrandTotal(){
+        return getSalesSubTotal() + getSalesVat();
+    }
+
+    public double getSalesSubTotal(){
+        return getSalesProductsTotal() +  cart.getDeliveryFees() +  this.getSalesDiscountTotal();
+    }
+
+    public double getSalesDiscountTotal(){
+        try{
+            if(cart.getCartDiscount().getDiscount().getDiscountType() == 'P'){
+                return -1 * cart.getCartDiscount().getDiscount().getPercentage() * getSalesProductsTotal();
+            }
+            if(cart.getCartDiscount().getDiscount().getDiscountType() == 'D'){
+                return -1 * cart.getDeliveryFees();
+            }
+            throw new NullPointerException();
+        }catch (NullPointerException nu){
+            return 0;
+        }
+    }
+
+
+    public List<CartProduct> getSelectedSalesItems() {
+        List<CartProduct> items = new ArrayList<>();
+        for (CartProduct cartProduct : cart.getCartProducts()) {
+            if (cartProduct.isDoSales()) {
                 items.add(cartProduct);
             }
         }
@@ -150,6 +249,17 @@ public class AwaitingCartBean implements Serializable {
         }
     }
 
+    public void editSales() {
+        if (doSales) {
+            for (CartProduct cp  : cart.getCartProducts()) {
+                cp.setDoSales(false);
+            }
+            doSales = false;
+        } else {
+            doSales = true;
+        }
+    }
+
     public void editPurchase() {
         if (doPurchase) {
             for (CartProduct cp : cart.getCartProducts()) {
@@ -158,7 +268,12 @@ public class AwaitingCartBean implements Serializable {
             }
             doPurchase = false;
         } else {
+            for (CartProduct cp : cart.getCartProducts()) {
+                cp.setNewQuantity(cp.getQuantity());
+            }
+            purchaseOrderBean.init();
             doPurchase = true;
+
         }
     }
 
@@ -198,6 +313,205 @@ public class AwaitingCartBean implements Serializable {
         }
         return cps;
     }
+
+    private Sales prepareSalesObject(long id){
+        Sales sales = new Sales();
+        sales.setId(id);
+        sales.setCartId(this.cart.getId());
+        sales.setCreatedBy(this.loginBean.getLoggedUserId());
+        sales.setCustomerId(this.cart.getCustomerId());
+        sales.setDeliveryDiscountId(cart.getCartDiscount() == null ? null : (cart.getCartDiscount().getDiscount().getDiscountType() == 'D' ? cart.getCartDiscount().getDiscount().getId() : null));
+        sales.setDeliveryFees(cart.getDeliveryFees());
+        if(cart.getPaymentMethod() == 'W' || cart.getPaymentMethod() == 'C'){
+            sales.setTransactionType('C');//cash
+            sales.setPaymentStatus('P');//paid
+        }
+        else{
+            sales.setTransactionType('T');//credit
+            sales.setPaymentStatus('O');//outstanding
+        }
+        return sales;
+    }
+
+    public List<StockDeduct> prepareStockDeducts(){
+        var stockDeducts = new ArrayList<StockDeduct>();
+        for(CartProduct cp : getSelectedSalesItems()){
+            StockDeduct sd = new StockDeduct();
+            sd.setCreatedBy(loginBean.getLoggedUserId());
+            sd.setProductId(cp.getProductId());
+            sd.setQuantity(cp.getQuantity());
+            sd.setCartProductId(cp.getId());
+            stockDeducts.add(sd);
+        }
+        Response r = reqs.postSecuredRequest(AppConstants.POST_STOCK_DEDUCT, stockDeducts);
+        if(r.getStatus() == 200){
+            List<StockDeduct> data = r.readEntity(new GenericType<List<StockDeduct>>(){});
+            return data;
+        }
+        else{
+            return null;
+        }
+    }
+
+    private StockDeduct getStockDeduct(List<StockDeduct> sds, long cartProductId){
+        for(StockDeduct sd : sds){
+            if(sd.getCartProductId() == cartProductId){
+                return sd;
+            }
+        }
+        return null;
+    }
+
+    private double calculateSalesWalletAmount(Sales sales){
+        double total = 0;
+        for(SalesProduct sp : sales.getSalesProducts()){
+            total += (sp.getUnitSales() * sp.getQuantity());
+        }
+
+        //add delivery fees
+        CartDelivery cd = cart.getCartDelivery();
+        if(cd.getStatus() == 'N'){
+            total += cart.getDeliveryFees();
+        }
+
+        return total;
+    }
+
+    private CartDelivery prepareCartDeliveryForSales(){
+        if(cart.getCartDelivery().getStatus() == 'N'){
+            cart.getCartDelivery().setStatus('S');//added to invoice
+            return cart.getCartDelivery();
+        }
+        return null;
+    }
+
+
+    private CustomerWallet prepareCustomerWallet(Sales sales){
+        CustomerWallet wallet = new CustomerWallet();
+        wallet.setWalletType('S');//sales
+        wallet.setAmount(calculateSalesWalletAmount(sales));//calculate
+        wallet.setTransactionId("sales id: " + sales.getId());
+        wallet.setMethod('X');//no payment method!!
+        wallet.setCustomerId(cart.getCustomerId());
+        wallet.setCurrency("SAR");
+        wallet.setCreatedBy(loginBean.getLoggedUserId());
+        wallet.setCreated(new Date());
+        wallet.setCreditCharges(0);
+        return wallet;
+    }
+
+    private boolean walletCovers(){
+        double total = 0;
+        for(CartProduct sp : this.getSelectedSalesItems()){
+            total += (sp.getSalesPrice() * sp.getQuantity());
+        }
+
+        //add delivery fees
+        CartDelivery cd = cart.getCartDelivery();
+        if(cd.getStatus() == 'N'){
+            total += cart.getDeliveryFees();
+        }
+
+        return (total <= this.liveWallet);
+    }
+
+    public void createPurchase(){
+        for(CartProduct cp : this.getSelectedPurchaseItems()){
+            PurchaseProduct pp = new PurchaseProduct();
+            pp.setProductId(cp.getProductId());
+            pp.setHolder(cp.getProductHolder());
+            pp.setQuantity(cp.getNewQuantity());
+            pp.setVatPercentage(0.05);
+            pp.setStatus('I');
+            purchaseOrderBean.getPurchase().getPurchaseProducts().add(pp);
+        }
+
+        if(purchaseOrderBean.getPurchase().getPurchaseProducts().isEmpty()){
+            Helper.addErrorMessage("No products for purchase");
+        }
+        else if(purchaseOrderBean.getPurchase().getVendorId() == 0){
+            Helper.addErrorMessage("No vendor selected");
+        }
+        else {
+            purchaseOrderBean.getPurchase().setCreatedBy(loginBean.getLoggedUserId());
+            purchaseOrderBean.getPurchase().setPaymentStatus('I');
+            Response r = reqs.postSecuredRequest(AppConstants.POST_PURCHASE_ORDER, purchaseOrderBean.getPurchase());
+            if(r.getStatus() == 201){
+                Helper.redirect("cart-awaiting?id=" + cart.getId());
+            }
+            else{
+                Helper.addErrorMessage("Error code " + r.getStatus());
+            }
+        }
+    }
+
+    public void createSales(){
+        //check if wallet amount is enough
+        if(walletCovers()){
+            List<StockDeduct> stockDeducts = prepareStockDeducts();
+            if(stockDeducts != null) {
+                Response r = reqs.postSecuredRequest(AppConstants.POST_EMPTY_SALES, cart.getCustomerId());
+                if (r.getStatus() == 200) {
+                    long salesId = ((Number) r.readEntity(Number.class)).longValue();
+                    var sales = prepareSalesObject(salesId);
+                    var salesProducts = prepareSalesProducts(stockDeducts);
+                    sales.setSalesProducts(salesProducts);
+                    var customerWallet = prepareCustomerWallet(sales);
+                    var cartDelivery = prepareCartDeliveryForSales();
+                    Map<String,Object> map = new HashMap<String,Object>();
+                    map.put("sales", sales);
+                    map.put("customerWallet", customerWallet);
+                    map.put("cartDelivery", cartDelivery);
+                    Response r2 = reqs.putSecuredRequest(AppConstants.PUT_SALES, map);
+                    if(r2.getStatus() == 201){
+                        Helper.redirect("cart-awaiting?id=" + cart.getId());
+                    }
+                }
+            }
+            else {
+                Helper.addErrorMessage("Stock Not complete for all items!");
+            }
+        }else {
+            Helper.addErrorMessage("Not enough money in wallet");
+        }
+
+
+    }
+
+    private List<SalesProduct> prepareSalesProducts(List<StockDeduct> stockDeducts){
+        List<SalesProduct> salesProducts = new ArrayList<>();
+        for (CartProduct cp : this.getSelectedSalesItems()) {
+            StockDeduct sd = getStockDeduct(stockDeducts, cp.getId());
+            int remaining = cp.getQuantity();
+            if(sd.getPurchaseProductIds() != null ){
+                System.out.println("purchase product ids " + sd.getPurchaseProductIds().size());
+                for (var map : sd.getPurchaseProductIds()) {
+                    System.out.println("entered the purchase product ids");
+                    var salesProduct = new SalesProduct();
+                    int quantity = ((Number) map.get("quantity")).intValue();
+                    long purchaseProductId = ((Number) map.get("purchaseProductId")).longValue();
+                    salesProduct.setCartId(this.cart.getId());
+                    salesProduct.setDiscountId(null);
+                    salesProduct.setDiscountPercentage(null);
+                    salesProduct.setProductId(cp.getProductId());
+                    salesProduct.setPurchaseProductId(purchaseProductId);
+                    salesProduct.setQuantity(quantity);
+                    salesProduct.setStatus('N');
+                    salesProduct.setUnitSales(cp.getSalesPrice());
+                    salesProduct.setVatPercentage(0.05);
+                    salesProduct.setCartProductId(cp.getId());
+                    salesProducts.add(salesProduct);
+                    remaining = remaining - quantity;
+                }
+            }
+
+            System.out.println("remaining " + remaining);
+        }
+        return salesProducts;
+    }
+
+
+
 
     public void refundProducts() {
         Response r = reqs.postSecuredRequest(AppConstants.POST_EMPTY_WALLET, cart.getCustomerId());
@@ -287,5 +601,13 @@ public class AwaitingCartBean implements Serializable {
 
     public void setRefundDelivery(boolean refundDelivery) {
         this.refundDelivery = refundDelivery;
+    }
+
+    public boolean isDoSales() {
+        return doSales;
+    }
+
+    public void setDoSales(boolean doSales) {
+        this.doSales = doSales;
     }
 }
