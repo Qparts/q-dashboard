@@ -60,11 +60,12 @@
 					</div>
 				</div>
 				<div class="w3-dropdown-hover">
-					<h:button style="color:greenyellow"  class="w3-button w3-camo-black" value="Quotations" rendered="#{loginBean.hasAccessL([act.pageQuotations, act.pageWalletsProcess, act.pageQuoting])}" onclick="return false;"/>
+					<h:button style="color:greenyellow"  class="w3-button w3-camo-black" value="Quotations" rendered="#{loginBean.hasAccessL([act.pageQuotations, act.pageQuotationReport, act.pageWalletsProcess, act.pageQuoting])}" onclick="return false;"/>
 					<div class="w3-dropdown-content w3-bar-block w3-border">
 					 	<h:outputLink  value="/app/live-quotations" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageQuotations)}">Quotations</h:outputLink>
       					<h:outputLink style="color:greenyellow;display:none" value="/app/wallets-process" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageWalletsProcess)}">Wallets Process</h:outputLink>
       					<h:outputLink value="/app/quoting" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageQuoting)}">Quoting</h:outputLink>
+						<h:outputLink value="/app/quotations-report" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageQuotationReport)}">Quotation Report</h:outputLink>
 					</div>
 				</div>
 				<div class="w3-dropdown-hover">

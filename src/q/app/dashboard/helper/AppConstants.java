@@ -203,6 +203,9 @@ public class AppConstants {
     public final static String getCustomerQuotations(long customerId){
         return QUOTATION_SERVICE + "quotations/customer/" + customerId;
     }
+    public final static String getQuotationsReport(int year, int month) {
+        return QUOTATION_SERVICE+ "quotations/year/" + year + "/month/" + month;
+    }
 
     //INVOICE SERVICE CALLS//
     public final static String POST_PURCHASE_ORDER = INVOICE_SERVICE + "purchase";
