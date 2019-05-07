@@ -15,6 +15,12 @@ public class CartDelivery implements Serializable {
     private Date created;
     private int createdBy;
 
+    public CartDelivery(){}
+
+    public CartDelivery(int deliveryCharges){
+        this.deliveryCharges = deliveryCharges;
+    }
+
     public long getId() {
         return id;
     }

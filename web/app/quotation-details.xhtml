@@ -266,6 +266,11 @@
                             </h:dataTable>
                         </p:panel>
                     </div>
+                    <h:form>
+                        <div style="display: none;" align="center">
+                            <p:commandButton value="Create Cart" styleClass="q-btn" actionListener="#{quotationDetailsBean.initCart}" oncomplete="PF('cartDlgwv').show()" update=":cart-form"/>
+                        </div>
+                    </h:form>
                 </div>
                 <br/>
                 <br/>
@@ -273,6 +278,56 @@
             </div>
         </div>
     </div>
+
+    <h:form id="cart-form">
+        <p:dialog styleClass="q-dialog" header="Cart" widgetVar="cartDlgwv">
+            <h:dataTable value="#{quotationDetailsBean.cart.cartProducts}" var="cp" styleClass="w3-table w3-striped w3-border">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="PRODUCT ID"/>
+                    </f:facet>
+                    <h:outputText value="#{cp.productHolder.product.id}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="DESC."/>
+                    </f:facet>
+                    <h:outputText value="#{cp.productHolder.product.desc}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="NUMBER"/>
+                    </f:facet>
+                    <h:outputText value="#{cp.productHolder.product.productNumber}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="QUANTITY"/>
+                    </f:facet>
+                    <h:selectOneMenu value="#{cp.newQuantity}">
+                        <f:selectItems value="#{cp.quantityArray20}" var="q" itemLabel="#{q}" itemValue="#{q}"/>
+                    </h:selectOneMenu>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="UNIT PRICE"/>
+                    </f:facet>
+                    <h:outputText value="#{cp.productHolder.averageSalesPrices}">
+                        <f:convertNumber type="currency" currencySymbol="SR "/>
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="GROSS PRICE"/>
+                    </f:facet>
+                    <h:outputText value="#{cp.productHolder.averageSalesPrices * cp.newQuantity}">
+                        <f:convertNumber type="currency" currencySymbol="SR "/>
+                    </h:outputText>
+                </h:column>
+
+            </h:dataTable>
+        </p:dialog>
+    </h:form>
 
     <h:form id="new-comment-form">
         <p:dialog styleClass="q-dialog" header="New Comment"
