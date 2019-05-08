@@ -51,6 +51,22 @@ public class Cart implements Serializable {
         return total;
     }
 
+
+    @JsonIgnore
+    public double getProductsTotalNewQuantity(){
+        double total = 0;
+        try{
+            for(CartProduct cartProduct : cartProducts){
+                if(cartProduct.getStatus() != 'R')
+                    total += (cartProduct.getSalesPrice() * cartProduct.getNewQuantity());
+            }
+
+        }catch(NullPointerException ex){
+            total = 0;
+        }
+        return total;
+    }
+
     @JsonIgnore
     public double getDeliveryFees(){
         try{
@@ -78,10 +94,30 @@ public class Cart implements Serializable {
         }
     }
 
+    @JsonIgnore
+    public double getDiscountTotalNewQuantity(){
+        try{
+            if(cartDiscount.getDiscount().getDiscountType() == 'P'){
+                return -1 * cartDiscount.getDiscount().getPercentage() * getProductsTotalNewQuantity();
+            }
+            if(cartDiscount.getDiscount().getDiscountType() == 'D'){
+                return -1 * getDeliveryFees();
+            }
+            throw new NullPointerException();
+        }catch (NullPointerException nu){
+            return 0;
+        }
+    }
+
 
     @JsonIgnore
     public double getSubTotal(){
         return getProductsTotal() +  getDeliveryFees() +  getDiscountTotal();
+    }
+
+    @JsonIgnore
+    public double getSubTotalNewQuantity(){
+        return getProductsTotalNewQuantity() +  getDeliveryFees() +  getDiscountTotalNewQuantity();
     }
 
     @JsonIgnore
@@ -90,8 +126,20 @@ public class Cart implements Serializable {
     }
 
     @JsonIgnore
+    public double getVatNewQuantity(){
+        return getSubTotalNewQuantity() * vatPercentage;
+    }
+
+
+
+    @JsonIgnore
     public double getGrandTotal(){
         return getSubTotal() + getVat();
+    }
+
+    @JsonIgnore
+    public double getGrandTotalNewQuantity(){
+        return getSubTotalNewQuantity() + getVatNewQuantity();
     }
 
 

@@ -116,6 +116,12 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
+                                <h:outputText value="READ"/>
+                            </f:facet>
+                            <h:outputText value="#{quotation.read ? 'YES' : 'NO'}" styleClass="w3-tag w3-#{quotation.read ? 'green' : 'red'}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
                                 <h:outputText value="DETAILS"/>
                             </f:facet>
                             <h:outputLink target="_blank" value="quotation-details?id=#{quotation.id}">

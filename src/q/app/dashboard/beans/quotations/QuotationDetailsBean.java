@@ -76,6 +76,7 @@ public class QuotationDetailsBean implements Serializable {
             cart.setCustomerId(customer.getId());
             cart.setCartDelivery(new CartDelivery(35));
             cart.setCartProducts(new ArrayList<>());
+            cart.setVatPercentage(0.05);
             for(BillItem bi : quotation.getAllBillItems()){
                 if(bi.getStatus() == 'C'){
                     var bir = bi.getBillItemResponse();
