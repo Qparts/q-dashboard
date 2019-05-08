@@ -6,12 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0b051513-06e8-4d02-8a21-6dcfa3f3a358" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/QuotationDetailsBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/QuotationDetailsBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/model/cart/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/model/cart/Cart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/app/quotation-details.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/quotation-details.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/app/quotations-report.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/quotations-report.xhtml" afterDir="false" />
-    </list>
+    <list default="true" id="0b051513-06e8-4d02-8a21-6dcfa3f3a358" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -55,8 +50,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/app/quotations-report.xhtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="284">
-              <caret line="120" column="138" selection-start-line="120" selection-start-column="138" selection-end-line="120" selection-end-column="138" />
+            <state relative-caret-position="269">
+              <caret line="119" column="38" lean-forward="true" selection-start-line="119" selection-start-column="38" selection-end-line="119" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -289,7 +284,7 @@
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="q-app-deshboard" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557312186648" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557312383739" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -425,12 +420,12 @@
       <workItem from="1555786583293" duration="15078000" />
       <workItem from="1555945171094" duration="8510000" />
       <workItem from="1556122472723" duration="33194000" />
-      <workItem from="1557094013191" duration="10984000" />
+      <workItem from="1557094013191" duration="11187000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="504657000" />
+    <option name="totallyTimeSpent" value="504860000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -445,7 +440,7 @@
     <frame x="0" y="23" width="1432" height="797" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49803922" visible="true" weight="0.22805755" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49803922" visible="true" weight="0.22805755" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -455,7 +450,7 @@
       <window_info id="Web" order="7" sideWeight="0.5019608" side_tool="true" weight="0.22517985" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32765958" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.27659574" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.27659574" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1060,8 +1055,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/app/quotations-report.xhtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="120" column="138" selection-start-line="120" selection-start-column="138" selection-end-line="120" selection-end-column="138" />
+        <state relative-caret-position="269">
+          <caret line="119" column="38" lean-forward="true" selection-start-line="119" selection-start-column="38" selection-end-line="119" selection-end-column="38" />
         </state>
       </provider>
     </entry>
