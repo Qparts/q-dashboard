@@ -54,6 +54,16 @@
                                 <f:selectItem itemLabel="November" itemValue="#{10}" />
                                 <f:selectItem itemLabel="December" itemValue="#{11}" />
                             </h:selectOneMenu>
+                            <h:outputText value="Year" />
+                            <h:selectOneMenu value="#{quotationsReportBean.status}"
+                                             required="true">
+                                <f:selectItem itemLabel="All" itemValue="#{'A'}" />
+                                <f:selectItem itemLabel="Submitted" itemValue="#{'S'}" />
+                                <f:selectItem itemLabel="Archived" itemValue="#{'X'}" />
+                                <f:selectItem itemLabel="Waiting" itemValue="#{'W'}" />
+                                <f:selectItem itemLabel="No Items" itemValue="#{'R'}" />
+                                <f:selectItem itemLabel="Closed" itemValue="#{'Y'}" />
+                            </h:selectOneMenu>
                         </h:panelGrid>
                         <div align="center">
                             <p:commandButton value="Generate"

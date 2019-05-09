@@ -203,8 +203,8 @@ public class AppConstants {
     public final static String getCustomerQuotations(long customerId){
         return QUOTATION_SERVICE + "quotations/customer/" + customerId;
     }
-    public final static String getQuotationsReport(int year, int month) {
-        return QUOTATION_SERVICE+ "quotations/year/" + year + "/month/" + month;
+    public final static String getQuotationsReport(int year, int month, char status) {
+        return QUOTATION_SERVICE+ "quotations/year/" + year + "/month/" + month + "/status/" + status;
     }
 
     //INVOICE SERVICE CALLS//

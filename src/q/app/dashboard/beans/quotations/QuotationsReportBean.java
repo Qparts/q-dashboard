@@ -23,6 +23,7 @@ public class QuotationsReportBean implements Serializable {
 
     private int year;
     private int month;
+    private char status;
     private List<Quotation> quotations;
     private List<Customer> allCustomers;
 
@@ -43,7 +44,7 @@ public class QuotationsReportBean implements Serializable {
     }
 
     public void generateReport() throws InterruptedException{
-        Response r = reqs.getSecuredRequest(AppConstants.getQuotationsReport(year, month));
+        Response r = reqs.getSecuredRequest(AppConstants.getQuotationsReport(year, month, status));
         if(r.getStatus() == 200) {
             this.quotations= r.readEntity(new GenericType<List<Quotation>>() {});
             initAllCustomers();
@@ -86,5 +87,11 @@ public class QuotationsReportBean implements Serializable {
         this.quotations = quotations;
     }
 
+    public char getStatus() {
+        return status;
+    }
 
+    public void setStatus(char status) {
+        this.status = status;
+    }
 }
