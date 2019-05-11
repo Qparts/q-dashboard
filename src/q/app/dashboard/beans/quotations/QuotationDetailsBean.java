@@ -6,6 +6,7 @@ import q.app.dashboard.helper.AppConstants;
 import q.app.dashboard.helper.Helper;
 import q.app.dashboard.model.cart.Cart;
 import q.app.dashboard.model.cart.CartDelivery;
+import q.app.dashboard.model.cart.CartDiscount;
 import q.app.dashboard.model.cart.CartProduct;
 import q.app.dashboard.model.customer.Customer;
 import q.app.dashboard.model.product.ProductHolder;
@@ -75,8 +76,10 @@ public class QuotationDetailsBean implements Serializable {
             cart = new Cart();
             cart.setCustomerId(customer.getId());
             cart.setCartDelivery(new CartDelivery(35));
+            cart.getCartDelivery().setCreatedBy(loginBean.getLoggedUserId());
             cart.setCartProducts(new ArrayList<>());
             cart.setVatPercentage(0.05);
+            cart.setPaymentMethod('W');
             for(BillItem bi : quotation.getAllBillItems()){
                 if(bi.getStatus() == 'C'){
                     var bir = bi.getBillItemResponse();
@@ -90,6 +93,20 @@ public class QuotationDetailsBean implements Serializable {
                 }
             }
         }
+    }
+
+    public void createCart(){
+        for(CartProduct cp : cart.getCartProducts()){
+            cp.setQuantity(cp.getNewQuantity());
+        }
+        Response r = reqs.postSecuredRequest(AppConstants.POST_CART_WIRE_TRANSFER, cart);
+        if(r.getStatus() == 200){
+            Helper.redirect("wire-transfers");
+        }
+        else{
+            Helper.addErrorMessage("Error code " + r.getStatus());
+        }
+
     }
 
 

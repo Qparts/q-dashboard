@@ -64,6 +64,7 @@ public class AppConstants {
     public final static String PUT_CANCEL_TRANSFER = CART_SERVICE + "cancel-transfer";
     public final static String GET_NOTIFICATION_CARTS = CART_SERVICE + "carts-notification";
     public final static String POST_EMPTY_WALLET = CART_SERVICE + "empty-wallet";
+    public final static String POST_CART_WIRE_TRANSFER = CART_SERVICE + "cart/wire-transfer";
     public final static String getAwaitingWireTransfer(long id){
       return CART_SERVICE + "wire-transfer/" +  id + "/awaiting";
     }

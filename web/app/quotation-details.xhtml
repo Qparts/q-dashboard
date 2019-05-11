@@ -394,6 +394,9 @@
                     <h:outputText value="Payment Method"/>
                     <h:outputText value="Wire Transfer"/>
                 </h:panelGrid>
+                <div align="center">
+                    <p:commandButton value="Create Cart" styleClass="q-btn" actionListener="#{quotationDetailsBean.createCart()}" update=":form-g" oncomplete="PF('cartDlgwv').hide()"/>
+                </div>
             </h:panelGroup>
         </p:dialog>
     </h:form>

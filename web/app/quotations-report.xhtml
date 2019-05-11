@@ -31,16 +31,14 @@
                     <h:form id="form">
                         <h:panelGrid columns="2">
                             <h:outputText value="Year" />
-                            <h:selectOneMenu value="#{quotationsReportBean.year}"
-                                             required="true">
+                            <h:selectOneMenu value="#{quotationsReportBean.year}" required="true">
                                 <f:selectItem itemLabel="2019" itemValue="#{2019}" />
                                 <f:selectItem itemLabel="2020" itemValue="#{2020}" />
                                 <f:selectItem itemLabel="2020" itemValue="#{2021}" />
                                 <f:selectItem itemLabel="2020" itemValue="#{2022}" />
                             </h:selectOneMenu>
                             <h:outputText value="Month" />
-                            <h:selectOneMenu value="#{quotationsReportBean.month}"
-                                             required="true">
+                            <h:selectOneMenu value="#{quotationsReportBean.month}" required="true">
                                 <f:selectItem itemLabel="January" itemValue="#{0}" />
                                 <f:selectItem itemLabel="February" itemValue="#{1}" />
                                 <f:selectItem itemLabel="March" itemValue="#{2}" />
@@ -55,8 +53,7 @@
                                 <f:selectItem itemLabel="December" itemValue="#{11}" />
                             </h:selectOneMenu>
                             <h:outputText value="Year" />
-                            <h:selectOneMenu value="#{quotationsReportBean.status}"
-                                             required="true">
+                            <h:selectOneMenu value="#{quotationsReportBean.status}" required="true">
                                 <f:selectItem itemLabel="All" itemValue="#{'A'}" />
                                 <f:selectItem itemLabel="Submitted" itemValue="#{'S'}" />
                                 <f:selectItem itemLabel="Archived" itemValue="#{'X'}" />

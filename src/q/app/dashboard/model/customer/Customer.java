@@ -23,6 +23,7 @@ public class Customer implements Serializable {
     private boolean newsletterActive;
     private List<CustomerVehicle> vehicles;
     private List<CustomerAddress> addresses;
+    private List<EmailSent> emailsSent;
 
 
     @JsonIgnore
@@ -162,6 +163,14 @@ public class Customer implements Serializable {
 
     public void setAddresses(List<CustomerAddress> addresses) {
         this.addresses = addresses;
+    }
+
+    public List<EmailSent> getEmailsSent() {
+        return emailsSent;
+    }
+
+    public void setEmailsSent(List<EmailSent> emailsSent) {
+        this.emailsSent = emailsSent;
     }
 }
 
