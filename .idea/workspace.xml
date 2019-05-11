@@ -7,14 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b051513-06e8-4d02-8a21-6dcfa3f3a358" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/beans/common/CityBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/beans/common/CityBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/beans/common/RegionBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/beans/common/RegionBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/beans/customer/CustomerDetailsBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/beans/customer/CustomerDetailsBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/QuotationDetailsBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/QuotationDetailsBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/helper/AppConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/helper/AppConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/model/customer/CustomerAddress.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/model/customer/CustomerAddress.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/app/customer-details.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/customer-details.xhtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/app/quotation-details.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/quotation-details.xhtml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -26,11 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/app/quotation-details.xhtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
-              <caret line="190" column="24" lean-forward="true" selection-start-line="190" selection-start-column="24" selection-end-line="191" selection-end-column="51" />
+            <state relative-caret-position="173">
+              <caret line="185" column="134" selection-start-line="185" selection-start-column="134" selection-end-line="185" selection-end-column="134" />
               <folding>
                 <element signature="n#div#0;n#p:panel#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#h:body#0;n#html#0;n#!!top" />
               </folding>
@@ -38,10 +30,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/app/customer-details.xhtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
+            <state relative-caret-position="115">
               <caret line="122" column="37" selection-start-line="122" selection-start-column="37" selection-end-line="122" selection-end-column="37" />
             </state>
           </provider>
@@ -113,7 +105,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>DELIVERY FEES</find>
       <find>awaiting</find>
       <find>submit sal</find>
       <find>cart</find>
@@ -143,6 +134,7 @@
       <find>region</find>
       <find>customer ser</find>
       <find>panel</find>
+      <find>resend</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -201,7 +193,6 @@
         <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/product/ProductDetailsBean.java" />
         <option value="$PROJECT_DIR$/web/app/product-details.xhtml" />
         <option value="$PROJECT_DIR$/web/app/quoting.xhtml" />
-        <option value="$PROJECT_DIR$/web/app/quotation-details.xhtml" />
         <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/QuotationDetailsBean.java" />
         <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/common/RegionBean.java" />
         <option value="$PROJECT_DIR$/src/q/app/dashboard/model/customer/CustomerAddress.java" />
@@ -209,6 +200,7 @@
         <option value="$PROJECT_DIR$/src/q/app/dashboard/helper/AppConstants.java" />
         <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/customer/CustomerDetailsBean.java" />
         <option value="$PROJECT_DIR$/web/app/customer-details.xhtml" />
+        <option value="$PROJECT_DIR$/web/app/quotation-details.xhtml" />
       </list>
     </option>
   </component>
@@ -402,12 +394,12 @@
       <workItem from="1557094013191" duration="13455000" />
       <workItem from="1557525795384" duration="2389000" />
       <workItem from="1557575395905" duration="4724000" />
-      <workItem from="1557608556596" duration="3274000" />
+      <workItem from="1557608556596" duration="3566000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="517515000" />
+    <option name="totallyTimeSpent" value="517807000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -985,16 +977,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/app/quotation-details.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="190" column="24" lean-forward="true" selection-start-line="190" selection-start-column="24" selection-end-line="191" selection-end-column="51" />
-          <folding>
-            <element signature="n#div#0;n#p:panel#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#h:body#0;n#html#0;n#!!top" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/model/customer/CustomerAddress.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
@@ -1053,8 +1035,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/app/customer-details.xhtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
+        <state relative-caret-position="115">
           <caret line="122" column="37" selection-start-line="122" selection-start-column="37" selection-end-line="122" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/app/quotation-details.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="185" column="134" selection-start-line="185" selection-start-column="134" selection-end-line="185" selection-end-column="134" />
+          <folding>
+            <element signature="n#div#0;n#p:panel#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#h:body#0;n#html#0;n#!!top" />
+          </folding>
         </state>
       </provider>
     </entry>
