@@ -134,7 +134,7 @@
                             </div>
                         </p:panel>
                     </div>
-                    <div id="comments-div" class="w3-col s12 w3-padding-24">
+                    <div id="comments-div" class="w3-col s12 m6 w3-padding-24 w3-container">
                         <p:panel toggleable="true" id="comments-panel"
                                  header="Comments #{quotationDetailsBean.quotation.comments.size() gt 0 ? quotationDetailsBean.quotation.comments.size() : ' '}"
                                  collapsed="false"
@@ -158,6 +158,33 @@
 
                             <p:commandButton value="+" styleClass="q-btn"
                                              oncomplete="PF('commentDlgwv').show()"/>
+                        </p:panel>
+                    </div>
+                    <div id="emails-div" class="w3-col s12 m6 w3-padding-24 w3-container">
+                        <p:panel toggleable="true" id="emails-panel"
+                                 header="Emails #{quotationDetailsBean.quotationRelatedEmails.size() gt 0 ? quotationDetailsBean.quotationRelatedEmails.size() : ' '}"
+                                 collapsed="false"
+                                 toggleSpeed="100">
+                            <h:dataTable value="#{quotationDetailsBean.quotationRelatedEmails}" var="es" styleClass="w3-table w3-striped w3-border" headerClass="w3-light-grey w3-border-bottom">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Date Sent"/>
+                                    </f:facet>
+                                    <h:outputText value="#{es.created}">
+                                        <f:convertDateTime pattern="dd-MMM-yyyy HH:mm"/>
+                                    </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Status"/>
+                                    </f:facet>
+                                    <h:outputText value="#{es.status}"/>
+                                </h:column>
+
+                            </h:dataTable>
+
+                            <p:commandButton value="Resend" styleClass="q-btn"
+                                             oncomplete="PF('newEmailDlgwv').show()"/>
                         </p:panel>
                     </div>
                     <div id="products-div" class="w3-col s12 w3-padding-24">
@@ -453,6 +480,20 @@
                 <div>
                     <p:commandButton value="Submit" styleClass="q-btn"
                                      actionListener="#{quotationDetailsBean.createComment()}"  update=":form-g">
+                    </p:commandButton>
+                </div>
+            </div>
+        </p:dialog>
+    </h:form>
+    <h:form id="new-email-form">
+        <p:dialog styleClass="q-dialog" header="Resend Email"
+                  widgetVar="newEmailDlgwv">
+            <div align="center">
+                <h:outputText value="Are you sure you want to resend the quotation email to the customer?"/>
+                <br/>
+                <div>
+                    <p:commandButton value="Yes" styleClass="q-btn"
+                                     actionListener="#{quotationDetailsBean.resendEmail}"  update=":form-g">
                     </p:commandButton>
                 </div>
             </div>

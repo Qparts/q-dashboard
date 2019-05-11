@@ -1,9 +1,11 @@
 package q.app.dashboard.beans.customer;
 
+import q.app.dashboard.beans.common.LoginBean;
 import q.app.dashboard.beans.common.Requester;
 import q.app.dashboard.helper.AppConstants;
 import q.app.dashboard.helper.Helper;
 import q.app.dashboard.model.customer.Customer;
+import q.app.dashboard.model.customer.CustomerAddress;
 import q.app.dashboard.model.product.ProductPrice;
 import q.app.dashboard.model.quotation.Quotation;
 
@@ -23,10 +25,13 @@ public class CustomerDetailsBean implements Serializable {
 
     private Customer customer;
     private List<Quotation> quotations;
-
+    private CustomerAddress newAddress;
 
     @Inject
     private Requester reqs;
+
+    @Inject
+    private LoginBean loginBean;
 
 
     @PostConstruct
@@ -37,8 +42,22 @@ public class CustomerDetailsBean implements Serializable {
                 throw new Exception();
             initCustomer(s);
             initQuotations();
+            newAddress = new CustomerAddress();
         } catch (Exception ex) {
             Helper.redirect("customer-search");
+        }
+    }
+
+    public void createAddress(){
+        newAddress.setCustomerId(customer.getId());
+        newAddress.setCreatedBy(loginBean.getLoggedUserId());
+        newAddress.setStatus('A');
+        Response r = reqs.postSecuredRequest(AppConstants.POST_CUSTOMER_ADDRESS, newAddress);
+        if(r.getStatus() == 201){
+            Helper.redirect("customer-details?id=" + customer.getId());
+        }
+        else{
+            Helper.addErrorMessage("Error code " + r.getStatus());
         }
     }
 
@@ -75,5 +94,13 @@ public class CustomerDetailsBean implements Serializable {
 
     public void setQuotations(List<Quotation> quotations) {
         this.quotations = quotations;
+    }
+
+    public CustomerAddress getNewAddress() {
+        return newAddress;
+    }
+
+    public void setNewAddress(CustomerAddress newAddress) {
+        this.newAddress = newAddress;
     }
 }

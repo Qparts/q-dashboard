@@ -1,5 +1,7 @@
 package q.app.dashboard.model.customer;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -20,7 +22,17 @@ public class CustomerAddress implements Serializable{
 	private String title;
     private String mobile;
 	private boolean defaultAddress;
-	
+	@JsonIgnore
+	private int regionId;
+
+	public int getRegionId() {
+		return regionId;
+	}
+
+	public void setRegionId(int regionId) {
+		this.regionId = regionId;
+	}
+
 	public CustomerAddress() {
 		
 	}

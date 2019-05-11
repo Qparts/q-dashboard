@@ -9,6 +9,7 @@ import q.app.dashboard.model.cart.CartDelivery;
 import q.app.dashboard.model.cart.CartDiscount;
 import q.app.dashboard.model.cart.CartProduct;
 import q.app.dashboard.model.customer.Customer;
+import q.app.dashboard.model.customer.EmailSent;
 import q.app.dashboard.model.product.ProductHolder;
 import q.app.dashboard.model.quotation.BillItem;
 import q.app.dashboard.model.quotation.BillItemResponse;
@@ -22,6 +23,9 @@ import javax.inject.Named;
 import javax.ws.rs.core.Response;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Named
 @ViewScoped
@@ -55,6 +59,29 @@ public class QuotationDetailsBean implements Serializable {
         } catch (Exception ex) {
             Helper.redirect("quotation-search");
         }
+    }
+
+    public void resendEmail(){
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("quotationId", quotation.getId());
+        map.put("customerId", quotation.getCustomerId());
+        Response r = reqs.postSecuredRequest(AppConstants.POST_EMAIL_QUOTATION_READY, map);
+        if(r.getStatus() == 200){
+            Helper.redirect("quotation-details?id=" + quotation.getId());
+        }
+        else{
+            Helper.addErrorMessage("Error code " + r.getStatus() );
+        }
+    }
+
+    public List<EmailSent> getQuotationRelatedEmails(){
+        List<EmailSent> emailSents = new ArrayList<>();
+        for(var es : customer.getEmailsSent()){
+            if(es.getPurpose().equals("Quotation Ready") && es.getQuotationId().equals(this.quotation.getId())){
+                emailSents.add(es);
+            }
+        }
+        return emailSents;
     }
 
 

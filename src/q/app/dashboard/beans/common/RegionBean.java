@@ -90,6 +90,16 @@ public class RegionBean implements Serializable{
 		return null;
 	}
 
+	public List<Region> getRegionsFromCountryId(int countryId) {
+		List<Region> filtered = new ArrayList<>();
+		for(Region c : regions) {
+			if(c.getCountry().getId() == countryId) {
+				filtered.add(c);
+			}
+		}
+		return filtered;
+	}
+
 	public Region getRegion() {
 		return region;
 	}

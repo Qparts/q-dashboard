@@ -81,6 +81,16 @@ public class CityBean implements Serializable{
 		}
 		return null;
 	}
+
+	public List<City> getCitiesFromRegionId(int regionId) {
+		List<City> filtered = new ArrayList<>();
+		for(City c : cities) {
+			if(c.getRegion().getId() == regionId) {
+				filtered.add(c);
+			}
+		}
+		return filtered;
+	}
 	
 	public void createCity(){
 		Response r= reqs.postSecuredRequest(AppConstants.POST_CITY, city);

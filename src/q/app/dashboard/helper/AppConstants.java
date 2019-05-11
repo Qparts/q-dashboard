@@ -118,6 +118,9 @@ public class AppConstants {
     public final static String GET_NEWEST_CUSTOMERS = CUSTOMER_SERVICE + "newest";
     public final static String GET_INCOMPLETE_CUSTOMER_VEHICLES = CUSTOMER_SERVICE + "customer-vehicles/no-vin";
     public final static String PUT_CUSTOMER_VEHICLE_VIN = CUSTOMER_SERVICE + "customer-vehicle/vin";
+    public final static String POST_EMAIL_QUOTATION_READY = CUSTOMER_SERVICE + "email/quotation-ready";
+    public final static String POST_CUSTOMER_ADDRESS = CUSTOMER_SERVICE + "address";
+
     public final static String getCustomer(long customerId){
         return CUSTOMER_SERVICE + "customer/" + customerId;
     }
