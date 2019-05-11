@@ -52,6 +52,20 @@
                                             </td>
                                         </tr>
                                         <tr>
+                                            <td><h:outputLabel value="Read" styleClass="q-bold"/></td>
+                                            <td>
+                                                <h:outputText value="#{quotationDetailsBean.quotation.read eq true ? 'YES': 'NO'}" rendered="#{quotationDetailsBean.quotation.status eq 'S'}" styleClass="w3-tag w3-#{quotationDetailsBean.quotation.read eq true ? 'green' : 'red'}" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><h:outputLabel value="Read Date" styleClass="q-bold"/></td>
+                                            <td>
+                                                <h:outputText value="#{quotationDetailsBean.quotation.readOn}" >
+                                                    <f:convertDateTime pattern="dd-MMM-yyyy HH:mm"/>
+                                                </h:outputText>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td><h:outputLabel value="Quotation ID" styleClass="q-bold"/></td>
                                             <td><h:outputText value="#{quotationDetailsBean.quotation.id}"/></td>
                                         </tr>
@@ -66,10 +80,8 @@
                                             <td><h:outputText value="#{makesBean.getModelYearFromId(quotationDetailsBean.quotation.customerVehicle.vehicleYearId).fullName}"/></td>
                                         </tr>
                                         <tr>
-                                            <td><h:outputLabel styleClass="q-bold" value="City"/></td>
-                                            <td><h:outputText
-                                                    value="#{cityBean.getCityFromId(quotationDetailsBean.quotation.cityId).region.name} - #{cityBean.getCityFromId(quotationDetailsBean.quotation.cityId).name}"/>
-                                            </td>
+                                            <td><h:outputLabel value="VIN" styleClass="q-bold"/></td>
+                                            <td><h:outputText value="#{quotationDetailsBean.quotation.customerVehicle.vin}"/></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -100,9 +112,21 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><h:outputLabel styleClass="q-bold" value="Status"/></td>
+                                            <td><h:outputLabel styleClass="q-bold" value="Customer Status"/></td>
                                             <td>
                                                 <h:outputText value="#{quotationDetailsBean.customer.status eq 'V' ? 'Active' : 'Unverified'}" styleClass="w3-tag w3-#{quotationDetailsBean.customer.status eq 'V' ? 'green' : 'red'}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><h:outputLabel styleClass="q-bold" value="Country"/></td>
+                                            <td><h:outputText
+                                                    value="#{cityBean.getCityFromId(quotationDetailsBean.quotation.cityId).country.name}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><h:outputLabel styleClass="q-bold" value="City"/></td>
+                                            <td><h:outputText
+                                                    value="#{cityBean.getCityFromId(quotationDetailsBean.quotation.cityId).region.name} - #{cityBean.getCityFromId(quotationDetailsBean.quotation.cityId).name}"/>
                                             </td>
                                         </tr>
                                     </table>
@@ -172,13 +196,21 @@
                                     <f:facet name="header">
                                         Product ID
                                     </f:facet>
-                                    <h:outputText value="#{bi.billItemResponse.productId}" rendered="#{bi.hasSavedResponse() and bi.status eq 'C'}"/>
+                                    <h:outputLink value="product-details?id=#{bi.billItemResponse.productId}" target="_blank" rendered="#{bi.hasSavedResponse() and bi.status eq 'C'}">
+                                      <h:outputText value="#{bi.billItemResponse.productId}" rendered="#{bi.hasSavedResponse() and bi.status eq 'C'}"/>
+                                    </h:outputLink>
                                 </h:column>
                                 <h:column headerClass="w3-border-bottom w3-light-grey">
                                     <f:facet name="header">
-                                        Product Name
+                                        English Name
                                     </f:facet>
                                     <h:outputText value="#{bi.billItemResponse.productHolder.product.desc}" rendered="#{bi.hasSavedResponse() and bi.status eq 'C'}"/>
+                                </h:column>
+                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                    <f:facet name="header">
+                                        Arabic Name
+                                    </f:facet>
+                                    <h:outputText value="#{bi.billItemResponse.productHolder.product.descAr}" rendered="#{bi.hasSavedResponse() and bi.status eq 'C'}"/>
                                 </h:column>
                                 <h:column headerClass="w3-border-bottom w3-light-grey">
                                     <f:facet name="header">

@@ -47,28 +47,82 @@
                                     <p:commandButton value="+" onclick="PF('dlgwv').show()" styleClass="q-btn"/>
                                 </div>
                                 <div class="w3-col s12">
-                                    <div class="w3-col s9">
-                                        <h:outputText value="#{productDetailsBean.productHolder.product.desc}" styleClass="q-med-text q-bold" style="max-width: 200px" />
-                                    </div>
-                                    <div class="w3-col s12">
-                                        <h:outputText value="#{productDetailsBean.productHolder.product.productNumber}" />
-                                    </div>
-                                    <div class="w3-padding-24" id="category-div">
-                                        <ui:repeat value="#{productDetailsBean.productHolder.categories}" var="cat">
-                                            <h:outputText value="#{cat.name}" styleClass="w3-tag w3-indigo"
-                                                          style="margin-right: 5px"/>
-                                        </ui:repeat>
-                                    </div>
-                                    <div class="w3-col s12">
-                                        <h:graphicImage value="#{productDetailsBean.productHolder.product.brand.brandImage}" style="max-height:100px"
-                                                        onerror="if (this.src != 'https://s3.eu-central-1.amazonaws.com/q-product/na.png' &amp;&amp; this.attribute('src') != 'https://s3.eu-central-1.amazonaws.com/q-product/na.png') this.src = 'https://s3.eu-central-1.amazonaws.com/q-product/na.png';"  />
-
-                                    </div>
-                                    <div class="w3-col s12">
-                                        <h:outputText value="#{productDetailsBean.productHolder.product.details}" escape="false" />
-                                    </div>
-                                    <div class="w3-col s12">
-                                            <h:outputText value="#{productDetailsBean.productHolder.product.status eq 'A' ? 'Active' : 'Inactive'}" styleClass="w3-tag w3-#{productDetailsBean.productHolder.product.status eq 'A' ? 'green' : 'red'}"/>
+                                    <div class="w3-row">
+                                        <div class="w3-col s12 w3-border">
+                                            <table class="w3-table w3-striped">
+                                                <tr>
+                                                    <td><h:outputLabel value="Brand" styleClass="q-bold"/></td>
+                                                    <td>
+                                                        <h:outputText value="#{productDetailsBean.productHolder.product.brand.name}" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><h:outputLabel value="Number" styleClass="q-bold"/></td>
+                                                    <td>
+                                                        <h:outputText value="#{productDetailsBean.productHolder.product.productNumber}" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><h:outputLabel value="Name" styleClass="q-bold"/></td>
+                                                    <td>
+                                                        <p:inplace editor="true">
+                                                            <p:ajax event="save" listener="#{productDetailsBean.handleInplace()}" update=":form-g" />
+                                                            <p:inputText value="#{productDetailsBean.productHolder.product.desc}" required="true" label="text" />
+                                                        </p:inplace>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><h:outputLabel value="Name A." styleClass="q-bold"/></td>
+                                                    <td>
+                                                        <p:inplace editor="true">
+                                                            <p:ajax event="save" listener="#{productDetailsBean.handleInplace()}" update=":form-g" />
+                                                            <p:inputText value="#{productDetailsBean.productHolder.product.descAr}" required="true" label="text" />
+                                                        </p:inplace>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><h:outputLabel value="Details" styleClass="q-bold"/></td>
+                                                    <td>
+                                                        <p:inplace editor="true">
+                                                            <p:ajax event="save" listener="#{productDetailsBean.handleInplace()}" update=":form-g" />
+                                                            <p:inputText value="#{productDetailsBean.productHolder.product.details}"  required="true" label="text" />
+                                                        </p:inplace>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><h:outputLabel value="Details A." styleClass="q-bold"/></td>
+                                                    <td>
+                                                        <p:inplace editor="true">
+                                                            <p:ajax event="save" listener="#{productDetailsBean.handleInplace()}" update=":form-g" />
+                                                            <p:inputText value="#{productDetailsBean.productHolder.product.detailsAr}"  required="true" label="text" />
+                                                        </p:inplace>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><h:outputLabel value="Created" styleClass="q-bold"/></td>
+                                                    <td>
+                                                        <h:outputText value="#{productDetailsBean.productHolder.product.created}">
+                                                            <f:convertDateTime pattern="dd-MMM-yyyy HH:mm"/>
+                                                        </h:outputText>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><h:outputLabel value="Categories" styleClass="q-bold"/></td>
+                                                    <td>
+                                                        <ui:repeat value="#{productDetailsBean.productHolder.categories}" var="cat">
+                                                            <h:outputText value="#{cat.name}" styleClass="w3-tag w3-indigo"
+                                                                          style="margin-right: 5px"/>
+                                                        </ui:repeat>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><h:outputLabel value="Status" styleClass="q-bold"/></td>
+                                                    <td>
+                                                        <h:outputText value="#{productDetailsBean.productHolder.product.status eq 'A' ? 'Active' : 'Inactive'}" styleClass="w3-tag w3-#{productDetailsBean.productHolder.product.status eq 'A' ? 'green' : 'red'}"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
                                     </div>
                                     <div class="w3-col s12 w3-padding-24">
                                         <h:dataTable value="#{productDetailsBean.productHolder.productSpecs}" var="ps"

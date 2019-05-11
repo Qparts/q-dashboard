@@ -45,6 +45,17 @@ public class ProductDetailsBean implements Serializable {
         }
     }
 
+    public void handleInplace(){
+        Response r = reqs.putSecuredRequest(AppConstants.PUT_PRODUCT, productHolder);
+        if(r.getStatus() == 201){
+            Helper.addInfoMessage("Product Updated");
+        }
+        else{
+            Helper.addErrorMessage("Error code " + r.getStatus());
+        }
+
+    }
+
     public void uploadImage() {
         try {
             String fileName = this.productHolder.getProduct().getId() + ".png";
@@ -61,6 +72,18 @@ public class ProductDetailsBean implements Serializable {
         Response r = reqs.getSecuredRequest(AppConstants.getProduct(id));
         if (r.getStatus() == 200) {
             productHolder = r.readEntity(ProductHolder.class);
+            if(productHolder.getProduct().getDescAr() == null || productHolder.getProduct().getDescAr() == ""){
+                productHolder.getProduct().setDescAr("Undefined");
+            }
+            if(productHolder.getProduct().getDesc() == null || productHolder.getProduct().getDesc() == ""){
+                productHolder.getProduct().setDesc("Undefined");
+            }
+            if(productHolder.getProduct().getDetails() == null || productHolder.getProduct().getDetails() == ""){
+                productHolder.getProduct().setDetails("Undefined");
+            }
+            if(productHolder.getProduct().getDetailsAr() == null || productHolder.getProduct().getDetailsAr() == ""){
+                productHolder.getProduct().setDetailsAr("Undefined");
+            }
         } else
             throw new Exception();
     }

@@ -135,6 +135,7 @@ public class AppConstants {
     public final static String POST_CATEGORY = PRODUCT_SERVICE + "category";
     public final static String PUT_CATEGORY = PRODUCT_SERVICE + "category";
     public final static String POST_PRODUCT = PRODUCT_SERVICE + "product";
+    public final static String PUT_PRODUCT = PRODUCT_SERVICE + "product";
     public final static String PUT_PRODUCT_PRICE = PRODUCT_SERVICE + "product-price";
     public final static String GET_NEWEST_PRODUCTS = PRODUCT_SERVICE + "products/newest";
     public final static String SEARCH_PRODUCT_BY_NUMBER = PRODUCT_SERVICE +  "search-product-by-number";
