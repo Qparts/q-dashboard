@@ -34,8 +34,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/app/quoting.xhtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="374" column="95" selection-start-line="374" selection-start-column="95" selection-end-line="374" selection-end-column="95" />
+            <state relative-caret-position="300">
+              <caret line="385" column="68" selection-start-line="385" selection-start-column="68" selection-end-line="385" selection-end-column="68" />
               <folding>
                 <element signature="n#div#1;n#h:body#0;n#html#0;n#!!top" />
                 <element signature="n#h:outputStylesheet#0;n#h:body#0;n#html#0;n#!!top" />
@@ -389,12 +389,12 @@
       <workItem from="1556122472723" duration="33194000" />
       <workItem from="1557094013191" duration="13455000" />
       <workItem from="1557525795384" duration="2389000" />
-      <workItem from="1557575395905" duration="4161000" />
+      <workItem from="1557575395905" duration="4312000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="513678000" />
+    <option name="totallyTimeSpent" value="513829000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -409,7 +409,7 @@
     <frame x="0" y="23" width="1432" height="797" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49803922" visible="true" weight="0.22805755" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49803922" visible="true" weight="0.22805755" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -419,7 +419,7 @@
       <window_info id="Web" order="7" sideWeight="0.5019608" side_tool="true" weight="0.22517985" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32765958" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.27659574" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.27659574" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1019,8 +1019,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/app/quoting.xhtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="374" column="95" selection-start-line="374" selection-start-column="95" selection-end-line="374" selection-end-column="95" />
+        <state relative-caret-position="300">
+          <caret line="385" column="68" selection-start-line="385" selection-start-column="68" selection-end-line="385" selection-end-column="68" />
           <folding>
             <element signature="n#div#1;n#h:body#0;n#html#0;n#!!top" />
             <element signature="n#h:outputStylesheet#0;n#h:body#0;n#html#0;n#!!top" />
