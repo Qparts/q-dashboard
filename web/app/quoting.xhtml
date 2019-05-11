@@ -279,7 +279,9 @@
                                                         <f:facet name="header">
                                                             <h:outputText value="Sales Price"/>
                                                         </f:facet>
-                                                        <h:outputText value="#{billItem.billItemResponses.get(0).productHolder.averageSalesPrices}" rendered="#{(not (billItem.billItemResponses eq null)) and billItem.billItemResponses.size() gt 0}"/>
+                                                        <h:outputText value="#{billItem.billItemResponses.get(0).productHolder.averageSalesPrices}" rendered="#{(not (billItem.billItemResponses eq null)) and billItem.billItemResponses.size() gt 0}">
+                                                            <f:convertNumber type="currency" currencySymbol="SR "/>
+                                                        </h:outputText>
                                                     </h:column>
 
                                                     <h:column>
@@ -369,7 +371,9 @@
                                     <f:facet name="header">
                                         <h:outputText value="Sales Price"/>
                                     </f:facet>
-                                    <h:outputText value="#{holder.averageSalesPrices}" />
+                                    <h:outputText value="#{holder.averageSalesPrices}">
+                                        <f:convertNumber type="currency" currencySymbol="SR "/>
+                                    </h:outputText>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
