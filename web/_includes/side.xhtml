@@ -23,8 +23,7 @@
 				<div class="w3-dropdown-hover">
 					<h:button style="color:greenyellow" class="w3-button w3-camo-black" value="Customer" rendered="#{loginBean.hasAccessL([act.pageNoVin, act.pageWire, act.pagePosponedSalesReport, act.pageFollowUpQuotations,act.pageCustomers])}" onclick="return false;" />
 					<div class="w3-dropdown-content w3-bar-block w3-border">
-					 	<h:outputLink value="/app/wire-transfers" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageWire)}">Wire Transfers</h:outputLink>
-      					<h:outputLink value="/app/customer-search" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageCustomers)}">Customers</h:outputLink>
+					 	<h:outputLink value="/app/customer-search" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageCustomers)}">Customers</h:outputLink>
       					<h:outputLink style="color:indianred;display:none" value="/app/followups" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageFollowUpQuotations)}">Follow Up</h:outputLink>
 						<h:outputLink style="color:indianred;display:none" value="/app/postponed-sales" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pagePosponedSalesReport)}">Postponed</h:outputLink>
 						<h:outputLink value="/app/customer-no-vin" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageNoVin)}">No Vins</h:outputLink>
@@ -33,6 +32,7 @@
 				<div class="w3-dropdown-hover">
 					<h:button class="w3-button w3-camo-black" value="Carts" rendered="#{loginBean.hasAccessL([act.pageWalletAwaiting])}" onclick="return false;" />
 					<div class="w3-dropdown-content w3-bar-block w3-border">
+						<h:outputLink value="/app/wire-transfers" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageWire)}">Wire Transfers</h:outputLink>
 						<h:outputLink value="/app/carts-awaiting" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageWalletAwaiting)}">Awaiting</h:outputLink>
 						<h:outputLink value="/app/carts-initiated" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageWalletAwaiting)}">Inititated</h:outputLink>
 						<h:outputLink style="color:indianred;display:none" value="/app/followups" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageFollowUpQuotations)}">Follow Up</h:outputLink>
@@ -41,7 +41,7 @@
 					</div>
 				</div>
 				<div class="w3-dropdown-hover">
-					<h:button style="color:greenyellow" class="w3-button w3-camo-black" value="Products" rendered="#{loginBean.hasAccessL([act.pageNewProduct, act.pageSpecs, act.pageBrands, act.pageCategories])}" onclick="return false;" />
+					<h:button class="w3-button w3-camo-black" value="Products" rendered="#{loginBean.hasAccessL([act.pageNewProduct, act.pageSpecs, act.pageBrands, act.pageCategories])}" onclick="return false;" />
 					<div class="w3-dropdown-content w3-bar-block w3-border">
 						<h:outputLink value="/app/specs" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageSpecs)}">Specs</h:outputLink>
 						<h:outputLink value="/app/categories" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageCategories)}">Categories</h:outputLink>
@@ -60,10 +60,9 @@
 					</div>
 				</div>
 				<div class="w3-dropdown-hover">
-					<h:button style="color:greenyellow"  class="w3-button w3-camo-black" value="Quotations" rendered="#{loginBean.hasAccessL([act.pageQuotations, act.pageQuotationReport, act.pageWalletsProcess, act.pageQuoting])}" onclick="return false;"/>
+					<h:button  class="w3-button w3-camo-black" value="Quotations" rendered="#{loginBean.hasAccessL([act.pageQuotations, act.pageQuotationReport, act.pageWalletsProcess, act.pageQuoting])}" onclick="return false;"/>
 					<div class="w3-dropdown-content w3-bar-block w3-border">
 					 	<h:outputLink  value="/app/live-quotations" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageQuotations)}">Quotations</h:outputLink>
-      					<h:outputLink style="color:greenyellow;display:none" value="/app/wallets-process" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageWalletsProcess)}">Wallets Process</h:outputLink>
       					<h:outputLink value="/app/quoting" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageQuoting)}">Quoting</h:outputLink>
 						<h:outputLink value="/app/quotations-report" styleClass="w3-bar-item w3-button w3-camo-dark-grey" rendered="#{loginBean.hasAccess(act.pageQuotationReport)}">Quotation Report</h:outputLink>
 					</div>

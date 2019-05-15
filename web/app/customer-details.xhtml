@@ -81,7 +81,7 @@
                                 <div class="w3-col s9">
                                     <h:inputText value="#{customerDetailsBean.customer.defaultLang}" readonly="true" />
                                 </div>
-                                <div class="w3-col s12">
+                                <div class="w3-col s12 w3-padding-24">
                                     <p:panel toggleable="true" header="Garage" collapsed="false"
                                              toggleSpeed="100">
                                     <h:dataTable value="#{customerDetailsBean.customer.vehicles}" var="cv" styleClass="w3-table w3-striped w3-border" headerClass="w3-light-grey w3-border-bottom">
@@ -121,7 +121,7 @@
                                 </div>
                                 <br/>
                                 <br/>
-                                <div class="w3-col s12">
+                                <div class="w3-col s12 w3-padding-24">
                                     <p:panel toggleable="true" header="Addresses" collapsed="false"
                                              toggleSpeed="100">
                                     <h:dataTable value="#{customerDetailsBean.customer.addresses}" var="ca" styleClass="w3-table w3-striped w3-border" headerClass="w3-light-grey w3-border-bottom">
@@ -216,7 +216,52 @@
                                 </div>
                             </div>
                             <div class="w3-col s12 w3-padding-24">
-                                Carts history
+                                <div class="w3-col s12">
+                                    <p:panel toggleable="true" header="Carts" collapsed="false"
+                                             toggleSpeed="100">
+                                        <h:dataTable value="#{customerDetailsBean.carts}" var="cart" styleClass="w3-table w3-striped w3-border" headerClass="w3-light-grey w3-border-bottom">
+                                            <f:facet name="header">
+                                                <div align="center">
+                                                    <h:outputText value="Carts"/>
+                                                </div>
+                                            </f:facet>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="ID"/>
+                                                </f:facet>
+                                                <h:outputLink value="cart-details?id=#{cart.id}">
+                                                    <h:outputText value="#{cart.id}"/>
+                                                </h:outputLink>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Created"/>
+                                                </f:facet>
+                                                <h:outputText value="#{cart.created}">
+                                                    <f:convertDateTime pattern="dd-MMM-yyyy HH:mm"/>
+                                                </h:outputText>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="City"/>
+                                                </f:facet>
+                                                <h:outputText value="#{cityBean.getCityFromId(cart.address.cityId).region.name} - #{cityBean.getCityFromId(cart.address.cityId).name}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Payment"/>
+                                                </f:facet>
+                                                <h:outputText value="#{cart.paymentMethod}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Status"/>
+                                                </f:facet>
+                                                <h:outputText value="#{cart.status}"/>
+                                            </h:column>
+                                        </h:dataTable>
+                                    </p:panel>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -65,10 +65,37 @@
                         <div align="center">
                             <p:commandButton value="Generate"
                                              actionListener="#{quotationsReportBean.generateReport()}"
-                                             styleClass="q-btn" update=":form-g :form1" />
+                                             styleClass="q-btn" update=":form-g :form1 :form2" />
                         </div>
                     </h:form>
                 </div>
+
+                <h:form id="form2">
+                    <h:panelGroup rendered="#{quotationsReportBean.quotations.size() gt 0}">
+                        <div class="w3-row w3-container w3-padding-24">
+                            <div class="w3-col s6 m2">
+                                <h:outputText value="Submitted #{quotationsReportBean.submittedQuotations}" styleClass="w3-tag w3-green"/>
+                            </div>
+                            <div class="w3-col s6 m2">
+                                <h:outputText value="Archived #{quotationsReportBean.archivedQuotations}" styleClass="w3-tag"/>
+                            </div>
+                            <div class="w3-col s6 m2">
+                                <h:outputText value="Waiting #{quotationsReportBean.waitingQuotations}" styleClass="w3-tag w3-indigo"/>
+
+                            </div>
+                            <div class="w3-col s6 m2">
+                                <h:outputText value="No Items #{quotationsReportBean.noItemsQuotations}" styleClass="w3-tag w3-red"/>
+                            </div>
+                            <div class="w3-col s6 m2">
+                                <h:outputText value="Closed #{quotationsReportBean.closedQuotations}" styleClass="w3-tag w3-text-white w3-orange"/>
+                            </div>
+                        </div>
+
+                    </h:panelGroup>
+
+                </h:form>
+
+
                 <h:form id="form1">
                     <h:dataTable value="#{quotationsReportBean.quotations}" var="quotation"
                                  styleClass="w3-table w3-striped w3-border"
@@ -113,7 +140,8 @@
                             <h:outputText value="Waiting" rendered="#{quotation.status eq 'W'}" styleClass="w3-indigo w3-tag"/>
                             <h:outputText value="Submitted" rendered="#{quotation.status eq 'S'}" styleClass="w3-green w3-tag"/>
                             <h:outputText value="Archived" rendered="#{quotation.status eq 'X'}" styleClass="w3-tag"/>
-                            <h:outputText value="Products Not Found" rendered="#{quotation.status eq 'R'}" styleClass="w3-red w3-tag"/>
+                            <h:outputText value="Not Found" rendered="#{quotation.status eq 'R'}" styleClass="w3-red w3-tag"/>
+                            <h:outputText value="Closed" rendered="#{quotation.status eq 'R'}" styleClass="w3-orange w3-text-white w3-tag"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">

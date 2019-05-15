@@ -43,6 +43,56 @@ public class QuotationsReportBean implements Serializable {
         this.month = c.get(Calendar.MONTH);
     }
 
+    public int getSubmittedQuotations(){
+        int i = 0;
+        for(var q : quotations){
+            if(q.getStatus() == 'S'){
+                i++;
+            }
+        }
+        return i;
+    }
+
+    public int getArchivedQuotations(){
+        int i = 0;
+        for(var q : quotations){
+            if(q.getStatus() == 'X'){
+                i++;
+            }
+        }
+        return i;
+    }
+
+    public int getWaitingQuotations(){
+        int i = 0;
+        for(var q : quotations){
+            if(q.getStatus() == 'W'){
+                i++;
+            }
+        }
+        return i;
+    }
+
+    public int getNoItemsQuotations(){
+        int i = 0;
+        for(var q : quotations){
+            if(q.getStatus() == 'R'){
+                i++;
+            }
+        }
+        return i;
+    }
+
+    public int getClosedQuotations(){
+        int i = 0;
+        for(var q : quotations){
+            if(q.getStatus() == 'C'){
+                i++;
+            }
+        }
+        return i;
+    }
+
     public void generateReport() throws InterruptedException{
         Response r = reqs.getSecuredRequest(AppConstants.getQuotationsReport(year, month, status));
         if(r.getStatus() == 200) {

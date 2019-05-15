@@ -74,6 +74,9 @@ public class AppConstants {
     public final static String getLiveWallet(long customerId){
         return CART_SERVICE + "wallet-live/" + customerId;
     }
+    public final static String getCustomerCarts(long customerId){
+        return CART_SERVICE + "carts/customer/" + customerId;
+    }
 
 
     //USER SERVICE CALLS//
