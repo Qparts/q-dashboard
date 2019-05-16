@@ -16,6 +16,7 @@ public class Quotation implements Serializable {
     private long id;
     private long customerId;
     private char status;
+    private String mobile;
     private int appCode;
     private Date created;
     private int createdBy;
@@ -213,6 +214,14 @@ public class Quotation implements Serializable {
 
     public void setReadOn(Date readOn) {
         this.readOn = readOn;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     @Override
