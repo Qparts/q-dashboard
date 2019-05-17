@@ -103,40 +103,41 @@
 					<p:dialog styleClass="q-dialog" header="Quotation Order" id="dlg1" widgetVar="dlgwv1">
 						<div class="w3-row">
 							<div class="w3-col m12 l6">
-							<h:panelGrid columns="2">
-								<h:outputLabel value="Quotation ID" styleClass="q-bold" />
-								<h:inputText readonly="true"
-											 value="#{liveQuotationsBean.selectedQuotation.id}" />
-								<h:outputLabel value="Date" styleClass="q-bold" />
-								<h:inputText readonly="true"
-											 value="#{liveQuotationsBean.selectedQuotation.created}">
-									<f:convertDateTime pattern="dd-MMM-yyyy HH:mm" />
-								</h:inputText>
-								<h:outputLabel value="Vehicle" styleClass="q-bold" />
-								<h:inputText readonly="true" rendered="true"
-											 value="#{makesBean.getModelYearFromId(liveQuotationsBean.selectedQuotation.customerVehicle.vehicleYearId).fullName}" />
-								<h:outputLabel value="VIN" styleClass="q-bold" />
-								<h:inputText readonly="true" rendered="true"
-											 value="#{liveQuotationsBean.selectedQuotation.customerVehicle.vin}" />
-								<h:outputLabel styleClass="q-bold" value="City" />
-								<h:inputText readonly="true"
-											 value="#{liveQuotationsBean.selectedQuotation.cityId}" />
-							</h:panelGrid>
-						</div>
+								<h:panelGrid columns="2">
+									<h:outputLabel value="Q. ID" styleClass="q-bold" />
+									<h:inputText readonly="true"
+												 value="#{liveQuotationsBean.selectedQuotation.id}" />
+									<h:outputLabel value="Date" styleClass="q-bold" />
+									<h:inputText readonly="true"
+												 value="#{liveQuotationsBean.selectedQuotation.created}">
+										<f:convertDateTime pattern="dd-MMM-yyyy HH:mm" />
+									</h:inputText>
+									<h:outputLabel value="Vehicle" styleClass="q-bold" />
+									<h:inputText readonly="true" rendered="true"
+												 value="#{makesBean.getModelYearFromId(liveQuotationsBean.selectedQuotation.customerVehicle.vehicleYearId).fullName}" />
+									<h:outputLabel value="VIN" styleClass="q-bold" />
+									<h:inputText readonly="true" rendered="true"
+												 value="#{liveQuotationsBean.selectedQuotation.customerVehicle.vin}" />
+									<h:outputLabel styleClass="q-bold" value="City" />
+									<h:inputText readonly="true"
+												 value="#{cityBean.getCityFromId(liveQuotationsBean.selectedQuotation.cityId).region.name} - #{cityBean.getCityFromId(liveQuotationsBean.selectedQuotation.cityId).name}" />
+								</h:panelGrid>
+							</div>
 							<div class="w3-col m12 l6">
 								<h:panelGrid columns="2">
-									<h:outputLabel styleClass="q-bold" value="Customer ID" />
-									<h:inputText readonly="true"
-												 value="#{liveQuotationsBean.selectedQuotation.customer.id}" />
+									<h:outputLabel styleClass="q-bold" value="C ID" />
+									<h:outputLink value="customer-details?id=#{liveQuotationsBean.selectedQuotation.customerId}">
+										<h:outputText value="#{liveQuotationsBean.selectedQuotation.customerId}"/>
+									</h:outputLink>
 									<h:outputLabel value="Name" styleClass="q-bold" />
 									<h:inputText readonly="true"
 												 value="#{liveQuotationsBean.selectedQuotation.customer.fullName}" />
 									<h:outputLabel value="Email" styleClass="q-bold" />
 									<h:inputText readonly="true"
 												 value="#{liveQuotationsBean.selectedQuotation.customer.email}" />
-									<h:outputLabel styleClass="q-bold" value="City" />
+									<h:outputLabel styleClass="q-bold" value="Mobile" />
 									<h:inputText readonly="true"
-												 value="#{liveQuotationsBean.selectedQuotation.cityId}" />
+												 value="#{liveQuotationsBean.selectedQuotation.mobile}" />
 								</h:panelGrid>
 							</div>
 						</div>

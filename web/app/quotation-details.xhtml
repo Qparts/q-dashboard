@@ -118,15 +118,15 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><h:outputLabel styleClass="q-bold" value="Country"/></td>
+                                            <td><h:outputLabel styleClass="q-bold" value="Mobile"/></td>
                                             <td><h:outputText
-                                                    value="#{cityBean.getCityFromId(quotationDetailsBean.quotation.cityId).country.name}"/>
+                                                    value="#{quotationDetailsBean.quotation.mobile}"/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><h:outputLabel styleClass="q-bold" value="City"/></td>
                                             <td><h:outputText
-                                                    value="#{cityBean.getCityFromId(quotationDetailsBean.quotation.cityId).region.name} - #{cityBean.getCityFromId(quotationDetailsBean.quotation.cityId).name}"/>
+                                                    value="#{cityBean.getCityFromId(quotationDetailsBean.quotation.cityId).country.name} - #{cityBean.getCityFromId(quotationDetailsBean.quotation.cityId).region.name} - #{cityBean.getCityFromId(quotationDetailsBean.quotation.cityId).name}"/>
                                             </td>
                                         </tr>
                                     </table>
