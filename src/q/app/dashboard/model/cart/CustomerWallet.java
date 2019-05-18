@@ -1,5 +1,8 @@
 package q.app.dashboard.model.cart;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import q.app.dashboard.model.customer.Customer;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -8,7 +11,7 @@ public class CustomerWallet implements Serializable {
     private long id;
     private long customerId;
     private double amount;
-    private char method;
+    private char method;//C = credit card, W= wire transfer, M = mada, T = credit
     private double creditCharges;
     private String gateway;
     private Date created;
@@ -18,6 +21,8 @@ public class CustomerWallet implements Serializable {
     private char walletType;//P = payment, S = sales, R = refund, T = return
     private String ccCompany;
     private Integer bankId;
+    @JsonIgnore
+    private Customer customer;
 
     public long getId() {
         return id;
@@ -121,5 +126,13 @@ public class CustomerWallet implements Serializable {
 
     public void setBankId(Integer bankId) {
         this.bankId = bankId;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

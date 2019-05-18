@@ -3,6 +3,7 @@ package q.app.dashboard.helper;
 import q.app.dashboard.beans.cart.WireTransfersBean;
 import q.app.dashboard.model.cart.Cart;
 import q.app.dashboard.model.cart.CartWireTransferRequest;
+import q.app.dashboard.model.cart.CustomerWallet;
 import q.app.dashboard.model.customer.Customer;
 import q.app.dashboard.model.quotation.Quotation;
 
@@ -89,6 +90,8 @@ public class Helper {
                 ids[i] = ((Cart) objects.get(i)).getCustomerId();
             }else if(objects.get(i) instanceof CartWireTransferRequest){
                 ids[i] = ((CartWireTransferRequest) objects.get(i)).getCustomerId();
+            }else if(objects.get(i) instanceof CustomerWallet){
+                ids[i] = ((CustomerWallet) objects.get(i)).getCustomerId();
             }
 
         }
@@ -154,6 +157,14 @@ public class Helper {
                         CartWireTransferRequest wire = (CartWireTransferRequest) object;
                         if (c.getId() == wire.getCustomerId()) {
                             wire.getCart().setCustomer(c);
+                            break;
+                        }
+                    }
+
+                    else if(object instanceof CustomerWallet){
+                        CustomerWallet wallet = (CustomerWallet) object;
+                        if (c.getId() == wallet.getCustomerId()) {
+                            wallet.setCustomer(c);
                             break;
                         }
                     }
