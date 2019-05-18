@@ -1,6 +1,7 @@
 package q.app.dashboard.beans.users;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -60,10 +61,11 @@ public class RolesBean implements Serializable {
 	
 
 	private void initActiveRoles() {
-		Response r = reqs.getSecuredRequest(AppConstants.GET_ACTIVE_ROLES);
-		if (r.getStatus() == 200) {
-			this.activeRoles = r.readEntity(new GenericType<List<Role>>() {
-			});
+		activeRoles = new ArrayList<>();
+		for(Role role : allRoles){
+			if(role.getStatus() == 'A'){
+				activeRoles.add(role);
+			}
 		}
 	}
 

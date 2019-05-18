@@ -1,20 +1,19 @@
 package q.app.dashboard.beans.cart;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import q.app.dashboard.beans.common.LoginBean;
 import q.app.dashboard.beans.common.Requester;
+import q.app.dashboard.beans.common.VendorsBean;
 import q.app.dashboard.beans.purchase.NewPurchaseOrder;
 import q.app.dashboard.helper.AppConstants;
 import q.app.dashboard.helper.Helper;
 import q.app.dashboard.model.cart.*;
 import q.app.dashboard.model.customer.Customer;
 import q.app.dashboard.model.product.ProductHolder;
-import q.app.dashboard.model.product.Stock;
 import q.app.dashboard.model.product.StockDeduct;
-import q.app.dashboard.model.purchase.Purchase;
 import q.app.dashboard.model.purchase.PurchaseProduct;
 import q.app.dashboard.model.sales.Sales;
 import q.app.dashboard.model.sales.SalesProduct;
+import q.app.dashboard.model.vendor.Vendor;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -38,6 +37,8 @@ public class AwaitingCartBean implements Serializable {
     private int bankId;
     private double liveWallet;
     private boolean refundDelivery;
+    private int newPricingVendorId;
+    private List<Vendor> pricingVendors;
 
     @Inject
     private Requester reqs;
@@ -47,6 +48,9 @@ public class AwaitingCartBean implements Serializable {
 
     @Inject
     private NewPurchaseOrder purchaseOrderBean;
+
+    @Inject
+    private VendorsBean vendorsBean;
 
     @PostConstruct
     private void init(){
@@ -60,8 +64,22 @@ public class AwaitingCartBean implements Serializable {
             initCustomer();
             initProducts();
             initLiveWallet();
+            initPricingVendors();
+            initCartProductCompares();
         }catch(Exception ex){
             Helper.redirect("carts-awaiting");
+        }
+    }
+
+    private void initPricingVendors(){
+        pricingVendors = new ArrayList<>();
+        for (CartProduct cp : cart.getCartProducts()) {
+            for (CartProductCompare cpc : cp.getCartProductCompares()) {
+                Vendor v = vendorsBean.getVendorFromId(cpc.getVendorId());
+                if (!pricingVendors.contains(v)) {
+                    pricingVendors.add(v);
+                }
+            }
         }
     }
 
@@ -538,6 +556,52 @@ public class AwaitingCartBean implements Serializable {
         }
     }
 
+
+
+    private void initCartProductCompares() {
+        for (CartProduct cp : cart.getCartProducts()) {
+            for (Vendor vendor : this.pricingVendors) {
+                if (cp.getCartProductCompare(vendor.getId()) == null) {
+                    var cpc = new CartProductCompare();
+                    cpc.setCreatedBy(this.loginBean.getLoggedUserId());
+                    cpc.setVendorId(vendor.getId());
+                    cpc.setCartProductId(cp.getId());
+                    cpc.setNewlyAdded(true);
+                    cp.getCartProductCompares().add(cpc);
+                }
+            }
+        }
+    }
+
+
+
+    public void saveCartProductCompare() {
+        Set<CartProductCompare> cpcs = new HashSet<>();
+        for (CartProduct cp : this.cart.getCartProducts()) {
+            cpcs.addAll(cp.getCartProductCompares());
+        }
+        Response r = reqs.postSecuredRequest(AppConstants.POST_CART_PRODUCT_COMPARE, cpcs);
+        if (r.getStatus() == 201) {
+            Helper.addInfoMessage("vendor prices updated");
+        } else {
+            Helper.addErrorMessage("an error occured");
+        }
+    }
+
+
+
+
+    public void addNewPricingVendor() {
+        Vendor vendor = vendorsBean.getVendorFromId(this.newPricingVendorId);
+        if (!pricingVendors.contains(vendor)) {
+            this.pricingVendors.add(vendor);
+            initCartProductCompares();
+            Helper.addInfoMessage("new pricing vendor added");
+        } else {
+            Helper.addErrorMessage("this vendor is already added");
+        }
+    }
+
     public Cart getCart() {
         return cart;
     }
@@ -609,5 +673,21 @@ public class AwaitingCartBean implements Serializable {
 
     public void setDoSales(boolean doSales) {
         this.doSales = doSales;
+    }
+
+    public int getNewPricingVendorId() {
+        return newPricingVendorId;
+    }
+
+    public void setNewPricingVendorId(int newPricingVendorId) {
+        this.newPricingVendorId = newPricingVendorId;
+    }
+
+    public List<Vendor> getPricingVendors() {
+        return pricingVendors;
+    }
+
+    public void setPricingVendors(List<Vendor> pricingVendors) {
+        this.pricingVendors = pricingVendors;
     }
 }

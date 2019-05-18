@@ -65,6 +65,7 @@ public class AppConstants {
     public final static String GET_NOTIFICATION_CARTS = CART_SERVICE + "carts-notification";
     public final static String POST_EMPTY_WALLET = CART_SERVICE + "empty-wallet";
     public final static String POST_CART_WIRE_TRANSFER = CART_SERVICE + "cart/wire-transfer";
+    public final static String POST_CART_PRODUCT_COMPARE = CART_SERVICE + "cart-product-compare";
 
     public final static String getWalletsReport(int year, int month, char walletType, char method) {
         return CART_SERVICE+ "wallets-report/year/" + year + "/month/" + month + "/wallet-type/" + walletType + "/method/" + method;
@@ -92,7 +93,6 @@ public class AppConstants {
     public final static String GET_ALL_USERS = USER_SERVICE + "all-users";
     public final static String GET_ALL_ACTIVITIES = USER_SERVICE + "all-activities";
     public final static String GET_ALL_ROLES = USER_SERVICE + "all-roles";
-    public final static String GET_ACTIVE_ROLES = USER_SERVICE + "active-roles";
     public final static String POST_CREATE_ROLE = USER_SERVICE + "role";
     public final static String PUT_UPDATE_ROLE = USER_SERVICE + "role";
     public final static String getCurrentQuotingScore(int userId) {

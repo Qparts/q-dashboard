@@ -650,58 +650,57 @@
 				</h:panelGroup>
 			</h:form>
 			<br/>
+
 			<p:panel toggleable="true" header="Pricing Vendor" collapsed="false"
 				toggleSpeed="100">
 				<h:form id="form7">
 					<h:panelGrid columns="3">
 						<h:outputText value="New Pricing Vendor" />
-						<h:selectOneMenu value="#{awaitingWalletBean.newPricingVendorId}"
+						<h:selectOneMenu value="#{awaitingCartBean.newPricingVendorId}"
 							required="true">
-							<f:selectItems
-								value="#{vendorBean.getMakeVendors(awaitingWalletBean.wallet.cart.makeId)}"
-								var="vendor" itemValue="#{vendor.id}" itemLabel="#{vendor.name}" />
+							<f:selectItems value="#{vendorsBean.vendors}" var="vendor" itemValue="#{vendor.id}" itemLabel="#{vendor.name}" />
 						</h:selectOneMenu>
 						<p:commandButton value="Add Vendor to Pricing List"
-							actionListener="#{awaitingWalletBean.addNewPricingVendor()}"
+							actionListener="#{awaitingCartBean.addNewPricingVendor()}"
 							update=":form-g :form6" process="@form" styleClass="q-btn" />
 					</h:panelGrid>
 				</h:form>
 
 				<h:form id="form6">
-					<p:dataTable value="#{awaitingWalletBean.wallet.productWalletItem}"
-						var="item" style="width:100%!important">
+					<p:dataTable value="#{awaitingCartBean.cart.cartProducts}"
+						var="cp" style="width:100%!important">
 						<p:column width="80">
 							<f:facet name="header">
-								<h:outputText value="Item" />
+								<h:outputText value="ID" />
 							</f:facet>
-							<h:outputText value="#{item.id}" styleClass="q-bold" />
+							<h:outputText value="#{cp.id}" styleClass="q-bold" />
 						</p:column>
 						<p:column>
 							<f:facet name="header">
 								<h:outputText value="Product Number" />
 							</f:facet>
-							<h:outputText value="#{item.product.productNumber}"
+							<h:outputText value="#{cp.productHolder.product.productNumber}"
 								styleClass="q-bold" />
 						</p:column>
 						<p:column>
 							<f:facet name="header">
 								<h:outputText value="Desc." />
 							</f:facet>
-							<h:outputText value="#{item.product.productNameCheck}"
+							<h:outputText value="#{cp.productHolder.product.desc}"
 								styleClass="q-bold" />
 						</p:column>
-						<p:columns value="#{awaitingWalletBean.pricingVendors}"
+						<p:columns value="#{awaitingCartBean.pricingVendors}"
 							var="vendor" columnIndexVar="i">
 							<f:facet name="header">
 								<h:outputText value="#{vendor.name}" />
 							</f:facet>
-							<h:inputText value="#{item.getWalletItemVendor(vendor.id).cost}"
-								rendered="#{not (item.getWalletItemVendor(vendor.id) eq null)}" />
+							<h:inputText value="#{cp.getCartProductCompare(vendor.id).cost}"
+								rendered="#{not (cp.getCartProductCompare(vendor.id) eq null)}" />
 						</p:columns>
 					</p:dataTable>
 					<div align="center">
 						<p:commandButton value="Save" styleClass="q-btn"
-							actionListener="#{awaitingWalletBean.saveWalletItemVendors()}"
+							actionListener="#{awaitingCartBean.saveCartProductCompare()}"
 							update=":form-g @form" process="@form" />
 					</div>
 				</h:form>

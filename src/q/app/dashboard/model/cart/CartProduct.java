@@ -5,6 +5,7 @@ import q.app.dashboard.model.product.ProductHolder;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class CartProduct implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -16,6 +17,8 @@ public class CartProduct implements Serializable {
     private Date created;
     private int createdBy;
     private char status;//N = new, S=sold
+    private List<CartProductCompare> cartProductCompares;
+
     @JsonIgnore
     private ProductHolder productHolder;
     @JsonIgnore
@@ -30,6 +33,17 @@ public class CartProduct implements Serializable {
     private boolean doSales;
 
 
+
+
+    @JsonIgnore
+    public CartProductCompare getCartProductCompare(int vendorId) {
+        for(var cpc : this.cartProductCompares) {
+            if(cpc.getVendorId() == vendorId) {
+                return cpc;
+            }
+        }
+        return null;
+    }
 
 
     @JsonIgnore
@@ -162,5 +176,13 @@ public class CartProduct implements Serializable {
 
     public void setDoSales(boolean doSales) {
         this.doSales = doSales;
+    }
+
+    public List<CartProductCompare> getCartProductCompares() {
+        return cartProductCompares;
+    }
+
+    public void setCartProductCompares(List<CartProductCompare> cartProductCompares) {
+        this.cartProductCompares = cartProductCompares;
     }
 }
