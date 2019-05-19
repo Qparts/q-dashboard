@@ -71,12 +71,12 @@
 					<h:button  class="w3-button w3-flat-midnight-blue" value="Invoices" rendered="#{loginBean.hasAccessL([act.pageReceivables, act.pagePayables, act.pageIncompletePurchases, act.pagePurchaseSearch, act.pageSalesSearch, act.pagePurchaseReturn, act.pageSalesReturn])}" onclick="return false;"/>
 					<div class="w3-dropdown-content w3-bar-block w3-border">
 					 	<h:outputLink value="/app/sales-search" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageSalesSearch)}">Sales Search</h:outputLink>
-						<h:outputLink style="color:greenyellow;display:none;" value="/app/purchase-search" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pagePurchaseSearch)}">Purchase Search</h:outputLink>
+						<h:outputLink value="/app/purchase-search" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pagePurchaseSearch)}">Purchase Search</h:outputLink>
 					 	<h:outputLink style="color:greenyellow;display:none;" value="/app/sales-return-search" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageSalesReturn)}">Sales Return</h:outputLink>
 					 	<h:outputLink style="color:greenyellow;display:none;" value="/app/purchase-return-search" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pagePurchaseReturn)}">Purchase Return</h:outputLink>
 					 	<h:outputLink style="color:greenyellow;display:none;" value="/app/payables" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pagePayables)}">Payables</h:outputLink>
       					<h:outputLink style="color:greenyellow;display:none;" value="/app/receivables" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageReceivables)}">Receivables</h:outputLink>
-      					<h:outputLink style="color:greenyellow;display:none;" value="/app/purchases-incomplete" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageIncompletePurchases)}">Incomplete Purchases</h:outputLink>
+      					<h:outputLink value="/app/purchases-incomplete" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageIncompletePurchases)}">Incompletes</h:outputLink>
 					</div>
 				</div>
 				<div class="w3-dropdown-hover">

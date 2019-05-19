@@ -234,6 +234,12 @@ public class AppConstants {
     public final static String PUT_SALES = INVOICE_SERVICE + "sales";
     public final static String POST_SALES_SEARCH = INVOICE_SERVICE + "search-sales";
     public final static String POST_PURCHASE_SEARCH = INVOICE_SERVICE + "search-purchase";
+    public final static String GET_INCOMPLETE_PURCHASES = INVOICE_SERVICE + "purchases/incomplete";
+    public final static String PUT_COMPLETE_PURCHASE = INVOICE_SERVICE + "purchase/complete";
+
+    public final static String getIncompletePurchase(long purchaseId){
+        return INVOICE_SERVICE + "purchase/" + purchaseId + "/incomplete";
+    }
     public final static String getPurchase(long purchaseId){
         return INVOICE_SERVICE + "purchase/" + purchaseId;
     }

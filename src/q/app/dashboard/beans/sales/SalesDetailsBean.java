@@ -34,16 +34,11 @@ public class SalesDetailsBean implements Serializable {
             String s = Helper.getParam("id");
             sales = new Sales();
             initSales(s);
-            System.out.println(4);
             initCustomer();
-            System.out.println(5);
             initCart();
-            System.out.println(7);
             initProducts();
-            System.out.println(8);
         } catch (Exception ex) {
-            ex.printStackTrace();
-            //Helper.redirect("sales-search");
+            Helper.redirect("sales-search");
         }
     }
 

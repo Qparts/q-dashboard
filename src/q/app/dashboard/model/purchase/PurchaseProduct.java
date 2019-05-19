@@ -16,9 +16,15 @@ public class PurchaseProduct implements Serializable {
     private double vatPercentage;
     private char status;
     @JsonIgnore
+    private boolean withVat;
+    @JsonIgnore
     private ProductHolder holder;
 
 
+    @JsonIgnore
+    public double getUnitCostWv(){
+        return unitCost + (unitCost*vatPercentage);
+    }
 
 
     public char getStatus() {
@@ -83,5 +89,13 @@ public class PurchaseProduct implements Serializable {
 
     public void setVatPercentage(double vatPercentage) {
         this.vatPercentage = vatPercentage;
+    }
+
+    public boolean isWithVat() {
+        return withVat;
+    }
+
+    public void setWithVat(boolean withVat) {
+        this.withVat = withVat;
     }
 }

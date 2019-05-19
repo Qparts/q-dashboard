@@ -1,6 +1,6 @@
 package q.app.dashboard.model.purchase;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -14,9 +14,39 @@ public class Purchase implements Serializable {
     private char paymentStatus;
     private Date date;
     private int createdBy;
+    private Integer completedBy;
+    private Date completed;
     private Date dueDate;
     private Date created;
     private List<PurchaseProduct> purchaseProducts;
+
+
+    @JsonIgnore
+    public double getProductsTotal(){
+        double total = 0;
+        try{
+            for(var pp : purchaseProducts){
+                total += (pp.getUnitCost() * pp.getQuantity());
+            }
+        }catch(NullPointerException ex){
+            total = 0;
+        }
+        return total;
+    }
+
+    @JsonIgnore
+    public double getGrandTotal(){
+        return getProductsTotal() + getTotalVat();
+    }
+
+    @JsonIgnore
+    public double getTotalVat(){
+        return getProductsTotal() * 0.05;
+    }
+
+
+
+
 
     public List<PurchaseProduct> getPurchaseProducts() {
         return purchaseProducts;
@@ -88,5 +118,21 @@ public class Purchase implements Serializable {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public int getCompletedBy() {
+        return completedBy;
+    }
+
+    public void setCompletedBy(int completedBy) {
+        this.completedBy = completedBy;
+    }
+
+    public Date getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(Date completed) {
+        this.completed = completed;
     }
 }

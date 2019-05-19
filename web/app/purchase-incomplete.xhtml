@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<title>Incomplete Purchase</title>
+	<ui:include src="/_includes/header.xhtml" />
+</h:head>
+<h:body>
+<h:outputText value="#{loginBean.checkAccessRedirectHome(act.pageIncompletePurchases)}" />
+	<ui:include src="/_includes/top.xhtml" />
+	<ui:include src="/_includes/side.xhtml" />
+			<div class="w3-container">
+				<div align="center" class="w3-padding-8">
+					<h:outputText
+						value="Incomplete  Purchase #{incompletePurchaseBean.purchase.id}"
+						styleClass="q-large-text" />
+				</div>
+				<h:form id="form-g">
+					<p:growl id="error-growl"
+						rendered="#{facesContext.maximumSeverity.ordinal eq 2}" />
+					<p:growl id="success-growl"
+						rendered="#{facesContext.maximumSeverity.ordinal eq 0}" />
+				</h:form>
+
+				<div class="w3-row">
+					<div class="w3-col s12 w3-container">
+						<div class="w3-card-2 w3-padding-8 w3-light-grey w3-container">
+							<h:panelGrid columns="2">
+								<h:outputText value="Purchase ID" />
+								<h:inputText value="#{incompletePurchaseBean.purchase.id}"
+											 readonly="true" />
+								<h:outputText value="Date" />
+								<h:inputText value="#{incompletePurchaseBean.purchase.created}"
+											 readonly="true">
+									<f:convertDateTime type="date" />
+								</h:inputText>
+								<h:outputText value="Invoice Date" />
+								<h:inputText value="#{incompletePurchaseBean.purchase.date}"
+											 readonly="true">
+									<f:convertDateTime type="date" />
+								</h:inputText>
+								<h:outputText value="Status" />
+								<h:outputText value="Paid" rendered="#{incompletePurchaseBean.purchase.paymentStatus eq 'P'}" styleClass="w3-tag w3-green"/>
+								<h:outputText value="Outstanding" rendered="#{incompletePurchaseBean.purchase.paymentStatus eq 'O'}" styleClass="w3-tag w3-red"/>
+								<h:outputText value="Incomplete" rendered="#{incompletePurchaseBean.purchase.paymentStatus eq 'I'}" styleClass="w3-tag w3-deep-orange"/>
+								<h:outputText value="Vendor" />
+								<h:inputText value="#{vendorsBean.getVendorFromId(incompletePurchaseBean.purchase.vendorId).name}" readonly="true" />
+								<h:outputText value="Type" />
+								<h:inputText value="#{incompletePurchaseBean.purchase.transactionType eq 'C' ? 'Cash' : 'Credit'}" readonly="true" />
+								<h:outputText value="Created By" />
+								<h:inputText
+										value="#{usersBean.getUserFromId(incompletePurchaseBean.purchase.createdBy).firstName}"
+										readonly="true" />
+							</h:panelGrid>
+						</div>
+					</div>
+				</div>
+
+				<br />
+				<div>
+					<h:form id="form2">
+						<h:dataTable
+							value="#{incompletePurchaseBean.purchase.purchaseProducts}"
+							var="pp" styleClass="w3-table w3-striped w3-border"
+							headerClass="w3-light-grey w3-border-bottom"
+							footerClass="w3-light-grey w3-border-top">
+							<h:column style="width:100px">
+								<f:facet name="header">
+									<h:outputText value="Product ID" />
+								</f:facet>
+								<h:outputText value="#{pp.productId}" />
+							</h:column>
+							<h:column style="width:100px">
+								<f:facet name="header">
+									<h:outputText value="Name" />
+								</f:facet>
+								<h:outputText value="#{pp.holder.product.desc}" />
+							</h:column>
+							<h:column style="width:100px">
+								<f:facet name="header">
+									<h:outputText value="Arabic" />
+								</f:facet>
+								<h:outputText value="#{pp.holder.product.descAr}" />
+							</h:column>
+							<h:column style="width:100px">
+								<f:facet name="header">
+									<h:outputText value="Product Number" />
+								</f:facet>
+								<h:outputText value="#{pp.holder.product.productNumber}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Incomplete" rendered="#{pp.status eq 'I'}" styleClass="w3-deep-orange" />
+									<h:outputText value="Complete" rendered="#{pp.status eq 'C'}" styleClass="w3-green" />
+								</f:facet>
+								<h:outputText
+									value="#{pp.status}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Quantity" />
+								</f:facet>
+								<h:outputText value="#{pp.quantity}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Unit Cost" />
+								</f:facet>
+								<h:outputText value="#{pp.unitCost}">
+									<f:convertNumber type="currency" currencySymbol=" " />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Gross Cost" />
+								</f:facet>
+								<h:outputText value="#{pp.unitCost * pp.quantity}"
+									rendered="#{not (pp.unitCost eq null)}">
+									<f:convertNumber type="currency" currencySymbol=" " />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Unit Cost+VAT" />
+								</f:facet>
+								<h:outputText value="#{pp.unitCostWv}">
+									<f:convertNumber type="currency" currencySymbol=" " />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Gross Cost+Vat" />
+								</f:facet>
+								<h:outputText value="#{pp.unitCostWv * pp.quantity}">
+									<f:convertNumber type="currency" currencySymbol=" " />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Update" />
+								</f:facet>
+								<p:commandButton
+									actionListener="#{incompletePurchaseBean.setSelectedPurchaseProduct(pp)}"
+									update=":form3" process="@this" value="Add" styleClass="q-btn"
+									oncomplete="PF('dlgwv').show()" />
+							</h:column>
+							<f:facet name="footer">
+								<div align="center" class="q-bold">
+									<h:panelGrid columns="2">
+										<h:outputText value="Total Cost" />
+										<h:outputText
+											value="#{incompletePurchaseBean.purchase.productsTotal}">
+											<f:convertNumber type="currency" currencySymbol="SR " />
+										</h:outputText>
+
+										<h:outputText value="VAT" />
+										<h:outputText
+											value="#{incompletePurchaseBean.purchase.totalVat}">
+											<f:convertNumber type="currency" currencySymbol="SR " />
+										</h:outputText>
+
+										<h:outputText value="Net Cost" />
+										<h:outputText
+											value="#{incompletePurchaseBean.purchase.grandTotal}">
+											<f:convertNumber type="currency" currencySymbol="SR " />
+										</h:outputText>
+									</h:panelGrid>
+								</div>
+							</f:facet>
+						</h:dataTable>
+						<br />
+						<div align="center">
+							<h:outputText value="Invoice Date" />
+							<br />
+							<p:calendar mode="inline" required="true"
+								value="#{incompletePurchaseBean.purchase.date}"
+								process="@this" />
+							<br /> <br />
+							<p:commandButton value="Update" styleClass="q-btn"
+								actionListener="#{incompletePurchaseBean.updatePurchase()}"
+								update=":form-g" />
+							<br/>
+							<br/>
+						</div>
+					</h:form>
+
+					<h:form id="form3">
+						<p:dialog id="dlg" widgetVar="dlgwv" styleClass="q-dialog"
+							header="Add Price">
+							<h:panelGrid columns="2" id="panel"
+								styleClass="w3-table w3-striped w3-border">
+								<h:outputText value="Product ID" />
+								<h:outputText
+									value="#{incompletePurchaseBean.selectedPurchaseProduct.holder.product.id}" />
+								<h:outputText value="Name" />
+								<h:outputText value="#{incompletePurchaseBean.selectedPurchaseProduct.holder.product.desc}" />
+								<h:outputText value="Name Arabic" />
+								<h:outputText value="#{incompletePurchaseBean.selectedPurchaseProduct.holder.product.desc}" />
+								<h:outputText value="Product Number" />
+								<h:outputText value="#{incompletePurchaseBean.selectedPurchaseProduct.holder.product.productNumber}" />
+								<h:outputText value="Quantity" />
+								<h:outputText value="#{incompletePurchaseBean.selectedPurchaseProduct.quantity}" />
+								<h:outputText value="VAT Included?" />
+								<h:selectBooleanCheckbox value="#{incompletePurchaseBean.selectedPurchaseProduct.withVat}">
+									<p:ajax update="panel" process="@this" />
+								</h:selectBooleanCheckbox>
+								<h:outputText value="Unit Cost" />
+								<h:inputText value="#{incompletePurchaseBean.price}"
+									required="true" requiredMessage="Please enter Price">
+									<f:ajax execute="@this"/>
+								</h:inputText>
+							</h:panelGrid>
+							<br />
+							<div align="center">
+								<p:commandButton value="Update Price"
+									actionListener="#{incompletePurchaseBean.updatePrice()}"
+									update=":form-g :form2 @form" styleClass="q-btn" />
+							</div>
+						</p:dialog>
+					</h:form>
+				</div>
+			</div>
+</h:body>
+</html>

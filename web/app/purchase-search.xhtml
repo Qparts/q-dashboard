@@ -86,6 +86,12 @@
 						</h:column>
 						<h:column>
 							<f:facet name="header">
+								VENDOR
+							</f:facet>
+							<h:outputText value="#{vendorsBean.getVendorFromId(purchase.vendorId).name}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
 								PAYMENT STATUS
 							</f:facet>
 							<h:outputText value="Paid" rendered="#{purchase.paymentStatus eq 'P'}" styleClass="w3-tag w3-green"/>
