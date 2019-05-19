@@ -118,26 +118,61 @@
                                                 <tr>
                                                     <td><h:outputLabel value="Status" styleClass="q-bold"/></td>
                                                     <td>
-                                                        <h:outputText value="#{productDetailsBean.productHolder.product.status eq 'A' ? 'Active' : 'Inactive'}" styleClass="w3-tag w3-#{productDetailsBean.productHolder.product.status eq 'A' ? 'green' : 'red'}"/>
+                                                        <p:inplace editor="true" label="#{productDetailsBean.productHolder.product.status eq 'A' ? 'Active' : 'Inactive'}" styleClass="w3-tag w3-#{productDetailsBean.productHolder.product.status eq 'A' ? 'green' : 'red'}">
+                                                            <h:selectOneMenu value="#{productDetailsBean.productHolder.product.status}">
+                                                                <f:selectItem itemLabel="Active" itemValue="#{'A'}"/>
+                                                                <f:selectItem itemLabel="Inactive" itemValue="#{'I'}" />
+                                                            </h:selectOneMenu>
+                                                            <p:ajax event="save" listener="#{productDetailsBean.handleInplace()}" update=":form-g" />
+                                                        </p:inplace>
                                                     </td>
                                                 </tr>
                                             </table>
                                         </div>
                                     </div>
                                     <div class="w3-col s12 w3-padding-24">
-                                        <h:dataTable value="#{productDetailsBean.productHolder.productSpecs}" var="ps"
-                                                     styleClass="w3-table w3-striped w3-border">
+
+                                    <h:dataTable value="#{productDetailsBean.productHolder.productSpecs}" var="ps"
+                                                     styleClass="w3-table w3-striped w3-border"
+                                                     headerClass="w3-border-bottom w3-light-grey"
+                                                     footerClass="w3-border-top w3-light-grey">
+                                            <f:facet name="header">
+                                                <div class="w3-row">
+                                                    <div class="w3-col s6">
+                                                        <h:outputText value="Product Specs"/>
+                                                    </div>
+                                                    <div align="right" class="w3-col s6">
+                                                        <p:commandButton styleClass="q-btn"
+                                                                         value="+"
+                                                                         process="@this"
+                                                                         update=":form4"
+                                                                         oncomplete="PF('dlgwv4').show()"/>
+                                                    </div>
+                                                </div>
+                                            </f:facet>
                                             <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Key"/>
+                                                </f:facet>
                                                 <h:outputText value="#{ps.spec.name}"/>
                                             </h:column>
                                             <h:column>
-                                                <h:outputText value="#{ps.value}"/>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Value"/>
+                                                </f:facet>
+                                                <h:outputText value="#{ps.value}" />
                                             </h:column>
                                             <h:column>
-                                                <h:outputText value="#{ps.valueAr}"/>
-                                            </h:column>
-                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Key Ar"/>
+                                                </f:facet>
                                                 <h:outputText value="#{ps.spec.nameAr}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Value Ar"/>
+                                                </f:facet>
+                                                <h:outputText value="#{ps.valueAr}" />
                                             </h:column>
                                         </h:dataTable>
                                     </div>
@@ -189,10 +224,76 @@
                         </div>
                         <div class="w3-container w3-col s12 m6">
                             <div class="w3-col s12 w3-padding-24">
-                                Purchase history
+                                <p:panel toggleable="true" header="Purchases" collapsed="false"
+                                         toggleSpeed="100">
+                                    <h:dataTable value="#{productDetailsBean.purchasesHistory}" var="purchase" styleClass="w3-table w3-striped w3-border" headerClass="w3-light-grey w3-border-bottom">
+                                        <f:facet name="header">
+                                            <div align="center">
+                                                <h:outputText value="Purchases"/>
+                                            </div>
+                                        </f:facet>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="ID"/>
+                                            </f:facet>
+                                            <h:outputLink value="purchase-details?id=#{purchase.id}">
+                                                <h:outputText value="#{purchase.id}"/>
+                                            </h:outputLink>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="DATE"/>
+                                            </f:facet>
+                                            <h:outputText value="#{purchase.created}">
+                                                <f:convertDateTime type="date"/>
+                                            </h:outputText>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="VENDOR"/>
+                                            </f:facet>
+                                            <h:outputText value="#{vendorsBean.getVendorFromId(purchase.vendorId).name}"/>
+                                        </h:column>
+                                    </h:dataTable>
+
+                                </p:panel>
                             </div>
                             <div class="w3-col s12 w3-padding-24">
-                                Sales history
+                                <p:panel toggleable="true" header="Sales" collapsed="false"
+                                         toggleSpeed="100">
+                                    <h:dataTable value="#{productDetailsBean.salesHistory}" var="sales" styleClass="w3-table w3-striped w3-border" headerClass="w3-light-grey w3-border-bottom">
+                                        <f:facet name="header">
+                                            <div align="center">
+                                                <h:outputText value="Sales"/>
+                                            </div>
+                                        </f:facet>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="ID"/>
+                                            </f:facet>
+                                            <h:outputLink value="sales-details?id=#{sales.id}">
+                                                <h:outputText value="#{sales.id}"/>
+                                            </h:outputLink>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="DATE"/>
+                                            </f:facet>
+                                            <h:outputText value="#{sales.created}">
+                                                <f:convertDateTime type="date"/>
+                                            </h:outputText>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="CUSTOMER"/>
+                                            </f:facet>
+                                            <h:outputLink value="customer-details?id=#{sales.customerId}">
+                                                <h:outputText value="#{sales.customerId}"/>
+                                            </h:outputLink>
+                                        </h:column>
+                                    </h:dataTable>
+
+                                </p:panel>
                             </div>
                             <div class="w3-col s12 w3-padding-24">
                                 reviews
@@ -235,6 +336,38 @@
                             <p:commandButton value="Add" actionListener="#{productDetailsBean.addNewPrice}"
                                              styleClass="q-btn" update=":form-g"/>
                         </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <h:form id="form4">
+                    <p:dialog styleClass="q-dialog" header="New Spec" id="dlg4" widgetVar="dlgwv4">
+                        <h:panelGroup id="dialog-panel">
+                        <h:outputText value="Select spec"/>
+                        <p:autoComplete id="spec-auto" placeholder="Type Spec" maxResults="10"
+                                        styleClass="q-auto-complete" required="true"
+                                        value="#{productDetailsBean.newSpecId}" dropdown="true"
+                                        completeMethod="#{specsBean.completeSpecIds(s)}" var="s"
+                                        itemLabel="#{specsBean.getSpecFromId(s).name} - #{specsBean.getSpecFromId(s).nameAr}"
+                                        itemValue="#{specsBean.getSpecFromId(s).id}"
+                                        forceSelection="true" style="width: 100%!important;">
+                            <p:ajax process="@this"/>
+                        </p:autoComplete>
+
+                        <p:commandButton value="Add" styleClass="q-btn" actionListener="#{productDetailsBean.prepareSpec()}"
+                                         update=":form4:dialog-panel :form-g" process="@this spec-auto"/>
+                            <h:panelGroup id="spec-panel">
+                                <h:panelGrid columns="2" rendered="#{not (productDetailsBean.newProductSpec.spec eq null)}">
+                                    <h:outputText value="Spec Name"/>
+                                    <h:outputText value="#{productDetailsBean.newProductSpec.spec.name}"/>
+                                    <h:outputText value="Spec arabic Name"/>
+                                    <h:outputText value="#{productDetailsBean.newProductSpec.spec.nameAr}"/>
+                                    <h:outputText value="Value"/>
+                                    <h:inputText value="#{productDetailsBean.newProductSpec.value}" required="true"/>
+                                    <h:outputText value="Value Arabic"/>
+                                    <h:inputText value="#{productDetailsBean.newProductSpec.valueAr}" required="true"/>
+                                    <p:commandButton value="Save" actionListener="#{productDetailsBean.createSpec()}" styleClass="q-btn" update=":form-g"/>
+                                </h:panelGrid>
+                            </h:panelGroup>
+                        </h:panelGroup>
                     </p:dialog>
                 </h:form>
             </div>

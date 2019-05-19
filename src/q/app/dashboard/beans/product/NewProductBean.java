@@ -72,7 +72,7 @@ public class NewProductBean implements Serializable {
         if(productPrice.getVendorId() > 0){
             productPrice.setCreatedBy(loginBean.getLoggedUserId());
             Vendor vendor = vendorsBean.getVendorFromId(productPrice.getVendorId());
-            double salesPercentage = 0.20;
+            double salesPercentage = 0.05;
             for(Category category : this.categories){
                 salesPercentage = findLowestPercentageUpwards(vendor, category, salesPercentage);
             }
@@ -114,11 +114,9 @@ public class NewProductBean implements Serializable {
         Set<String> set = new HashSet<>();
         List<String> dfTags = getDefaultTags();
         tags.addAll(getDefaultTags());
-        System.out.println(3);
         for (String tag : tags) {
             set.add(Helper.properTag(tag));
         }
-        System.out.println(4);
         tags = new ArrayList<>(set);
     }
 

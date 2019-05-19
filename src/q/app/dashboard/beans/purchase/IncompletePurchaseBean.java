@@ -44,8 +44,7 @@ public class IncompletePurchaseBean implements Serializable {
 			initPurchase(id);
 			initProducts();
 		} catch (Exception ex) {
-			ex.printStackTrace();
-			//Helper.redirect("purchases-incomplete");
+			Helper.redirect("purchases-incomplete");
 		}
 	}
 

@@ -61,9 +61,8 @@ public class SpecsBean implements Serializable {
     public Spec getSpecFromId(int id){
         try {
             for (Spec s : specs) {
-                if (s.getId() == id) {
+                if (s.getId() == id)
                     return s;
-                }
             }
             return null;
         }catch (Exception ex){

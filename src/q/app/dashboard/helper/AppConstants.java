@@ -153,6 +153,7 @@ public class AppConstants {
     public final static String POST_PRODUCT = PRODUCT_SERVICE + "product";
     public final static String PUT_PRODUCT = PRODUCT_SERVICE + "product";
     public final static String PUT_PRODUCT_PRICE = PRODUCT_SERVICE + "product-price";
+    public final static String POST_PRODUCT_SPEC = PRODUCT_SERVICE + "product-spec";
     public final static String GET_NEWEST_PRODUCTS = PRODUCT_SERVICE + "products/newest";
     public final static String SEARCH_PRODUCT_BY_NUMBER = PRODUCT_SERVICE +  "search-product-by-number";
     public final static String getProduct(long id){
@@ -248,6 +249,9 @@ public class AppConstants {
     }
     public final static String getProductPurchases(long productId){
         return INVOICE_SERVICE + "purchases/product/" + productId;
+    }
+    public final static String getProductSales(long productId){
+        return INVOICE_SERVICE + "sales/product/" + productId;
     }
 
 

@@ -36,8 +36,7 @@ public class PurchaseDetailsBean implements Serializable {
             initPurchase(s);
             initProducts();
         } catch (Exception ex) {
-            ex.printStackTrace();
-            //Helper.redirect("sales-search");
+            Helper.redirect("purchase-search");
         }
     }
 
