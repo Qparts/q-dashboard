@@ -7,25 +7,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b051513-06e8-4d02-8a21-6dcfa3f3a358" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/q/app/dashboard/beans/sales/SalesDetailsBean.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/q/app/dashboard/beans/sales/SalesSearchBean.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/app/sales-details.xhtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/app/sales-search.xhtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/q/app/dashboard/beans/purchase/PurchaseSearchBean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/app/purchase-details.xhtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/app/purchase-search.xhtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/q_app_dashboard.war/q-app-dashboard.war" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/q_app_dashboard.war/q-app-dashboard.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/q-app-dashboard/q/app/dashboard/helper/AppConstants.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/q-app-dashboard/q/app/dashboard/helper/AppConstants.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/q-app-dashboard/q/app/dashboard/helper/Helper.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/q-app-dashboard/q/app/dashboard/helper/Helper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/QuotationDetailsBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/QuotationDetailsBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/helper/AppConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/helper/AppConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/helper/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/helper/Helper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/model/sales/Sales.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/model/sales/Sales.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/model/sales/SalesProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/model/sales/SalesProduct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/_includes/header.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/_includes/header.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/_includes/side.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/_includes/side.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/_includes/top.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/_includes/top.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/app/new-product.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/new-product.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/app/quoting.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/quoting.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/login.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/login.xhtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/beans/common/NotificationBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/beans/common/NotificationBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/beans/notifications/NotificationBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/beans/notifications/NotificationBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/LiveQuotationsBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/LiveQuotationsBean.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,109 +24,64 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/app/cart-awaiting.xhtml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="323" column="78" lean-forward="true" selection-start-line="323" selection-start-column="78" selection-end-line="323" selection-end-column="78" />
-              <folding>
-                <element signature="n#div#0;n#p:panel#0;n#h:form#0;n#div#1;n#div#0;n#h:body#0;n#html#0;n#!!top" />
-                <element signature="n#h:form#1;n#div#1;n#div#0;n#h:body#0;n#html#0;n#!!top" />
-                <element signature="n#h:form#2;n#div#1;n#div#0;n#h:body#0;n#html#0;n#!!top" />
-                <element signature="n#h:form#3;n#div#1;n#div#0;n#h:body#0;n#html#0;n#!!top" />
-                <element signature="n#h:panelGroup#0;n#h:form#9;n#div#1;n#div#0;n#h:body#0;n#html#0;n#!!top" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/model/cart/Cart.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="137" column="5" lean-forward="true" selection-start-line="134" selection-start-column="4" selection-end-line="137" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#3337#3338#0" expanded="true" />
-                <element signature="e#3421#3422#0" expanded="true" />
-                <element signature="e#3633#3634#0" expanded="true" />
-                <element signature="e#3685#3686#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/app/roles.xhtml">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/app/sales-search.xhtml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="32" column="41" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="41" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/app/sales-details.xhtml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-558">
-              <caret line="72" selection-start-line="72" selection-end-line="72" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/web/_includes/side.xhtml">
+        <entry file="file://$PROJECT_DIR$/web/app/purchase-search.xhtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="26" column="75" selection-start-line="26" selection-start-column="75" selection-end-line="26" selection-end-column="75" />
+            <state relative-caret-position="338">
+              <caret line="99" column="79" selection-start-line="99" selection-start-column="79" selection-end-line="99" selection-end-column="79" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/sales/SalesDetailsBean.java">
+        <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/purchase/PurchaseSearchBean.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="236">
-              <caret line="78" column="61" selection-start-line="78" selection-start-column="61" selection-end-line="78" selection-end-column="61" />
+            <state relative-caret-position="238">
+              <caret line="46" column="9" selection-start-line="46" selection-start-column="9" selection-end-line="46" selection-end-column="9" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2680#2681#0" expanded="true" />
-                <element signature="e#2708#2709#0" expanded="true" />
-                <element signature="e#2832#2833#0" expanded="true" />
-                <element signature="e#2863#2864#0" expanded="true" />
+                <element signature="e#946#947#0" expanded="true" />
+                <element signature="e#992#993#0" expanded="true" />
+                <element signature="e#2315#2316#0" expanded="true" />
+                <element signature="e#2385#2386#0" expanded="true" />
+                <element signature="e#2437#2438#0" expanded="true" />
+                <element signature="e#2499#2500#0" expanded="true" />
+                <element signature="e#2566#2567#0" expanded="true" />
+                <element signature="e#2655#2656#0" expanded="true" />
+                <element signature="e#2731#2732#0" expanded="true" />
+                <element signature="e#2831#2832#0" expanded="true" />
+                <element signature="e#2901#2902#0" expanded="true" />
+                <element signature="e#2997#2998#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/QuotationDetailsBean.java">
+        <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/sales/SalesSearchBean.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="334">
-              <caret line="98" lean-forward="true" selection-start-line="86" selection-start-column="4" selection-end-line="98" />
+            <state relative-caret-position="168">
+              <caret line="52" column="9" lean-forward="true" selection-start-line="48" selection-start-column="8" selection-end-line="52" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#5846#5847#0" expanded="true" />
-                <element signature="e#5877#5878#0" expanded="true" />
-                <element signature="e#5927#5928#0" expanded="true" />
-                <element signature="e#5967#5968#0" expanded="true" />
-                <element signature="e#6006#6007#0" expanded="true" />
-                <element signature="e#6038#6039#0" expanded="true" />
-                <element signature="e#6091#6092#0" expanded="true" />
-                <element signature="e#6133#6134#0" expanded="true" />
-                <element signature="e#6162#6163#0" expanded="true" />
-                <element signature="e#6189#6190#0" expanded="true" />
-                <element signature="e#6227#6228#0" expanded="true" />
-                <element signature="e#6259#6260#0" expanded="true" />
-                <element signature="e#6297#6298#0" expanded="true" />
-                <element signature="e#6330#6331#0" expanded="true" />
-                <element signature="e#6383#6384#0" expanded="true" />
-                <element signature="e#6427#6428#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/helper/AppConstants.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="146">
+              <caret line="233" column="69" lean-forward="true" selection-start-line="233" selection-start-column="69" selection-end-line="233" selection-end-column="69" />
+              <folding>
+                <element signature="e#2022#2023#0" expanded="true" />
+                <element signature="e#2082#2083#0" expanded="true" />
+                <element signature="e#2148#2149#0" expanded="true" />
+                <element signature="e#2210#2211#0" expanded="true" />
+                <element signature="e#4298#4299#0" expanded="true" />
+                <element signature="e#4363#4364#0" expanded="true" />
+                <element signature="e#4412#4413#0" expanded="true" />
+                <element signature="e#4463#4464#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -158,10 +101,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>quotation</find>
-      <find>City</find>
-      <find>Country</find>
-      <find>footer</find>
       <find>select r</find>
       <find>active</find>
       <find>m1</find>
@@ -185,9 +124,13 @@
       <find>inputTextare</find>
       <find>w3-camo-black</find>
       <find>camo</find>
-      <find>w3-cam</find>
       <find>w3-camo</find>
       <find>w3-flat-belize-hole</find>
+      <find>Pred</find>
+      <find>webSocketClie</find>
+      <find>w3-cam</find>
+      <find>websocket</find>
+      <find>payment</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -204,13 +147,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/LiveQuotingBean.java" />
-        <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/cart/WireTransferBean.java" />
-        <option value="$PROJECT_DIR$/web/app/carts-initiated.xhtml" />
-        <option value="$PROJECT_DIR$/web/app/wire-transfers.xhtml" />
-        <option value="$PROJECT_DIR$/web/resources/css/dashboard.css" />
-        <option value="$PROJECT_DIR$/src/q/app/dashboard/model/product/StockDeduct.java" />
-        <option value="$PROJECT_DIR$/web/app/carts-awaiting.xhtml" />
         <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/purchase/NewPurchaseOrder.java" />
         <option value="$PROJECT_DIR$/src/q/app/dashboard/helper/activities.properties" />
         <option value="$PROJECT_DIR$/src/q/app/dashboard/model/cart/CartDelivery.java" />
@@ -255,6 +191,13 @@
         <option value="$PROJECT_DIR$/web/_includes/top.xhtml" />
         <option value="$PROJECT_DIR$/web/login.xhtml" />
         <option value="$PROJECT_DIR$/web/_includes/side.xhtml" />
+        <option value="$PROJECT_DIR$/web/app/purchase-details.xhtml" />
+        <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/LiveQuotingBean.java" />
+        <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/LiveQuotationsBean.java" />
+        <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/common/NotificationBean.java" />
+        <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/notifications/NotificationBean.java" />
+        <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/purchase/PurchaseSearchBean.java" />
+        <option value="$PROJECT_DIR$/web/app/purchase-search.xhtml" />
       </list>
     </option>
   </component>
@@ -287,13 +230,36 @@
             <path>
               <item name="q-app-deshboard" type="b2602c69:ProjectViewProjectNode" />
               <item name="q-app-deshboard" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="q-app-deshboard" type="b2602c69:ProjectViewProjectNode" />
+              <item name="q-app-deshboard" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
+              <item name="beans" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="q-app-deshboard" type="b2602c69:ProjectViewProjectNode" />
+              <item name="q-app-deshboard" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
+              <item name="beans" type="462c0819:PsiDirectoryNode" />
+              <item name="notifications" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="q-app-deshboard" type="b2602c69:ProjectViewProjectNode" />
+              <item name="q-app-deshboard" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
+              <item name="beans" type="462c0819:PsiDirectoryNode" />
+              <item name="sales" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="q-app-deshboard" type="b2602c69:ProjectViewProjectNode" />
               <item name="q-app-deshboard" type="462c0819:PsiDirectoryNode" />
               <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="_includes" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -308,7 +274,7 @@
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="q-app-deshboard" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558233198628" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558235615980" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -323,11 +289,11 @@
       <recent name="q.app.dashboard.helper" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="q.app.dashboard.beans.purchase" />
       <recent name="q.app.dashboard.beans.cart" />
       <recent name="q.app.dashboard.model.customer" />
       <recent name="q.app.dashboard.beans.quotations" />
       <recent name="q.app.dashboard.filter" />
-      <recent name="q.app.dashboard.converters" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/web/app" />
@@ -450,12 +416,12 @@
       <workItem from="1557575395905" duration="4724000" />
       <workItem from="1557608556596" duration="6706000" />
       <workItem from="1557960380256" duration="2567000" />
-      <workItem from="1558205886884" duration="19057000" />
+      <workItem from="1558205886884" duration="21346000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="542571000" />
+    <option name="totallyTimeSpent" value="544860000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -549,121 +515,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/model/cart/CartDelivery.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="20" column="47" selection-start-line="20" selection-start-column="47" selection-end-line="20" selection-end-column="47" />
-          <folding>
-            <element signature="e#479#480#0" expanded="true" />
-            <element signature="e#533#534#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/model/customer/EmailSent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/model/customer/Customer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="167" column="44" selection-start-line="167" selection-start-column="44" selection-end-line="167" selection-end-column="44" />
-          <folding>
-            <element signature="e#3649#3650#0" expanded="true" />
-            <element signature="e#3710#3711#0" expanded="true" />
-            <element signature="e#3754#3755#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/model/quotation/BillItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="37" column="28" selection-start-line="37" selection-start-column="28" selection-end-line="37" selection-end-column="28" />
-          <folding>
-            <element signature="e#1080#1081#0" expanded="true" />
-            <element signature="e#1126#1127#0" expanded="true" />
-            <element signature="e#1188#1189#0" expanded="true" />
-            <element signature="e#1228#1229#0" expanded="true" />
-            <element signature="e#1395#1396#0" expanded="true" />
-            <element signature="e#1420#1421#0" expanded="true" />
-            <element signature="e#1454#1455#0" expanded="true" />
-            <element signature="e#1482#1483#0" expanded="true" />
-            <element signature="e#1518#1519#0" expanded="true" />
-            <element signature="e#1552#1553#0" expanded="true" />
-            <element signature="e#1604#1605#0" expanded="true" />
-            <element signature="e#1650#1651#0" expanded="true" />
-            <element signature="e#1681#1682#0" expanded="true" />
-            <element signature="e#1710#1711#0" expanded="true" />
-            <element signature="e#1752#1753#0" expanded="true" />
-            <element signature="e#1788#1789#0" expanded="true" />
-            <element signature="e#1823#1824#0" expanded="true" />
-            <element signature="e#1854#1855#0" expanded="true" />
-            <element signature="e#1902#1903#0" expanded="true" />
-            <element signature="e#1942#1943#0" expanded="true" />
-            <element signature="e#1974#1975#0" expanded="true" />
-            <element signature="e#2005#2006#0" expanded="true" />
-            <element signature="e#2050#2051#0" expanded="true" />
-            <element signature="e#2090#2091#0" expanded="true" />
-            <element signature="e#2122#2123#0" expanded="true" />
-            <element signature="e#2152#2153#0" expanded="true" />
-            <element signature="e#2196#2197#0" expanded="true" />
-            <element signature="e#2234#2235#0" expanded="true" />
-            <element signature="e#2267#2268#0" expanded="true" />
-            <element signature="e#2299#2300#0" expanded="true" />
-            <element signature="e#2346#2347#0" expanded="true" />
-            <element signature="e#2388#2389#0" expanded="true" />
-            <element signature="e#2419#2420#0" expanded="true" />
-            <element signature="e#2448#2449#0" expanded="true" />
-            <element signature="e#2490#2491#0" expanded="true" />
-            <element signature="e#2526#2527#0" expanded="true" />
-            <element signature="e#2557#2558#0" expanded="true" />
-            <element signature="e#2584#2585#0" expanded="true" />
-            <element signature="e#2625#2626#0" expanded="true" />
-            <element signature="e#2657#2658#0" expanded="true" />
-            <element signature="e#2696#2697#0" expanded="true" />
-            <element signature="e#2731#2732#0" expanded="true" />
-            <element signature="e#2788#2789#0" expanded="true" />
-            <element signature="e#2836#2837#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/app/product-details.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="182" column="103" lean-forward="true" selection-start-line="182" selection-start-column="47" selection-end-line="182" selection-end-column="103" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/app/quoting.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="389" column="42" selection-start-line="389" selection-start-column="42" selection-end-line="389" selection-end-column="42" />
-          <folding>
-            <element signature="n#div#1;n#h:body#0;n#html#0;n#!!top" />
-            <element signature="n#h:outputStylesheet#0;n#h:body#0;n#html#0;n#!!top" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/model/product/Product.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="20" column="24" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
-          <folding>
-            <element signature="e#1424#1425#0" expanded="true" />
-            <element signature="e#1460#1461#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/product/ProductDetailsBean.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="283">
@@ -920,23 +771,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/app/roles.xhtml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/app/quotations-report.xhtml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="250">
           <caret line="132" column="38" lean-forward="true" selection-start-line="132" selection-start-column="38" selection-end-line="132" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/sales/SalesSearchBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="60" column="65" selection-start-line="60" selection-start-column="65" selection-end-line="60" selection-end-column="65" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -997,20 +835,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/app/cart-awaiting.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="323" column="78" lean-forward="true" selection-start-line="323" selection-start-column="78" selection-end-line="323" selection-end-column="78" />
-          <folding>
-            <element signature="n#div#0;n#p:panel#0;n#h:form#0;n#div#1;n#div#0;n#h:body#0;n#html#0;n#!!top" />
-            <element signature="n#h:form#1;n#div#1;n#div#0;n#h:body#0;n#html#0;n#!!top" />
-            <element signature="n#h:form#2;n#div#1;n#div#0;n#h:body#0;n#html#0;n#!!top" />
-            <element signature="n#h:form#3;n#div#1;n#div#0;n#h:body#0;n#html#0;n#!!top" />
-            <element signature="n#h:panelGroup#0;n#h:form#9;n#div#1;n#div#0;n#h:body#0;n#html#0;n#!!top" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/model/cart/Cart.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="305">
@@ -1039,35 +863,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/helper/AppConstants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="239" column="31" selection-start-line="239" selection-start-column="31" selection-end-line="239" selection-end-column="31" />
-          <folding>
-            <element signature="e#2022#2023#0" expanded="true" />
-            <element signature="e#2082#2083#0" expanded="true" />
-            <element signature="e#2148#2149#0" expanded="true" />
-            <element signature="e#2210#2211#0" expanded="true" />
-            <element signature="e#4298#4299#0" expanded="true" />
-            <element signature="e#4363#4364#0" expanded="true" />
-            <element signature="e#4412#4413#0" expanded="true" />
-            <element signature="e#4464#4465#0" expanded="true" />
-            <element signature="e#8643#8644#0" expanded="true" />
-            <element signature="e#8710#8711#0" expanded="true" />
-            <element signature="e#10995#10996#0" expanded="true" />
-            <element signature="e#11064#11065#0" expanded="true" />
-            <element signature="e#11129#11130#0" expanded="true" />
-            <element signature="e#11197#11198#0" expanded="true" />
-            <element signature="e#11387#11388#0" expanded="true" />
-            <element signature="e#11446#11447#0" expanded="true" />
-            <element signature="e#12485#12486#0" expanded="true" />
-            <element signature="e#12550#12551#0" expanded="true" />
-            <element signature="e#12605#12606#0" expanded="true" />
-            <element signature="e#12664#12665#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/sales/SalesDetailsBean.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="236">
@@ -1079,13 +874,6 @@
             <element signature="e#2832#2833#0" expanded="true" />
             <element signature="e#2863#2864#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/app/sales-search.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="32" column="41" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="41" />
         </state>
       </provider>
     </entry>
@@ -1103,13 +891,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/app/sales-details.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-558">
-          <caret line="72" selection-start-line="72" selection-end-line="72" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/login.xhtml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -1121,6 +902,139 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="250">
           <caret line="26" column="75" selection-start-line="26" selection-start-column="75" selection-end-line="26" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/app/sales-details.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-558">
+          <caret line="72" selection-start-line="72" selection-end-line="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/app/sales-search.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="32" column="41" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/app/roles.xhtml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/app/cart-awaiting.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="323" column="78" lean-forward="true" selection-start-line="323" selection-start-column="78" selection-end-line="323" selection-end-column="78" />
+          <folding>
+            <element signature="n#div#0;n#p:panel#0;n#h:form#0;n#div#1;n#div#0;n#h:body#0;n#html#0;n#!!top" />
+            <element signature="n#h:form#1;n#div#1;n#div#0;n#h:body#0;n#html#0;n#!!top" />
+            <element signature="n#h:form#2;n#div#1;n#div#0;n#h:body#0;n#html#0;n#!!top" />
+            <element signature="n#h:form#3;n#div#1;n#div#0;n#h:body#0;n#html#0;n#!!top" />
+            <element signature="n#h:panelGroup#0;n#h:form#9;n#div#1;n#div#0;n#h:body#0;n#html#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/app/purchase-details.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="76" selection-start-line="13" selection-start-column="76" selection-end-line="13" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/helper/AppConstants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="233" column="69" lean-forward="true" selection-start-line="233" selection-start-column="69" selection-end-line="233" selection-end-column="69" />
+          <folding>
+            <element signature="e#2022#2023#0" expanded="true" />
+            <element signature="e#2082#2083#0" expanded="true" />
+            <element signature="e#2148#2149#0" expanded="true" />
+            <element signature="e#2210#2211#0" expanded="true" />
+            <element signature="e#4298#4299#0" expanded="true" />
+            <element signature="e#4363#4364#0" expanded="true" />
+            <element signature="e#4412#4413#0" expanded="true" />
+            <element signature="e#4463#4464#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/LiveQuotingBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="85" column="35" lean-forward="true" selection-start-line="85" selection-start-column="35" selection-end-line="85" selection-end-column="35" />
+          <folding>
+            <element signature="e#2985#2986#0" expanded="true" />
+            <element signature="e#3024#3025#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/common/NotificationBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1112">
+          <caret line="37" column="5" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#794#795#0" expanded="true" />
+            <element signature="e#858#859#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/notifications/NotificationBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-14">
+          <caret line="32" column="12" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/LiveQuotationsBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="64" column="16" selection-start-line="64" selection-start-column="16" selection-end-line="64" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/sales/SalesSearchBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="52" column="9" lean-forward="true" selection-start-line="48" selection-start-column="8" selection-end-line="52" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/purchase/PurchaseSearchBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="46" column="9" selection-start-line="46" selection-start-column="9" selection-end-line="46" selection-end-column="9" />
+          <folding>
+            <element signature="e#946#947#0" expanded="true" />
+            <element signature="e#992#993#0" expanded="true" />
+            <element signature="e#2315#2316#0" expanded="true" />
+            <element signature="e#2385#2386#0" expanded="true" />
+            <element signature="e#2437#2438#0" expanded="true" />
+            <element signature="e#2499#2500#0" expanded="true" />
+            <element signature="e#2566#2567#0" expanded="true" />
+            <element signature="e#2655#2656#0" expanded="true" />
+            <element signature="e#2731#2732#0" expanded="true" />
+            <element signature="e#2831#2832#0" expanded="true" />
+            <element signature="e#2901#2902#0" expanded="true" />
+            <element signature="e#2997#2998#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/app/purchase-search.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="99" column="79" selection-start-line="99" selection-start-column="79" selection-end-line="99" selection-end-column="79" />
         </state>
       </provider>
     </entry>

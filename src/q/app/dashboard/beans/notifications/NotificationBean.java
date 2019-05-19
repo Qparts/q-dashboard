@@ -10,6 +10,7 @@ import q.app.dashboard.helper.WebsocketLinks;
 
 import javax.annotation.PostConstruct;
 
+import javax.annotation.PreDestroy;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -27,6 +28,9 @@ public class NotificationBean implements Serializable {
     private int wireRequets;
     private int processCarts;
     private int index;
+    private WebSocketClient customerClient;
+    private WebSocketClient quotationClient;
+    private WebSocketClient cartClient;
 
     @Inject
     @Push(channel = "notificationChannel")
@@ -44,8 +48,14 @@ public class NotificationBean implements Serializable {
         this.initCartWebSocket();
     }
 
+    @PreDestroy
+    public void destroy() {
+        customerClient.close();
+        quotationClient.close();
+    }
+
     private void initCustomerWebSocket() {
-        WebSocketClient customerClient = new WebSocketClient(URI.create(this.getCustomerWSLink()), new Draft_6455()) {
+        customerClient = new WebSocketClient(URI.create(this.getCustomerWSLink()), new Draft_6455()) {
             @Override
             public void onOpen(ServerHandshake serverHandshake) {
             }
@@ -68,7 +78,7 @@ public class NotificationBean implements Serializable {
     }
 
     private void initCartWebSocket() {
-        WebSocketClient customerClient = new WebSocketClient(URI.create(this.getCartWSLink()), new Draft_6455()) {
+        cartClient = new WebSocketClient(URI.create(this.getCartWSLink()), new Draft_6455()) {
             @Override
             public void onOpen(ServerHandshake serverHandshake) {
             }
@@ -87,11 +97,11 @@ public class NotificationBean implements Serializable {
 
             }
         };
-        customerClient.connect();
+        cartClient.connect();
     }
 
     private void initQuotationWebSocket() {
-        WebSocketClient quotationClient = new WebSocketClient(URI.create(this.getQuotationsWSLink()), new Draft_6455()) {
+        quotationClient = new WebSocketClient(URI.create(this.getQuotationsWSLink()), new Draft_6455()) {
             @Override
             public void onOpen(ServerHandshake serverHandshake) {
             }

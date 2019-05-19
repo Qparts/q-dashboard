@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -33,7 +34,7 @@ public class NotificationBean implements Serializable {
 
 	@PostConstruct
 	private void init() {
-		this.userId = loginBean.getUserHolder().getUser().getId();
+		this.userId = loginBean.getLoggedUserId();
 	}
 
 	public void changeOccured() {

@@ -18,6 +18,7 @@ import q.app.dashboard.model.quotation.Assignment;
 import q.app.dashboard.model.quotation.Quotation;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -65,6 +66,11 @@ public class LiveQuotationsBean implements Serializable {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    @PreDestroy
+    public void destroy() {
+        webSocketClient.close();
     }
 
     private void initAllCustomers() {

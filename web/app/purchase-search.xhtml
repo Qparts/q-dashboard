@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Purchase Search</title>
+	<ui:include src="/_includes/header.xhtml" />
+</h:head>
+<h:body>
+<h:outputText value="#{loginBean.checkAccessRedirectHome(act.pagePurchaseSearch)}" />
+	<ui:include src="/_includes/top.xhtml" />
+	<ui:include src="/_includes/side.xhtml" />
+			<div class="w3-container">
+				<div align="center" class="w3-padding-8">
+					<h:outputText value="Purchase Search" styleClass="q-large-text" />
+				</div>
+				<h:form id="form-g">
+					<p:growl id="error-growl"
+						rendered="#{facesContext.maximumSeverity.ordinal eq 2}" />
+					<p:growl id="success-growl"
+						rendered="#{facesContext.maximumSeverity.ordinal eq 0}" />
+				</h:form>
+
+				<h:form id="form">
+					<div class="w3-row">
+						<div class="w3-col s12 m6">
+							<h:panelGrid columns="2">
+								<h:outputText value="Vendor" />
+								<h:selectOneMenu value="#{purchaseSearchBean.vendorId}">
+									<f:selectItem itemValue="#{0}" itemLabel="All" />
+									<f:selectItems value="#{vendorsBean.vendors}" var="vendor"
+												   itemLabel="#{vendor.name}" itemValue="#{vendor.id}" />
+								</h:selectOneMenu>
+								<h:outputText value="Product" />
+								<h:inputText value="#{purchaseSearchBean.productVar}" />
+								<h:outputText value="From" />
+								<p:calendar value="#{purchaseSearchBean.from}"
+											pattern="dd-MMM-yyyy" styleClass="q-input-undecorate"
+											process="@this" update="@this" />
+								<h:outputText value="To" />
+								<p:calendar value="#{purchaseSearchBean.to}" pattern="dd-MMM-yyyy"
+											styleClass="q-input-undecorate" process="@this" update="@this" />
+								<h:commandButton actionListener="#{purchaseSearchBean.search()}"
+												 value="Search" styleClass="q-btn" />
+							</h:panelGrid>
+						</div>
+					</div>
+				</h:form>
+
+				<br />
+				<h:form id="form2">
+					<h:dataTable value="#{purchaseSearchBean.purchases}" var="purchase"
+						styleClass="w3-table w3-striped w3-border"
+						headerClass="w3-border-bottom w3-light-grey">
+						<h:column>
+							<f:facet name="header">
+								ID
+							</f:facet>
+							<h:outputText value="#{purchase.id}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								DATE
+							</f:facet>
+							<h:outputText value="#{purchase.created}">
+								<f:convertDateTime type="date" />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								INVOICE DATE
+							</f:facet>
+							<h:outputText value="#{purchase.date}">
+								<f:convertDateTime type="date" />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								TYPE
+							</f:facet>
+							<h:outputText value="#{purchase.transactionType eq 'C' ? 'Cash' : 'Credit'}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								PAYMENT STATUS
+							</f:facet>
+							<h:outputText value="Paid" rendered="#{purchase.paymentStatus eq 'P'}" styleClass="w3-tag w3-green"/>
+							<h:outputText value="Outstanding" rendered="#{purchase.paymentStatus eq 'O'}" styleClass="w3-tag w3-red"/>
+							<h:outputText value="Incomplete" rendered="#{purchase.paymentStatus eq 'I'}" styleClass="w3-tag w3-deep-orange"/>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								View
+							</f:facet>
+							<h:outputLink value="purchase-details?id=#{purchase.id}" target="_blank">
+								<i class="fa fa-search-plus" style="font-size: 20px;"/>
+							</h:outputLink>
+						</h:column>
+					</h:dataTable>
+				</h:form>				
+			</div>
+</h:body>
+</html>
