@@ -6,6 +6,7 @@ import q.app.dashboard.model.cart.CartWireTransferRequest;
 import q.app.dashboard.model.cart.CustomerWallet;
 import q.app.dashboard.model.customer.Customer;
 import q.app.dashboard.model.quotation.Quotation;
+import q.app.dashboard.model.sales.Sales;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -93,6 +94,9 @@ public class Helper {
             }else if(objects.get(i) instanceof CustomerWallet){
                 ids[i] = ((CustomerWallet) objects.get(i)).getCustomerId();
             }
+            else if(objects.get(i) instanceof Sales){
+                ids[i] = ((Sales) objects.get(i)).getCustomerId();
+            }
 
         }
         return ids;
@@ -165,6 +169,13 @@ public class Helper {
                         CustomerWallet wallet = (CustomerWallet) object;
                         if (c.getId() == wallet.getCustomerId()) {
                             wallet.setCustomer(c);
+                            break;
+                        }
+                    }
+                    else if(object instanceof Sales){
+                        Sales sales = (Sales) object;
+                        if (c.getId() == sales.getCustomerId()) {
+                            sales.setCustomer(c);
                             break;
                         }
                     }

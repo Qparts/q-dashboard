@@ -6,7 +6,6 @@ import q.app.dashboard.helper.AppConstants;
 import q.app.dashboard.helper.Helper;
 import q.app.dashboard.model.cart.Cart;
 import q.app.dashboard.model.cart.CartDelivery;
-import q.app.dashboard.model.cart.CartDiscount;
 import q.app.dashboard.model.cart.CartProduct;
 import q.app.dashboard.model.customer.Customer;
 import q.app.dashboard.model.customer.EmailSent;

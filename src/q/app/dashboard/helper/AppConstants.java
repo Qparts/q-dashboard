@@ -78,6 +78,10 @@ public class AppConstants {
     public final static String getAwaitingCart(long id){
         return CART_SERVICE + "cart/" +  id + "/awaiting";
     }
+    public final static String getCart(long id){
+        return CART_SERVICE + "cart/" +  id;
+    }
+
     public final static String getLiveWallet(long customerId){
         return CART_SERVICE + "wallet-live/" + customerId;
     }
@@ -134,7 +138,7 @@ public class AppConstants {
         return CUSTOMER_SERVICE + "customer/" + customerId;
     }
     public final static String getSearchCustomer(String query){
-        return PRODUCT_SERVICE + "search/" + query;
+        return CUSTOMER_SERVICE + "search/" + query;
     }
 
     //PRODUCT SERVICE CALLS//
@@ -156,6 +160,9 @@ public class AppConstants {
     }
     public final static String getSearchProduct(String query){
         return PRODUCT_SERVICE + "products/search/" + query;
+    }
+    public final static String getSearchProductIds(String query){
+        return PRODUCT_SERVICE + "products/search/" + query + "/id-only";
     }
     public final static String POST_STOCK_DEDUCT = PRODUCT_SERVICE + "stock/deduct";
     public final static String getMakeCategories(long makeId){
@@ -225,12 +232,18 @@ public class AppConstants {
     public final static String POST_PURCHASE_ORDER = INVOICE_SERVICE + "purchase";
     public final static String POST_EMPTY_SALES = INVOICE_SERVICE + "empty-sales";
     public final static String PUT_SALES = INVOICE_SERVICE + "sales";
+    public final static String POST_SALES_SEARCH = INVOICE_SERVICE + "search-sales";
+    public final static String POST_PURCHASE_SEARCH = INVOICE_SERVICE + "search-purchase";
     public final static String getPurchase(long purchaseId){
         return INVOICE_SERVICE + "purchase/" + purchaseId;
     }
-    public final static String getProductPurchaseS(long productId){
+    public final static String getSales(long salesId){
+        return INVOICE_SERVICE + "sales/" + salesId;
+    }
+    public final static String getProductPurchases(long productId){
         return INVOICE_SERVICE + "purchases/product/" + productId;
     }
+
 
 
 

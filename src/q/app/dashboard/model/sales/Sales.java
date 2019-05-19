@@ -1,5 +1,8 @@
 package q.app.dashboard.model.sales;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import q.app.dashboard.model.customer.Customer;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -17,7 +20,52 @@ public class Sales implements Serializable {
     private Long deliveryDiscountId;
     private char status;
     private List<SalesProduct> salesProducts;
+    @JsonIgnore
+    private Customer customer;
 
+
+    @JsonIgnore
+    public double getProductsTotal(){
+        double total = 0;
+        try{
+            for(SalesProduct sp : salesProducts){
+                total += (sp.getUnitSales() * sp.getQuantity());
+            }
+
+        }catch(NullPointerException ex){
+            total = 0;
+        }
+        return total;
+    }
+
+    @JsonIgnore
+    public double getGrandTotal(){
+        return getSubTotal() + getTotalVat();
+    }
+
+    @JsonIgnore
+    public double getDiscountTotal(){
+        return 0;
+    }
+
+    @JsonIgnore
+    public double getTotalVat(){
+        return getSubTotal() * 0.05;
+    }
+
+    @JsonIgnore
+    public double getSubTotal(){
+        return getProductsTotal() +  getDeliveryFees() +  getDiscountTotal();
+    }
+
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 
     public long getId() {
         return id;

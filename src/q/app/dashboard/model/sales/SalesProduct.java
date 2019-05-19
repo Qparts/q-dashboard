@@ -1,5 +1,8 @@
 package q.app.dashboard.model.sales;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import q.app.dashboard.model.product.ProductHolder;
+
 import java.io.Serializable;
 
 public class SalesProduct implements Serializable {
@@ -16,6 +19,17 @@ public class SalesProduct implements Serializable {
     private long purchaseProductId;
     private long cartProductId;
     private char status;
+    @JsonIgnore
+    private ProductHolder productHolder;
+
+
+    public ProductHolder getProductHolder() {
+        return productHolder;
+    }
+
+    public void setProductHolder(ProductHolder productHolder) {
+        this.productHolder = productHolder;
+    }
 
     public long getCartProductId() {
         return cartProductId;
