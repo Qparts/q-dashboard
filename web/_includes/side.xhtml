@@ -68,22 +68,22 @@
 					</div>
 				</div>
 				<div class="w3-dropdown-hover">
-					<h:button  class="w3-button w3-flat-midnight-blue" value="Invoices" rendered="#{loginBean.hasAccessL([act.pageReceivables, act.pagePayables, act.pageIncompletePurchases, act.pagePurchaseSearch, act.pageSalesSearch, act.pagePurchaseReturn, act.pageSalesReturn])}" onclick="return false;"/>
+					<h:button  class="w3-button w3-flat-midnight-blue" value="Invoices" rendered="#{loginBean.hasAccessL([act.pageReceivables, act.pagePayables, act.pageIncompletePurchases, act.pagePurchaseSearch, act.pageSalesSearch, act.pagePurchaseReturn, act.pageSalesReturn, act.pageSalesReport])}" onclick="return false;"/>
 					<div class="w3-dropdown-content w3-bar-block w3-border">
 					 	<h:outputLink value="/app/sales-search" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageSalesSearch)}">Sales Search</h:outputLink>
 						<h:outputLink value="/app/purchase-search" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pagePurchaseSearch)}">Purchase Search</h:outputLink>
-					 	<h:outputLink style="color:greenyellow;display:none;" value="/app/sales-return-search" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageSalesReturn)}">Sales Return</h:outputLink>
 					 	<h:outputLink style="color:greenyellow;display:none;" value="/app/purchase-return-search" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pagePurchaseReturn)}">Purchase Return</h:outputLink>
 					 	<h:outputLink style="color:greenyellow;display:none;" value="/app/payables" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pagePayables)}">Payables</h:outputLink>
       					<h:outputLink style="color:greenyellow;display:none;" value="/app/receivables" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageReceivables)}">Receivables</h:outputLink>
       					<h:outputLink value="/app/purchases-incomplete" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageIncompletePurchases)}">Incompletes</h:outputLink>
+						<h:outputLink value="/app/sales-report" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageSalesReport)}">Sales Report</h:outputLink>
 					</div>
 				</div>
 				<div class="w3-dropdown-hover">
 					<h:button  class="w3-button w3-flat-midnight-blue" value="Reports" style="color:greenyellow;display:none"  rendered="#{loginBean.hasAccessL([act.pageShipmentsReport, act.pageInvoiceReport, act.pageOverallActivity, act.pageHitReport, act.pageCartDetails, act.pageSearchCarts, act.pageWalletsReport, act.pageLostSalesReport, act.pageMakeOrdersReport, act.pageRegistrationReport, act.pageCustomerActivity])}" onclick="return false;"/>
 					<div class="w3-dropdown-content w3-bar-block w3-border">
 					 	<h:outputLink style="color:greenyellow" value="/app/wallets-report" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageWalletsReport)}">Wallets Report</h:outputLink>
-						<h:outputLink style="color:greenyellow" value="/app/sales-report2" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageInvoiceReport)}">Invoices Report</h:outputLink>
+
 						<h:outputLink style="color:greenyellow" value="/app/shipments-report" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageShipmentsReport)}">Shipments Report</h:outputLink>
 						<h:outputLink style="color:indianred" value="/app/search-carts" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageSearchCarts)}">Search Carts</h:outputLink>
 						<h:outputLink style="color:indianred" value="/app/cart-details" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageCartDetails)}">Cart Details</h:outputLink>
