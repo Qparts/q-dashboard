@@ -8,6 +8,7 @@ import q.app.dashboard.model.customer.Customer;
 import q.app.dashboard.model.product.ProductHolder;
 import q.app.dashboard.model.sales.Sales;
 import q.app.dashboard.model.sales.SalesProduct;
+import q.app.dashboard.model.sales.SalesReturnProduct;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -64,6 +65,13 @@ public class SalesDetailsBean implements Serializable {
             Response r = reqs.getSecuredRequest(AppConstants.getProduct(salesProduct.getProductId()));
             if(r.getStatus() == 200){
                 salesProduct.setProductHolder(r.readEntity(ProductHolder.class));
+            }
+        }
+
+        for(SalesReturnProduct srp : sales.getAllSalesReturnProducts()){
+            Response r = reqs.getSecuredRequest(AppConstants.getProduct(srp.getProductId()));
+            if(r.getStatus() == 200){
+                srp.getSalesProduct().setProductHolder(r.readEntity(ProductHolder.class));
             }
         }
     }

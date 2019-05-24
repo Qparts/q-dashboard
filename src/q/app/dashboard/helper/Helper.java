@@ -7,6 +7,7 @@ import q.app.dashboard.model.cart.CustomerWallet;
 import q.app.dashboard.model.customer.Customer;
 import q.app.dashboard.model.quotation.Quotation;
 import q.app.dashboard.model.sales.Sales;
+import q.app.dashboard.model.sales.SalesReturn;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -93,11 +94,12 @@ public class Helper {
                 ids[i] = ((CartWireTransferRequest) objects.get(i)).getCustomerId();
             }else if(objects.get(i) instanceof CustomerWallet){
                 ids[i] = ((CustomerWallet) objects.get(i)).getCustomerId();
-            }
-            else if(objects.get(i) instanceof Sales){
+            }else if(objects.get(i) instanceof Sales){
                 ids[i] = ((Sales) objects.get(i)).getCustomerId();
             }
-
+            else if(objects.get(i) instanceof SalesReturn){
+                ids[i] = ((SalesReturn) objects.get(i)).getCustomerId();
+            }
         }
         return ids;
     }
@@ -180,6 +182,13 @@ public class Helper {
                         }
                     }
 
+                    else if(object instanceof SalesReturn){
+                        SalesReturn salesReturn = (SalesReturn) object;
+                        if (c.getId() == salesReturn.getCustomerId()) {
+                            salesReturn.setCustomer(c);
+                            break;
+                        }
+                    }
                 }
 
             } catch (Exception ignore) {

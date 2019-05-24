@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import q.app.dashboard.model.customer.Customer;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,8 +21,39 @@ public class Sales implements Serializable {
     private Long deliveryDiscountId;
     private char status;
     private List<SalesProduct> salesProducts;
+    private List<SalesReturn> salesReturns;
     @JsonIgnore
     private Customer customer;
+
+
+
+    @JsonIgnore
+    public List<SalesReturnProduct> getAllSalesReturnProducts(){
+        try{
+            List<SalesReturnProduct> filtered = new ArrayList<>();
+            for(var sr : salesReturns){
+               filtered.addAll(sr.getSalesReturnProducts());
+            }
+            return filtered;
+        }catch(Exception e){
+            return new ArrayList<>();
+        }
+    }
+
+    @JsonIgnore
+    public double getGrandTotalCost(){
+        double total = 0;
+        try{
+            for(SalesProduct sp : salesProducts){
+                total += (sp.getPurchaseProduct().getUnitCostWv() * sp.getQuantity());
+            }
+
+        }catch(NullPointerException ex){
+            total = 0;
+        }
+        return total;
+    }
+
 
 
     @JsonIgnore
@@ -39,9 +71,25 @@ public class Sales implements Serializable {
     }
 
     @JsonIgnore
+    public double getProductsTotalWv(){
+        double total = 0;
+        try{
+            for(SalesProduct sp : salesProducts){
+                total += (sp.getUnitSalesWv() * sp.getQuantity());
+            }
+
+        }catch(NullPointerException ex){
+            total = 0;
+        }
+        return total;
+    }
+
+    @JsonIgnore
     public double getGrandTotal(){
         return getSubTotal() + getTotalVat();
     }
+
+
 
     @JsonIgnore
     public double getDiscountTotal(){
@@ -55,7 +103,7 @@ public class Sales implements Serializable {
 
     @JsonIgnore
     public double getSubTotal(){
-        return getProductsTotal() +  getDeliveryFees() +  getDiscountTotal();
+        return getProductsTotal() +  getDeliveryFees() -  getDiscountTotal();
     }
 
 
@@ -143,6 +191,11 @@ public class Sales implements Serializable {
         return deliveryFees;
     }
 
+    @JsonIgnore
+    public double getDeliveryFeesWv() {
+        return deliveryFees + deliveryFees * 0.05;
+    }
+
     public void setDeliveryFees(double deliveryFees) {
         this.deliveryFees = deliveryFees;
     }
@@ -161,5 +214,13 @@ public class Sales implements Serializable {
 
     public void setSalesProducts(List<SalesProduct> salesProducts) {
         this.salesProducts = salesProducts;
+    }
+
+    public List<SalesReturn> getSalesReturns() {
+        return salesReturns;
+    }
+
+    public void setSalesReturns(List<SalesReturn> salesReturns) {
+        this.salesReturns = salesReturns;
     }
 }

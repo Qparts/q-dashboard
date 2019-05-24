@@ -232,11 +232,14 @@ public class AppConstants {
     //INVOICE SERVICE CALLS//
     public final static String POST_PURCHASE_ORDER = INVOICE_SERVICE + "purchase";
     public final static String POST_EMPTY_SALES = INVOICE_SERVICE + "empty-sales";
+    public final static String POST_EMPTY_SALES_RETURN = INVOICE_SERVICE + "empty-sales-return";
     public final static String PUT_SALES = INVOICE_SERVICE + "sales";
+    public final static String PUT_SALES_RETURN = INVOICE_SERVICE + "sales-return";
     public final static String POST_SALES_SEARCH = INVOICE_SERVICE + "search-sales";
     public final static String POST_PURCHASE_SEARCH = INVOICE_SERVICE + "search-purchase";
     public final static String GET_INCOMPLETE_PURCHASES = INVOICE_SERVICE + "purchases/incomplete";
     public final static String PUT_COMPLETE_PURCHASE = INVOICE_SERVICE + "purchase/complete";
+    public final static String POST_GENERATE_SALES_REPORT = INVOICE_SERVICE + "sales-report";
 
     public final static String getIncompletePurchase(long purchaseId){
         return INVOICE_SERVICE + "purchase/" + purchaseId + "/incomplete";
@@ -246,6 +249,12 @@ public class AppConstants {
     }
     public final static String getSales(long salesId){
         return INVOICE_SERVICE + "sales/" + salesId;
+    }
+    public final static String getSalesReturn(long returnId){
+        return INVOICE_SERVICE + "sales-return/" + returnId;
+    }
+    public final static String getSalesSearch(long salesId){
+        return INVOICE_SERVICE + "sales-search/" + salesId;
     }
     public final static String getProductPurchases(long productId){
         return INVOICE_SERVICE + "purchases/product/" + productId;

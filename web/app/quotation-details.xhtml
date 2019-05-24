@@ -191,35 +191,36 @@
                         <p:panel toggleable="true" header="Products" collapsed="false"
                                  toggleSpeed="100">
                             <h:dataTable styleClass="w3-table w3-striped w3-border"
-                                         headerClass="w3-light-grey w3-border"
+                                         headerClass="w3-light-grey w3-border-bottom"
                                          footerClass="w3-light-grey w3-border"
                                          value="#{quotationDetailsBean.quotation.allBillItems}"
-                                         var="bi">
+                                         var="bi"
+                                         columnClasses="q-hide-small,q,q-hide-small,q,q-hide-small,q-hide-small,q-hide-small">
                                 <f:facet name="header">
                                     <div align="center">Bill Items</div>
                                 </f:facet>
-                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                <h:column headerClass="q-hide-small w3-light-grey w3-border-bottom">
                                     <f:facet name="header">
                                         Item ID
                                     </f:facet>
                                     <h:outputText value="#{bi.id}"/>
                                 </h:column>
-                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                <h:column>
                                     <f:facet name="header">
                                         Desc
                                     </f:facet>
                                     <h:outputText value="#{bi.itemDesc}"/>
                                 </h:column>
-                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                <h:column headerClass="q-hide-small w3-light-grey w3-border-bottom">
                                     <f:facet name="header">
-                                        Status
+                                        <h:outputText value="STATUS"/>
                                     </f:facet>
                                     <h:outputText value="Completed" rendered="#{bi.status eq 'C'}" styleClass="w3-tag w3-green"/>
                                     <h:outputText value="Under Review" rendered="#{bi.status eq 'W'}" styleClass="w3-tag w3-indigo"/>
                                     <h:outputText value="Not Available" rendered="#{bi.status eq 'N'}" styleClass="w3-tag w3-red"/>
                                     <h:outputText value="Deleted" rendered="#{bi.status eq 'X'}" styleClass="w3-tag" />
                                 </h:column>
-                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                <h:column>
                                     <f:facet name="header">
                                         Product ID
                                     </f:facet>
@@ -227,31 +228,31 @@
                                       <h:outputText value="#{bi.billItemResponse.productId}" rendered="#{bi.hasSavedResponse() and bi.status eq 'C'}"/>
                                     </h:outputLink>
                                 </h:column>
-                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                <h:column headerClass="q-hide-small w3-light-grey w3-border-bottom">
                                     <f:facet name="header">
                                         English Name
                                     </f:facet>
                                     <h:outputText value="#{bi.billItemResponse.productHolder.product.desc}" rendered="#{bi.hasSavedResponse() and bi.status eq 'C'}"/>
                                 </h:column>
-                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                <h:column headerClass="q-hide-small w3-light-grey w3-border-bottom">
                                     <f:facet name="header">
                                         Arabic Name
                                     </f:facet>
                                     <h:outputText value="#{bi.billItemResponse.productHolder.product.descAr}" rendered="#{bi.hasSavedResponse() and bi.status eq 'C'}"/>
                                 </h:column>
-                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                <h:column headerClass="q-hide-small w3-light-grey w3-border-bottom">
                                     <f:facet name="header">
                                         Product Number
                                     </f:facet>
                                     <h:outputText value="#{bi.billItemResponse.productHolder.product.productNumber}" rendered="#{bi.hasSavedResponse() and bi.status eq 'C'}"/>
                                 </h:column>
-                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                <h:column>
                                     <f:facet name="header">
                                         Quantity
                                     </f:facet>
                                     <h:outputText value="#{bi.billItemResponse.quantity}" rendered="#{bi.hasSavedResponse() and bi.status eq 'C'}"/>
                                 </h:column>
-                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                <h:column>
                                     <f:facet name="header">
                                         Unit Price
                                     </f:facet>
@@ -259,7 +260,7 @@
                                         <f:convertNumber type="currency" currencySymbol="SR "/>
                                     </h:outputText>
                                 </h:column>
-                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                <h:column>
                                     <f:facet name="header">
                                         Gross Price
                                     </f:facet>

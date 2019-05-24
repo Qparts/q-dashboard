@@ -105,9 +105,17 @@
 							</f:facet>
 							<h:outputText value="New" rendered="#{sales.status eq 'N'}" styleClass="w3-tag w3-amber"/>
 						</h:column>
+						<h:column rendered="#{loginBean.hasAccess(act.pageSalesReturn)}">
+							<f:facet name="header">
+								RETURN
+							</f:facet>
+							<h:outputLink value="sales-return?id=#{sales.id}" target="_blank">
+								<i class="fa fa-backward w3-text-red" style="font-size: 20px;"/>
+							</h:outputLink>
+						</h:column>
 						<h:column>
 							<f:facet name="header">
-								View
+								VIEW
 							</f:facet>
 							<h:outputLink value="sales-details?id=#{sales.id}" target="_blank">
 								<i class="fa fa-search-plus" style="font-size: 20px;"/>

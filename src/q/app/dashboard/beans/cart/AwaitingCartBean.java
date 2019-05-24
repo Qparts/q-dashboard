@@ -351,7 +351,7 @@ public class AwaitingCartBean implements Serializable {
         return sales;
     }
 
-    public List<StockDeduct> prepareStockDeducts(){
+    private List<StockDeduct> prepareStockDeducts(){
         var stockDeducts = new ArrayList<StockDeduct>();
         for(CartProduct cp : getSelectedSalesItems()){
             StockDeduct sd = new StockDeduct();
@@ -481,6 +481,7 @@ public class AwaitingCartBean implements Serializable {
                     map.put("customerWallet", customerWallet);
                     map.put("cartDelivery", cartDelivery);
                     Response r2 = reqs.putSecuredRequest(AppConstants.PUT_SALES, map);
+                    System.out.println("R2 " + r2.getStatus());
                     if(r2.getStatus() == 201){
                         Helper.redirect("cart-awaiting?id=" + cart.getId());
                     }
@@ -502,9 +503,7 @@ public class AwaitingCartBean implements Serializable {
             StockDeduct sd = getStockDeduct(stockDeducts, cp.getId());
             int remaining = cp.getQuantity();
             if(sd.getPurchaseProductIds() != null ){
-                System.out.println("purchase product ids " + sd.getPurchaseProductIds().size());
                 for (var map : sd.getPurchaseProductIds()) {
-                    System.out.println("entered the purchase product ids");
                     var salesProduct = new SalesProduct();
                     int quantity = ((Number) map.get("quantity")).intValue();
                     long purchaseProductId = ((Number) map.get("purchaseProductId")).longValue();
@@ -512,7 +511,8 @@ public class AwaitingCartBean implements Serializable {
                     salesProduct.setDiscountId(null);
                     salesProduct.setDiscountPercentage(null);
                     salesProduct.setProductId(cp.getProductId());
-                    salesProduct.setPurchaseProductId(purchaseProductId);
+                    salesProduct.setPurchaseProduct(new PurchaseProduct());
+                    salesProduct.getPurchaseProduct().setId(purchaseProductId);
                     salesProduct.setQuantity(quantity);
                     salesProduct.setStatus('N');
                     salesProduct.setUnitSales(cp.getSalesPrice());
@@ -522,8 +522,6 @@ public class AwaitingCartBean implements Serializable {
                     remaining = remaining - quantity;
                 }
             }
-
-            System.out.println("remaining " + remaining);
         }
         return salesProducts;
     }

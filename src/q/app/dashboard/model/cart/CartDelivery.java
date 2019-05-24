@@ -11,7 +11,7 @@ public class CartDelivery implements Serializable {
     private long addressId;
     private double deliveryCharges;
     private Integer preferredCuorier;
-    private char status;
+    private char status;//N= New, S = Sold, R = Refunded, T = Returned
     private Date created;
     private int createdBy;
 

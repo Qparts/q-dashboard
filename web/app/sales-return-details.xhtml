@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Sales Details</title>
+	<ui:include src="/_includes/header.xhtml" />
+</h:head>
+<h:body>
+<h:outputText value="#{loginBean.checkAccessRedirectHome(act.pageSalesReturn)}" />
+	<ui:include src="/_includes/top.xhtml" />
+	<ui:include src="/_includes/side.xhtml" />
+			<div class="w3-container">
+				<div align="center" class="w3-padding-8">
+					<h:outputText value="Sales Return # #{salesReturnDetailsBean.salesReturn.id}" styleClass="q-large-text" />
+				</div>
+				<h:form id="form-g">
+					<p:growl id="error-growl"
+						rendered="#{facesContext.maximumSeverity.ordinal eq 2}" />
+					<p:growl id="success-growl"
+						rendered="#{facesContext.maximumSeverity.ordinal eq 0}" />
+				</h:form>
+				<div class="w3-row">
+					<div class="w3-third w3-container">
+						<div class="w3-card-2 w3-padding-8" >
+							<h:panelGrid columns="2" styleClass="w3-table w3-striped w3-border">
+								<h:outputText value="Cart ID" />
+								<h:outputText value="#{salesReturnDetailsBean.salesReturn.cartId}"/>
+								<h:outputText value="Sales ID" />
+								<h:outputText value="#{salesReturnDetailsBean.salesReturn.salesId}"/>
+								<h:outputText value="Cart Date" />
+								<h:outputText value="#{salesReturnDetailsBean.cart.created}">
+									<f:convertDateTime type="date" />
+								</h:outputText>
+								<h:outputText value="Sales Date" />
+								<h:outputText value="#{salesReturnDetailsBean.salesReturn.created}">
+									<f:convertDateTime type="date" />
+								</h:outputText>
+								<h:outputText value="Return Date" />
+								<h:outputText value="#{salesReturnDetailsBean.salesReturn.created}">
+									<f:convertDateTime type="date" />
+								</h:outputText>
+							</h:panelGrid>
+						</div>
+					</div>
+					<div class="w3-third w3-container">
+						<div class="w3-card-2 w3-padding-8">
+							<h:panelGrid columns="2" styleClass="w3-table w3-striped w3-border">
+								<h:outputText value="Customer ID" />
+								<h:outputText value="#{salesReturnDetailsBean.customer.id}" />
+								<h:outputText value="Name" />
+								<h:outputText value="#{salesReturnDetailsBean.customer.fullName}" />
+								<h:outputText value="Mobile" />
+								<h:outputText value="#{salesReturnDetailsBean.cart.address.mobile}" />
+								<h:outputText value="Email" />
+								<h:outputText value="#{salesReturnDetailsBean.customer.email}"  />
+								<h:outputText value="Email" />
+								<h:outputText value="#{salesReturnDetailsBean.customer.email}"  />
+							</h:panelGrid>
+						</div>
+					</div>
+
+					<div class="w3-third w3-container">
+						<div class="w3-card-2 w3-padding-8">
+							<h:panelGrid columns="2" styleClass="w3-table w3-striped w3-border">
+								<h:outputText value="Address" />
+								<h:outputText value="#{salesReturnDetailsBean.cart.address.line1}" />
+								<h:outputText value="" />
+								<h:outputText value="#{salesReturnDetailsBean.cart.address.line2}" />
+								<h:outputText value="Country" />
+								<h:outputText value="#{cityBean.getCityFromId(salesReturnDetailsBean.cart.address.cityId).country.name}" />
+								<h:outputText value="Region" />
+								<h:outputText value="#{cityBean.getCityFromId(salesReturnDetailsBean.cart.address.cityId).region.name}"  />
+								<h:outputText value="City" />
+								<h:outputText value="#{cityBean.getCityFromId(salesReturnDetailsBean.cart.address.cityId).name}"  />
+							</h:panelGrid>
+						</div>
+					</div>
+				</div>
+				<br />
+				<script type="text/javascript">
+					function start() {
+						PF('statusDialog').show();
+					}
+
+					function stop() {
+						PF('statusDialog').hide();
+					}
+				</script>
+
+				<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+						  closable="false" resizable="false" showHeader="false"
+						  style="z-index:99999">
+					<h:outputText value="Downloading..." />
+					<br />
+					<p:graphicImage name="/images/ajax-loader.gif" />
+				</p:dialog>
+				<div class="w3-row">
+					<div>
+						<h:dataTable value="#{salesReturnDetailsBean.salesReturn.salesReturnProducts}"
+							var="srp" styleClass="w3-table w3-striped w3-border"
+							headerClass="w3-light-grey w3-border"
+							footerClass="w3-light-grey w3-border">
+							<f:facet name="header">
+								<div align="center">Sales Order Products</div>
+							</f:facet>
+							<h:column headerClass="w3-border-bottom w3-light-grey">
+								<f:facet name="header">
+									<h:outputText value="Product ID" />
+								</f:facet>
+								<h:outputText value="#{srp.productId}" />
+							</h:column>
+							<h:column headerClass="w3-border-bottom w3-light-grey">
+								<f:facet name="header">
+									<h:outputText value="Name" />
+								</f:facet>
+								<h:outputText value="#{srp.salesProduct.productHolder.product.desc}" />
+							</h:column>
+							<h:column headerClass="w3-border-bottom w3-light-grey">
+								<f:facet name="header">
+									<h:outputText value="Arabic" />
+								</f:facet>
+								<h:outputText value="#{srp.salesProduct.productHolder.product.descAr}" />
+							</h:column>
+							<h:column headerClass="w3-border-bottom w3-light-grey">
+								<f:facet name="header">
+									<h:outputText value="Number" />
+								</f:facet>
+								<h:outputText value="#{srp.salesProduct.productHolder.product.productNumber}" />
+							</h:column>
+							<h:column headerClass="w3-border-bottom w3-light-grey">
+								<f:facet name="header">
+									<h:outputText value="Quantity" />
+								</f:facet>
+								<h:outputText value="#{srp.quantity}" />
+							</h:column>
+							<h:column headerClass="w3-border-bottom w3-light-grey">
+								<f:facet name="header">
+									<h:outputText value="Unit Sales" />
+								</f:facet>
+								<h:outputText value="#{sp.unitSales}">
+									<f:convertNumber currencySymbol="SR " type="currency" />
+								</h:outputText>
+							</h:column>
+							<h:column headerClass="w3-border-bottom w3-light-grey">
+								<f:facet name="header">
+									<h:outputText value="Gross Sales" />
+								</f:facet>
+								<h:outputText value="#{srp.quantity * srp.salesProduct.unitSales}">
+									<f:convertNumber currencySymbol="SR " type="currency" />
+								</h:outputText>
+							</h:column>
+							<f:facet name="footer">
+								<div align="center" class="q-bold">
+									<h:outputText value="Parts Total: " />
+									<h:outputText
+										value="#{salesReturnDetailsBean.salesReturn.productsTotal}">
+										<f:convertNumber currencySymbol="SR " type="currency" />
+									</h:outputText>
+									<br />
+									<h:outputText value="Delivery Fees: " />
+									<h:outputText
+										value="#{salesReturnDetailsBean.salesReturn.deliveryFees}">
+										<f:convertNumber currencySymbol="SR " type="currency" />
+									</h:outputText>
+									<br />
+									<h:outputText value="VAT: " />
+									<h:outputText value="#{salesReturnDetailsBean.salesReturn.totalVat}">
+										<f:convertNumber currencySymbol="SR " type="currency" />
+									</h:outputText>
+									<br />
+									<h:outputText value="Penalty: " style="color:red" />
+									<h:outputText value="#{salesReturnDetailsBean.salesReturn.penaltyFees}" style="color:red">
+										<f:convertNumber currencySymbol="SR " type="currency" />
+									</h:outputText>
+									<br />
+									<h:outputText value="Net Total: " />
+									<h:outputText value="#{salesReturnDetailsBean.salesReturn.grandTotal}">
+										<f:convertNumber currencySymbol="SR " type="currency" />
+									</h:outputText>
+								</div>
+								<h:form>
+									<div align="center">
+										<p:commandButton value="Download Invoice" ajax="false" rendered="false"
+											onclick="PrimeFaces.monitorDownload(start, stop);"
+											icon="ui-icon-arrowthick-1-s" styleClass="q-btn">
+											<p:fileDownload value="#{salesDetailsBean.pdfInvoice}" />
+										</p:commandButton>
+
+									</div>
+								</h:form>
+
+
+							</f:facet>
+						</h:dataTable>
+						<br />
+					</div>
+				</div>
+			</div>
+</h:body>
+</html>

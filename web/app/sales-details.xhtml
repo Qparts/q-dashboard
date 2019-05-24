@@ -26,73 +26,55 @@
 				</h:form>
 				<div class="w3-row">
 					<div class="w3-third w3-container">
-						<div class="w3-card-2 w3-padding-8 w3-light-grey" align="center">
-							<h:panelGrid columns="2">
+						<div class="w3-card-2 w3-padding-8" >
+							<h:panelGrid columns="2" styleClass="w3-table w3-striped w3-border">
 								<h:outputText value="Cart ID" />
-								<h:inputText value="#{salesDetailsBean.sales.cartId}"
-									readonly="true" />
+								<h:outputText value="#{salesDetailsBean.sales.cartId}"/>
 								<h:outputText value="Sales ID" />
-								<h:inputText value="#{salesDetailsBean.sales.id}"
-									readonly="true" />
+								<h:outputText value="#{salesDetailsBean.sales.id}"/>
 								<h:outputText value="Cart Date" />
-								<h:inputText value="#{salesDetailsBean.cart.created}"
-									readonly="true">
+								<h:outputText value="#{salesDetailsBean.cart.created}">
 									<f:convertDateTime type="date" />
-								</h:inputText>
+								</h:outputText>
 								<h:outputText value="Sales Date" />
-								<h:inputText value="#{salesDetailsBean.sales.created}"
-									readonly="true">
+								<h:outputText value="#{salesDetailsBean.sales.created}">
 									<f:convertDateTime type="date" />
-								</h:inputText>
+								</h:outputText>
 								<h:outputText value="Delivery Fees" />
-								<h:inputText value="#{salesDetailsBean.sales.deliveryFees}"
-									readonly="true" />
+								<h:outputText value="#{salesDetailsBean.sales.deliveryFees}" />
 							</h:panelGrid>
 						</div>
 					</div>
 					<div class="w3-third w3-container">
-						<div class="w3-card-2 w3-padding-8 w3-light-grey" align="center">
-							<h:panelGrid columns="2">
+						<div class="w3-card-2 w3-padding-8">
+							<h:panelGrid columns="2" styleClass="w3-table w3-striped w3-border">
 								<h:outputText value="Customer ID" />
-								<h:inputText value="#{salesDetailsBean.customer.id}"
-									readonly="true" />
+								<h:outputText value="#{salesDetailsBean.customer.id}" />
 								<h:outputText value="Name" />
-								<h:inputText
-									value="#{salesDetailsBean.customer.fullName}"
-									readonly="true" />
+								<h:outputText value="#{salesDetailsBean.customer.fullName}" />
 								<h:outputText value="Mobile" />
-								<h:inputText
-									value="#{salesDetailsBean.cart.address.mobile}"
-									readonly="true" />
+								<h:outputText value="#{salesDetailsBean.cart.address.mobile}" />
 								<h:outputText value="Email" />
-								<h:inputText
-									value="#{salesDetailsBean.customer.email}"
-									readonly="true" />
+								<h:outputText value="#{salesDetailsBean.customer.email}"  />
+								<h:outputText value="Email" />
+								<h:outputText value="#{salesDetailsBean.customer.email}"  />
 							</h:panelGrid>
 						</div>
 					</div>
 
-					<div class="w3-third">
-						<div class="w3-card-2 w3-padding-8 w3-light-grey" align="center">
-							<h:panelGrid columns="2">
+					<div class="w3-third w3-container">
+						<div class="w3-card-2 w3-padding-8">
+							<h:panelGrid columns="2" styleClass="w3-table w3-striped w3-border">
 								<h:outputText value="Address" />
-								<h:inputText
-									value="#{salesDetailsBean.cart.address.line1}"
-									readonly="true" />
+								<h:outputText value="#{salesDetailsBean.cart.address.line1}" />
 								<h:outputText value="" />
-								<h:inputTextarea rows="3" cols="20" onmousedown="return false;"
-									value="#{salesDetailsBean.cart.address.line2}"
-									readonly="true"
-
-								  />
+								<h:outputText value="#{salesDetailsBean.cart.address.line2}" />
 								<h:outputText value="Country" />
-								<h:inputText
-									value="#{cityBean.getCityFromId(salesDetailsBean.cart.address.cityId).country.name}"
-									readonly="true" />
+								<h:outputText value="#{cityBean.getCityFromId(salesDetailsBean.cart.address.cityId).country.name}" />
+								<h:outputText value="Region" />
+								<h:outputText value="#{cityBean.getCityFromId(salesDetailsBean.cart.address.cityId).region.name}"  />
 								<h:outputText value="City" />
-								<h:inputText
-									value="#{cityBean.getCityFromId(salesDetailsBean.cart.address.cityId).region.name} - #{cityBean.getCityFromId(salesDetailsBean.cart.address.cityId).name}"
-									readonly="true" />
+								<h:outputText value="#{cityBean.getCityFromId(salesDetailsBean.cart.address.cityId).name}"  />
 							</h:panelGrid>
 						</div>
 					</div>
@@ -216,138 +198,75 @@
 						<br />
 					</div>
 				</div>
-
-
 				<div class="w3-row">
 					<div>
-						<h:dataTable value="#{salesDetailsBean.sales.salesReturnProducts}"
+						<h:dataTable value="#{salesDetailsBean.sales.allSalesReturnProducts}"
+									 rendered="#{salesDetailsBean.sales.allSalesReturnProducts gt 0}"
 							var="srp" styleClass="w3-table w3-striped w3-border"
 							headerClass="w3-pale-red w3-border-bottom"
-							rendered="false"
 							footerClass="w3-pale-red w3-border-top">
 							<f:facet name="header">
 								<div align="center">Sales Return Products</div>
 							</f:facet>
 							<h:column>
 								<f:facet name="header">
-									<h:outputText value="Product ID" />
+									<h:outputText value="RETURN#" />
+								</f:facet>
+								<h:outputLink value="sales-return-details?id=#{srp.salesReturnId}">
+									<h:outputText value="#{srp.salesReturnId}" />
+								</h:outputLink>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="PRODUCT#" />
 								</f:facet>
 								<h:outputText value="#{srp.productId}" />
 							</h:column>
 							<h:column>
 								<f:facet name="header">
-									<h:outputText value="Product Name" />
+									<h:outputText value="NAME" />
 								</f:facet>
-								<h:outputText value="#{srp.product.productName.name}" />
+								<h:outputText value="#{srp.salesProduct.productHolder.product.desc}" />
 							</h:column>
 							<h:column>
 								<f:facet name="header">
-									<h:outputText value="Arabic" />
+									<h:outputText value="ARABIC" />
 								</f:facet>
-								<h:outputText value="#{srp.product.productName.nameAr}" />
+								<h:outputText value="#{srp.salesProduct.productHolder.product.descAr}" />
 							</h:column>
 							<h:column>
 								<f:facet name="header">
-									<h:outputText value="Number" />
+									<h:outputText value="NUMBER" />
 								</f:facet>
-								<h:outputText value="#{srp.product.productNumber}" />
+								<h:outputText value="#{srp.salesProduct.productHolder.product.productNumber}" />
 							</h:column>
 							<h:column>
 								<f:facet name="header">
-									<h:outputText value="Quantity" />
+									<h:outputText value="QUANTITY" />
 								</f:facet>
 								<h:outputText value="#{srp.quantity}" />
 							</h:column>
 							<h:column>
 								<f:facet name="header">
-									<h:outputText value="Unit Cost" />
+									<h:outputText value="UNIT SALES" />
 								</f:facet>
-								<h:outputText value="#{srp.unitCostWv}">
+								<h:outputText value="#{srp.salesProduct.unitSales}">
 									<f:convertNumber currencySymbol="SR " type="currency" />
 								</h:outputText>
 							</h:column>
 							<h:column>
 								<f:facet name="header">
-									<h:outputText value="Unit Sales" />
-								</f:facet>
-								<h:outputText value="#{srp.unitSales}">
-									<f:convertNumber currencySymbol="SR " type="currency" />
-								</h:outputText>
-							</h:column>
-							<h:column>
-								<f:facet name="header">
-									<h:outputText value="Return Fees" />
-								</f:facet>
-								<h:outputText value="#{srp.returnDeductionFees}">
-									<f:convertNumber currencySymbol="SR " type="currency" />
-								</h:outputText>
-							</h:column>
-							<h:column>
-								<f:facet name="header">
-									<h:outputText value="Gross Sales" />
+									<h:outputText value="GROSS SALES" />
 								</f:facet>
 								<h:outputText
-									value="#{srp.quantity * srp.unitSales - srp.returnDeductionFees}">
+									value="#{srp.quantity * srp.salesProduct.unitSales}">
 									<f:convertNumber currencySymbol="SR " type="currency" />
 								</h:outputText>
 							</h:column>
-							<f:facet name="footer">
-								<div align="center" class="q-bold">
-									<h:outputText value="Parts Total: " />
-									<h:outputText
-										value="#{salesDetailsBean.sales.totalSalesReturnParts}">
-										<f:convertNumber currencySymbol="SR " type="currency" />
-									</h:outputText>
-									<br />
-									<h:outputText value="VAT: " />
-									<h:outputText
-										value="#{salesDetailsBean.sales.totalSalesReturnPartsWv - salesDetailsBean.sales.totalSalesReturnParts}">
-										<f:convertNumber currencySymbol="SR " type="currency" />
-									</h:outputText>
-									<br />
-
-									<h:outputText value="Return Fees: " style="color:red" />
-									<h:outputText style="color:red"
-										value="#{salesDetailsBean.sales.totalSalesReturnFees}">
-										<f:convertNumber currencySymbol="SR " type="currency" />
-									</h:outputText>
-									<br />
-									<h:outputText value="Promotion Discount: " style="color:red" />
-									<h:outputText
-										value="#{salesDetailsBean.sales.totalSalesReturnPromotionDeduction}"
-										style="color:red">
-										<f:convertNumber currencySymbol="SR " type="currency" />
-									</h:outputText>
-									<br />
-									<h:outputText value="Net Total: " />
-									<h:outputText
-										value="#{salesDetailsBean.sales.totalSalesReturnPartsWv
-												- salesDetailsBean.sales.totalSalesReturnFees
-															- salesDetailsBean.sales.totalSalesReturnPromotionDeduction}">
-										<f:convertNumber currencySymbol="SR " type="currency" />
-									</h:outputText>
-								</div>
-								<h:form rendered="false">
-									<div align="center">
-										<ui:repeat var="sr"
-											value="#{salesDetailsBean.sales.salesReturns}">
-											<p:commandButton value="Download Invoice (#{sr.id})"
-												ajax="false"
-												onclick="PrimeFaces.monitorDownload(start, stop);"
-												icon="ui-icon-arrowthick-1-s" styleClass="q-btn">
-												<p:fileDownload
-													value="#{salesDetailsBean.getPdfReturnInvoice(sr.id)}" />
-											</p:commandButton>
-										</ui:repeat>
-									</div>
-								</h:form>
-							</f:facet>
 						</h:dataTable>
 						<br />
 					</div>
 				</div>
-
-
 			</div>
 </h:body>
 </html>

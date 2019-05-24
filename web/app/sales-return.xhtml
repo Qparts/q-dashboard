@@ -1,0 +1,453 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Sales Return</title>
+	<ui:include src="/_includes/header.xhtml" />
+</h:head>
+<h:body>
+<h:outputText value="#{loginBean.checkAccessRedirectHome(act.pageSalesReturn)}" />
+	<ui:include src="/_includes/top.xhtml" />
+	<ui:include src="/_includes/side.xhtml" />
+			<div class="w3-container">
+				<div align="center" class="w3-padding-8">
+					<h:outputText value="Sales Return " styleClass="q-large-text" />
+				</div>
+				<h:form id="form-g">
+					<p:growl id="error-growl"
+						rendered="#{facesContext.maximumSeverity.ordinal eq 2}" />
+					<p:growl id="success-growl"
+						rendered="#{facesContext.maximumSeverity.ordinal eq 0}" />
+				</h:form>
+
+
+				<div class="w3-row">
+					<div class="w3-third w3-container">
+						<div class="w3-card-2 w3-padding-8" >
+							<h:panelGrid columns="2" styleClass="w3-table w3-striped w3-border">
+								<h:outputText value="Cart ID" />
+								<h:outputText value="#{salesReturnBean.sales.cartId}" />
+								<h:outputText value="Sales ID" />
+								<h:outputText value="#{salesReturnBean.sales.id}"  />
+								<h:outputText value="Cart Date" />
+								<h:outputText value="#{salesReturnBean.cart.created}" >
+									<f:convertDateTime type="date" />
+								</h:outputText>
+								<h:outputText value="Sales Date" />
+								<h:outputText value="#{salesReturnBean.sales.created}" >
+									<f:convertDateTime type="date" />
+								</h:outputText>
+								<h:outputText value="Delivery Fees" />
+								<h:outputText value="#{salesReturnBean.sales.deliveryFeesWv}">
+									<f:convertNumber type="currency" currencySymbol="SR "/>
+								</h:outputText>
+							</h:panelGrid>
+						</div>
+					</div>
+					<div class="w3-third w3-container">
+						<div class="w3-card-2 w3-padding-8" >
+							<h:panelGrid columns="2" styleClass="w3-table w3-striped w3-border">
+								<h:outputText value="Customer ID" />
+								<h:outputText value="#{salesReturnBean.cart.customerId}" />
+								<h:outputText value="Name" />
+								<h:outputText value="#{salesReturnBean.cart.customer.fullName}" />
+								<h:outputText value="Mobile" />
+								<h:outputText value="#{salesReturnBean.cart.address.mobile}" />
+								<h:outputText value="Email" />
+								<h:outputText value="#{salesReturnBean.cart.customer.email}" />
+								<h:outputText value="Email" />
+								<h:outputText value="#{salesReturnBean.cart.customer.email}" />
+							</h:panelGrid>
+						</div>
+					</div>
+					<div class="w3-third w3-container">
+						<div class="w3-card-2 w3-padding-8" >
+							<h:panelGrid columns="2" styleClass="w3-table w3-striped w3-border">
+								<h:outputText value="Address" />
+								<h:outputText value="#{salesReturnBean.cart.address.line1}"  />
+								<h:outputText value="" />
+								<h:outputText value="#{salesReturnBean.cart.address.line2}"  />
+								<h:outputText value="Country" />
+								<h:outputText value="#{cityBean.getCityFromId(salesReturnBean.cart.address.cityId).country.name}" />
+								<h:outputText value="Region" />
+								<h:outputText value="#{cityBean.getCityFromId(salesReturnBean.cart.address.cityId).region.name}" />
+								<h:outputText value="City" />
+								<h:outputText value="#{cityBean.getCityFromId(salesReturnBean.cart.address.cityId).name}" />
+							</h:panelGrid>
+						</div>
+					</div>
+				</div>
+				<br />
+				<h:form id="form-3">
+					<h:dataTable id="return-table" rendered="#{salesReturnBean.itemsAvailableForReturn}"
+						value="#{salesReturnBean.salesReturn.salesReturnProducts}"
+						var="srp" styleClass="w3-table w3-srtiped w3-border"
+						headerClass="w3-sand w3-border-bottom"
+						footerClass="w3-sand w3-border-top">
+						<f:facet name="header">
+							<div align="center">
+								<h:outputText value="Return Items" />
+							</div>
+						</f:facet>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Product ID" />
+							</f:facet>
+							<h:outputText value="#{srp.productId}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Name" />
+							</f:facet>
+							<h:outputText value="#{srp.salesProduct.productHolder.product.desc}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Arabic" />
+							</f:facet>
+							<h:outputText value="#{srp.salesProduct.productHolder.product.descAr}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Number" />
+							</f:facet>
+							<h:outputText value="#{srp.salesProduct.productHolder.product.productNumber}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Quantity" />
+							</f:facet>
+							<h:outputText value="#{srp.newQuantity}"/>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Unit Price" />
+							</f:facet>
+							<h:outputText value="#{srp.salesProduct.unitSales}">
+								<f:convertNumber currencySymbol="SR " type="currency" />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Gross Price" />
+							</f:facet>
+							<h:outputText value="#{srp.salesProduct.unitSales * srp.newQuantity}">
+								<f:convertNumber currencySymbol="SR " type="currency" />
+							</h:outputText>
+						</h:column>
+						<f:facet name="footer">
+							<div align="center" class="q-bold">
+								<h:outputText value="Parts Total: " />
+								<h:outputText
+									value="#{salesReturnBean.salesReturn.productsTotalNewQuantity}">
+									<f:convertNumber currencySymbol="SR " type="currency" />
+								</h:outputText>
+								<br />
+								<h:outputText value="Returned Delivery Fees: " />
+								<h:outputText
+									value="#{salesReturnBean.salesReturn.deliveryFees}">
+									<f:convertNumber currencySymbol="SR " type="currency" />
+								</h:outputText>
+								<br />
+
+								<h:outputText value="VAT: " />
+								<h:outputText
+									value="#{salesReturnBean.salesReturn.totalVatNewQuantity}">
+									<f:convertNumber currencySymbol="SR " type="currency" />
+								</h:outputText>
+								<br />
+								<h:outputText value="Return Fees: " style="color:red;" />
+								<h:outputText value="#{salesReturnBean.salesReturn.penaltyFees}" style="color:red;">
+									<f:convertNumber currencySymbol="SR " type="currency" />
+								</h:outputText>
+								<br />
+								<h:outputText value="Promotion Discount: " style="color:red;" />
+								<h:outputText
+									value="#{(salesRetusrnBean.salesReturn.totalPartsSalesNewQuantity + salesRetusrnsBean.salesReturn.returnedDeliveryFees)* salesRetursnBean.sales.cart.promoCodeObject.discountPercentage}"
+									style="color:red;">
+									<f:convertNumber currencySymbol="SR " type="currency" />
+								</h:outputText>
+								<br />
+								<h:outputText value="Net Return:" />
+								<h:outputText
+									value="#{salesReturnBean.salesReturn.grandTotalNewQuantity}">
+									<f:convertNumber currencySymbol="SR " type="currency" />
+								</h:outputText>
+							</div>
+						</f:facet>
+					</h:dataTable>
+					<br />
+					<div align="center">
+						<h:panelGroup rendered="#{salesReturnBean.itemsAvailableForReturn and salesReturnBean.salesReturn.salesReturnProducts.size() gt 0}">
+							<h:panelGrid columns="2" id="details-panel">
+								<h:outputText value="Return Penalty Fees:" />
+								<h:inputText value="#{salesReturnBean.salesReturn.penaltyFees}" >
+									<f:ajax render="return-table" execute="@this"/>
+								</h:inputText>
+								<h:outputText value="Transaction Type" />
+								<h:selectOneMenu value="#{salesReturnBean.salesReturn.transactionType}" required="true">
+									<f:selectItem noSelectionOption="true" itemLabel="--Select Type--"/>
+									<f:selectItem itemValue="#{'C'}" itemLabel="Cash"/>
+									<f:selectItem itemValue="#{'T'}" itemLabel="Credit"/>
+									<f:ajax execute="@this" render="select-bank"/>
+								</h:selectOneMenu>
+								<h:outputText value="Return Delivery Fees:" />
+								<h:selectBooleanCheckbox value="#{salesReturnBean.returnDelivery}" disabled="#{not (salesReturnBean.cart.cartDelivery.status eq 'S')}" required="true">
+									<f:ajax listener="#{salesReturnBean.chooseReturnDelivery()}"
+											render="return-table" execute="@this" />
+								</h:selectBooleanCheckbox>
+
+								<h:outputText value="Bank" />
+								<h:selectOneMenu id="select-bank" value="#{salesReturnBean.salesReturn.transactionType}" disabled="#{salesReturnBean.salesReturn.transactionType eq 'T'}" required="true">
+									<f:selectItem noSelectionOption="true" itemLabel="--Select Bank--"/>
+									<f:selectItems value="#{banksBean.banks}" var="bank" itemLabel="#{bank.name}" itemValue="#{bank.id}"/>
+									<f:ajax execute="@this"/>
+								</h:selectOneMenu>
+							</h:panelGrid>
+							<br/>
+							<p:commandButton
+								rendered="#{salesReturnBean.itemsAvailableForReturn}"
+								actionListener="#{salesReturnBean.createSalesReturn()}"
+								widgetVar="submitbtn"
+								value="Create Sales Return" update=":form-g" styleClass="q-btn" onclick="PF('submitbtn').disable();" oncomplete="PF('submitbtn').enable()" />
+						</h:panelGroup>
+					</div>
+				</h:form>
+				<br />
+				<div class="w3-row">
+					<h:form>
+						<h:dataTable value="#{salesReturnBean.sales.salesProducts}"
+							var="sp" styleClass="w3-table w3-border w3-striped"
+							headerClass="w3-light-grey w3-border-bottom"
+							footerClass="w3-light-grey w3-border-top">
+							<f:facet name="header">
+								<div align="center">
+									<h:outputText value="Sales Products" />
+								</div>
+							</f:facet>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Product ID" />
+								</f:facet>
+								<h:outputText value="#{sp.productId}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Name" />
+								</f:facet>
+								<h:outputText value="#{sp.productHolder.product.desc}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Arabic" />
+								</f:facet>
+								<h:outputText value="#{sp.productHolder.product.descAr}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Number" />
+								</f:facet>
+								<h:outputText value="#{sp.productHolder.product.productNumber}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Quantity" />
+								</f:facet>
+								<h:outputText value="#{sp.quantity}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Unit Price" />
+								</f:facet>
+								<h:outputText value="#{sp.unitSales}">
+									<f:convertNumber type="currency" currencySymbol="SR " />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Gross Price" />
+								</f:facet>
+								<h:outputText value="#{sp.unitSales * sp.quantity}"
+									style="color:red">
+									<f:convertNumber type="currency" currencySymbol="SR " />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Add" />
+								</f:facet>
+								<p:commandButton
+									rendered="#{sp.quantity gt salesReturnBean.getTotalQuantityReturnedInPreviousOrders(sp)}"
+									actionListener="#{salesReturnBean.chooseSalesProduct(sp)}"
+									oncomplete="PF('dlgwv').show()" update=":form2 :form-g" value="Add"
+									styleClass="q-btn" />
+							</h:column>
+
+							<f:facet name="footer">
+								<div align="center" class="q-bold">
+									<h:outputText value="Parts Total: " />
+									<h:outputText value="#{salesReturnBean.sales.productsTotal}">
+										<f:convertNumber currencySymbol="SR " type="currency" />
+									</h:outputText>
+									<br />
+									<h:outputText value="Delivery Fees: " />
+									<h:outputText value="#{salesReturnBean.sales.deliveryFees}">
+										<f:convertNumber currencySymbol="SR " type="currency" />
+									</h:outputText>
+									<br />
+									<h:outputText value="VAT: " />
+									<h:outputText
+										value="#{salesReturnBean.sales.totalVat}">
+										<f:convertNumber currencySymbol="SR " type="currency" />
+									</h:outputText>
+									<br />
+									<h:outputText value="Promotion Discount: " style="color:red" />
+									<h:outputText
+										value="#{salesReturnBean.sales.discountTotal}"
+										style="color:red">
+										<f:convertNumber currencySymbol="SR " type="currency" />
+									</h:outputText>
+
+									<br />
+									<h:outputText value="Net Total: " />
+									<h:outputText
+										value="#{salesReturnBean.sales.grandTotal}">
+										<f:convertNumber currencySymbol="SR " type="currency" />
+									</h:outputText>
+								</div>
+							</f:facet>
+						</h:dataTable>
+					</h:form>
+
+					<br />
+					<h:dataTable value="#{salesReturnBean.sales.salesReturns}" var="sr"
+						styleClass="w3-table w3-border w3-striped"
+						headerClass="w3-pale-red w3-border-bottom"
+						footerClass="w3-pale-red w3-border-top"
+						rendered="#{salesReturnBean.sales.salesReturns.size() gt 0}">
+						<f:facet name="header">
+							<div align="center">
+								<h:outputText value="Sales Return Orders" />
+							</div>
+						</f:facet>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Sales ID" />
+							</f:facet>
+							<h:outputText value="#{sr.salesId}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Return ID" />
+							</f:facet>
+							<h:outputText value="#{sr.id}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Return Date" />
+							</f:facet>
+							<h:outputText value="#{sr.returnDate}">
+								<f:convertDateTime type="date" />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Type" />
+							</f:facet>
+							<h:outputText value="Credit" rendered="#{sr.transactionType eq 'T'}" />
+							<h:outputText value="Cash" rendered="#{sr.transactionType eq 'C'}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Delivery Fees" />
+							</f:facet>
+							<h:outputText value="#{sr.deliveryFees}">
+								<f:convertNumber currencySymbol="SR " type="currency" />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="VAT" />
+							</f:facet>
+							<h:outputText
+								value="#{sr.totalVat}">
+								<f:convertNumber currencySymbol="SR " type="currency" />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Promo Disc." />
+							</f:facet>
+							<h:outputText value="#{sre.promotionDiscount}">
+								<f:convertNumber currencySymbol="SR " type="currency" />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Return Fees" />
+							</f:facet>
+							<h:outputText value="#{sr.penaltyFees}">
+								<f:convertNumber currencySymbol="SR " type="currency" />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Net Return" />
+							</f:facet>
+							<h:outputText
+								value="#{sr.grandTotal}">
+								<f:convertNumber currencySymbol="SR " type="currency" />
+							</h:outputText>
+						</h:column>
+
+					</h:dataTable>
+					<br />
+
+					<h:form id="form2">
+						<p:dialog id="dlg" widgetVar="dlgwv" styleClass="q-dialog"
+							header="Return Item">
+							<h:panelGrid columns="2" styleClass="w3-table w3-striped">
+								<h:outputText value="Product ID" />
+								<h:outputText
+									value="#{salesReturnBean.salesReturnProduct.productId}" />
+								<h:outputText value="Name" />
+								<h:outputText value="#{salesReturnBean.salesReturnProduct.salesProduct.productHolder.product.desc}" />
+								<h:outputText value="Arabic" />
+								<h:outputText value="#{salesReturnBean.salesReturnProduct.salesProduct.productHolder.product.descAr}" />
+								<h:outputText value="Number" />
+								<h:outputText value="#{salesReturnBean.salesReturnProduct.salesProduct.productHolder.product.productNumber}" />
+								<h:outputText value="Quantity" />
+								<h:selectOneMenu value="#{salesReturnBean.salesReturnProduct.newQuantity}">
+									<f:selectItems value="#{salesReturnBean.salesReturnProduct.quantityArray}"
+										var="q" itemLabel="#{q}" itemValue="#{q}"/>
+								</h:selectOneMenu>
+								<h:outputText value="Unit Price" />
+								<h:outputText value="#{salesReturnBean.salesReturnProduct.salesProduct.unitSales}">
+									<f:convertNumber currencySymbol="SR " type="currency" />
+								</h:outputText>
+								<h:outputText value="Gross Price" />
+								<h:outputText
+									value="#{salesReturnBean.salesReturnProduct.salesProduct.unitSales * salesReturnBean.salesReturnProduct.quantity}">
+									<f:convertNumber currencySymbol="SR " type="currency" />
+								</h:outputText>
+							</h:panelGrid>
+							<div align="center">
+								<p:commandButton value="Add to Sales Return"
+									update=":form-3 :form-g" oncomplete="PF('dlgwv').hide()"
+									styleClass="q-btn"
+									actionListener="#{salesReturnBean.addToReturnProducts()}"/>
+							</div>
+
+						</p:dialog>
+					</h:form>
+				</div>
+
+			</div>
+</h:body>
+</html>

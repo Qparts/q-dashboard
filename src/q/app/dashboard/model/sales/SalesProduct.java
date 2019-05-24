@@ -2,6 +2,7 @@ package q.app.dashboard.model.sales;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import q.app.dashboard.model.product.ProductHolder;
+import q.app.dashboard.model.purchase.PurchaseProduct;
 
 import java.io.Serializable;
 
@@ -16,7 +17,7 @@ public class SalesProduct implements Serializable {
     private double vatPercentage;
     private Long discountId;
     private Double discountPercentage;
-    private long purchaseProductId;
+    private PurchaseProduct purchaseProduct;
     private long cartProductId;
     private char status;
     @JsonIgnore
@@ -83,6 +84,11 @@ public class SalesProduct implements Serializable {
         return unitSales;
     }
 
+    @JsonIgnore
+    public double getUnitSalesWv() {
+        return unitSales + unitSales * vatPercentage;
+    }
+
     public void setUnitSales(double unitSales) {
         this.unitSales = unitSales;
     }
@@ -119,11 +125,11 @@ public class SalesProduct implements Serializable {
         this.discountPercentage = discountPercentage;
     }
 
-    public long getPurchaseProductId() {
-        return purchaseProductId;
+    public PurchaseProduct getPurchaseProduct() {
+        return purchaseProduct;
     }
 
-    public void setPurchaseProductId(long purchaseProductId) {
-        this.purchaseProductId = purchaseProductId;
+    public void setPurchaseProduct(PurchaseProduct purchaseProduct) {
+        this.purchaseProduct = purchaseProduct;
     }
 }

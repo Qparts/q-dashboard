@@ -1,0 +1,542 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Sales Report</title>
+	<ui:include src="/_includes/header.xhtml" />
+</h:head>
+<h:body>
+<h:outputText value="#{loginBean.checkAccessRedirectHome(act.pageSalesReport)}" />
+	<ui:include src="/_includes/top.xhtml" />
+	<ui:include src="/_includes/side.xhtml" />
+			<div class="w3-container">
+				<div align="center" class="w3-padding-8">
+					<h:outputText value="Sales Report" styleClass="q-large-text" />
+				</div>
+				<h:form id="form-g">
+					<p:growl id="error-growl" sticky="true"
+						rendered="#{facesContext.maximumSeverity.ordinal eq 2}" />
+					<p:growl id="success-growl" sticky="true"
+						rendered="#{facesContext.maximumSeverity.ordinal eq 0}" />
+				</h:form>
+				<div>
+					<h:form id="form1">
+						<h:panelGrid columns="2">
+							<h:outputText value="Year" />
+							<h:selectOneMenu value="#{salesReportBean.year}" required="true">
+								<f:selectItem itemLabel="2019" itemValue="#{2019}" />
+								<f:selectItem itemLabel="2020" itemValue="#{2020}" />
+								<f:selectItem itemLabel="2021" itemValue="#{2021}" />
+								<f:selectItem itemLabel="2022" itemValue="#{2022}" />
+							</h:selectOneMenu>
+							<h:outputText value="Month" />
+							<h:selectOneMenu value="#{salesReportBean.month}"
+								required="true">
+								<f:selectItem itemLabel="January" itemValue="#{0}" />
+								<f:selectItem itemLabel="February" itemValue="#{1}" />
+								<f:selectItem itemLabel="March" itemValue="#{2}" />
+								<f:selectItem itemLabel="April" itemValue="#{3}" />
+								<f:selectItem itemLabel="May" itemValue="#{4}" />
+								<f:selectItem itemLabel="June" itemValue="#{5}" />
+								<f:selectItem itemLabel="July" itemValue="#{6}" />
+								<f:selectItem itemLabel="August" itemValue="#{7}" />
+								<f:selectItem itemLabel="September" itemValue="#{8}" />
+								<f:selectItem itemLabel="October" itemValue="#{9}" />
+								<f:selectItem itemLabel="November" itemValue="#{10}" />
+								<f:selectItem itemLabel="December" itemValue="#{11}" />
+							</h:selectOneMenu>
+							<h:outputText value="Transaction Type" />
+							<h:selectOneMenu value="#{salesReportBean.transactionType}">
+								<f:selectItem itemLabel="All" itemValue="#{'A'}" />
+								<f:selectItem itemLabel="Cash" itemValue="#{'C'}" />
+								<f:selectItem itemLabel="Credit" itemValue="#{'T'}" />
+							</h:selectOneMenu>
+							<h:outputText value="Payment Status" />
+							<h:selectOneMenu value="#{salesReportBean.paymentStatus}">
+								<f:selectItem itemLabel="All" itemValue="#{'A'}" />
+								<f:selectItem itemLabel="Paid" itemValue="#{'P'}" />
+								<f:selectItem itemLabel="Outstanding" itemValue="#{'O'}" />
+							</h:selectOneMenu>
+						</h:panelGrid>
+						<div align="center">
+							<h:commandButton value="Generate"
+								actionListener="#{salesReportBean.generateReport()}"
+								styleClass="q-btn" />
+						</div>
+					</h:form>
+				</div>
+				<br />
+				<h:panelGroup name="summary"
+					rendered="#{salesReportBean.salesReportHolder.completeSales.size() gt 0 or salesReportBean.salesReportHolder.incompleteSales.size() gt 0 or salesReport3Bean.completeSalesReturnsHolders.size() gt 0}">
+					<div>
+						<div class="w3-row">
+							<div align="center">
+								<h:outputText value="Month Summary" styleClass="q-med-text" />
+							</div>
+						</div>
+						<div class="w3-row">
+							<div class="w3-col s12 m6 l3 w3-border">
+								<h:panelGrid columns="2" styleClass="w3-table w3-striped">
+									<h:outputText value="Sales" />
+									<h:outputText value="#{salesReportBean.salesReportHolder.completeSalesTotal}" >
+										<f:convertNumber type="currency" currencySymbol="SR " />
+									</h:outputText>
+
+									<h:outputText value="Sales Return" />
+									<h:outputText value="#{salesReportBean.salesReportHolder.completeSalesReturnTotal}">
+										<f:convertNumber type="currency" currencySymbol="SR " />
+									</h:outputText>
+									<h:outputText value="Net Sales" />
+									<h:outputText styleClass="w3-text-green"
+										value="#{salesReportBean.salesReportHolder.completeSalesTotal - salesReportBean.salesReportHolder.completeSalesReturnTotal}">
+										<f:convertNumber type="currency" currencySymbol="SR " />
+									</h:outputText>
+								</h:panelGrid>
+							</div>
+							<div class="w3-col s12 m6 l3 w3-border">
+								<h:panelGrid columns="2" styleClass="w3-table w3-striped">
+									<h:outputText value="Sales Cost" />
+									<h:outputText value="#{salesReportBean.salesReportHolder.completeSalesCostTotal}"
+										>
+										<f:convertNumber type="currency" currencySymbol="SR " />
+									</h:outputText>
+									<h:outputText value="Return Cost" />
+									<h:outputText
+										value="#{salesReportBean.salesReportHolder.completeSalesReturnCostTotal}">
+										<f:convertNumber type="currency" currencySymbol="SR " />
+									</h:outputText>
+									<h:outputText value="Net Cost" />
+									<h:outputText
+										value="#{salesReportBean.salesReportHolder.completeSalesCostTotal- salesReportBean.salesReportHolder.completeSalesReturnCostTotal}" styleClass="w3-text-red">
+										<f:convertNumber type="currency" currencySymbol="SR " />
+									</h:outputText>
+								</h:panelGrid>
+							</div>
+							<div class="w3-col s12 m6 l3 w3-border">
+								<h:panelGrid columns="2" styleClass="w3-table w3-striped">
+									<h:outputText value="Sales Profit" />
+									<h:outputText
+										value="#{salesReportBean.salesReportHolder.completeSalesTotal - salesReportBean.salesReportHolder.completeSalesCostTotal}">
+										<f:convertNumber type="currency" currencySymbol="SR " />
+									</h:outputText>
+									<h:outputText value="Net Return" />
+									<h:outputText value="#{salesReportBean.salesReportHolder.completeSalesReturnCostTotal - salesReportBean.salesReportHolder.completeSalesReturnTotal}">
+										<f:convertNumber type="currency" currencySymbol="SR " />
+									</h:outputText>
+									<h:outputText value="Net Profit" />
+									<h:outputText value="#{(salesReportBean.salesReportHolder.completeSalesTotal - salesReportBean.salesReportHolder.completeSalesReturnTotal)  - (salesReportBean.salesReportHolder.completeSalesCostTotal - salesReportBean.salesReportHolder.completeSalesReturnCostTotal)}" styleClass="w3-text-green">
+										<f:convertNumber type="currency" currencySymbol="SR " />
+									</h:outputText>
+								</h:panelGrid>
+							</div>
+
+							<div class="w3-col s12 m6 l3 w3-border">
+								<h:panelGrid columns="2" styleClass="w3-table w3-striped" >
+									<h:outputText value="Sales" style="background-color:#8b0000;" styleClass="w3-tag w3-text-white" />
+									<h:outputText value="#{salesReportBean.salesReportHolder.incompleteSalesTotal}">
+										<f:convertNumber type="currency" currencySymbol="SR " />
+									</h:outputText>
+
+									<h:outputText value="Sales Return" style="background-color:#8b0000;" styleClass="w3-tag w3-text-white" />
+									<h:outputText
+											value="#{salesReportBean.salesReportHolder.incompleteSalesReturnTotal}" >
+										<f:convertNumber type="currency" currencySymbol="SR " />
+									</h:outputText>
+									<h:outputText value="Net Sales" style="background-color:#8b0000;" styleClass="w3-tag w3-text-white" />
+									<h:outputText styleClass="w3-text-green"
+												  value="#{salesReportBean.salesReportHolder.incompleteSalesTotal - salesReportBean.salesReportHolder.incompleteSalesReturnTotal}">
+										<f:convertNumber type="currency" currencySymbol="SR " />
+									</h:outputText>
+								</h:panelGrid>
+							</div>
+						</div>
+						<br/>
+					</div>
+
+				</h:panelGroup>
+				<br />
+				<div>
+					<p:panel toggleable="true" header="Complete Sales (#{salesReportBean.salesReportHolder.completeSales.size()})" collapsed="false"
+							 toggleSpeed="100">
+						<h:dataTable value="#{salesReportBean.salesReportHolder.completeSales}"
+							rendered="#{salesReportBean.salesReportHolder.completeSales.size() gt 0}"
+							var="sales" styleClass="w3-table w3-striped w3-border"
+							headerClass="w3-light-grey w3-border-bottom"
+							footerClass="w3-light-grey w3-border-top">
+							<f:facet name="header">
+								<div align="center">
+									<h:outputText value="Complete Sales Summary" />
+								</div>
+							</f:facet>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="SALES#" />
+								</f:facet>
+								<h:outputLink value="sales-details?id=#{sales.id}">
+									<h:outputText value="#{sales.id}" />
+								</h:outputLink>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="CART#" />
+								</f:facet>
+								<h:outputText value="#{sales.cartId}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="CUSTOMER" />
+								</f:facet>
+								<h:outputLink value="customer-details?id=#{sales.customerId}">
+									<h:outputText value="#{sales.customerId} #{sales.customer.fullName}" />
+								</h:outputLink>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="DATE" />
+								</f:facet>
+								<h:outputText value="#{sales.invoiceDate}">
+									<f:convertDateTime pattern="d" />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="SUBTOTAL" />
+								</f:facet>
+								<h:outputText value="#{sales.grandTotal}"
+									style="color:green;">
+									<f:convertNumber type="currency" currencySymbol="" />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="COST" />
+								</f:facet>
+								<h:outputText value="#{sales.grandTotalCost}" styleClass="w3-text-red">
+									<f:convertNumber type="currency" currencySymbol="" />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="PROFIT" />
+								</f:facet>
+								<h:outputText
+									value="#{sales.grandTotal  - sales.grandTotalCost}" styleClass="q-bold" >
+									<f:convertNumber type="currency" currencySymbol=" " />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="STATUS" />
+								</f:facet>
+								<h:outputText rendered="#{sales.paymentStatus eq 'O'}" value="Outstanding" />
+								<h:outputText rendered="#{sales.paymentStatus eq 'P'}" value="Paid" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="TYPE" />
+								</f:facet>
+								<h:outputText rendered="#{sales.transactionType eq 'C'}" value="Cash" />
+								<h:outputText rendered="#{sales.transactionType eq 'T'}" value="Credit" />
+							</h:column>
+						</h:dataTable>
+						<br />
+					</p:panel>
+					<br/>
+					<p:panel toggleable="true" header="Incomplete Sales (#{salesReportBean.salesReportHolder.incompleteSales.size()})" collapsed="false"
+							 toggleSpeed="100">
+						<h:dataTable value="#{salesReportBean.salesReportHolder.incompleteSales}"
+									 rendered="#{salesReportBean.salesReportHolder.incompleteSales.size() gt 0}"
+									 var="sales" styleClass="w3-table w3-striped w3-border"
+									 headerClass="w3-light-grey w3-border-bottom"
+									 footerClass="w3-light-grey w3-border-top">
+							<f:facet name="header">
+								<div align="center">
+									<h:outputText value="Incomplete Sales Summary" />
+								</div>
+							</f:facet>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Sales ID" />
+								</f:facet>
+								<h:outputText value="#{sales.id}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Cart#" />
+								</f:facet>
+								<h:outputText value="#{sales.cartId}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Customer" />
+								</f:facet>
+								<h:outputLink value="customer-details?id=#{sales.customerId}">
+									<h:outputText value="#{sales.customerId} #{sales.customer.fullName}" />
+								</h:outputLink>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Date" />
+								</f:facet>
+								<h:outputText value="#{sales.created}">
+									<f:convertDateTime pattern="d" />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Total" />
+								</f:facet>
+								<h:outputText value="#{sales.productsTotalWv}"
+											  style="color:green;">
+									<f:convertNumber type="currency" currencySymbol="" />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Delivery" />
+								</f:facet>
+								<h:outputText value="#{sales.deliveryFeesWv}"
+											  style="color:green;">
+									<f:convertNumber type="currency" currencySymbol="" />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Promo" />
+								</f:facet>
+								<h:outputText value="#{sales.discountTotal}"
+											  rendered="#{sales.discountTotal gt 0}"
+											  style="color:red;">
+									<f:convertNumber type="currency" currencySymbol="" />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Status" />
+								</f:facet>
+								<h:outputText rendered="#{sales.paymentStatus eq 'O'}" value="Outstanding" />
+								<h:outputText rendered="#{sales.paymentStatus eq 'P'}" value="Paid" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Type" />
+								</f:facet>
+								<h:outputText rendered="#{sales.paymentStatus eq 'C'}" value="Cash" />
+								<h:outputText rendered="#{sales.paymentStatus eq 'T'}" value="Credit" />
+							</h:column>
+						</h:dataTable>
+					</p:panel>
+					<br/>
+					<p:panel toggleable="true" header="Complete Sales Return (#{salesReportBean.salesReportHolder.completeSalesReturn.size()})" collapsed="false"
+							 toggleSpeed="100">
+					<h:dataTable
+						value="#{salesReportBean.salesReportHolder.completeSalesReturn}"
+						rendered="#{salesReportBean.salesReportHolder.completeSalesReturn.size() gt 0}"
+						var="sr" styleClass="w3-table w3-striped w3-border"
+						headerClass="w3-light-grey w3-border-bottom"
+						footerClass="w3-light-grey w3-border-top">
+						<f:facet name="header">
+							<div align="center">
+								<h:outputText value="Complete Sales Return Summary" />
+							</div>
+						</f:facet>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="RETURN#" />
+							</f:facet>
+							<h:outputLink value="sales-return-details?id=#{sr.id}">
+								<h:outputText value="#{sr.id}" />
+							</h:outputLink>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="CART#" />
+							</f:facet>
+							<h:outputText value="#{sr.cartId}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="CUSTOMER" />
+							</f:facet>
+							<h:outputLink value="customer-details?id=#{sr.customerId}">
+								<h:outputText value="#{sr.customerId} #{sr.customer.fullName}" />
+							</h:outputLink>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="DATE" />
+							</f:facet>
+							<h:outputText value="#{sr.returnDate}">
+								<f:convertDateTime pattern="d" />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="SUBTOTAL" />
+							</f:facet>
+							<h:outputText value="#{sr.subTotal + sr.totalVat}" styleClass="w3-text-red">
+								<f:convertNumber type="currency" currencySymbol="" />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="PENALTY" />
+							</f:facet>
+							<h:outputText value="#{sr.penaltyFees}" styleClass="w3-text-green">
+								<f:convertNumber type="currency" currencySymbol="" />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="NET RETURN" />
+							</f:facet>
+							<h:outputText value="#{sr.grandTotal}"
+								styleClass="q-bold">
+								<f:convertNumber type="currency" currencySymbol="SR " />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="COST" />
+							</f:facet>
+							<h:outputText value="#{sr.grandTotalCost}" styleClass="w3-text-green">
+								<f:convertNumber type="currency" currencySymbol="SR " />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Profit" />
+							</f:facet>
+							<h:outputText
+								value="#{sr.grandTotalCost - sr.grandTotal}">
+								<f:convertNumber type="currency" currencySymbol="SR " />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="STATUS" />
+							</f:facet>
+							<h:outputText rendered="#{sr.paymentStatus eq 'P'}" value="Paid" />
+							<h:outputText rendered="#{sr.paymentStatus eq 'O'}" value="Outstanding" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Type" />
+							</f:facet>
+							<h:outputText rendered="#{sr.transactionType eq 'C'}" value="Cash" />
+							<h:outputText rendered="#{sr.transactionType eq 'T'}" value="Credit" />
+						</h:column>
+					</h:dataTable>
+					</p:panel>
+					<br/>
+					<p:panel toggleable="true" header="Incomplete Sales Return (#{salesReportBean.salesReportHolder.incompleteSalesReturn.size()})" collapsed="false"
+							 toggleSpeed="100">
+						<h:dataTable
+								value="#{salesReportBean.salesReportHolder.incompleteSalesReturn}"
+								rendered="#{salesReportBean.salesReportHolder.incompleteSalesReturn.size() gt 0}"
+								var="sr" styleClass="w3-table w3-striped w3-border"
+								headerClass="w3-light-grey w3-border-bottom"
+								footerClass="w3-light-grey w3-border-top">
+							<f:facet name="header">
+								<div align="center">
+									<h:outputText value="Complete Sales Return Summary" />
+								</div>
+							</f:facet>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="RETURN#" />
+								</f:facet>
+								<h:outputLink value="sales-return-details?id=#{sr.id}">
+									<h:outputText value="#{sr.id}" />
+								</h:outputLink>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="CART#" />
+								</f:facet>
+								<h:outputText value="#{sr.cartId}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="CUSTOMER" />
+								</f:facet>
+								<h:outputLink value="customer-details?id=#{sr.customerId}">
+									<h:outputText value="#{sr.customerId} #{sr.customer.fullName}" />
+								</h:outputLink>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="DATE" />
+								</f:facet>
+								<h:outputText value="#{sr.returnDate}">
+									<f:convertDateTime pattern="d" />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="SUBTOTAL" />
+								</f:facet>
+								<h:outputText value="#{sr.subTotal + sr.totalVat}" styleClass="w3-text-red">
+									<f:convertNumber type="currency" currencySymbol="" />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="PENALTY" />
+								</f:facet>
+								<h:outputText value="#{sr.penaltyFees}" styleClass="w3-text-green">
+									<f:convertNumber type="currency" currencySymbol="" />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="NET RETURN" />
+								</f:facet>
+								<h:outputText value="#{sr.grandTotal}"
+											  styleClass="q-bold">
+									<f:convertNumber type="currency" currencySymbol="SR " />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="COST" />
+								</f:facet>
+								<h:outputText value="#{sr.grandTotalCost}" styleClass="w3-text-green">
+									<f:convertNumber type="currency" currencySymbol="SR " />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Profit" />
+								</f:facet>
+								<h:outputText
+										value="#{sr.grandTotalCost - sr.grandTotal}">
+									<f:convertNumber type="currency" currencySymbol="SR " />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="STATUS" />
+								</f:facet>
+								<h:outputText rendered="#{sr.paymentStatus eq 'P'}" value="Paid" />
+								<h:outputText rendered="#{sr.paymentStatus eq 'O'}" value="Outstanding" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Type" />
+								</f:facet>
+								<h:outputText rendered="#{sr.transactionType eq 'C'}" value="Cash" />
+								<h:outputText rendered="#{sr.transactionType eq 'T'}" value="Credit" />
+							</h:column>
+						</h:dataTable>
+					</p:panel>
+
+				</div>
+
+			</div>
+</h:body>
+</html>
