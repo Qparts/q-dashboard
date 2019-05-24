@@ -134,6 +134,54 @@
                             </div>
                         </p:panel>
                     </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div id="" class="w3-col s12 w3-padding-24">
+                        <p:panel toggleable="true" header="Quotation Items" collapsed="true"
+                                 toggleSpeed="100">
+                            <div class="w3-row">
+                                <div class="w3-col s12">
+                                    <p:commandButton value="Add New Item" styleClass="q-btn" onclick="PF('newQuotationItemDlgwv').show();"  />
+                                    <h:dataTable binding="#{table}" id="items-table" value="#{quotationDetailsBean.quotation.quotationItems}" var="qi" headerClass="w3-light-grey w3-border-bottom" styleClass="w3-table w3-striped w3-border">
+                                        <f:facet name="header">
+                                            <h:outputText value="Quotation Item" />
+                                        </f:facet>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Item Name"/>
+                                            </f:facet>
+                                            <h:outputText value="#{qi.name}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Quantity"/>
+                                            </f:facet>
+                                            <h:outputText value="#{qi.quantity}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Item Name"/>
+                                            </f:facet>
+                                            <h:graphicImage value="#{qi.imageLink}" width="50" id="myImg" onclick="loadModal(#{table.rowIndex} + ':myImg');" rendered="#{qi.imageAttached}" />
+                                            <h:graphicImage value="https://s3.eu-central-1.amazonaws.com/q-product/na.png" width="50" rendered="#{not qi.imageAttached}"/>
+                                        </h:column>
+                                    </h:dataTable>
+                                </div>
+                            </div>
+                            <div id="myModal" class="modal">
+                                <!-- The Close Button -->
+                                <span class="close">&times;</span>
+                                <!-- Modal Content (The Image) -->
+                                <img class="modal-content" id="img01" />
+                                <!-- Modal Caption (Image Text) -->
+                                <div id="caption"></div>
+                            </div>
+                            <br/>
+                        </p:panel>
+                    </div>
+
+
                     <div id="comments-div" class="w3-col s12 m6 w3-padding-24 w3-container">
                         <p:panel toggleable="true" id="comments-panel"
                                  header="Comments #{quotationDetailsBean.quotation.comments.size() gt 0 ? quotationDetailsBean.quotation.comments.size() : ' '}"
@@ -500,5 +548,170 @@
             </div>
         </p:dialog>
     </h:form>
+
+    <h:form id="new-quotation-item-form">
+        <p:dialog id="nqi-dlg" widgetVar="newQuotationItemDlgwv" styleClass="q-dialog" header="New Quotation Item">
+            <h:panelGrid columns="2" styleClass="w3-striped w3-table">
+                <h:outputText value="Name"/>
+                <h:inputText value="#{quotationDetailsBean.newQuotationItem.name}"/>
+                <h:outputText value="Quantity"/>
+                <h:selectOneMenu value="#{quotationDetailsBean.newQuotationItem.quantity}">
+                    <f:selectItem itemValue="#{1}" itemLabel="1"/>
+                    <f:selectItem itemValue="#{2}" itemLabel="2"/>
+                    <f:selectItem itemValue="#{3}" itemLabel="3"/>
+                    <f:selectItem itemValue="#{4}" itemLabel="4"/>
+                    <f:selectItem itemValue="#{5}" itemLabel="5"/>
+                    <f:selectItem itemValue="#{6}" itemLabel="6"/>
+                    <f:selectItem itemValue="#{7}" itemLabel="7"/>
+                    <f:selectItem itemValue="#{8}" itemLabel="8"/>
+                    <f:selectItem itemValue="#{9}" itemLabel="9"/>
+                    <f:selectItem itemValue="#{10}" itemLabel="10"/>
+                    <f:selectItem itemValue="#{11}" itemLabel="11"/>
+                    <f:selectItem itemValue="#{12}" itemLabel="12"/>
+                    <f:selectItem itemValue="#{13}" itemLabel="13"/>
+                    <f:selectItem itemValue="#{14}" itemLabel="14"/>
+                    <f:selectItem itemValue="#{15}" itemLabel="15"/>
+                    <f:selectItem itemValue="#{16}" itemLabel="16"/>
+                    <f:selectItem itemValue="#{17}" itemLabel="17"/>
+                    <f:selectItem itemValue="#{18}" itemLabel="18"/>
+                    <f:selectItem itemValue="#{19}" itemLabel="19"/>
+                    <f:selectItem itemValue="#{20}" itemLabel="20"/>
+                </h:selectOneMenu>
+            </h:panelGrid>
+            <div align="center">
+                <p:commandButton value="Add" styleClass="q-btn" actionListener="#{quotationDetailsBean.addNewQuotationItem}" update=":form-g" />
+            </div>
+        </p:dialog>
+    </h:form>
+
+
+    <h:outputStylesheet>
+        #myImg {
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #myImg:hover {
+            opacity: 0.7;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0); /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
+        }
+
+        /* Modal Content (image) */
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        /* Caption of Modal Image */
+        #caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
+        }
+
+        /* Add Animation */
+        .modal-content, #caption {
+            -webkit-animation-name: zoom;
+            -webkit-animation-duration: 0.6s;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        @
+        -webkit-keyframes zoom {
+        from {-webkit-transform: scale(0)
+        }
+
+        to {
+            -webkit-transform: scale(1)
+        }
+
+        }
+        @
+        keyframes zoom {
+        from {transform: scale(0)
+        }
+
+        to {
+            transform: scale(1)
+        }
+        }
+
+        /* The Close Button */
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close:hover, .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    </h:outputStylesheet>
+
+    <style>
+
+    </style>
+
+    <h:outputScript>
+        //<![CDATA[
+        // Get the modal
+        function loadModal(id){
+            console.log(id);
+            var modal = document.getElementById('myModal');
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var imgName = 'items-table:' + id;
+            console.log(imgName);
+            var img = document.getElementById(imgName);
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+
+            modal.style.display = "block";
+            modalImg.src = img.src;
+            captionText.innerHTML = img.alt;
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+        }
+
+        //]]>
+    </h:outputScript>
+
+
+
 </h:body>
 </html>

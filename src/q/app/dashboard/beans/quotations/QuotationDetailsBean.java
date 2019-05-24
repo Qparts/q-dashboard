@@ -10,10 +10,7 @@ import q.app.dashboard.model.cart.CartProduct;
 import q.app.dashboard.model.customer.Customer;
 import q.app.dashboard.model.customer.EmailSent;
 import q.app.dashboard.model.product.ProductHolder;
-import q.app.dashboard.model.quotation.BillItem;
-import q.app.dashboard.model.quotation.BillItemResponse;
-import q.app.dashboard.model.quotation.Comment;
-import q.app.dashboard.model.quotation.Quotation;
+import q.app.dashboard.model.quotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -33,6 +30,7 @@ public class QuotationDetailsBean implements Serializable {
     private Quotation quotation;
     private Customer customer;
     private Comment newComment;
+    private QuotationItem newQuotationItem;
     private Cart cart;
 
     @Inject
@@ -52,11 +50,26 @@ public class QuotationDetailsBean implements Serializable {
             initCustomer();
             initProducts();
             quotation.setCustomer(customer);
+            newQuotationItem = new QuotationItem();
             cart = new Cart();
             newComment = new Comment();
 
         } catch (Exception ex) {
             Helper.redirect("quotation-search");
+        }
+    }
+
+    public void addNewQuotationItem(){
+        newQuotationItem.setImageAttached(false);
+        newQuotationItem.setQuotationId(this.quotation.getId());
+        HashMap<String,Object> map = new HashMap<String,Object>();
+        map.put("quotationItem", newQuotationItem);
+        map.put("createdBy",loginBean.getLoggedUserId());
+        Response r = reqs.postSecuredRequest(AppConstants.POST_NEW_QUOTATION_ITEM, map);
+        if(r.getStatus() == 201){
+            Helper.redirect("quotation-details?id=" + quotation.getId());
+        } else{
+            Helper.addErrorMessage("Error code " + r.getStatus());
         }
     }
 
@@ -201,5 +214,13 @@ public class QuotationDetailsBean implements Serializable {
 
     public void setNewComment(Comment newComment) {
         this.newComment = newComment;
+    }
+
+    public QuotationItem getNewQuotationItem() {
+        return newQuotationItem;
+    }
+
+    public void setNewQuotationItem(QuotationItem newQuotationItem) {
+        this.newQuotationItem = newQuotationItem;
     }
 }

@@ -209,6 +209,7 @@ public class AppConstants {
     public final static String GET_PENDING_QUOTATIONS = QUOTATION_SERVICE + "quotations/pending";
     public final static String PUT_MERGE_QUOTATIONS = QUOTATION_SERVICE + "merge-quotations";
     public final static String POST_BILL_ITEM_RESPONSE = QUOTATION_SERVICE + "bill-item-response";
+    public final static String POST_NEW_QUOTATION_ITEM = QUOTATION_SERVICE + "quotation-item";
     public final static String getQuotation(long quotationId) {
         return QUOTATION_SERVICE + "quotation/" + quotationId;
     }
