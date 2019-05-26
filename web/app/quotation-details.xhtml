@@ -142,7 +142,7 @@
                                  toggleSpeed="100">
                             <div class="w3-row">
                                 <div class="w3-col s12">
-                                    <p:commandButton value="Add New Item" styleClass="q-btn" onclick="PF('newQuotationItemDlgwv').show();"  />
+                                    <p:commandButton value="Add New Item" styleClass="q-btn" onclick="PF('newQuotationItemDlgwv').show();" rendered="#{quotationDetailsBean.quotation.status eq 'S' or quotationDetailsBean.quotation.status eq 'X' or quotationDetailsBean.quotation.status eq 'C'}"  />
                                     <h:dataTable binding="#{table}" id="items-table" value="#{quotationDetailsBean.quotation.quotationItems}" var="qi" headerClass="w3-light-grey w3-border-bottom" styleClass="w3-table w3-striped w3-border">
                                         <f:facet name="header">
                                             <h:outputText value="Quotation Item" />

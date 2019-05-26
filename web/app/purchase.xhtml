@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>New Purchase Order</title>
+    <ui:include src="/_includes/header.xhtml"/>
+</h:head>
+<h:body>
+    <h:outputText
+            value="#{loginBean.checkAccessRedirectHome(act.pageCreatePurchase)}"/>
+    <ui:include src="/_includes/top.xhtml"/>
+    <ui:include src="/_includes/side.xhtml"/>
+    <div>
+        <div class="w3-main">
+            <div class="w3-container">
+                <div align="center" class="w3-padding-8">
+                    <h:outputText value="New Purchase Order" styleClass="q-large-text"/>
+                </div>
+                <h:form id="form-g">
+                    <p:growl id="error-growl"
+                             rendered="#{facesContext.maximumSeverity.ordinal eq 2}"/>
+                    <p:growl id="success-growl"
+                             rendered="#{facesContext.maximumSeverity.ordinal eq 0}"/>
+                </h:form>
+                    <div class="w3-row w3-padding-24">
+                        <div class="w3-container w3-col s12 m6">
+                            <div class="w3-col s12 w3-padding-16">
+                                <h:form id="form">
+                                    <div class="w3-col s12 m2"><h:outputText value="Product Number"/></div>
+                                    <div class="w3-col s6 m8"><h:inputText value="#{productSearchBean.query}" style="width: 100%" /></div>
+                                    <div class="w3-col s6 m2"><p:commandButton value="Search" actionListener="#{productSearchBean.searchByNumber()}" styleClass="q-btn" update=":form1" style="float:right"/></div>
+                                </h:form>
+                            </div>
+                            <div class="w3-col s12">
+                                <h:form id="form3">
+                                    <h:dataTable value="#{newPurchaseOrder.purchase.purchaseProducts}" var="pp" styleClass="w3-table w3-striped w3-border" headerClass="w3-light-grey w3-border-bottom">
+                                        <div align="center">
+                                            <h:outputText value="Purchase Order Products"/>
+                                        </div>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Product ID"/>
+                                            </f:facet>
+                                            <h:outputText value="#{pp.productId}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Number"/>
+                                            </f:facet>
+                                            <h:outputText value="#{pp.holder.product.productNumber}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Brand"/>
+                                            </f:facet>
+                                            <h:outputText value="#{pp.holder.product.brand.name}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Quantity"/>
+                                            </f:facet>
+                                            <h:outputText value="#{pp.quantity}"/>
+                                        </h:column>
+                                    </h:dataTable>
+                                </h:form>
+                            </div>
+                        </div>
+                        <div class="w3-container w3-col s12 m6 ">
+                            <h:form id="form1">
+                                <h:dataTable value="#{productSearchBean.foundProductHolders}" var="holder" styleClass="w3-table w3-striped w3-border" headerClass="w3-light-grey w3-border-bottom">
+                                    <f:facet name="header">
+                                        <div align="center">
+                                            <h:outputText value="Search Results"/>
+                                        </div>
+                                    </f:facet>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="ID"/>
+                                        </f:facet>
+                                        <h:outputText value="#{holder.product.id}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Number"/>
+                                        </f:facet>
+                                        <h:outputText value="#{holder.product.productNumber}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Brand"/>
+                                        </f:facet>
+                                        <h:outputText value="#{holder.product.brand.name}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Stock Q."/>
+                                        </f:facet>
+                                        <h:outputText value="#{holder.stockQuantity}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Select"/>
+                                        </f:facet>
+                                        <p:commandButton value="Select" styleClass="q-btn" oncomplete="PF('dlgwv').show()" update=":form2"
+                                                         actionListener="#{newPurchaseOrder.setSelectedProductHolder(holder)}"  />
+                                    </h:column>
+                                </h:dataTable>
+                            </h:form>
+                        </div>
+                        <div class="w3-row">
+                        <div class="w3-container w3-col s12 m6 w3-padding-16">
+                            <h:form id="form4">
+                                <div class="w3-row w3-padding-16">
+                                    <div class="w3-col s4 m2 ">
+                                        <h:outputText value="Vendor"/>
+                                    </div>
+                                    <div class="w3-col s8 m10">
+                                        <p:autoComplete placeholder="Type Vendor name" id="vendorCustom"
+                                                        maxResults="10"
+                                                        styleClass="q-auto-complete" required="true"
+                                                        value="#{newPurchaseOrder.purchase.vendorId}" dropdown="true"
+                                                        completeMethod="#{vendorsBean.completeVendorIds}" var="b"
+                                                        itemLabel="#{vendorsBean.getVendorFromId(b).name}"
+                                                        itemValue="#{vendorsBean.getVendorFromId(b).id}"
+                                                        forceSelection="true" style="width: 100%!important;">
+                                            <p:ajax/>
+                                        </p:autoComplete>
+                                    </div>
+                                </div>
+                                <div class="w3-row w3-padding-16">
+                                    <div class="w3-col s4 m2">
+                                        <h:outputText value="Transaction Type"/>
+                                    </div>
+                                    <div class="w3-col s8 m10">
+                                        <h:selectOneMenu value="#{newPurchaseOrder.purchase.transactionType}" requiredMessage="Select Transaction Type" required="true" >
+                                            <f:selectItem itemLabel="--Select Transaction Type--" noSelectionOption="true" />
+                                            <f:selectItem itemLabel="Credit" itemValue="#{'T'}" />
+                                            <f:selectItem itemLabel="Cash" itemValue="#{'C'}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="w3-row w3-padding-16">
+                                    <p:commandButton value="Create Purchase" actionListener="#{newPurchaseOrder.createPurchase()}" styleClass="q-btn" update=":form-g" />
+                                </div>
+                            </h:form>
+                        </div>
+                        </div>
+                    </div>
+
+                <h:form id="form2">
+                    <p:dialog styleClass="q-dialog" id="dlg" widgetVar="dlgwv" header="Purchase Order Product">
+                        <h:panelGrid columns="2">
+                            <h:outputText value="ID"/>
+                            <h:outputText value="#{newPurchaseOrder.selectedProductHolder.product.id}"/>
+                            <h:outputText value="Nuumber"/>
+                            <h:outputText value="#{newPurchaseOrder.selectedProductHolder.product.productNumber}"/>
+                            <h:outputText value="Brand"/>
+                            <h:outputText value="#{newPurchaseOrder.selectedProductHolder.product.brand.name}"/>
+                            <h:outputText value="Name"/>
+                            <h:outputText value="#{newPurchaseOrder.selectedProductHolder.product.desc}"/>
+                            <h:outputText value="Quantity"/>
+                            <h:inputText value="#{newPurchaseOrder.newPurchaseProduct.quantity}"/>
+                            <p:commandButton value="Add" actionListener="#{newPurchaseOrder.addProductToPurchae}" update=":form-g :form3" oncomplete="PF('dlgwv').hide()" styleClass="q-btn" />
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+            </div>
+        </div>
+    </div>
+</h:body>
+</html>

@@ -13,6 +13,15 @@ public class Stock implements Serializable {
     private double costActual;
     private Date created;
     private int createdBy;
+    private int vendorId;
+
+    public int getVendorId() {
+        return vendorId;
+    }
+
+    public void setVendorId(int vendorId) {
+        this.vendorId = vendorId;
+    }
 
     public long getId() {
         return id;

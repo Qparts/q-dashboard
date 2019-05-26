@@ -41,10 +41,23 @@ public class ProductSearchBean implements Serializable {
     public void searchByNumber(){
         Map<String,Object> map = new HashMap();
         map.put("number", query);
+        map.put("inStock", false);
         Response r = reqs.postSecuredRequest(AppConstants.SEARCH_PRODUCT_BY_NUMBER,  map);
         if(r.getStatus() == 200){
             this.foundProductHolders = r.readEntity(new GenericType<List<ProductHolder>>(){});
          }
+    }
+
+
+
+    public void searchStockByNumber(){
+        Map<String,Object> map = new HashMap();
+        map.put("number", query);
+        map.put("inStock", true);
+        Response r = reqs.postSecuredRequest(AppConstants.SEARCH_PRODUCT_BY_NUMBER,  map);
+        if(r.getStatus() == 200){
+            this.foundProductHolders = r.readEntity(new GenericType<List<ProductHolder>>(){});
+        }
     }
 
 

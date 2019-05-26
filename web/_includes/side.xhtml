@@ -72,8 +72,9 @@
 					<div class="w3-dropdown-content w3-bar-block w3-border">
 					 	<h:outputLink value="/app/sales-search" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageSalesSearch)}">Sales Search</h:outputLink>
 						<h:outputLink value="/app/purchase-search" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pagePurchaseSearch)}">Purchase Search</h:outputLink>
-					 	<h:outputLink style="color:greenyellow;display:none;" value="/app/purchase-return-search" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pagePurchaseReturn)}">Purchase Return</h:outputLink>
-					 	<h:outputLink style="color:greenyellow;display:none;" value="/app/payables" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pagePayables)}">Payables</h:outputLink>
+					 	<h:outputLink value="/app/purchase-return" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pagePurchaseReturn)}">Purchase Return</h:outputLink>
+						<h:outputLink value="/app/purchase" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageCreatePurchase)}">New Purchase</h:outputLink>
+						<h:outputLink style="color:greenyellow;display:none;" value="/app/payables" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pagePayables)}">Payables</h:outputLink>
       					<h:outputLink style="color:greenyellow;display:none;" value="/app/receivables" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageReceivables)}">Receivables</h:outputLink>
       					<h:outputLink value="/app/purchases-incomplete" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageIncompletePurchases)}">Incompletes</h:outputLink>
 						<h:outputLink value="/app/sales-report" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageSalesReport)}">Sales Report</h:outputLink>
