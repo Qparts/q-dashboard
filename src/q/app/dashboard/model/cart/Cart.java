@@ -23,7 +23,8 @@ public class Cart implements Serializable {
     private List<CartProduct> cartProducts;
     private List<CartComment> cartComments;
     private CartDelivery cartDelivery;
-    private CartDiscount cartDiscount;
+    private Discount discount;
+
     @JsonIgnore
     private Customer customer;
 
@@ -70,7 +71,7 @@ public class Cart implements Serializable {
     @JsonIgnore
     public double getDeliveryFees(){
         try{
-            if(cartDelivery.getStatus() != 'R') {
+            if(cartDelivery.getStatus() == 'N') {
                 return cartDelivery.getDeliveryCharges();
             }
             return 0;
@@ -81,26 +82,28 @@ public class Cart implements Serializable {
 
     @JsonIgnore
     public double getDiscountTotal(){
+        double total = 0;
         try{
-            if(cartDiscount.getDiscount().getDiscountType() == 'P'){
-                return -1 * cartDiscount.getDiscount().getPercentage() * getProductsTotal();
+            if(discount.getDiscountType() == 'D'){
+                total += getDeliveryFees();
             }
-            if(cartDiscount.getDiscount().getDiscountType() == 'D'){
-                return -1 * getDeliveryFees();
-            }
-            throw new NullPointerException();
-        }catch (NullPointerException nu){
-            return 0;
+        }catch (NullPointerException ignore){
+
         }
+
+        for(CartProduct cp : cartProducts){
+            total += cp.getTotalDiscount();
+        }
+        return total;
     }
 
     @JsonIgnore
     public double getDiscountTotalNewQuantity(){
         try{
-            if(cartDiscount.getDiscount().getDiscountType() == 'P'){
-                return -1 * cartDiscount.getDiscount().getPercentage() * getProductsTotalNewQuantity();
+            if(discount.getDiscountType() == 'P'){
+                return -1 * discount.getPercentage() * getProductsTotalNewQuantity();
             }
-            if(cartDiscount.getDiscount().getDiscountType() == 'D'){
+            if(discount.getDiscountType() == 'D'){
                 return -1 * getDeliveryFees();
             }
             throw new NullPointerException();
@@ -112,7 +115,7 @@ public class Cart implements Serializable {
 
     @JsonIgnore
     public double getSubTotal(){
-        return getProductsTotal() +  getDeliveryFees() +  getDiscountTotal();
+        return getProductsTotal() +  getDeliveryFees() -  getDiscountTotal();
     }
 
     @JsonIgnore
@@ -149,14 +152,6 @@ public class Cart implements Serializable {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
-    }
-
-    public CartDiscount getCartDiscount() {
-        return cartDiscount;
-    }
-
-    public void setCartDiscount(CartDiscount cartDiscount) {
-        this.cartDiscount = cartDiscount;
     }
 
     public CartDelivery getCartDelivery() {
@@ -246,5 +241,13 @@ public class Cart implements Serializable {
 
     public void setCartComments(List<CartComment> cartComments) {
         this.cartComments = cartComments;
+    }
+
+    public Discount getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
     }
 }

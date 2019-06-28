@@ -24,6 +24,14 @@ public class SalesProduct implements Serializable {
     private ProductHolder productHolder;
 
 
+    @JsonIgnore
+    public double getUnitDiscount(){
+        if(discountPercentage != null)
+           return unitSales * discountPercentage;
+        return 0;
+    }
+
+
     public ProductHolder getProductHolder() {
         return productHolder;
     }
@@ -82,6 +90,11 @@ public class SalesProduct implements Serializable {
 
     public double getUnitSales() {
         return unitSales;
+    }
+
+    @JsonIgnore
+    public double getUnitSalesWithDiscount() {
+        return unitSales - getUnitDiscount();
     }
 
     @JsonIgnore

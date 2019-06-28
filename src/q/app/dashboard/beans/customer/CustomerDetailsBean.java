@@ -1,13 +1,18 @@
 package q.app.dashboard.beans.customer;
 
 import q.app.dashboard.beans.common.LoginBean;
+import q.app.dashboard.beans.common.MakesBean;
 import q.app.dashboard.beans.common.Requester;
 import q.app.dashboard.helper.AppConstants;
 import q.app.dashboard.helper.Helper;
 import q.app.dashboard.model.cart.Cart;
+import q.app.dashboard.model.cart.CustomerWallet;
 import q.app.dashboard.model.customer.Customer;
 import q.app.dashboard.model.customer.CustomerAddress;
+import q.app.dashboard.model.customer.CustomerVehicle;
 import q.app.dashboard.model.product.ProductPrice;
+import q.app.dashboard.model.quotation.CreateQuotationItemRequest;
+import q.app.dashboard.model.quotation.CreateQuotationRequest;
 import q.app.dashboard.model.quotation.Quotation;
 
 import javax.annotation.PostConstruct;
@@ -27,7 +32,10 @@ public class CustomerDetailsBean implements Serializable {
     private Customer customer;
     private List<Quotation> quotations;
     private List<Cart> carts;
+    private List<CustomerWallet> wallets;
     private CustomerAddress newAddress;
+    private double liveWallet;
+    private CreateQuotationRequest newQuotation;
 
     @Inject
     private Requester reqs;
@@ -35,6 +43,8 @@ public class CustomerDetailsBean implements Serializable {
     @Inject
     private LoginBean loginBean;
 
+    @Inject
+    private MakesBean makesBean;
 
     @PostConstruct
     private void init(){
@@ -45,10 +55,52 @@ public class CustomerDetailsBean implements Serializable {
             initCustomer(s);
             initQuotations();
             initCarts();
+            initWallets();
+            initLiveWallet();
             newAddress = new CustomerAddress();
+            newQuotation = new CreateQuotationRequest();
+            newQuotation.setQuotationItems(new ArrayList<>());
+            addQuotationItem();
         } catch (Exception ex) {
             Helper.redirect("customer-search");
         }
+    }
+
+    public void addQuotationItem(){
+        CreateQuotationItemRequest newQi = new CreateQuotationItemRequest();
+        newQi.setTempId(newQuotation.getIndex());
+        newQuotation.getQuotationItems().add(newQi);
+        newQuotation.increase();
+    }
+
+    public void removeQuotationItem(CreateQuotationItemRequest qi){
+        newQuotation.getQuotationItems().remove(qi);
+    }
+
+    public void createQuotation(){
+        newQuotation.setCustomerId(customer.getId());
+        newQuotation.setMakeId(getMakeIdFromVehicle());
+        newQuotation.setMobile(customer.getMobile());
+        newQuotation.setAppCode(customer.getAppCode());
+        int index = 0;
+        for(CreateQuotationItemRequest qi : newQuotation.getQuotationItems()){
+            qi.setHasImage(false);
+            qi.setTempId(index);
+            index++;
+        }
+        Response r = reqs.postSecuredRequest(AppConstants.POST_NEW_QUOTAITON, newQuotation);
+        System.out.println(AppConstants.POST_NEW_QUOTAITON);
+        if(r.getStatus() == 200){
+            Helper.redirect("customer-details?id=" + customer.getId());
+        }
+        else{
+            Helper.addErrorMessage("Error code " + r.getStatus());
+        }
+    }
+
+    private int getMakeIdFromVehicle(){
+        CustomerVehicle cv = customer.getVehicleFromId(newQuotation.getCustomerVehicleId());
+        return makesBean.getModelYearFromId(cv.getVehicleYearId()).getMake().getId();
     }
 
     public void createAddress(){
@@ -94,6 +146,21 @@ public class CustomerDetailsBean implements Serializable {
         }
     }
 
+    private void initWallets() throws Exception{
+        wallets = new ArrayList<>();
+        Response r = reqs.getSecuredRequest(AppConstants.getCustomerWallets(customer.getId()));
+        if(r.getStatus() == 200){
+            this.wallets = r.readEntity(new GenericType<List<CustomerWallet>>(){});
+        }
+    }
+
+    private void initLiveWallet() throws Exception{
+        Response r=  reqs.getSecuredRequest(AppConstants.getLiveWallet(customer.getId()));
+        if(r.getStatus() == 200){
+            liveWallet = r.readEntity(Double.class);
+        }
+    }
+
     public Customer getCustomer() {
         return customer;
     }
@@ -124,5 +191,30 @@ public class CustomerDetailsBean implements Serializable {
 
     public void setCarts(List<Cart> carts) {
         this.carts = carts;
+    }
+
+
+    public List<CustomerWallet> getWallets() {
+        return wallets;
+    }
+
+    public void setWallets(List<CustomerWallet> wallets) {
+        this.wallets = wallets;
+    }
+
+    public double getLiveWallet() {
+        return liveWallet;
+    }
+
+    public void setLiveWallet(double liveWallet) {
+        this.liveWallet = liveWallet;
+    }
+
+    public CreateQuotationRequest getNewQuotation() {
+        return newQuotation;
+    }
+
+    public void setNewQuotation(CreateQuotationRequest newQuotation) {
+        this.newQuotation = newQuotation;
     }
 }

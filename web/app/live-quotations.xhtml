@@ -38,9 +38,15 @@
 							</f:facet>
 							<h:outputText value="#{quotation.id}" />
 						</h:column>
+						<h:column style="width:100px">
+							<f:facet name="header">
+								<h:outputText value="APP" />
+							</f:facet>
+							<h:graphicImage value="/resources/images/#{webAppBean.getWebAppById(quotation.appCode).webAppLLogoName}" width="60"/>
+						</h:column>
 						<h:column>
 							<f:facet name="header">
-								<h:outputText value="Date" />
+								<h:outputText value="DATE" />
 							</f:facet>
 							<h:outputText value="#{quotation.created}">
 								<f:convertDateTime type="date" />
@@ -48,7 +54,7 @@
 						</h:column>
 						<h:column>
 							<f:facet name="header">
-								<h:outputText value="Customer" />
+								<h:outputText value="CUSTOMER" />
 							</f:facet>
 							<h:outputLink value="customer-details?id=#{quotation.customerId}">
 								<h:outputText value="#{quotation.customer.fullName}" />

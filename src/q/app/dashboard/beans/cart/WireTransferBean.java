@@ -4,11 +4,9 @@ import q.app.dashboard.beans.common.LoginBean;
 import q.app.dashboard.beans.common.Requester;
 import q.app.dashboard.helper.AppConstants;
 import q.app.dashboard.helper.Helper;
-import q.app.dashboard.model.cart.CartComment;
-import q.app.dashboard.model.cart.CartWireTransferRequest;
-import q.app.dashboard.model.cart.CustomerWallet;
-import q.app.dashboard.model.cart.FundWalletWireTransfer;
+import q.app.dashboard.model.cart.*;
 import q.app.dashboard.model.customer.Customer;
+import q.app.dashboard.model.product.ProductHolder;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -43,8 +41,19 @@ public class WireTransferBean implements Serializable {
                 throw new Exception();
             initWireTransfer(param);
             initCustomer();
+            initProducts();
         }catch (Exception ex){
             ex.printStackTrace();
+        }
+    }
+
+
+    private void initProducts(){
+        for(CartProduct cp : wireTransfer.getCart().getCartProducts()){
+            Response r = reqs.getSecuredRequest(AppConstants.getProduct(cp.getProductId()));
+            if(r.getStatus() == 200){
+                cp.setProductHolder(r.readEntity(ProductHolder.class));
+            }
         }
     }
 

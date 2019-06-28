@@ -13,7 +13,7 @@
 </h:head>
 <h:body>
 	<h:outputText
-		value="#{loginBean.checkAccessRedirectHome(act.pageWalletAwaiting)}" />
+		value="#{loginBean.checkAccessRedirectHome(act.pageCartAwaiting)}" />
 	<ui:include src="/_includes/top.xhtml" />
 	<ui:include src="/_includes/side.xhtml" />
 	<div class="w3-container">
@@ -58,9 +58,11 @@
 										</h:selectBooleanCheckbox>
 									</h:panelGroup>
 									<h:outputText value="Live Wallet" />
-										<h:inputText value="#{awaitingCartBean.liveWallet}" readonly="true" styleClass="w3-text-#{awaitingCartBean.liveWallet lt 0 ? 'red' : 'green'} q-bold">
-											<f:convertNumber type="currency" currencySymbol="SR "/>
-										</h:inputText>
+									<h:inputText value="#{awaitingCartBean.liveWallet}" readonly="true" styleClass="w3-text-#{awaitingCartBean.liveWallet lt 0 ? 'red' : 'green'} q-bold">
+										<f:convertNumber type="currency" currencySymbol="SR "/>
+									</h:inputText>
+									<h:outputText value="App" />
+									<h:graphicImage value="/resources/images/#{webAppBean.getWebAppById(awaitingCartBean.cart.appCode).webAppLLogoName}" width="60"/>
 								</h:panelGrid>
 							</div>
 						</div>
@@ -248,7 +250,9 @@
 						<f:facet name="header">
 							<h:outputText value="Product ID" />
 						</f:facet>
-						<h:outputText value="#{cp.productId}" />
+						<h:outputLink value="product-details?id=#{cp.productHolder.product.id}" target="_blank">
+							<h:outputText value="#{cp.productId}" />
+						</h:outputLink>
 					</h:column>
 					<h:column>
 						<f:facet name="header">
@@ -285,6 +289,14 @@
 					</h:column>
 					<h:column>
 						<f:facet name="header">
+							<h:outputText value="Unit Discount" />
+						</f:facet>
+						<h:outputText value="#{cp.discountValue}" styleClass="w3-text-red">
+							<f:convertNumber currencySymbol="SR " type="currency" />
+						</h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
 							<h:outputText value="Quantity" />
 						</f:facet>
 						<h:outputText value="#{cp.quantity}" />
@@ -299,7 +311,7 @@
 						<f:facet name="header">
 							<h:outputText value="Gross Sales" />
 						</f:facet>
-						<h:outputText value="#{cp.salesPrice * cp.quantity}">
+						<h:outputText value="#{cp.salesPriceWithDiscount * cp.quantity}">
 							<f:convertNumber currencySymbol="SR " type="currency" />
 						</h:outputText>
 					</h:column>
@@ -325,14 +337,13 @@
 								<f:convertNumber currencySymbol="SR " type="currency" />
 							</h:outputText>
 							<br />
-							<h:outputText value="VAT: " />
-							<h:outputText value="#{awaitingCartBean.cart.vat}">
+							<h:outputText value="Discounts: "  styleClass="w3-text-red" />
+							<h:outputText value="#{awaitingCartBean.cart.discountTotal}" styleClass="w3-text-red">
 								<f:convertNumber currencySymbol="SR " type="currency" />
 							</h:outputText>
 							<br />
-							<h:outputText value="Discounts: " style="color:red" />
-							<h:outputText value="#{awaitingCartBean.cart.discountTotal}"
-								style="color:red">
+							<h:outputText value="VAT: " />
+							<h:outputText value="#{awaitingCartBean.cart.vat}">
 								<f:convertNumber currencySymbol="SR " type="currency" />
 							</h:outputText>
 							<br />
@@ -361,7 +372,9 @@
 							<f:facet name="header">
 								<h:outputText value="Product ID" />
 							</f:facet>
-							<h:outputText value="#{pp.productId}" />
+							<h:outputLink value="product-details?id=#{pp.productId}" target="_blank">
+								<h:outputText value="#{pp.productId}" />
+							</h:outputLink>
 						</h:column>
 						<h:column>
 							<f:facet name="header">
@@ -430,7 +443,9 @@
 							<f:facet name="header">
 								<h:outputText value="Product ID" />
 							</f:facet>
-							<h:outputText value="#{cp.productHolder.product.id}" />
+							<h:outputLink value="product-details?id=#{cp.productHolder.product.id}" target="_blank">
+								<h:outputText value="#{cp.productHolder.product.id}" />
+							</h:outputLink>
 						</h:column>
 						<h:column>
 							<f:facet name="header">
@@ -561,13 +576,17 @@
 								 headerClass="w3-border-bottom w3-light-grey"
 								 footerClass="w3-border-top w3-light-grey">
 						<f:facet name="header">
-							<h:outputText value="Sales Details"/>
+							<div align="center">
+								<h:outputText value="Sales Details"/>
+							</div>
 						</f:facet>
 						<h:column>
 							<f:facet name="header">
 								<h:outputText value="Product ID" />
 							</f:facet>
-							<h:outputText value="#{cp.productHolder.product.id}" />
+							<h:outputLink value="product-details?id=#{cp.productHolder.product.id}" target="_blank">
+								<h:outputText value="#{cp.productHolder.product.id}" />
+							</h:outputLink>
 						</h:column>
 						<h:column>
 							<f:facet name="header">
@@ -591,6 +610,14 @@
 						</h:column>
 						<h:column>
 							<f:facet name="header">
+								<h:outputText value="Unit Discounts" styleClass="w3-text-red" />
+							</f:facet>
+							<h:outputText value="#{cp.discountValue}" styleClass="w3-text-red">
+								<f:convertNumber currencySymbol="SR " type="currency" />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
 								<h:outputText value="Quantity" />
 							</f:facet>
 							<h:outputText value="#{cp.quantity}" />
@@ -605,7 +632,7 @@
 							<f:facet name="header">
 								<h:outputText value="Gross Sales" />
 							</f:facet>
-							<h:outputText value="#{cp.salesPrice * cp.quantity}">
+							<h:outputText value="#{cp.salesPriceWithDiscount * cp.quantity}">
 								<f:convertNumber currencySymbol="SR " type="currency" />
 							</h:outputText>
 						</h:column>
@@ -621,14 +648,13 @@
 									<f:convertNumber currencySymbol="SR " type="currency" />
 								</h:outputText>
 								<br />
-								<h:outputText value="VAT: " />
-								<h:outputText value="#{awaitingCartBean.salesVat}">
+								<h:outputText value="Discounts: " styleClass="w3-text-red" />
+								<h:outputText value="#{awaitingCartBean.salesDiscountTotal}" styleClass="w3-text-red">
 									<f:convertNumber currencySymbol="SR " type="currency" />
 								</h:outputText>
 								<br />
-								<h:outputText value="Discounts: " style="color:red" />
-								<h:outputText value="#{awaitingCartBean.salesDiscountTotal}"
-											  style="color:red">
+								<h:outputText value="VAT: " />
+								<h:outputText value="#{awaitingCartBean.salesVat}">
 									<f:convertNumber currencySymbol="SR " type="currency" />
 								</h:outputText>
 								<br />

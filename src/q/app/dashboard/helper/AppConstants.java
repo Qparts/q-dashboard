@@ -7,15 +7,17 @@ public class AppConstants {
     public final static String APP_SECRET = SysProps.getValue("appSecret");
     private final static String USER_SERVICE =  SysProps.getValue("userService");
     private final static String QUOTATION_SERVICE = SysProps.getValue("quotationService");
+    private final static String PUBLIC_QUOTATION_SERVICE = SysProps.getValue("quotationPublicService");
     private final static String VEHICLE_SERVICE = SysProps.getValue("vehicleService");
     private final static String VENDOR_SERVICE = SysProps.getValue("vendorService");
     private final static String CUSTOMER_SERVICE = SysProps.getValue("customerService");
     private final static String PRODUCT_SERVICE = SysProps.getValue("productService");
     private final static String INVOICE_SERVICE = SysProps.getValue("invoiceService");
-
-    private final static String CATALOG_SERVICE = PRODUCT_SERVICE + "catalog/";
     private final static String CART_SERVICE = SysProps.getValue("cartService");
     private final static String LOCATION_SERVICE = SysProps.getValue("locationService");
+
+    private final static String CATALOG_SERVICE = PRODUCT_SERVICE + "catalog/";
+
 
     private final static String IMAGE_SERVER = SysProps.getValue("imageServer");
     private static final String AMAZON_S3_PATH = SysProps.getValue("amazonS3Path");
@@ -66,6 +68,18 @@ public class AppConstants {
     public final static String POST_EMPTY_WALLET = CART_SERVICE + "empty-wallet";
     public final static String POST_CART_WIRE_TRANSFER = CART_SERVICE + "cart/wire-transfer";
     public final static String POST_CART_PRODUCT_COMPARE = CART_SERVICE + "cart-product-compare";
+    public final static String POST_NEW_SHIPMENT = CART_SERVICE + "new-shipment";
+    public final static String PUT_NEW_SHIPMENT = CART_SERVICE + "shipment";
+
+    public final static String getShipmentsReport(int year, int month, int courierId, long cartId) {
+        return CART_SERVICE + "shipments/year/" + year + "/month/" + month + "/courier/" + courierId + "/cart/" + cartId;
+    }
+
+
+    public final static String getSoldCartProducts(long cid) {
+        return CART_SERVICE + "cart-products/sold/customer/" + cid;
+    }
+
 
     public final static String getWalletsReport(int year, int month, char walletType, char method) {
         return CART_SERVICE+ "wallets-report/year/" + year + "/month/" + month + "/wallet-type/" + walletType + "/method/" + method;
@@ -85,6 +99,10 @@ public class AppConstants {
     public final static String getLiveWallet(long customerId){
         return CART_SERVICE + "wallet-live/" + customerId;
     }
+    public final static String getCustomerWallets(long customerId){
+        return CART_SERVICE + "wallets/" + customerId;
+    }
+
     public final static String getCustomerCarts(long customerId){
         return CART_SERVICE + "carts/customer/" + customerId;
     }
@@ -99,6 +117,7 @@ public class AppConstants {
     public final static String GET_ALL_ROLES = USER_SERVICE + "all-roles";
     public final static String POST_CREATE_ROLE = USER_SERVICE + "role";
     public final static String PUT_UPDATE_ROLE = USER_SERVICE + "role";
+    public final static String GET_WEB_APPS = USER_SERVICE + "web-apps";
     public final static String getCurrentQuotingScore(int userId) {
         return USER_SERVICE + "current-quoting-score/user/" + userId;
     }
@@ -195,10 +214,12 @@ public class AppConstants {
     //VENDOR SERVICE CALLS//
     public final static String POST_VENDOR = VENDOR_SERVICE + "vendor";
     public final static String GET_ALL_VENDORS = VENDOR_SERVICE + "vendors";
-
+    public final static String GET_ALL_COURIERS = VENDOR_SERVICE + "couriers";
+    public final static String POST_COURIER = VENDOR_SERVICE + "courier";
 
 
     //QUOTATION SERVICE CALLS//
+    public final static String POST_NEW_QUOTAITON = PUBLIC_QUOTATION_SERVICE+ "quotation";
     public final static String POST_QUOTATION_COMMENT = QUOTATION_SERVICE + "comment";
     public final static String POST_BILL = QUOTATION_SERVICE + "bill";
     public final static String PUT_BILL_ITEM = QUOTATION_SERVICE + "bill-item";
@@ -207,7 +228,6 @@ public class AppConstants {
     public final static String POST_ASSIGN_QUOTATION = QUOTATION_SERVICE + "assign";
     public final static String PUT_UNASSIGN_QUOTATION = QUOTATION_SERVICE + "unassign";
     public final static String GET_PENDING_QUOTATIONS = QUOTATION_SERVICE + "quotations/pending";
-    public final static String PUT_MERGE_QUOTATIONS = QUOTATION_SERVICE + "merge-quotations";
     public final static String POST_BILL_ITEM_RESPONSE = QUOTATION_SERVICE + "bill-item-response";
     public final static String POST_NEW_QUOTATION_ITEM = QUOTATION_SERVICE + "quotation-item";
     public final static String getQuotation(long quotationId) {

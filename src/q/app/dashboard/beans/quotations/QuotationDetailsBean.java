@@ -138,6 +138,7 @@ public class QuotationDetailsBean implements Serializable {
         for(CartProduct cp : cart.getCartProducts()){
             cp.setQuantity(cp.getNewQuantity());
         }
+        cart.setAppCode(customer.getAppCode());
         Response r = reqs.postSecuredRequest(AppConstants.POST_CART_WIRE_TRANSFER, cart);
         if(r.getStatus() == 200){
             Helper.redirect("wire-transfers");

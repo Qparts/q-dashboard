@@ -46,6 +46,10 @@
                                             <td><h:outputText value="#{wireTransferBean.wireTransfer.cartId}"/></td>
                                         </tr>
                                         <tr>
+                                            <td><h:outputLabel value="Cart ID" styleClass="q-bold"/></td>
+                                            <td><h:graphicImage value="/resources/images/#{webAppBean.getWebAppById(wireTransferBean.wireTransfer.cart.appCode).webAppLLogoName}" width="60"/></td>
+                                        </tr>
+                                        <tr>
                                             <td><h:outputLabel value="Request Date" styleClass="q-bold"/></td>
                                             <td><h:outputText value="#{wireTransferBean.wireTransfer.created}">
                                                 <f:convertDateTime pattern="dd-MMM-yyyy HH:mm"/>
@@ -134,19 +138,33 @@
                                 </f:facet>
                                 <h:column headerClass="w3-border-bottom w3-light-grey">
                                     <f:facet name="header">
-                                        Product ID
+                                        PRODUCT ID
                                     </f:facet>
-                                    <h:outputText value="#{cp.productId}"/>
+                                    <h:outputLink value="product-details?id=#{cp.productId}" target="_blank">
+                                        <h:outputText value="#{cp.productId}"/>
+                                    </h:outputLink>
                                 </h:column>
                                 <h:column headerClass="w3-border-bottom w3-light-grey">
                                     <f:facet name="header">
-                                        Quantity
+                                        DESC.
+                                    </f:facet>
+                                    <h:outputText value="#{cp.productHolder.product.desc}"/>
+                                </h:column>
+                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                    <f:facet name="header">
+                                        NUMBER
+                                    </f:facet>
+                                    <h:outputText value="#{cp.productHolder.product.productNumber}"/>
+                                </h:column>
+                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                    <f:facet name="header">
+                                        QTY.
                                     </f:facet>
                                     <h:outputText value="#{cp.quantity}"/>
                                 </h:column>
                                 <h:column headerClass="w3-border-bottom w3-light-grey">
                                     <f:facet name="header">
-                                        Unit Price
+                                        UNIT PRICE
                                     </f:facet>
                                     <h:outputText value="#{cp.salesPrice}">
                                         <f:convertNumber type="currency" currencySymbol="SR "/>
@@ -154,10 +172,18 @@
                                 </h:column>
                                 <h:column headerClass="w3-border-bottom w3-light-grey">
                                     <f:facet name="header">
-                                        Gross Price
+                                        UNIT DISCOUNT
+                                    </f:facet>
+                                    <h:outputText value="#{cp.discountValue}" styleClass="w3-text-red">
+                                        <f:convertNumber type="currency" currencySymbol="SR "/>
+                                    </h:outputText>
+                                </h:column>
+                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                    <f:facet name="header">
+                                        GROSS PRICE
                                     </f:facet>
                                     <h:outputText
-                                            value="#{cp.salesPrice * cp.quantity}">
+                                            value="#{cp.salesPriceWithDiscount * cp.quantity}">
                                         <f:convertNumber type="currency" currencySymbol="SR "/>
                                     </h:outputText>
                                 </h:column>
@@ -174,21 +200,21 @@
                                     </div>
                                     <div class="w3-row">
                                         <div class="w3-col s6 m1">
-                                            <h:outputText value="Discount" styleClass="w3-text-red"/>
+                                            <h:outputText value="Delivery"/>
                                         </div>
                                         <div class="w3-col s6 m1">
-                                            <h:outputText value="#{wireTransferBean.wireTransfer.cart.discountTotal}"
-                                                          styleClass="w3-text-red">
+                                            <h:outputText value="#{wireTransferBean.wireTransfer.cart.deliveryFees}">
                                                 <f:convertNumber type="currency" currencySymbol="SR "/>
                                             </h:outputText>
                                         </div>
                                     </div>
                                     <div class="w3-row">
                                         <div class="w3-col s6 m1">
-                                            <h:outputText value="Delivery"/>
+                                            <h:outputText value="Discount" styleClass="w3-text-red"/>
                                         </div>
                                         <div class="w3-col s6 m1">
-                                            <h:outputText value="#{wireTransferBean.wireTransfer.cart.deliveryFees}">
+                                            <h:outputText value="#{wireTransferBean.wireTransfer.cart.discountTotal}"
+                                                          styleClass="w3-text-red">
                                                 <f:convertNumber type="currency" currencySymbol="SR "/>
                                             </h:outputText>
                                         </div>

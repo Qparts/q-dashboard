@@ -12,12 +12,14 @@ public class CartProduct implements Serializable {
     private long id;
     private long cartId;
     private long productId;
+    private Discount discount;
     private int quantity;
     private double salesPrice;
     private Date created;
     private int createdBy;
     private char status;//N = new, S=sold
     private List<CartProductCompare> cartProductCompares;
+    private Cart cart;
 
     @JsonIgnore
     private ProductHolder productHolder;
@@ -31,6 +33,9 @@ public class CartProduct implements Serializable {
     private boolean doPurchase;
     @JsonIgnore
     private boolean doSales;
+    @JsonIgnore
+    private boolean doShipment;
+
 
 
 
@@ -43,6 +48,31 @@ public class CartProduct implements Serializable {
             }
         }
         return null;
+    }
+
+    @JsonIgnore
+    public double getDiscountValue(){
+        try{
+            if(discount.getDiscountType() == 'P'){
+                return salesPrice * discount.getPercentage();
+            }
+            throw new NullPointerException();
+        }
+        catch (NullPointerException e){
+            return 0;
+        }
+    }
+
+
+    @JsonIgnore
+    public double getTotalDiscount(){
+        return getDiscountValue() * quantity;
+    }
+
+
+    @JsonIgnore
+    public double getSalesPriceWithDiscount(){
+        return salesPrice - getDiscountValue();
     }
 
 
@@ -184,5 +214,29 @@ public class CartProduct implements Serializable {
 
     public void setCartProductCompares(List<CartProductCompare> cartProductCompares) {
         this.cartProductCompares = cartProductCompares;
+    }
+
+    public Discount getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
+    }
+
+    public boolean isDoShipment() {
+        return doShipment;
+    }
+
+    public void setDoShipment(boolean doShipment) {
+        this.doShipment = doShipment;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 }

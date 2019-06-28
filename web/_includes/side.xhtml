@@ -8,7 +8,7 @@
 		<div class="w3-container">
 			<h:form>
 				<div class="w3-dropdown-hover">
-					<h:button class="w3-button w3-flat-midnight-blue" value="Configurations" rendered="#{loginBean.hasAccessL([act.pageUsers, act.pageCouriers, act.pageRole, act.pageBanks, act.pageCountries, act.pageCities, act.pageVehicles])}" onclick="return false;"/>
+					<h:button class="w3-button w3-flat-midnight-blue" value="Configurations" rendered="#{loginBean.hasAccessL([act.pageUsers, act.pageCouriers, act.pageRole, act.pageBanks, act.pageCountries, act.pageCities, act.pageVehicles, act.pageCouriers])}" onclick="return false;"/>
 					 <div class="w3-dropdown-content w3-bar-block w3-border">
 						 <h:outputLink value="/app/users" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageUsers)}">Users</h:outputLink>
 						 <h:outputLink value="/app/roles" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageRole)}">Roles</h:outputLink>
@@ -17,7 +17,7 @@
 						 <h:outputLink value="/app/regions" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageCountries)}">Regions</h:outputLink>
 						 <h:outputLink value="/app/cities" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageCities)}">Cities</h:outputLink>
 						 <h:outputLink value="/app/vehicles" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageVehicles)}">Vehicles</h:outputLink>
-						 <h:outputLink style="color:greenyellow;display: none;" value="/app/couriers" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageCouriers)}">Couriers</h:outputLink>
+						 <h:outputLink value="/app/couriers" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageCouriers)}">Couriers</h:outputLink>
     				</div>
 				</div>
 				<div class="w3-dropdown-hover">
@@ -30,11 +30,12 @@
     				</div>
 				</div>
 				<div class="w3-dropdown-hover">
-					<h:button class="w3-button w3-flat-midnight-blue" value="Carts" rendered="#{loginBean.hasAccessL([act.pageWalletAwaiting])}" onclick="return false;" />
+					<h:button class="w3-button w3-flat-midnight-blue" value="Carts" rendered="#{loginBean.hasAccessL([act.pageCartAwaiting, act.pageShipmentsReport, act.pageWire])}" onclick="return false;" />
 					<div class="w3-dropdown-content w3-bar-block w3-border">
 						<h:outputLink value="/app/wire-transfers" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageWire)}">Wire Transfers</h:outputLink>
-						<h:outputLink value="/app/carts-awaiting" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageWalletAwaiting)}">Awaiting</h:outputLink>
-						<h:outputLink value="/app/carts-initiated" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageWalletAwaiting)}">Inititated</h:outputLink>
+						<h:outputLink value="/app/carts-awaiting" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageCartAwaiting)}">Awaiting</h:outputLink>
+						<h:outputLink value="/app/carts-initiated" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageCartAwaiting)}">Inititated</h:outputLink>
+						<h:outputLink value="/app/shipments-report" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageShipmentsReport)}">Shipments Report</h:outputLink>
 						<h:outputLink style="color:indianred;display:none" value="/app/followups" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageFollowUpQuotations)}">Follow Up</h:outputLink>
 						<h:outputLink style="color:indianred;display:none" value="/app/postponed-sales" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pagePosponedSalesReport)}">Postponed</h:outputLink>
 						<h:outputLink style="color:indianred;display:none" value="/app/no-vin-carts" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageNoVin)}">No Vins</h:outputLink>
@@ -85,7 +86,7 @@
 					<div class="w3-dropdown-content w3-bar-block w3-border">
 					 	<h:outputLink style="color:greenyellow" value="/app/wallets-report" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageWalletsReport)}">Wallets Report</h:outputLink>
 
-						<h:outputLink style="color:greenyellow" value="/app/shipments-report" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageShipmentsReport)}">Shipments Report</h:outputLink>
+
 						<h:outputLink style="color:indianred" value="/app/search-carts" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageSearchCarts)}">Search Carts</h:outputLink>
 						<h:outputLink style="color:indianred" value="/app/cart-details" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageCartDetails)}">Cart Details</h:outputLink>
 						<h:outputLink style="color:greenyellow" value="/app/make-orders" styleClass="w3-bar-item w3-button w3-flat-wet-asphalt" rendered="#{loginBean.hasAccess(act.pageMakeOrdersReport)}">Make Report</h:outputLink>

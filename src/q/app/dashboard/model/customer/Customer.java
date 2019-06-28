@@ -2,8 +2,6 @@ package q.app.dashboard.model.customer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Transient;
-import javax.ws.rs.core.Response;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +19,8 @@ public class Customer implements Serializable {
     private String defaultLang;
     private boolean smsActive;
     private boolean newsletterActive;
+    private String mobile;
+    private int appCode;
     private List<CustomerVehicle> vehicles;
     private List<CustomerAddress> addresses;
     private List<EmailSent> emailsSent;
@@ -171,6 +171,22 @@ public class Customer implements Serializable {
 
     public void setEmailsSent(List<EmailSent> emailsSent) {
         this.emailsSent = emailsSent;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public int getAppCode() {
+        return appCode;
+    }
+
+    public void setAppCode(int appCode) {
+        this.appCode = appCode;
     }
 }
 

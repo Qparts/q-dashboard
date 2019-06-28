@@ -93,7 +93,14 @@ public class Sales implements Serializable {
 
     @JsonIgnore
     public double getDiscountTotal(){
-        return 0;
+        double total = 0;
+        for(SalesProduct sp : salesProducts){
+            total += sp.getUnitDiscount() * sp.getQuantity();
+        }
+        if(deliveryDiscountId != null){
+            total += this.deliveryFees;
+        }
+        return total;
     }
 
     @JsonIgnore

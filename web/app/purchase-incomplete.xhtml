@@ -72,45 +72,44 @@
 							footerClass="w3-light-grey w3-border-top">
 							<h:column style="width:100px">
 								<f:facet name="header">
-									<h:outputText value="Product ID" />
+									<h:outputText value="PRODUCT ID" />
 								</f:facet>
 								<h:outputText value="#{pp.productId}" />
 							</h:column>
 							<h:column style="width:100px">
 								<f:facet name="header">
-									<h:outputText value="Name" />
+									<h:outputText value="NAME" />
 								</f:facet>
 								<h:outputText value="#{pp.holder.product.desc}" />
 							</h:column>
 							<h:column style="width:100px">
 								<f:facet name="header">
-									<h:outputText value="Arabic" />
+									<h:outputText value="ARABIC" />
 								</f:facet>
 								<h:outputText value="#{pp.holder.product.descAr}" />
 							</h:column>
 							<h:column style="width:100px">
 								<f:facet name="header">
-									<h:outputText value="Product Number" />
+									<h:outputText value="NUMBER" />
 								</f:facet>
 								<h:outputText value="#{pp.holder.product.productNumber}" />
 							</h:column>
 							<h:column>
 								<f:facet name="header">
-									<h:outputText value="Incomplete" rendered="#{pp.status eq 'I'}" styleClass="w3-deep-orange" />
-									<h:outputText value="Complete" rendered="#{pp.status eq 'C'}" styleClass="w3-green" />
+									<h:outputText value="STATUS" />
 								</f:facet>
-								<h:outputText
-									value="#{pp.status}" />
+								<h:outputText value="Incomplete" rendered="#{pp.status eq 'I'}" styleClass="W3-tag w3-deep-orange" />
+								<h:outputText value="Complete" rendered="#{pp.status eq 'C'}" styleClass="w3-tag w3-green" />
 							</h:column>
 							<h:column>
 								<f:facet name="header">
-									<h:outputText value="Quantity" />
+									<h:outputText value="QTY." />
 								</f:facet>
 								<h:outputText value="#{pp.quantity}" />
 							</h:column>
 							<h:column>
 								<f:facet name="header">
-									<h:outputText value="Unit Cost" />
+									<h:outputText value="UNIT COST" />
 								</f:facet>
 								<h:outputText value="#{pp.unitCost}">
 									<f:convertNumber type="currency" currencySymbol=" " />
@@ -118,7 +117,7 @@
 							</h:column>
 							<h:column>
 								<f:facet name="header">
-									<h:outputText value="Gross Cost" />
+									<h:outputText value="GROSS COST" />
 								</f:facet>
 								<h:outputText value="#{pp.unitCost * pp.quantity}"
 									rendered="#{not (pp.unitCost eq null)}">
@@ -127,7 +126,7 @@
 							</h:column>
 							<h:column>
 								<f:facet name="header">
-									<h:outputText value="Unit Cost+VAT" />
+									<h:outputText value="UNIT COST+VAT" />
 								</f:facet>
 								<h:outputText value="#{pp.unitCostWv}">
 									<f:convertNumber type="currency" currencySymbol=" " />
@@ -135,7 +134,7 @@
 							</h:column>
 							<h:column>
 								<f:facet name="header">
-									<h:outputText value="Gross Cost+Vat" />
+									<h:outputText value="GROSS COST+VAT" />
 								</f:facet>
 								<h:outputText value="#{pp.unitCostWv * pp.quantity}">
 									<f:convertNumber type="currency" currencySymbol=" " />

@@ -4,6 +4,7 @@ import q.app.dashboard.beans.cart.WireTransfersBean;
 import q.app.dashboard.model.cart.Cart;
 import q.app.dashboard.model.cart.CartWireTransferRequest;
 import q.app.dashboard.model.cart.CustomerWallet;
+import q.app.dashboard.model.cart.Shipment;
 import q.app.dashboard.model.customer.Customer;
 import q.app.dashboard.model.quotation.Quotation;
 import q.app.dashboard.model.sales.Sales;
@@ -96,9 +97,10 @@ public class Helper {
                 ids[i] = ((CustomerWallet) objects.get(i)).getCustomerId();
             }else if(objects.get(i) instanceof Sales){
                 ids[i] = ((Sales) objects.get(i)).getCustomerId();
-            }
-            else if(objects.get(i) instanceof SalesReturn){
+            }else if(objects.get(i) instanceof SalesReturn){
                 ids[i] = ((SalesReturn) objects.get(i)).getCustomerId();
+            }else if(objects.get(i) instanceof Shipment){
+                ids[i] = ((Shipment) objects.get(i)).getCustomerId();
             }
         }
         return ids;
@@ -186,6 +188,13 @@ public class Helper {
                         SalesReturn salesReturn = (SalesReturn) object;
                         if (c.getId() == salesReturn.getCustomerId()) {
                             salesReturn.setCustomer(c);
+                            break;
+                        }
+                    }
+                    else if(object instanceof Shipment){
+                        Shipment shipment = (Shipment) object;
+                        if (c.getId() == shipment.getCustomerId()) {
+                            shipment.setCustomer(c);
                             break;
                         }
                     }

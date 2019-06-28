@@ -12,7 +12,7 @@
 </h:head>
 <h:body>
     <h:outputText
-            value="#{loginBean.checkAccessRedirectHome(act.pageProductDetails)}"/>
+            value="#{loginBean.checkAccessRedirectHomeL([act.pageCartAwaiting, act.pageShipments])}"/>
     <ui:include src="/_includes/top.xhtml"/>
     <ui:include src="/_includes/side.xhtml"/>
     <div>
@@ -35,6 +35,12 @@
                                 CART#
                             </f:facet>
                             <h:outputText value="#{cart.id}"/>
+                        </h:column>
+                        <h:column style="width:100px">
+                            <f:facet name="header">
+                                <h:outputText value="APP" />
+                            </f:facet>
+                            <h:graphicImage value="/resources/images/#{webAppBean.getWebAppById(cart.appCode).webAppLLogoName}" width="60"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
@@ -78,9 +84,13 @@
                             <f:facet name="header">
                                 <h:outputText value="DETAILS"/>
                             </f:facet>
-                            <h:outputLink target="_blank"
+                            <h:outputLink target="_blank" rendered="#{not (cart.status eq 'S')}"
                                           value="cart-awaiting?id=#{cart.id}">
                                 <i class="fa fa-search-plus" style="font-size: 20px;"/>
+                            </h:outputLink>
+                            <h:outputLink target="_blank" rendered="#{cart.status eq 'S'}"
+                                          value="shipment?customer=#{cart.customerId}">
+                                <i class="fa fa-truck" style="font-size: 20px;"/>
                             </h:outputLink>
                         </h:column>
                     </h:dataTable>

@@ -49,7 +49,9 @@
 						<div class="w3-card-2 w3-padding-8">
 							<h:panelGrid columns="2" styleClass="w3-table w3-striped w3-border">
 								<h:outputText value="Customer ID" />
-								<h:outputText value="#{salesDetailsBean.customer.id}" />
+								<h:outputLink value="customer-details?id=#{salesDetailsBean.customer.id}">
+									<h:outputText value="#{salesDetailsBean.customer.id}" />
+								</h:outputLink>
 								<h:outputText value="Name" />
 								<h:outputText value="#{salesDetailsBean.customer.fullName}" />
 								<h:outputText value="Mobile" />
@@ -80,26 +82,11 @@
 					</div>
 				</div>
 				<br />
-				<script type="text/javascript">
-					function start() {
-						PF('statusDialog').show();
-					}
 
-					function stop() {
-						PF('statusDialog').hide();
-					}
-				</script>
 
-				<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
-						  closable="false" resizable="false" showHeader="false"
-						  style="z-index:99999">
-					<h:outputText value="Downloading..." />
-					<br />
-					<p:graphicImage name="/images/ajax-loader.gif" />
-				</p:dialog>
 				<div class="w3-row">
 					<div>
-						<h:dataTable value="#{salesDetailsBean.sales.salesProducts}"
+						<h:dataTable value="#{salesDetailsBean.sales.salesProducts}" rendered="true"
 							var="sp" styleClass="w3-table w3-striped w3-border"
 							headerClass="w3-light-grey w3-border"
 							footerClass="w3-light-grey w3-border">
@@ -110,7 +97,9 @@
 								<f:facet name="header">
 									<h:outputText value="Product ID" />
 								</f:facet>
-								<h:outputText value="#{sp.productId}" />
+								<h:outputLink value="product-detials?id=#{sp.productId}">
+									<h:outputText value="#{sp.productId}" />
+								</h:outputLink>
 							</h:column>
 							<h:column headerClass="w3-border-bottom w3-light-grey">
 								<f:facet name="header">
@@ -146,9 +135,18 @@
 							</h:column>
 							<h:column headerClass="w3-border-bottom w3-light-grey">
 								<f:facet name="header">
+									<h:outputText value="Unit Discount" />
+								</f:facet>
+								<h:outputText value="#{sp.unitDiscount}" styleClass="w3-text-red">
+									<f:convertNumber currencySymbol="SR " type="currency" />
+								</h:outputText>
+							</h:column>
+
+							<h:column headerClass="w3-border-bottom w3-light-grey">
+								<f:facet name="header">
 									<h:outputText value="Gross Sales" />
 								</f:facet>
-								<h:outputText value="#{sp.quantity * sp.unitSales}">
+								<h:outputText value="#{sp.quantity * sp.unitSalesWithDiscount}">
 									<f:convertNumber currencySymbol="SR " type="currency" />
 								</h:outputText>
 							</h:column>
@@ -160,19 +158,19 @@
 										<f:convertNumber currencySymbol="SR " type="currency" />
 									</h:outputText>
 									<br />
-									<h:outputText value="Delivery Fees: " />
+									<h:outputText value="Delivery: " />
 									<h:outputText
 										value="#{salesDetailsBean.sales.deliveryFees}">
 										<f:convertNumber currencySymbol="SR " type="currency" />
 									</h:outputText>
 									<br />
-									<h:outputText value="VAT: " />
-									<h:outputText value="#{salesDetailsBean.sales.totalVat}">
+									<h:outputText value="Discount: " style="color:red" />
+									<h:outputText value="#{salesDetailsBean.sales.discountTotal}" style="color:red">
 										<f:convertNumber currencySymbol="SR " type="currency" />
 									</h:outputText>
 									<br />
-									<h:outputText value="Promotion Discount: " style="color:red" />
-									<h:outputText value="#{salesDetailsBean.sales.discountTotal}" style="color:red">
+									<h:outputText value="VAT: " />
+									<h:outputText value="#{salesDetailsBean.sales.totalVat}">
 										<f:convertNumber currencySymbol="SR " type="currency" />
 									</h:outputText>
 									<br />
@@ -201,7 +199,7 @@
 				<div class="w3-row">
 					<div>
 						<h:dataTable value="#{salesDetailsBean.sales.allSalesReturnProducts}"
-									 rendered="#{salesDetailsBean.sales.allSalesReturnProducts gt 0}"
+									 rendered="#{salesDetailsBean.sales.allSalesReturnProducts.size() gt 0}"
 							var="srp" styleClass="w3-table w3-striped w3-border"
 							headerClass="w3-pale-red w3-border-bottom"
 							footerClass="w3-pale-red w3-border-top">
@@ -268,5 +266,21 @@
 					</div>
 				</div>
 			</div>
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			  closable="false" resizable="false" showHeader="false"
+			  style="z-index:99999">
+		<h:outputText value="Downloading..." />
+		<br />
+		<p:graphicImage name="/images/ajax-loader.gif" />
+	</p:dialog>
+			<script type="text/javascript">
+				function start() {
+					PF('statusDialog').show();
+				}
+
+				function stop() {
+					PF('statusDialog').hide();
+				}
+	</script>
 </h:body>
 </html>

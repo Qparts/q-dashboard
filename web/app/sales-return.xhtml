@@ -203,7 +203,7 @@
 								</h:selectBooleanCheckbox>
 
 								<h:outputText value="Bank" />
-								<h:selectOneMenu id="select-bank" value="#{salesReturnBean.salesReturn.transactionType}" disabled="#{salesReturnBean.salesReturn.transactionType eq 'T'}" required="true">
+								<h:selectOneMenu id="select-bank" value="#{salesReturnBean.bankId}" disabled="#{salesReturnBean.salesReturn.transactionType eq 'T'}" required="true">
 									<f:selectItem noSelectionOption="true" itemLabel="--Select Bank--"/>
 									<f:selectItems value="#{banksBean.banks}" var="bank" itemLabel="#{bank.name}" itemValue="#{bank.id}"/>
 									<f:ajax execute="@this"/>

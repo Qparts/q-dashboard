@@ -120,11 +120,11 @@ public class Purchase implements Serializable {
         this.created = created;
     }
 
-    public int getCompletedBy() {
+    public Integer getCompletedBy() {
         return completedBy;
     }
 
-    public void setCompletedBy(int completedBy) {
+    public void setCompletedBy(Integer completedBy) {
         this.completedBy = completedBy;
     }
 

@@ -160,8 +160,8 @@
 				</h:panelGroup>
 				<br />
 				<div>
-					<p:panel toggleable="true" header="Complete Sales (#{salesReportBean.salesReportHolder.completeSales.size()})" collapsed="false"
-							 toggleSpeed="100">
+					<p:panel toggleable="true" header="Sales (#{salesReportBean.salesReportHolder.completeSales.size()})" collapsed="false"
+							 toggleSpeed="100" rendered="#{salesReportBean.salesReportHolder.completeSales.size() gt 0}">
 						<h:dataTable value="#{salesReportBean.salesReportHolder.completeSales}"
 							rendered="#{salesReportBean.salesReportHolder.completeSales.size() gt 0}"
 							var="sales" styleClass="w3-table w3-striped w3-border"
@@ -247,7 +247,7 @@
 					</p:panel>
 					<br/>
 					<p:panel toggleable="true" header="Incomplete Sales (#{salesReportBean.salesReportHolder.incompleteSales.size()})" collapsed="false"
-							 toggleSpeed="100">
+							 toggleSpeed="100" rendered="#{salesReportBean.salesReportHolder.incompleteSales.size() gt 0}">
 						<h:dataTable value="#{salesReportBean.salesReportHolder.incompleteSales}"
 									 rendered="#{salesReportBean.salesReportHolder.incompleteSales.size() gt 0}"
 									 var="sales" styleClass="w3-table w3-striped w3-border"
@@ -260,19 +260,19 @@
 							</f:facet>
 							<h:column>
 								<f:facet name="header">
-									<h:outputText value="Sales ID" />
+									<h:outputText value="SALES ID" />
 								</f:facet>
 								<h:outputText value="#{sales.id}" />
 							</h:column>
 							<h:column>
 								<f:facet name="header">
-									<h:outputText value="Cart#" />
+									<h:outputText value="CART#" />
 								</f:facet>
 								<h:outputText value="#{sales.cartId}" />
 							</h:column>
 							<h:column>
 								<f:facet name="header">
-									<h:outputText value="Customer" />
+									<h:outputText value="CUSTOMER" />
 								</f:facet>
 								<h:outputLink value="customer-details?id=#{sales.customerId}">
 									<h:outputText value="#{sales.customerId} #{sales.customer.fullName}" />
@@ -280,7 +280,7 @@
 							</h:column>
 							<h:column>
 								<f:facet name="header">
-									<h:outputText value="Date" />
+									<h:outputText value="DATE" />
 								</f:facet>
 								<h:outputText value="#{sales.created}">
 									<f:convertDateTime pattern="d" />
@@ -288,7 +288,7 @@
 							</h:column>
 							<h:column>
 								<f:facet name="header">
-									<h:outputText value="Total" />
+									<h:outputText value="TOTAL" />
 								</f:facet>
 								<h:outputText value="#{sales.productsTotalWv}"
 											  style="color:green;">
@@ -297,7 +297,7 @@
 							</h:column>
 							<h:column>
 								<f:facet name="header">
-									<h:outputText value="Delivery" />
+									<h:outputText value="DELIVERY" />
 								</f:facet>
 								<h:outputText value="#{sales.deliveryFeesWv}"
 											  style="color:green;">
@@ -306,7 +306,7 @@
 							</h:column>
 							<h:column>
 								<f:facet name="header">
-									<h:outputText value="Promo" />
+									<h:outputText value="DISCOUNT" />
 								</f:facet>
 								<h:outputText value="#{sales.discountTotal}"
 											  rendered="#{sales.discountTotal gt 0}"
@@ -316,23 +316,23 @@
 							</h:column>
 							<h:column>
 								<f:facet name="header">
-									<h:outputText value="Status" />
+									<h:outputText value="STATUS" />
 								</f:facet>
 								<h:outputText rendered="#{sales.paymentStatus eq 'O'}" value="Outstanding" />
 								<h:outputText rendered="#{sales.paymentStatus eq 'P'}" value="Paid" />
 							</h:column>
 							<h:column>
 								<f:facet name="header">
-									<h:outputText value="Type" />
+									<h:outputText value="TYPE" />
 								</f:facet>
-								<h:outputText rendered="#{sales.paymentStatus eq 'C'}" value="Cash" />
-								<h:outputText rendered="#{sales.paymentStatus eq 'T'}" value="Credit" />
+								<h:outputText rendered="#{sales.transactionType eq 'C'}" value="Cash" />
+								<h:outputText rendered="#{sales.transactionType eq 'T'}" value="Credit" />
 							</h:column>
 						</h:dataTable>
 					</p:panel>
 					<br/>
-					<p:panel toggleable="true" header="Complete Sales Return (#{salesReportBean.salesReportHolder.completeSalesReturn.size()})" collapsed="false"
-							 toggleSpeed="100">
+					<p:panel toggleable="true" header="Sales Return (#{salesReportBean.salesReportHolder.completeSalesReturn.size()})" collapsed="false"
+							 toggleSpeed="100" rendered="#{salesReportBean.salesReportHolder.completeSalesReturn.size() gt 0}">
 					<h:dataTable
 						value="#{salesReportBean.salesReportHolder.completeSalesReturn}"
 						rendered="#{salesReportBean.salesReportHolder.completeSalesReturn.size() gt 0}"
@@ -434,7 +434,7 @@
 					</p:panel>
 					<br/>
 					<p:panel toggleable="true" header="Incomplete Sales Return (#{salesReportBean.salesReportHolder.incompleteSalesReturn.size()})" collapsed="false"
-							 toggleSpeed="100">
+							 toggleSpeed="100" rendered="#{salesReportBean.salesReportHolder.incompleteSalesReturn.size() gt 0}">
 						<h:dataTable
 								value="#{salesReportBean.salesReportHolder.incompleteSalesReturn}"
 								rendered="#{salesReportBean.salesReportHolder.incompleteSalesReturn.size() gt 0}"

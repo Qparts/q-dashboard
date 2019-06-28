@@ -213,18 +213,21 @@ public class AwaitingCartBean implements Serializable {
     }
 
     public double getSalesSubTotal(){
-        return getSalesProductsTotal() +  cart.getDeliveryFees() +  this.getSalesDiscountTotal();
+        return getSalesProductsTotal() +  cart.getDeliveryFees() -  this.getSalesDiscountTotal();
     }
 
     public double getSalesDiscountTotal(){
         try{
-            if(cart.getCartDiscount().getDiscount().getDiscountType() == 'P'){
-                return -1 * cart.getCartDiscount().getDiscount().getPercentage() * getSalesProductsTotal();
+            double total = 0;
+            for(var cartItem : getSelectedSalesItems()){
+                total += cartItem.getDiscountValue();
             }
-            if(cart.getCartDiscount().getDiscount().getDiscountType() == 'D'){
-                return -1 * cart.getDeliveryFees();
+            if(cart.getDiscount()!= null && cart.getDiscount().getDiscountType() == 'D'){
+                //if already was processed or not ? how!
+                total += cart.getDeliveryFees();
             }
-            throw new NullPointerException();
+            return total;
+
         }catch (NullPointerException nu){
             return 0;
         }
@@ -338,7 +341,9 @@ public class AwaitingCartBean implements Serializable {
         sales.setCartId(this.cart.getId());
         sales.setCreatedBy(this.loginBean.getLoggedUserId());
         sales.setCustomerId(this.cart.getCustomerId());
-        sales.setDeliveryDiscountId(cart.getCartDiscount() == null ? null : (cart.getCartDiscount().getDiscount().getDiscountType() == 'D' ? cart.getCartDiscount().getDiscount().getId() : null));
+        if(cart.getDiscount() != null && cart.getDiscount().getDiscountType() == 'D' &&  cart.getDeliveryFees() > 0){
+            sales.setDeliveryDiscountId(cart.getDiscount().getId());
+        }
         sales.setDeliveryFees(cart.getDeliveryFees());
         if(cart.getPaymentMethod() == 'W' || cart.getPaymentMethod() == 'C'){
             sales.setTransactionType('C');//cash
@@ -383,15 +388,18 @@ public class AwaitingCartBean implements Serializable {
     private double calculateSalesWalletAmount(Sales sales){
         double total = 0;
         for(SalesProduct sp : sales.getSalesProducts()){
-            total += (sp.getUnitSales() * sp.getQuantity());
+            total += (sp.getUnitSalesWithDiscount() * sp.getQuantity());
         }
-
         //add delivery fees
         CartDelivery cd = cart.getCartDelivery();
         if(cd.getStatus() == 'N'){
             total += cart.getDeliveryFees();
+            if(cart.getDiscount() != null && cart.getDiscount().getDiscountType() == 'D'){
+                total -= cart.getDeliveryFees();
+            }
         }
 
+        total += (total * cart.getVatPercentage());
         return total;
     }
 
@@ -421,15 +429,19 @@ public class AwaitingCartBean implements Serializable {
     private boolean walletCovers(){
         double total = 0;
         for(CartProduct sp : this.getSelectedSalesItems()){
-            total += (sp.getSalesPrice() * sp.getQuantity());
+            total += (sp.getSalesPriceWithDiscount() * sp.getQuantity());
         }
 
         //add delivery fees
         CartDelivery cd = cart.getCartDelivery();
         if(cd.getStatus() == 'N'){
             total += cart.getDeliveryFees();
+            if(cart.getDiscount() != null && cart.getDiscount().getDiscountType() == 'D'){
+                total -= cart.getDeliveryFees();
+            }
         }
 
+        total += cart.getVatPercentage() * total;
         return (total <= this.liveWallet);
     }
 
@@ -454,6 +466,7 @@ public class AwaitingCartBean implements Serializable {
             purchaseOrderBean.getPurchase().setCreatedBy(loginBean.getLoggedUserId());
             purchaseOrderBean.getPurchase().setPaymentStatus('I');
             Response r = reqs.postSecuredRequest(AppConstants.POST_PURCHASE_ORDER, purchaseOrderBean.getPurchase());
+            System.out.println(r.getStatus());
             if(r.getStatus() == 201){
                 Helper.redirect("cart-awaiting?id=" + cart.getId());
             }
@@ -480,8 +493,8 @@ public class AwaitingCartBean implements Serializable {
                     map.put("sales", sales);
                     map.put("customerWallet", customerWallet);
                     map.put("cartDelivery", cartDelivery);
+                    System.out.println("1 transaction id = " + customerWallet.getTransactionId());
                     Response r2 = reqs.putSecuredRequest(AppConstants.PUT_SALES, map);
-                    System.out.println("R2 " + r2.getStatus());
                     if(r2.getStatus() == 201){
                         Helper.redirect("cart-awaiting?id=" + cart.getId());
                     }
@@ -508,8 +521,10 @@ public class AwaitingCartBean implements Serializable {
                     int quantity = ((Number) map.get("quantity")).intValue();
                     long purchaseProductId = ((Number) map.get("purchaseProductId")).longValue();
                     salesProduct.setCartId(this.cart.getId());
-                    salesProduct.setDiscountId(null);
-                    salesProduct.setDiscountPercentage(null);
+                    if(cp.getDiscount()!= null){
+                        salesProduct.setDiscountId(cp.getDiscount().getId());
+                        salesProduct.setDiscountPercentage(cp.getDiscount().getPercentage());
+                    }
                     salesProduct.setProductId(cp.getProductId());
                     salesProduct.setPurchaseProduct(new PurchaseProduct());
                     salesProduct.getPurchaseProduct().setId(purchaseProductId);

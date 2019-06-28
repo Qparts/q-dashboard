@@ -9,12 +9,14 @@ public class EmailSent implements Serializable {
     private long customerId;
     private String purpose;
     private Long quotationId;
+    private Long shipmentId;
     private Long cartId;
     private Date created;
     private int createdBy;
     private String email;
     private char status;
     private Long wireId;
+    private int appCode;
 
     public Long getWireId() {
         return wireId;
@@ -94,5 +96,21 @@ public class EmailSent implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getAppCode() {
+        return appCode;
+    }
+
+    public void setAppCode(int appCode) {
+        this.appCode = appCode;
+    }
+
+    public Long getShipmentId() {
+        return shipmentId;
+    }
+
+    public void setShipmentId(Long shipmentId) {
+        this.shipmentId = shipmentId;
     }
 }

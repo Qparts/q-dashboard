@@ -19,6 +19,7 @@ public class Discount implements Serializable {
     private boolean customerSpecific;//-- is only for one customer
     private Long customerId;//only if it is for one customer
     private Double percentage;//--only if type is p (percentage on purchased products)
+    private int appCode;
 
     public long getId() {
         return id;
@@ -123,5 +124,13 @@ public class Discount implements Serializable {
 
     public void setPercentage(Double percentage) {
         this.percentage = percentage;
+    }
+
+    public int getAppCode() {
+        return appCode;
+    }
+
+    public void setAppCode(int appCode) {
+        this.appCode = appCode;
     }
 }
