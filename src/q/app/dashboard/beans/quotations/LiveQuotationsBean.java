@@ -76,7 +76,6 @@ public class LiveQuotationsBean implements Serializable {
     private void initAllCustomers() {
         allCustomers = new ArrayList<>();
         Response r = reqs.postSecuredRequest(AppConstants.POST_CUSTOMER_FROM_IDS, Helper.getCustomerIds(quotations));
-        System.out.println("all customers status " + r.getStatus());
         if(r.getStatus() == 200) {
             this.allCustomers = r.readEntity(new GenericType<List<Customer>>() {});
         }
