@@ -364,7 +364,7 @@
                                             <h:outputText value="Total" styleClass="q-bold"/>
                                         </div>
                                         <div class="w3-col s6 m1">
-                                            <h:outputText value="#{quotationDetailsBean.quotation.totalSalesPrice + 35 + ((squotationDetailsBean.quotation.totalSalesPrice  + 35) * 0.05)}"
+                                            <h:outputText value="#{quotationDetailsBean.quotation.totalSalesPrice + 35 + ((quotationDetailsBean.quotation.totalSalesPrice  + 35) * 0.05)}"
                                                           styleClass="q-bold">
                                                 <f:convertNumber type="currency" currencySymbol="SR "/>
                                             </h:outputText>
