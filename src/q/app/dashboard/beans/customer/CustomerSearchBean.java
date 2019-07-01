@@ -12,7 +12,9 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Named
 @SessionScoped
@@ -38,9 +40,11 @@ public class CustomerSearchBean implements Serializable {
         }
     }
 
-
     public void search(){
-        Response r = reqs.getSecuredRequest(AppConstants.getSearchCustomer(query));
+        Map<String,String> map = new HashMap<>();
+        map.put("query", query);
+        Response r = reqs.postSecuredRequest(AppConstants.POST_CUSTOMER_SEARCH, map);
+        System.out.println(AppConstants.POST_CUSTOMER_SEARCH  + " " + r.getStatus());
         if(r.getStatus() == 200){
             this.foundCustomers = r.readEntity(new GenericType<List<Customer>>(){});
         }

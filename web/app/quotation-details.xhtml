@@ -46,6 +46,7 @@
                                             <td>
                                                 <h:outputText value="Waiting for Quotation" rendered="#{quotationDetailsBean.quotation.status eq 'W'}" styleClass="w3-tag w3-indigo" />
                                                 <h:outputText value="Archived" rendered="#{quotationDetailsBean.quotation.status eq 'X'}" styleClass="w3-tag" />
+                                                <h:outputText value="Closed" rendered="#{quotationDetailsBean.quotation.status eq 'C'}" styleClass="w3-tag w3-orange w3-text-white" />
                                                 <h:outputText value="Submitted" rendered="#{quotationDetailsBean.quotation.status eq 'S'}" styleClass="w3-tag w3-green" />
                                                 <h:outputText value="Edit Request" rendered="#{quotationDetailsBean.quotation.status eq 'A'}" styleClass="w3-tag w3-teal" />
                                                 <h:outputText value="No Items found" rendered="#{quotationDetailsBean.quotation.status eq 'R'}" styleClass="w3-tag w3-indigo" />

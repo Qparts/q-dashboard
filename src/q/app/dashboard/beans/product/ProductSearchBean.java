@@ -62,7 +62,9 @@ public class ProductSearchBean implements Serializable {
 
 
     public void search(){
-        Response r = reqs.getSecuredRequest(AppConstants.getSearchProduct(query));
+        Map<String,String> map = new HashMap<>();
+        map.put("query", query);
+        Response r = reqs.postSecuredRequest(AppConstants.POST_SEARCH_PRODUCT, map);
         if(r.getStatus() == 200){
             this.foundProducts = r.readEntity(new GenericType<List<Product>>(){});
         }

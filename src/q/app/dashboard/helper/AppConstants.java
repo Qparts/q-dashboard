@@ -159,6 +159,7 @@ public class AppConstants {
     public final static String getSearchCustomer(String query){
         return CUSTOMER_SERVICE + "search/" + query;
     }
+    public final static String POST_CUSTOMER_SEARCH = CUSTOMER_SERVICE + "search";
 
     //PRODUCT SERVICE CALLS//
     public final static String POST_SPEC = PRODUCT_SERVICE + "spec";
@@ -175,12 +176,11 @@ public class AppConstants {
     public final static String POST_PRODUCT_SPEC = PRODUCT_SERVICE + "product-spec";
     public final static String GET_NEWEST_PRODUCTS = PRODUCT_SERVICE + "products/newest";
     public final static String SEARCH_PRODUCT_BY_NUMBER = PRODUCT_SERVICE +  "search-product-by-number";
+    public final static String POST_SEARCH_PRODUCT = PRODUCT_SERVICE +  "products/search";
     public final static String getProduct(long id){
         return PRODUCT_SERVICE + "product/" + id;
     }
-    public final static String getSearchProduct(String query){
-        return PRODUCT_SERVICE + "products/search/" + query;
-    }
+
     public final static String getSearchProductIds(String query){
         return PRODUCT_SERVICE + "products/search/" + query + "/id-only";
     }
