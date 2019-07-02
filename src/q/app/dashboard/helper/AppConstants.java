@@ -11,6 +11,7 @@ public class AppConstants {
     private final static String VEHICLE_SERVICE = SysProps.getValue("vehicleService");
     private final static String VENDOR_SERVICE = SysProps.getValue("vendorService");
     private final static String CUSTOMER_SERVICE = SysProps.getValue("customerService");
+    private final static String PUBLIC_CUSTOMER_SERVICE = SysProps.getValue("customerPublicService");
     private final static String PRODUCT_SERVICE = SysProps.getValue("productService");
     private final static String INVOICE_SERVICE = SysProps.getValue("invoiceService");
     private final static String CART_SERVICE = SysProps.getValue("cartService");
@@ -151,8 +152,10 @@ public class AppConstants {
     public final static String GET_INCOMPLETE_CUSTOMER_VEHICLES = CUSTOMER_SERVICE + "customer-vehicles/no-vin";
     public final static String PUT_CUSTOMER_VEHICLE_VIN = CUSTOMER_SERVICE + "customer-vehicle/vin";
     public final static String POST_EMAIL_QUOTATION_READY = CUSTOMER_SERVICE + "email/quotation-ready";
+    public final static String POST_CUSTOMER = CUSTOMER_SERVICE + "customer";
     public final static String POST_CUSTOMER_ADDRESS = CUSTOMER_SERVICE + "address";
     public final static String POST_CUSTOMER_GARAGE_VEHICLE = CUSTOMER_SERVICE + "vehicle";
+    public final static String POST_SIGNUP_SMS = PUBLIC_CUSTOMER_SERVICE + "request-signup-code";
 
     public final static String getCustomer(long customerId){
         return CUSTOMER_SERVICE + "customer/" + customerId;

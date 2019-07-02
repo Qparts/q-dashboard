@@ -27,6 +27,11 @@
                     <p:growl id="success-growl"
                              rendered="#{facesContext.maximumSeverity.ordinal eq 0}"/>
                 </h:form>
+
+                <h:form>
+                    <p:commandButton value="New Qetaa.com customer" onclick="PF('dlgWv').show()" styleClass="q-btn"/>
+                </h:form>
+
                 <h:form id="form">
                     <h:panelGrid columns="2">
                         <h:outputText value="Search"/>
@@ -95,6 +100,49 @@
 
                     </h:dataTable>
                 </h:form>
+
+                    <h:form id="form3">
+                        <p:dialog id="dlg" header="New Customer" widgetVar="dlgWv" styleClass="q-dialog">
+                            <h:panelGroup id="group">
+                                <h:panelGrid columns="2">
+                                    <h:outputText value="First Name" />
+                                    <h:inputText value="#{customerSearchBean.signupModel.firstName}"
+                                                 disabled="#{customerSearchBean.signupModel.smsCode != null}" />
+                                    <h:outputText value="Last Name" />
+                                    <h:inputText value="#{customerSearchBean.signupModel.lastName}"
+                                                 disabled="#{customerSearchBean.signupModel.smsCode != null}" />
+                                    <h:outputText value="Email" />
+                                    <h:inputText value="#{customerSearchBean.signupModel.email}"
+                                                 disabled="#{customerSearchBean.signupModel.smsCode != null}" />
+                                    <h:outputText value="Mobile" />
+                                    <h:inputText value="#{customerSearchBean.signupModel.mobile}"
+                                                 disabled="#{customerSearchBean.signupModel.smsCode != null}" />
+                                    <h:outputText value="Country" />
+                                    <h:selectOneMenu value="#{customerSearchBean.signupModel.countryId}" disabled="#{customerSearchBean.signupModel.smsCodeUser ne null}">
+                                        <f:selectItems value="#{countryBean.countries}" var="c"
+                                                       itemLabel="#{c.name}" itemValue="#{c.id}" />
+                                    </h:selectOneMenu>
+                                    <h:outputText value="Password" />
+                                    <h:inputText value="#{customerSearchBean.signupModel.password}"
+                                                 disabled="#{customerSearchBean.signupModel.smsCode != null}" />
+                                    <h:outputText value="Confirm Password" />
+                                    <h:inputText value="#{customerSearchBean.signupModel.passwordConfirm}"
+                                                 disabled="#{customerSearchBean.signupModel.smsCode != null}" />
+                                    <h:outputText value="SMS Code" />
+                                    <h:inputText value="#{customerSearchBean.signupModel.smsCodeUser}"
+                                                 disabled="#{customerSearchBean.signupModel.smsCode eq null}" />
+                                </h:panelGrid>
+                            <p:commandButton rendered="#{customerSearchBean.signupModel.smsCode eq null}"
+                                             actionListener="#{customerSearchBean.requestSMS()}" value="Send SMS Code"
+                                             styleClass="q-btn" update=":form3:group :form-g">
+                            </p:commandButton>
+
+                            <h:commandButton rendered="#{customerSearchBean.signupModel.smsCode != null}"
+                                             actionListener="#{customerSearchBean.signup()}"
+                                             value="Register and Activate" styleClass="q-btn" />
+                            </h:panelGroup>
+                        </p:dialog>
+                    </h:form>
                 <br/>
             </div>
         </div>
