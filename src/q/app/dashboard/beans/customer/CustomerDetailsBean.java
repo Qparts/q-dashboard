@@ -1,5 +1,6 @@
 package q.app.dashboard.beans.customer;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import q.app.dashboard.beans.common.LoginBean;
 import q.app.dashboard.beans.common.MakesBean;
 import q.app.dashboard.beans.common.Requester;
@@ -34,8 +35,11 @@ public class CustomerDetailsBean implements Serializable {
     private List<Cart> carts;
     private List<CustomerWallet> wallets;
     private CustomerAddress newAddress;
-    private double liveWallet;
+    private CustomerVehicle newVehicle;
+    private int selectedMakeId;
+    private int selectedModelId;
     private CreateQuotationRequest newQuotation;
+    private double liveWallet;
 
     @Inject
     private Requester reqs;
@@ -60,6 +64,7 @@ public class CustomerDetailsBean implements Serializable {
             newAddress = new CustomerAddress();
             newQuotation = new CreateQuotationRequest();
             newQuotation.setQuotationItems(new ArrayList<>());
+            newVehicle = new CustomerVehicle();
             addQuotationItem();
         } catch (Exception ex) {
             Helper.redirect("customer-search");
@@ -75,6 +80,30 @@ public class CustomerDetailsBean implements Serializable {
 
     public void removeQuotationItem(CreateQuotationItemRequest qi){
         newQuotation.getQuotationItems().remove(qi);
+    }
+
+    public void createVehicle(){
+        if(newVehicle.getVin().trim().length() != 17){
+            Helper.addErrorMessage("Vin Number must be 17 digits");
+        }
+        else{
+            newVehicle.setCreatedBy(loginBean.getLoggedUserId());
+            newVehicle.setCustomerId(customer.getId());
+            newVehicle.setDefaultVehicle(false);
+            newVehicle.setImageAttached(false);
+            newVehicle.setStatus('A');
+            newVehicle.setVin(newVehicle.getVin().toUpperCase().trim());
+            Response r = reqs.postSecuredRequest(AppConstants.POST_CUSTOMER_GARAGE_VEHICLE, newVehicle);
+            if(r.getStatus() == 201){
+                Helper.redirect("customer-details?id=" + customer.getId());
+            }
+            else if(r.getStatus() == 409){
+                Helper.addErrorMessage("Vehicle already added");
+            }
+            else{
+                Helper.addErrorMessage("An error occured " + r.getStatus());
+            }
+        }
     }
 
     public void createQuotation(){
@@ -216,5 +245,29 @@ public class CustomerDetailsBean implements Serializable {
 
     public void setNewQuotation(CreateQuotationRequest newQuotation) {
         this.newQuotation = newQuotation;
+    }
+
+    public CustomerVehicle getNewVehicle() {
+        return newVehicle;
+    }
+
+    public void setNewVehicle(CustomerVehicle newVehicle) {
+        this.newVehicle = newVehicle;
+    }
+
+    public int getSelectedMakeId() {
+        return selectedMakeId;
+    }
+
+    public void setSelectedMakeId(int selectedMakeId) {
+        this.selectedMakeId = selectedMakeId;
+    }
+
+    public int getSelectedModelId() {
+        return selectedModelId;
+    }
+
+    public void setSelectedModelId(int selectedModelId) {
+        this.selectedModelId = selectedModelId;
     }
 }

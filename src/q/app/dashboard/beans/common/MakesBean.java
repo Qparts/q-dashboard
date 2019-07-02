@@ -24,6 +24,7 @@ public class MakesBean implements Serializable {
 
     private List<Make> makes;
     private List<ModelYear> modelYears;
+    private List<Model> models;
 
     @Inject
     private Requester reqs;
@@ -35,7 +36,10 @@ public class MakesBean implements Serializable {
     private void init(){
         makes = new ArrayList<>();
         modelYears = new ArrayList<>();
+        models = new ArrayList<>();
         initMakes();
+        initModels();
+        initModelYears();
         initBrands();
     }
 
@@ -44,9 +48,22 @@ public class MakesBean implements Serializable {
         Response r = reqs.getSecuredRequest(AppConstants.GET_ALL_MAKES);
         if (r.getStatus() == 200) {
             makes = r.readEntity(new GenericType<List<Make>>() {});
-            initModelYears();
         }
     }
+
+    private void initModels(){
+        for(Make make : makes){
+            models.addAll(make.getModels());
+        }
+    }
+
+    private void initModelYears(){
+        for(Model model : models){
+            model.getModelYears().size();
+            modelYears.addAll(model.getModelYears());
+        }
+    }
+
 
 
     private void initBrands(){
@@ -62,20 +79,24 @@ public class MakesBean implements Serializable {
         }
     }
 
-    private void initModelYears(){
-        for(Make make : makes){
-            for(Model model : make.getModels()){
-                modelYears.addAll(model.getModelYears());
-            }
-        }
-    }
-
 
     public Make getMakeFromId(Integer id) {
         if(id != null ) {
             for (Make m : makes) {
                 if (m.getId() == id) {
                     return m;
+                }
+            }
+        }
+        return null;
+    }
+
+
+    public Model getModelFromId(Integer id) {
+        if(id != null ) {
+            for (Model model : models) {
+                if (model.getId() == id) {
+                    return model;
                 }
             }
         }
@@ -108,5 +129,14 @@ public class MakesBean implements Serializable {
 
     public void setModelYears(List<ModelYear> modelYears) {
         this.modelYears = modelYears;
+    }
+
+
+    public List<Model> getModels() {
+        return models;
+    }
+
+    public void setModels(List<Model> models) {
+        this.models = models;
     }
 }

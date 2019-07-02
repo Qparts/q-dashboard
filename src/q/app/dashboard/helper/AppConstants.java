@@ -152,6 +152,7 @@ public class AppConstants {
     public final static String PUT_CUSTOMER_VEHICLE_VIN = CUSTOMER_SERVICE + "customer-vehicle/vin";
     public final static String POST_EMAIL_QUOTATION_READY = CUSTOMER_SERVICE + "email/quotation-ready";
     public final static String POST_CUSTOMER_ADDRESS = CUSTOMER_SERVICE + "address";
+    public final static String POST_CUSTOMER_GARAGE_VEHICLE = CUSTOMER_SERVICE + "vehicle";
 
     public final static String getCustomer(long customerId){
         return CUSTOMER_SERVICE + "customer/" + customerId;
