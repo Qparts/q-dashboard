@@ -398,7 +398,6 @@ public class AwaitingCartBean implements Serializable {
                 total -= cart.getDeliveryFees();
             }
         }
-
         total += (total * cart.getVatPercentage());
         return total;
     }
@@ -487,15 +486,10 @@ public class AwaitingCartBean implements Serializable {
                     var sales = prepareSalesObject(salesId);
                     var salesProducts = prepareSalesProducts(stockDeducts);
                     sales.setSalesProducts(salesProducts);
-                    var customerWallet = prepareCustomerWallet(sales);
-                    var cartDelivery = prepareCartDeliveryForSales();
-                    Map<String,Object> map = new HashMap<String,Object>();
-                    map.put("sales", sales);
-                    map.put("customerWallet", customerWallet);
-                    map.put("cartDelivery", cartDelivery);
-                    System.out.println("1 transaction id = " + customerWallet.getTransactionId());
-                    Response r2 = reqs.putSecuredRequest(AppConstants.PUT_SALES, map);
+                    Response r2 = reqs.putSecuredRequest(AppConstants.PUT_SALES, sales);
                     if(r2.getStatus() == 201){
+                        createCustomerWallet(sales);
+                        updateCartDeliveryAfterSales();
                         Helper.redirect("cart-awaiting?id=" + cart.getId());
                     }
                 }
@@ -508,6 +502,16 @@ public class AwaitingCartBean implements Serializable {
         }
 
 
+    }
+
+    private void updateCartDeliveryAfterSales(){
+        CartDelivery cartDelivery = prepareCartDeliveryForSales();
+        Response r = reqs.putSecuredRequest(AppConstants.PUT_CART_DELIVERY, cartDelivery);
+    }
+
+    private void createCustomerWallet(Sales sales){
+        CustomerWallet customerWallet = prepareCustomerWallet(sales);
+        Response r = reqs.postSecuredRequest(AppConstants.POST_WALLET_SALES, customerWallet);
     }
 
     private List<SalesProduct> prepareSalesProducts(List<StockDeduct> stockDeducts){

@@ -194,20 +194,13 @@
 									<f:selectItem noSelectionOption="true" itemLabel="--Select Type--"/>
 									<f:selectItem itemValue="#{'C'}" itemLabel="Cash"/>
 									<f:selectItem itemValue="#{'T'}" itemLabel="Credit"/>
-									<f:ajax execute="@this" render="select-bank"/>
+									<f:ajax execute="@this"/>
 								</h:selectOneMenu>
 								<h:outputText value="Return Delivery Fees:" />
-								<h:selectBooleanCheckbox value="#{salesReturnBean.returnDelivery}" disabled="#{not (salesReturnBean.cart.cartDelivery.status eq 'S')}" required="true">
+								<h:selectBooleanCheckbox value="#{salesReturnBean.returnDelivery}" disabled="#{salesReturnBean.cart.cartDelivery.status ne 'S' or salesReturnBean.sales.deliveryDiscountId ne null}" required="true">
 									<f:ajax listener="#{salesReturnBean.chooseReturnDelivery()}"
 											render="return-table" execute="@this" />
 								</h:selectBooleanCheckbox>
-
-								<h:outputText value="Bank" />
-								<h:selectOneMenu id="select-bank" value="#{salesReturnBean.bankId}" disabled="#{salesReturnBean.salesReturn.transactionType eq 'T'}" required="true">
-									<f:selectItem noSelectionOption="true" itemLabel="--Select Bank--"/>
-									<f:selectItems value="#{banksBean.banks}" var="bank" itemLabel="#{bank.name}" itemValue="#{bank.id}"/>
-									<f:ajax execute="@this"/>
-								</h:selectOneMenu>
 							</h:panelGrid>
 							<br/>
 							<p:commandButton

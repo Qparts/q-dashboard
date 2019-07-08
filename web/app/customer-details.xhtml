@@ -308,6 +308,7 @@
                                                 <h:outputText value="Payment" rendered="#{wallet.walletType eq 'P'}" styleClass="w3-tag w3-green"/>
                                                 <h:outputText value="Sales" rendered="#{wallet.walletType eq 'S'}" styleClass="w3-tag w3-red"/>
                                                 <h:outputText value="Refund" rendered="#{wallet.walletType eq 'R'}" styleClass="w3-tag w3-red"/>
+                                                <h:outputText value="Refund Return" rendered="#{wallet.walletType eq 'V'}" styleClass="w3-tag w3-red"/>
                                                 <h:outputText value="S. Return" rendered="#{wallet.walletType eq 'T'}" styleClass="w3-tag w3-green"/>
                                             </h:column>
                                             <h:column>
@@ -321,7 +322,7 @@
                                                 <f:facet name="header">
                                                     <h:outputText value="Amount"/>
                                                 </f:facet>
-                                                <h:outputText value="#{wallet.amount}" styleClass="w3-text-red" rendered="#{wallet.walletType eq 'S' or wallet.walletType eq 'R' }">
+                                                <h:outputText value="#{wallet.amount}" styleClass="w3-text-red" rendered="#{wallet.walletType eq 'S' or wallet.walletType eq 'R' or wallet.walletType eq 'V' }">
                                                     <f:convertNumber type="currency" currencySymbol="SR "/>
                                                 </h:outputText>
                                                 <h:outputText value="#{wallet.amount}" styleClass="w3-text-green" rendered="#{wallet.walletType eq 'P' or wallet.walletType eq 'T' }">
@@ -433,7 +434,6 @@
                         </h:panelGrid>
                         <p:commandButton value="Create Vehicle" actionListener="#{customerDetailsBean.createVehicle()}" styleClass="q-btn" update=":form-g" />
                     </p:dialog>
-
                 </h:form>
 
                 <h:form>

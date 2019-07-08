@@ -148,14 +148,19 @@
 					<h:outputText value="Shipment Reference" />
 					<h:inputText value="#{shipmentsBean.shipment.trackReference}"
 						required="#{courierBean.getCourierFromId(shipmentsBean.shipment.courierId).trackable}"
-						requiredMessage="Enter Shipment Reference" />
+						requiredMessage="Enter Shipment Reference">
+						<f:ajax execute="@this"/>
+					</h:inputText>
 					<h:outputText value="Shipment Fees" />
-					<h:inputText value="#{shipmentsBean.shipment.shipmentFees}" />
+					<h:inputText value="#{shipmentsBean.shipment.shipmentFees}">
+						<f:ajax execute="@this"/>
+					</h:inputText>
 					<h:outputText value="Select Address" />
 					<h:selectOneMenu value="#{shipmentsBean.shipment.addressId}">
 						<f:selectItems value="#{shipmentsBean.addresses}" var="ad"
 							itemValue="#{ad.id}"
 							itemLabel="#{ad.id} - #{countryBean.getCountryFromId(cityBean.getCityFromId(ad.cityId).country.id).name} - #{regionBean.getRegionFromId(cityBean.getCityFromId(ad.cityId).region.id).name} - #{cityBean.getCityFromId(ad.cityId).name} - #{ad.line1} #{ad.line2}"/>
+						<f:ajax execute="@this"/>
 					</h:selectOneMenu>
 				</h:panelGrid>
 				<br /> <br />

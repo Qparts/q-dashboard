@@ -257,7 +257,7 @@
                     </div>
                     <div class="w3-col s6 w3-center">
                         <h:form>
-                            <p:commandButton value="Fund Wallet" onclick="PF('fundWalletDlgwv').show()"
+                            <p:commandButton value="#{wireTransferBean.wireTransfer.wireType eq 'F' ? 'Fund Wallet' : 'Deduct Wallet'}" onclick="PF('fundWalletDlgwv').show()"
                                              styleClass="q-btn"/>
                         </h:form>
                     </div>
@@ -293,7 +293,7 @@
 
 
     <h:form id="fund-wallet-form">
-        <p:dialog styleClass="q-dialog" header="Funding Wallet" widgetVar="fundWalletDlgwv">
+        <p:dialog styleClass="q-dialog" header="#{wireTransferBean.wireTransfer.wireType eq 'F' ? 'Funding Wallet' : 'Deduct Wallet' }" widgetVar="fundWalletDlgwv">
             <br/>
             <h:outputText value="Select Bank "/>
             <h:selectOneMenu value="#{wireTransferBean.bankId}"
@@ -312,7 +312,7 @@
             <h:outputText value=" ?"/>
             <br/>
             <div align="center">
-                <p:commandButton value="Fund"
+                <p:commandButton value="#{wireTransferBean.wireTransfer.wireType eq 'F' ? 'Fund' : 'Deduct'}"
                                  widgetVar="SubmitFundWallet"
                                  onclick="PF('SubmitFundWallet').disable()" styleClass="q-btn"
                                  update=":form-g @all"

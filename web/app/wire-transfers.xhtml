@@ -7,7 +7,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <h:head>
-    <title>Awaiting Carts</title>
+    <title>Wire Transfers</title>
     <ui:include src="/_includes/header.xhtml"/>
 </h:head>
 <h:body>
@@ -22,7 +22,7 @@
                     <h:outputText value="Wire Transfers" styleClass="q-large-text"/>
                 </div>
 
-                <h:form id="wire-transfer">
+                <h:form id="new-wire-transfe-formr">
 
 
                 </h:form>
@@ -48,6 +48,13 @@
                                 CART ID#
                             </f:facet>
                             <h:outputText value="#{wire.cart.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Wire Type
+                            </f:facet>
+                            <h:outputText rendered="#{wire.wireType eq 'R'}" value="Reverse" styleClass="w3-tag w3-red" />
+                            <h:outputText rendered="#{wire.wireType eq 'F'}" value="Forward" styleClass="w3-tag w3-green" />
                         </h:column>
                         <h:column style="width:100px">
                             <f:facet name="header">

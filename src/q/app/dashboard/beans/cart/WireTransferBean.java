@@ -67,7 +67,12 @@ public class WireTransferBean implements Serializable {
         wallet.setCustomerId(wireTransfer.getCustomerId());
         wallet.setMethod('W');
         wallet.setTransactionId("wire id:"+wireTransfer.getId());
-        wallet.setWalletType('P');
+        if(wireTransfer.getWireType() == 'F'){
+            wallet.setWalletType('P');
+        }else{
+            wallet.setWalletType('V');//refund after sales return
+        }
+
         wireTransfer.setProcessedBy(loginBean.getLoggedUserId());
         FundWalletWireTransfer fwwt = new FundWalletWireTransfer();
 

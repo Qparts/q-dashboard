@@ -63,6 +63,7 @@ public class AppConstants {
     public final static String GET_BANKS = CART_SERVICE + "banks";
     public final static String POST_PUT_DELETE_BANK = CART_SERVICE + "bank";
     public final static String POST_FUND_WALLET = CART_SERVICE + "fund-wallet/wire-transfer";
+    public final static String POST_FUND_WALLET_SALES_RETURN = CART_SERVICE + "fund-wallet/sales-return";
     public final static String PUT_REFUND_WALLET_WIRE = CART_SERVICE + "cart-refund/wire-transfer";
     public final static String PUT_CANCEL_TRANSFER = CART_SERVICE + "cancel-transfer";
     public final static String GET_NOTIFICATION_CARTS = CART_SERVICE + "carts-notification";
@@ -71,6 +72,10 @@ public class AppConstants {
     public final static String POST_CART_PRODUCT_COMPARE = CART_SERVICE + "cart-product-compare";
     public final static String POST_NEW_SHIPMENT = CART_SERVICE + "new-shipment";
     public final static String PUT_NEW_SHIPMENT = CART_SERVICE + "shipment";
+    public final static String POST_RREVERSE_WIRE_TRANSFER = CART_SERVICE + "wire-transfer/reverse";
+    public final static String PUT_CART_DELIVERY_RETURN = CART_SERVICE + "cart-delivery/sales-return";
+    public final static String PUT_CART_DELIVERY = CART_SERVICE + "cart-delivery/sales";
+    public final static String POST_WALLET_SALES = CART_SERVICE + "wallet/sales";
 
     public final static String getShipmentsReport(int year, int month, int courierId, long cartId) {
         return CART_SERVICE + "shipments/year/" + year + "/month/" + month + "/courier/" + courierId + "/cart/" + cartId;

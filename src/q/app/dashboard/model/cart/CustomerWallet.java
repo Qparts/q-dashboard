@@ -18,7 +18,7 @@ public class CustomerWallet implements Serializable {
     private int createdBy;
     private String transactionId;
     private String currency;
-    private char walletType;//P = payment, S = sales, R = refund, T = return
+    private char walletType;//P = payment, S = sales, R = refund, T = return, V = refund after sales return
     private String ccCompany;
     private Integer bankId;
     @JsonIgnore

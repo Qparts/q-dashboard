@@ -6,6 +6,7 @@ import q.app.dashboard.helper.AppConstants;
 import q.app.dashboard.helper.Helper;
 import q.app.dashboard.model.cart.Cart;
 import q.app.dashboard.model.cart.CartDelivery;
+import q.app.dashboard.model.cart.CartWireTransferRequest;
 import q.app.dashboard.model.cart.CustomerWallet;
 import q.app.dashboard.model.customer.Customer;
 import q.app.dashboard.model.product.ProductHolder;
@@ -16,7 +17,6 @@ import q.app.dashboard.model.sales.SalesReturnProduct;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,7 +38,6 @@ public class SalesReturnBean implements Serializable {
 	private SalesReturn salesReturn;
 	private SalesReturnProduct salesReturnProduct;
 	private boolean returnDelivery;
-	private Integer bankId;
 
 	@Inject
 	private Requester reqs;
@@ -74,32 +73,12 @@ public class SalesReturnBean implements Serializable {
 
 
 
-	private CustomerWallet getCustomerWallet(){
-		CustomerWallet wallet = new CustomerWallet();
-		if(salesReturn.getTransactionType() == 'T'){
-			wallet.setMethod('X');
-			wallet.setBankId(null);
-		}
-		else{
-			wallet.setMethod('W');
-		}
-		wallet.setWalletType('T');//sales Return
-		wallet.setAmount(salesReturn.getGrandTotal());//calculate
-		wallet.setTransactionId("sales return id: " + salesReturn.getId());
-		wallet.setCustomerId(cart.getCustomerId());
-		wallet.setCurrency("SAR");
-		wallet.setCreatedBy(loginBean.getLoggedUserId());
-		wallet.setCreated(new Date());
-
-		return wallet;
-	}
-
 	public void createSalesReturn() {
 		Response r = reqs.postSecuredRequest(AppConstants.POST_EMPTY_SALES_RETURN, "");
 		if (r.getStatus() == 200) {
 			Long id = (r.readEntity(Long.class));
 			salesReturn.setId(id);
-			salesReturn.setCustomerId(sales.getId());
+			salesReturn.setCustomerId(sales.getCustomerId());
 			salesReturn.setCartId(sales.getCartId());
 			salesReturn.setCreatedBy(loginBean.getLoggedUserId());
 			salesReturn.setSalesId(sales.getId());
@@ -114,22 +93,53 @@ public class SalesReturnBean implements Serializable {
 				srp.setQuantity(srp.getNewQuantity());
 			}
 
-			CartDelivery cartDelivery = cart.getCartDelivery();
-			if(this.isReturnDelivery()){
-				cartDelivery.setStatus('T');
-			}
-
-			Map<String,Object> map = new HashMap<String,Object>();
-			map.put("salesReturn", salesReturn);
-			map.put("customerWallet",  getCustomerWallet());
-			map.put("cartDelivery", cartDelivery);
-			Response r2 = reqs.putSecuredRequest(AppConstants.PUT_SALES_RETURN, map);
+			Response r2 = reqs.putSecuredRequest(AppConstants.PUT_SALES_RETURN, salesReturn);
 			if (r2.getStatus() == 201) {
-				Helper.redirect("sales-return?id=" + this.sales.getId());
-
+				fundCustomerWallet();
+				createDeliveryReturn();
+				createReverseWireTransfer();//do reverse wire tranfser
 			} else {
 				Helper.addErrorMessage("could not update sales" + r.getStatus());
 			}
+		}
+	}
+
+	private void fundCustomerWallet(){
+		CustomerWallet customerWallet = new CustomerWallet();
+		customerWallet.setWalletType('T');
+		customerWallet.setMethod('X');
+		customerWallet.setCustomerId(salesReturn.getCustomerId());
+		customerWallet.setCreatedBy(loginBean.getLoggedUserId());
+		customerWallet.setCurrency("SAR");
+		customerWallet.setTransactionId("sales return " + salesReturn.getId());
+		customerWallet.setAmount(salesReturn.getGrandTotal());
+		Response r = reqs.postSecuredRequest(AppConstants.POST_FUND_WALLET_SALES_RETURN, customerWallet);
+		System.out.println("funding customer wallet status " + r.getStatus());
+	}
+
+	private void createDeliveryReturn(){
+		CartDelivery cartDelivery = cart.getCartDelivery();
+		if(this.isReturnDelivery()){
+			cartDelivery.setStatus('T');//returned
+		}
+		Map<String,Object> map = new HashMap<>();
+		map.put("id", cartDelivery.getId());
+		Response r = reqs.putSecuredRequest(AppConstants.PUT_CART_DELIVERY_RETURN, map);
+	}
+
+	private void createReverseWireTransfer(){
+		CartWireTransferRequest wire = new CartWireTransferRequest();
+		wire.setProcessedBy(null);
+		wire.setProcessed(null);
+		wire.setAmount(salesReturn.getGrandTotal());
+		wire.setCartId(cart.getId());
+		wire.setCreatedBy(loginBean.getLoggedUserId());
+		wire.setCustomerId(sales.getCustomerId());
+		wire.setStatus('N');
+		wire.setWireType('R');
+		Response r = reqs.postSecuredRequest(AppConstants.POST_RREVERSE_WIRE_TRANSFER, wire);
+		if(r.getStatus() == 201){
+			Helper.redirect("sales-return?id=" + this.sales.getId());
 		}
 	}
 
@@ -311,11 +321,4 @@ public class SalesReturnBean implements Serializable {
 		this.cart = cart;
 	}
 
-	public Integer getBankId() {
-		return bankId;
-	}
-
-	public void setBankId(Integer bankId) {
-		this.bankId = bankId;
-	}
 }

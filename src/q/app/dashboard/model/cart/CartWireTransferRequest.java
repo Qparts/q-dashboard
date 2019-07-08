@@ -11,6 +11,7 @@ public class CartWireTransferRequest implements Serializable {
     private long cartId;
     private double amount;
     private char status;
+    private char wireType;
     private Date created;
     private int createdBy;
     private Date processed;
@@ -96,5 +97,13 @@ public class CartWireTransferRequest implements Serializable {
 
     public void setProcessedBy(Integer processedBy) {
         this.processedBy = processedBy;
+    }
+
+    public char getWireType() {
+        return wireType;
+    }
+
+    public void setWireType(char wireType) {
+        this.wireType = wireType;
     }
 }
