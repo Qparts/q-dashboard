@@ -422,6 +422,7 @@ public class AwaitingCartBean implements Serializable {
         wallet.setCreatedBy(loginBean.getLoggedUserId());
         wallet.setCreated(new Date());
         wallet.setCreditCharges(0);
+        wallet.setLocked(true);
         return wallet;
     }
 
@@ -441,7 +442,7 @@ public class AwaitingCartBean implements Serializable {
         }
 
         total += cart.getVatPercentage() * total;
-        return (total <= this.liveWallet);
+        return (Helper.round(total,2)<= this.liveWallet);
     }
 
     public void createPurchase(){

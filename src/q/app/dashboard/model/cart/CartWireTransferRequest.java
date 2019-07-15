@@ -1,6 +1,10 @@
 package q.app.dashboard.model.cart;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import q.app.dashboard.model.customer.Customer;
+import q.app.dashboard.model.quotation.Quotation;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -8,7 +12,11 @@ public class CartWireTransferRequest implements Serializable {
 
     private long id;
     private long customerId;
+    @JsonIgnore
+    private Customer customer;
     private long cartId;
+    private long quotationId;
+    private String paymentPurpose;
     private double amount;
     private char status;
     private char wireType;
@@ -17,6 +25,8 @@ public class CartWireTransferRequest implements Serializable {
     private Date processed;
     private Integer processedBy;
     private Cart cart;
+    @JsonIgnore
+    private Quotation quotation;
 
 
     public Cart getCart() {
@@ -105,5 +115,37 @@ public class CartWireTransferRequest implements Serializable {
 
     public void setWireType(char wireType) {
         this.wireType = wireType;
+    }
+
+    public long getQuotationId() {
+        return quotationId;
+    }
+
+    public void setQuotationId(long quotationId) {
+        this.quotationId = quotationId;
+    }
+
+    public String getPaymentPurpose() {
+        return paymentPurpose;
+    }
+
+    public void setPaymentPurpose(String paymentPurpose) {
+        this.paymentPurpose = paymentPurpose;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Quotation getQuotation() {
+        return quotation;
+    }
+
+    public void setQuotation(Quotation quotation) {
+        this.quotation = quotation;
     }
 }

@@ -32,6 +32,15 @@ public class Helper {
     }
 
 
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }
+
     public static void redirect(String path) {
         try{
             FacesContext context = FacesContext.getCurrentInstance();
@@ -106,6 +115,17 @@ public class Helper {
         return ids;
     }
 
+
+    public static long[] getQuotationIds(List objects){
+        long[] ids = new long[objects.size()];
+        for(int i = 0; i < objects.size(); i++) {
+            if(objects.get(i) instanceof CartWireTransferRequest){
+                ids[i] = ((CartWireTransferRequest) objects.get(i)).getQuotationId();
+            }
+        }
+        return ids;
+    }
+
     public static List<Integer> getYearsRange(int from, int to){
         List<Integer> ints = new ArrayList<Integer>();
         for(int i = from; i <= to; i++) {
@@ -141,6 +161,27 @@ public class Helper {
     }
 
 
+    private static Thread appendQuotation(List<Quotation> quotations, Object object){
+        Thread thread = new Thread(() -> {
+            try {
+                for (Quotation quotation : quotations) {
+                    if(object instanceof CartWireTransferRequest){
+                        CartWireTransferRequest wire = (CartWireTransferRequest) object;
+                        if (quotation.getId() == wire.getQuotationId()) {
+                            wire.setQuotation(quotation);
+                            break;
+                        }
+                    }
+                }
+
+            } catch (Exception ignore) {
+
+            }
+        });
+        return thread;
+    }
+
+
     private static Thread appendCustomer(List<Customer> customers, Object object){
         Thread thread = new Thread(() -> {
             try {
@@ -164,6 +205,7 @@ public class Helper {
                     else if(object instanceof CartWireTransferRequest){
                         CartWireTransferRequest wire = (CartWireTransferRequest) object;
                         if (c.getId() == wire.getCustomerId()) {
+                            wire.setCustomer(c);
                             wire.getCart().setCustomer(c);
                             break;
                         }
@@ -207,6 +249,30 @@ public class Helper {
         return thread;
     }
 
+    public static void appendQuotations(List<Quotation> quotations, List vars) throws InterruptedException{
+        Thread[] mainThreads = new Thread[vars.size()];
+        int index = 0;
+        for(Object object : vars){
+            Thread t = new Thread(()->{
+                Thread[] threads = new Thread[1];
+                threads[0] = appendQuotation(quotations, object);
+                for (int i = 0; i < threads.length; i++) {
+                    try {
+                        threads[i].start();
+                        threads[i].join();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }); mainThreads[index] = t;
+            index++;
+        }
+        for (int i = 0; i < mainThreads.length; i++) {
+            mainThreads[i].start();
+            mainThreads[i].join();
+        }
+    }
+
     public static void appendCustomers(List<Customer> customers, List vars) throws InterruptedException  {
         Thread[] mainThreads = new Thread[vars.size()];
         int index = 0;
@@ -214,13 +280,14 @@ public class Helper {
             Thread t = new Thread(() -> {
                 Thread[] threads = new Thread[1];
                 threads[0] = appendCustomer(customers, object);
-                for (int i = 0; i < threads.length; i++)
+                for (int i = 0; i < threads.length; i++) {
                     try {
                         threads[i].start();
                         threads[i].join();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                }
             });
             mainThreads[index] = t;
             index++;

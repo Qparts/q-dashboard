@@ -113,8 +113,8 @@ public class SalesReturnBean implements Serializable {
 		customerWallet.setCurrency("SAR");
 		customerWallet.setTransactionId("sales return " + salesReturn.getId());
 		customerWallet.setAmount(salesReturn.getGrandTotal());
+		customerWallet.setLocked(true);
 		Response r = reqs.postSecuredRequest(AppConstants.POST_FUND_WALLET_SALES_RETURN, customerWallet);
-		System.out.println("funding customer wallet status " + r.getStatus());
 	}
 
 	private void createDeliveryReturn(){
@@ -137,6 +137,7 @@ public class SalesReturnBean implements Serializable {
 		wire.setCustomerId(sales.getCustomerId());
 		wire.setStatus('N');
 		wire.setWireType('R');
+		wire.setPaymentPurpose("cart");
 		Response r = reqs.postSecuredRequest(AppConstants.POST_RREVERSE_WIRE_TRANSFER, wire);
 		if(r.getStatus() == 201){
 			Helper.redirect("sales-return?id=" + this.sales.getId());

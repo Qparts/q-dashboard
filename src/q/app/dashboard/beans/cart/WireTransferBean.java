@@ -7,6 +7,8 @@ import q.app.dashboard.helper.Helper;
 import q.app.dashboard.model.cart.*;
 import q.app.dashboard.model.customer.Customer;
 import q.app.dashboard.model.product.ProductHolder;
+import q.app.dashboard.model.quotation.Comment;
+import q.app.dashboard.model.quotation.Quotation;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -21,7 +23,8 @@ import java.util.ArrayList;
 public class WireTransferBean implements Serializable {
 
     private CartWireTransferRequest wireTransfer;
-    private CartComment newComment;
+    private CartComment newCartComment;
+    private Comment newQuotationComment;
     private double liveWallet;
     private int bankId;
 
@@ -35,12 +38,14 @@ public class WireTransferBean implements Serializable {
     private void init(){
         try {
             wireTransfer = new CartWireTransferRequest();
-            newComment = new CartComment();
+            newCartComment = new CartComment();
+            newQuotationComment = new Comment();
             String param = Helper.getParam("id");
             if (param == null)
                 throw new Exception();
             initWireTransfer(param);
             initCustomer();
+            initQuotation();
             initProducts();
         }catch (Exception ex){
             ex.printStackTrace();
@@ -49,10 +54,12 @@ public class WireTransferBean implements Serializable {
 
 
     private void initProducts(){
-        for(CartProduct cp : wireTransfer.getCart().getCartProducts()){
-            Response r = reqs.getSecuredRequest(AppConstants.getProduct(cp.getProductId()));
-            if(r.getStatus() == 200){
-                cp.setProductHolder(r.readEntity(ProductHolder.class));
+        if(wireTransfer.getPaymentPurpose().equals("cart")){
+            for(CartProduct cp : wireTransfer.getCart().getCartProducts()){
+                Response r = reqs.getSecuredRequest(AppConstants.getProduct(cp.getProductId()));
+                if(r.getStatus() == 200){
+                    cp.setProductHolder(r.readEntity(ProductHolder.class));
+                }
             }
         }
     }
@@ -66,21 +73,30 @@ public class WireTransferBean implements Serializable {
         wallet.setCurrency("SAR");
         wallet.setCustomerId(wireTransfer.getCustomerId());
         wallet.setMethod('W');
+        wallet.setLocked(true);
         wallet.setTransactionId("wire id:"+wireTransfer.getId());
         if(wireTransfer.getWireType() == 'F'){
             wallet.setWalletType('P');
         }else{
             wallet.setWalletType('V');//refund after sales return
         }
-
         wireTransfer.setProcessedBy(loginBean.getLoggedUserId());
         FundWalletWireTransfer fwwt = new FundWalletWireTransfer();
-
         fwwt.setWallet(wallet);
         fwwt.setWireTransfer(wireTransfer);
         Response r = reqs.postSecuredRequest(AppConstants.POST_FUND_WALLET, fwwt);
         if(r.getStatus() == 201){
-            Helper.redirect("wire-transfers");
+            if(wireTransfer.getPaymentPurpose().equals("cart")){
+                Helper.redirect("wire-transfers");
+            }
+            if(wireTransfer.getPaymentPurpose().equals("quotation")){
+                wireTransfer.getQuotation().setStatus('W');
+                Response r2 = reqs.putSecuredRequest(AppConstants.PUT_UPDATE_QUOTATION, wireTransfer.getQuotation());
+                if(r2.getStatus() == 201){
+                    Helper.redirect("wire-transfers");
+                }
+            }
+
         }
         else{
             Helper.addErrorMessage("Error code " + r.getStatus());
@@ -98,17 +114,36 @@ public class WireTransferBean implements Serializable {
 
     }
 
-    public void createComment(){
-        newComment.setCreatedBy(loginBean.getLoggedUserId());
-        newComment.setCartId(wireTransfer.getCartId());
-        newComment.setStatus('A');
-        Response r = reqs.postSecuredRequest(AppConstants.POST_CART_COMMENT, newComment);
+    public void createCartComment(){
+        newCartComment.setCreatedBy(loginBean.getLoggedUserId());
+        newCartComment.setCartId(wireTransfer.getCartId());
+        newCartComment.setStatus('A');
+        Response r = reqs.postSecuredRequest(AppConstants.POST_CART_COMMENT, newCartComment);
         if(r.getStatus() == 200){
             CartComment cartComment = r.readEntity(CartComment.class);
             if(wireTransfer.getCart().getCartComments() == null){
                 wireTransfer.getCart().setCartComments(new ArrayList<>());
             }
             this.wireTransfer.getCart().getCartComments().add(cartComment);
+            Helper.addInfoMessage("Comment added");
+        }
+        else{
+            Helper.addErrorMessage("Error code " + r.getStatus());
+        }
+
+    }
+
+    public void createQuotationComment(){
+        newQuotationComment.setCreatedBy(loginBean.getLoggedUserId());
+        newQuotationComment.setQuotationId(wireTransfer.getQuotationId());
+        newQuotationComment.setStatus('A');
+        Response r = reqs.postSecuredRequest(AppConstants.POST_QUOTATION_COMMENT, newQuotationComment);
+        if(r.getStatus() == 200){
+            Comment quotationComment = r.readEntity(Comment.class);
+            if(wireTransfer.getQuotation().getComments() == null){
+                wireTransfer.getQuotation().setComments(new ArrayList<>());
+            }
+            this.wireTransfer.getQuotation().getComments().add(quotationComment);
             Helper.addInfoMessage("Comment added");
         }
         else{
@@ -125,11 +160,25 @@ public class WireTransferBean implements Serializable {
         }
     }
 
+    private void initQuotation(){
+        if(wireTransfer.getPaymentPurpose().equals("quotation")){
+            Response r = reqs.getSecuredRequest(AppConstants.getQuotation(wireTransfer.getQuotationId()));
+            if(r.getStatus() == 200){
+                wireTransfer.setQuotation(r.readEntity(Quotation.class));
+            }
+        }
+        else{
+        }
+    }
+
     private void initCustomer(){
         Response r = reqs.getSecuredRequest(AppConstants.getCustomer(wireTransfer.getCustomerId()));
         if(r.getStatus() == 200){
             Customer customer = r.readEntity(Customer.class);
-            this.wireTransfer.getCart().setCustomer(customer);
+            this.wireTransfer.setCustomer(customer);
+            if(wireTransfer.getPaymentPurpose().equals("cart")) {
+                this.wireTransfer.getCart().setCustomer(customer);
+            }
         }
     }
 
@@ -142,12 +191,20 @@ public class WireTransferBean implements Serializable {
         this.wireTransfer = wireTransfer;
     }
 
-    public CartComment getNewComment() {
-        return newComment;
+    public CartComment getNewCartComment() {
+        return newCartComment;
     }
 
-    public void setNewComment(CartComment newComment) {
-        this.newComment = newComment;
+    public void setNewCartComment(CartComment newCartComment) {
+        this.newCartComment = newCartComment;
+    }
+
+    public Comment getNewQuotationComment() {
+        return newQuotationComment;
+    }
+
+    public void setNewQuotationComment(Comment newQuotationComment) {
+        this.newQuotationComment = newQuotationComment;
     }
 
     public int getBankId() {

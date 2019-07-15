@@ -5,6 +5,7 @@ import q.app.dashboard.helper.AppConstants;
 import q.app.dashboard.helper.Helper;
 import q.app.dashboard.model.cart.CartWireTransferRequest;
 import q.app.dashboard.model.customer.Customer;
+import q.app.dashboard.model.quotation.Quotation;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -23,6 +24,7 @@ public class WireTransfersBean implements Serializable {
 
     private List<CartWireTransferRequest> wireTransfers;
     private List<Customer> allCustomers;
+    private List<Quotation> allQuotations;
 
     @Inject
     private Requester reqs;
@@ -34,7 +36,9 @@ public class WireTransfersBean implements Serializable {
             wireTransfers = new ArrayList<>();
             initWireTransfers();
             initAllCustomers();
+            initAllQuotations();
             Helper.appendCustomers(allCustomers, wireTransfers);
+            Helper.appendQuotations(allQuotations, wireTransfers);
         }catch (Exception ex){
             ex.printStackTrace();
         }
@@ -52,6 +56,14 @@ public class WireTransfersBean implements Serializable {
         Response r = reqs.postSecuredRequest(AppConstants.POST_CUSTOMER_FROM_IDS, Helper.getCustomerIds(wireTransfers));
         if(r.getStatus() == 200) {
             this.allCustomers = r.readEntity(new GenericType<List<Customer>>() {});
+        }
+    }
+
+    private void initAllQuotations() {
+        allQuotations = new ArrayList<>();
+        Response r = reqs.postSecuredRequest(AppConstants.POST_QUOTATIONS_FROM_IDS, Helper.getQuotationIds(wireTransfers));
+        if(r.getStatus() == 200) {
+            this.allQuotations = r.readEntity(new GenericType<List<Quotation>>() {});
         }
     }
 

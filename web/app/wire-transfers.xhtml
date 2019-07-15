@@ -39,15 +39,22 @@
                         </f:facet>
                         <h:column>
                             <f:facet name="header">
-                                TRANSFER ID#
+                                <h:outputText value="TRANSFER ID#"/>
                             </f:facet>
                             <h:outputText value="#{wire.id}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                CART ID#
+                                <h:outputText value="Purpose"/>
                             </f:facet>
-                            <h:outputText value="#{wire.cart.id}"/>
+                            <h:outputText value="#{wire.paymentPurpose}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="C/Q ID#"/>
+                            </f:facet>
+                            <h:outputText value="#{wire.cart.id}" rendered="#{wire.paymentPurpose.equals('cart')}"/>
+                            <h:outputText value="#{wire.quotationId}" rendered="#{wire.paymentPurpose.equals('quotation')}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
@@ -60,7 +67,7 @@
                             <f:facet name="header">
                                 <h:outputText value="APP" />
                             </f:facet>
-                            <h:graphicImage value="/resources/images/#{webAppBean.getWebAppById(wire.cart.appCode).webAppLLogoName}" width="60"/>
+                            <h:graphicImage value="/resources/images/#{webAppBean.getWebAppById(wire.customer.appCode).webAppLLogoName}" width="60"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
@@ -80,15 +87,16 @@
                             <f:facet name="header">
                                 <h:outputText value="CUSTOMER"/>
                             </f:facet>
-                            <h:outputLink value="customer-details?id=#{wire.cart.customerId}">
-                                <h:outputText value="#{wire.cart.customer.id} - #{wire.cart.customer.fullName}"/>
+                            <h:outputLink value="customer-details?id=#{wire.customer.id}">
+                                <h:outputText value="#{wire.customer.id} - #{wire.customer.fullName}"/>
                             </h:outputLink>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="CITY"/>
                             </f:facet>
-                            <h:outputText value="#{cityBean.getCityFromId(wire.cart.customer.getAddressFromId(wire.cart.cartDelivery.addressId).cityId).region.name} - #{cityBean.getCityFromId(wire.cart.customer.getAddressFromId(wire.cart.cartDelivery.addressId).cityId).name}"/>
+                            <h:outputText value="#{cityBean.getCityFromId(wire.cart.customer.getAddressFromId(wire.cart.cartDelivery.addressId).cityId).region.name} - #{cityBean.getCityFromId(wire.cart.customer.getAddressFromId(wire.cart.cartDelivery.addressId).cityId).name}" rendered="#{wire.paymentPurpose.equals('cart')}"/>
+                            <h:outputText value="#{cityBean.getCityFromId(wire.quotation.cityId).region.name} - #{cityBean.getCityFromId(wire.quotation.cityId).name}" rendered="#{wire.paymentPurpose.equals('quotation')}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">

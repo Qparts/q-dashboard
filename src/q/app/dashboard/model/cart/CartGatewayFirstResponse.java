@@ -9,6 +9,8 @@ public class CartGatewayFirstResponse implements Serializable {
     private long id;
     private char status;//I=initial state, P=paid, F=failed
     private long cartId;
+    private long quotationId;
+    private String paymentPurpose;
     private long customerId;
     private Date created;
     private int createdBy;
@@ -184,5 +186,21 @@ public class CartGatewayFirstResponse implements Serializable {
 
     public void setCreatedBy(int createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public long getQuotationId() {
+        return quotationId;
+    }
+
+    public void setQuotationId(long quotationId) {
+        this.quotationId = quotationId;
+    }
+
+    public String getPaymentPurpose() {
+        return paymentPurpose;
+    }
+
+    public void setPaymentPurpose(String paymentPurpose) {
+        this.paymentPurpose = paymentPurpose;
     }
 }

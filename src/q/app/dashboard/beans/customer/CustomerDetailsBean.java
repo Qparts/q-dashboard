@@ -11,7 +11,6 @@ import q.app.dashboard.model.cart.CustomerWallet;
 import q.app.dashboard.model.customer.Customer;
 import q.app.dashboard.model.customer.CustomerAddress;
 import q.app.dashboard.model.customer.CustomerVehicle;
-import q.app.dashboard.model.product.ProductPrice;
 import q.app.dashboard.model.quotation.CreateQuotationItemRequest;
 import q.app.dashboard.model.quotation.CreateQuotationRequest;
 import q.app.dashboard.model.quotation.Quotation;
@@ -117,8 +116,7 @@ public class CustomerDetailsBean implements Serializable {
             qi.setTempId(index);
             index++;
         }
-        Response r = reqs.postSecuredRequest(AppConstants.POST_NEW_QUOTAITON, newQuotation);
-        System.out.println(AppConstants.POST_NEW_QUOTAITON);
+        Response r = reqs.postSecuredRequest(AppConstants.POST_NEW_QUOTATION, newQuotation);
         if(r.getStatus() == 200){
             Helper.redirect("customer-details?id=" + customer.getId());
         }

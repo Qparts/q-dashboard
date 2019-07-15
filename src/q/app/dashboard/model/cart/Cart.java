@@ -22,6 +22,7 @@ public class Cart implements Serializable {
     private char paymentMethod;//C= cc , W = wire, T = credit, D = cod
     private List<CartProduct> cartProducts;
     private List<CartComment> cartComments;
+    private List<CartUsedWallet> cartUsedWallets;
     private CartDelivery cartDelivery;
     private Discount discount;
 
@@ -128,6 +129,7 @@ public class Cart implements Serializable {
         return getSubTotal() * vatPercentage;
     }
 
+
     @JsonIgnore
     public double getVatNewQuantity(){
         return getSubTotalNewQuantity() * vatPercentage;
@@ -138,6 +140,23 @@ public class Cart implements Serializable {
     @JsonIgnore
     public double getGrandTotal(){
         return getSubTotal() + getVat();
+    }
+
+    @JsonIgnore
+    public double getUsedWalletAmount(){
+        double total = 0;
+        try{
+            for(CartUsedWallet wallet : cartUsedWallets){
+                total += wallet.getCustomerWallet().getAmount();
+            }
+        }catch (Exception ignore){
+        }
+        return total;
+    }
+
+    @JsonIgnore
+    public double getGrandTotalWithUsedWallet(){
+        return getGrandTotal() - getUsedWalletAmount();
     }
 
     @JsonIgnore
@@ -245,6 +264,14 @@ public class Cart implements Serializable {
 
     public Discount getDiscount() {
         return discount;
+    }
+
+    public List<CartUsedWallet> getCartUsedWallets() {
+        return cartUsedWallets;
+    }
+
+    public void setCartUsedWallets(List<CartUsedWallet> cartUsedWallets) {
+        this.cartUsedWallets = cartUsedWallets;
     }
 
     public void setDiscount(Discount discount) {

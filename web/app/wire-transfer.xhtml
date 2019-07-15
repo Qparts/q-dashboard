@@ -36,62 +36,86 @@
                 </h:form>
                 <div class="w3-row">
                     <div id="info-div" class="w3-col s12 w3-padding-24">
-                        <p:panel toggleable="true" header="Cart Information" collapsed="false"
+                        <p:panel toggleable="true" header="#{wireTransferBean.wireTransfer.paymentPurpose.equals('cart') ? 'Cart ' : 'Quotation'}Information" collapsed="false"
                                  toggleSpeed="100">
                             <div class="w3-row">
                                 <div class="w3-col s12 m6 w3-border">
                                     <table class="w3-table w3-striped">
                                         <tr>
-                                            <td><h:outputLabel value="Cart ID" styleClass="q-bold"/></td>
-                                            <td><h:outputText value="#{wireTransferBean.wireTransfer.cartId}"/></td>
+                                            <td><h:outputLabel styleClass="q-bold" value="Purpose"/></td>
+                                            <td><h:outputText value="#{wireTransferBean.wireTransfer.paymentPurpose}"/></td>
                                         </tr>
                                         <tr>
-                                            <td><h:outputLabel value="Cart ID" styleClass="q-bold"/></td>
-                                            <td><h:graphicImage value="/resources/images/#{webAppBean.getWebAppById(wireTransferBean.wireTransfer.cart.appCode).webAppLLogoName}" width="60"/></td>
+                                            <td>
+                                                <h:outputLabel rendered="#{wireTransferBean.wireTransfer.paymentPurpose.equals('cart')}" value="Cart ID" styleClass="q-bold"/>
+                                                <h:outputLabel rendered="#{wireTransferBean.wireTransfer.paymentPurpose.equals('quotation')}" value="Quotation ID" styleClass="q-bold"/>
+                                            </td>
+                                            <td>
+                                                <h:outputText value="#{wireTransferBean.wireTransfer.cartId}" rendered="#{wireTransferBean.wireTransfer.paymentPurpose.equals('cart')}"/>
+                                                <h:outputText value="#{wireTransferBean.wireTransfer.quotationId}" rendered="#{wireTransferBean.wireTransfer.paymentPurpose.equals('quotation')}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><h:outputLabel value="App" styleClass="q-bold"/></td>
+                                            <td><h:graphicImage value="/resources/images/#{webAppBean.getWebAppById(wireTransferBean.wireTransfer.customer.appCode).webAppLLogoName}" width="60"/></td>
                                         </tr>
                                         <tr>
                                             <td><h:outputLabel value="Request Date" styleClass="q-bold"/></td>
-                                            <td><h:outputText value="#{wireTransferBean.wireTransfer.created}">
-                                                <f:convertDateTime pattern="dd-MMM-yyyy HH:mm"/>
-                                            </h:outputText></td>
-                                        </tr>
-                                        <tr>
-                                            <td><h:outputLabel value="Cart Date" styleClass="q-bold"/></td>
-                                            <td><h:outputText value="#{wireTransferBean.wireTransfer.cart.created}">
-                                                <f:convertDateTime pattern="dd-MMM-yyyy HH:mm"/>
-                                            </h:outputText></td>
-                                        </tr>
-                                        <tr>
-                                            <td><h:outputLabel styleClass="q-bold" value="City"/></td>
-                                            <td><h:outputText
-                                                    value="#{cityBean.getCityFromId(wireTransferBean.wireTransfer.cart.address.cityId).region.name} - #{cityBean.getCityFromId(wireTransferBean.wireTransfer.cart.address.cityId).name}"/>
+                                            <td>
+                                                <h:outputText value="#{wireTransferBean.wireTransfer.created}">
+                                                    <f:convertDateTime pattern="dd-MMM-yyyy HH:mm"/>
+                                                </h:outputText>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td>
+                                                <h:outputLabel value="Cart Date" styleClass="q-bold" rendered="#{wireTransferBean.wireTransfer.paymentPurpose.equals('cart')}" />
+                                                <h:outputLabel value="Quotation Date" styleClass="q-bold" rendered="#{wireTransferBean.wireTransfer.paymentPurpose.equals('quotation')}" />
+                                            </td>
+                                            <td>
+                                                <h:outputText value="#{wireTransferBean.wireTransfer.cart.created}" rendered="#{wireTransferBean.wireTransfer.paymentPurpose.equals('cart')}">
+                                                    <f:convertDateTime pattern="dd-MMM-yyyy HH:mm"/>
+                                                </h:outputText>
+                                                <h:outputText value="#{wireTransferBean.wireTransfer.quotation.created}" rendered="#{wireTransferBean.wireTransfer.paymentPurpose.equals('quotation')}">
+                                                    <f:convertDateTime pattern="dd-MMM-yyyy HH:mm"/>
+                                                </h:outputText>
+                                            </td>
+                                        </tr>
+
                                     </table>
                                 </div>
                                 <div class="w3-col s12 m6 w3-border">
                                     <table class="w3-table w3-striped">
                                         <tr>
                                             <td><h:outputLabel styleClass="q-bold" value="Customer ID"/></td>
-                                            <td><h:outputText value="#{wireTransferBean.wireTransfer.cart.customerId}"/>
+                                            <td><h:outputText value="#{wireTransferBean.wireTransfer.customerId}"/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><h:outputLabel styleClass="q-bold" value="Name"/></td>
                                             <td><h:outputText
-                                                    value="#{wireTransferBean.wireTransfer.cart.customer.fullName}"/>
+                                                    value="#{wireTransferBean.wireTransfer.customer.fullName}"/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><h:outputLabel styleClass="q-bold" value="Mobile"/></td>
-                                            <td><h:outputText
-                                                    value="#{wireTransferBean.wireTransfer.cart.address.mobile}"/>
+                                            <td>
+                                                <h:outputText value="#{wireTransferBean.wireTransfer.cart.address.mobile}" rendered="#{wireTransferBean.wireTransfer.paymentPurpose.equals('cart')}"/>
+                                                <h:outputText value="#{wireTransferBean.wireTransfer.customer.mobile}" rendered="#{wireTransferBean.wireTransfer.paymentPurpose.equals('quotation')}"/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><h:outputLabel styleClass="q-bold" value="Email"/></td>
                                             <td><h:outputText readonly="true"
-                                                              value="#{wireTransferBean.wireTransfer.cart.customer.email}"/>
+                                                              value="#{wireTransferBean.wireTransfer.customer.email}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><h:outputLabel styleClass="q-bold" value="City"/></td>
+                                            <td><h:outputText
+                                                    value="#{cityBean.getCityFromId(wireTransferBean.wireTransfer.cart.address.cityId).region.name} - #{cityBean.getCityFromId(wireTransferBean.wireTransfer.cart.address.cityId).name}" rendered="#{wireTransferBean.wireTransfer.paymentPurpose.equals('cart')}"/>
+                                                <h:outputText
+                                                        value="#{cityBean.getCityFromId(wireTransferBean.wireTransfer.quotation.cityId).region.name} - #{cityBean.getCityFromId(wireTransferBean.wireTransfer.quotation.cityId).name}" rendered="#{wireTransferBean.wireTransfer.paymentPurpose.equals('quotation')}"/>
                                             </td>
                                         </tr>
                                     </table>
@@ -100,12 +124,36 @@
                         </p:panel>
                     </div>
                     <div id="comments-div" class="w3-col s12 w3-padding-24">
-                        <p:panel toggleable="true" id="comments-panel"
+                        <p:panel toggleable="true" id="comments-panel" rendered="#{wireTransferBean.wireTransfer.paymentPurpose.equals('cart')}"
                                  header="Comments #{wireTransferBean.wireTransfer.cart.cartComments.size() gt 0 ? wireTransferBean.wireTransfer.cart.cartComments.size() : ' '}"
                                  collapsed="false"
                                  toggleSpeed="100">
-                            <ui:repeat var="comment" id="comments-repeat"
+                            <ui:repeat var="comment"
                                        value="#{wireTransferBean.wireTransfer.cart.cartComments}">
+                                <h:outputText value="#{comment.created}" styleClass="q-bold"
+                                              style="color:#2dacd1!important;">
+                                    <f:convertDateTime pattern="dd-MMM-yyyy hh:mm"/>
+                                </h:outputText>
+                                <h:outputText
+                                        value="#{comment.createdBy} - #{usersBean.getUserFromId(comment.createdBy).firstName}: "
+                                        styleClass="q-bold" style="color:#2dacd1!important;"/>
+                                <h:outputText
+                                        value=" (#{comment.visibleToCustomer ? 'visible' : 'hidden'}) : "
+                                        style="color:#2dacd1!important;" styleClass="q-bold"/>
+                                <h:outputText dir="rtl" value=" #{comment.text}"/>
+                                <br/>
+                                <br/>
+                            </ui:repeat>
+
+                            <p:commandButton value="+" styleClass="q-btn"
+                                             oncomplete="PF('commentDlgwv').show()"/>
+                        </p:panel>
+                        <p:panel toggleable="true" id="q-comments-panel" rendered="#{wireTransferBean.wireTransfer.paymentPurpose.equals('quotation')}"
+                                 header="Comments #{wireTransferBean.wireTransfer.quotation.comments.size() gt 0 ? wireTransferBean.wireTransfer.quotation.comments.size() : ' '}"
+                                 collapsed="false"
+                                 toggleSpeed="100">
+                            <ui:repeat var="comment"
+                                       value="#{wireTransferBean.wireTransfer.quotation.comments}">
                                 <h:outputText value="#{comment.created}" styleClass="q-bold"
                                               style="color:#2dacd1!important;">
                                     <f:convertDateTime pattern="dd-MMM-yyyy hh:mm"/>
@@ -128,7 +176,9 @@
                     <div id="products-div" class="w3-col s12 w3-padding-24">
                         <p:panel toggleable="true" header="Products" collapsed="false"
                                  toggleSpeed="100">
-                            <h:dataTable styleClass="w3-table w3-striped w3-border"
+                            <h:dataTable
+                                    rendered="#{wireTransferBean.wireTransfer.paymentPurpose.equals('cart')}"
+                                    styleClass="w3-table w3-striped w3-border"
                                          headerClass="w3-light-grey w3-border"
                                          footerClass="w3-light-grey w3-border"
                                          value="#{wireTransferBean.wireTransfer.cart.cartProducts}"
@@ -242,16 +292,49 @@
                                     </div>
                                     <div class="w3-row">
                                         <div class="w3-col s6 m1">
+                                            <h:outputText value="Wallet" styleClass="w3-text-red"/>
+                                        </div>
+                                        <div class="w3-col s6 m1">
+                                            <h:outputText value="#{wireTransferBean.wireTransfer.cart.usedWalletAmount}" styleClass="w3-text-red">
+                                                <f:convertNumber type="currency" currencySymbol="SR "/>
+                                            </h:outputText>
+                                        </div>
+                                    </div>
+                                    <div class="w3-row">
+                                        <div class="w3-col s6 m1">
                                             <h:outputText value="Total" styleClass="q-bold"/>
                                         </div>
                                         <div class="w3-col s6 m1">
-                                            <h:outputText value="#{wireTransferBean.wireTransfer.cart.grandTotal}"
+                                            <h:outputText value="#{wireTransferBean.wireTransfer.cart.grandTotalWithUsedWallet}"
                                                           styleClass="q-bold">
                                                 <f:convertNumber type="currency" currencySymbol="SR "/>
                                             </h:outputText>
                                         </div>
                                     </div>
                                 </f:facet>
+                            </h:dataTable>
+                            <h:dataTable
+                                    rendered="#{wireTransferBean.wireTransfer.paymentPurpose.equals('quotation')}"
+                                    styleClass="w3-table w3-striped w3-border"
+                                    headerClass="w3-light-grey w3-border"
+                                    footerClass="w3-light-grey w3-border"
+                                    value="#{wireTransferBean.wireTransfer.quotation.quotationItems}"
+                                    var="item">
+                                <f:facet name="header">
+                                    <div align="center">Quotation Items</div>
+                                </f:facet>
+                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                    <f:facet name="header">
+                                        <h:outputText value="Item Name"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.name}"/>
+                                </h:column>
+                                <h:column headerClass="w3-border-bottom w3-light-grey">
+                                    <f:facet name="header">
+                                        QTY.
+                                    </f:facet>
+                                    <h:outputText value="#{item.quantity}"/>
+                                </h:column>
                             </h:dataTable>
                         </p:panel>
                     </div>
@@ -305,7 +388,7 @@
             </h:selectOneMenu>
             <br/>
             <br/>
-            <h:outputText value="Fund #{wireTransferBean.wireTransfer.cart.customer.fullName}'s wallet with: "/>
+            <h:outputText value="Fund #{wireTransferBean.wireTransfer.customer.fullName}'s wallet with: "/>
             <h:outputText value="#{wireTransferBean.wireTransfer.amount}" styleClass="q-bold">
                 <f:convertNumber type="currency" currencySymbol="SR "/>
             </h:outputText>
@@ -326,21 +409,31 @@
             <div align="center">
                 <h:outputText value="Visible to Customer"/>
                 <br/>
-                <h:selectBooleanCheckbox
-                        value="#{wireTransferBean.newComment.visibleToCustomer}"/>
+                <h:selectBooleanCheckbox rendered="#{wireTransferBean.wireTransfer.paymentPurpose.equals('cart')}"
+                        value="#{wireTransferBean.newCartComment.visibleToCustomer}"/>
+                <h:selectBooleanCheckbox rendered="#{wireTransferBean.wireTransfer.paymentPurpose.equals('quotation')}"
+                                         value="#{wireTransferBean.newQuotationComment.visibleToCustomer}"/>
                 <br/>
                 <div class="w3-padding-12">
                     <h:outputText value="Text"/>
                     <br/>
-                    <h:inputTextarea required="true"
+                    <h:inputTextarea rendered="#{wireTransferBean.wireTransfer.paymentPurpose.equals('cart')}" required="true"
                                      requiredMessage="Enter comments before submitting"
-                                     value="#{wireTransferBean.newComment.text}" cols="70"
+                                     value="#{wireTransferBean.newCartComment.text}" cols="70"
+                                     rows="3"/>
+                    <h:inputTextarea rendered="#{wireTransferBean.wireTransfer.paymentPurpose.equals('quotation')}" required="true"
+                                     requiredMessage="Enter comments before submitting"
+                                     value="#{wireTransferBean.newQuotationComment.text}" cols="70"
                                      rows="3"/>
                 </div>
                 <div>
-                    <p:commandButton value="Submit" styleClass="q-btn"
-                                     actionListener="#{wireTransferBean.createComment()}"
+                    <p:commandButton value="Submit" styleClass="q-btn" rendered="#{wireTransferBean.wireTransfer.paymentPurpose.equals('cart')}"
+                                     actionListener="#{wireTransferBean.createCartComment}"
                                      process="@form" update="@form :comments-panel">
+                    </p:commandButton>
+                    <p:commandButton value="Submit" styleClass="q-btn" rendered="#{wireTransferBean.wireTransfer.paymentPurpose.equals('quotation')}"
+                                     actionListener="#{wireTransferBean.createQuotationComment}"
+                                     process="@form" update="@form :q-comments-panel">
                     </p:commandButton>
                 </div>
             </div>

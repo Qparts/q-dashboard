@@ -19,6 +19,7 @@ public class CartDelivery implements Serializable {
 
     public CartDelivery(int deliveryCharges){
         this.deliveryCharges = deliveryCharges;
+        this.status = 'N';
     }
 
     public long getId() {

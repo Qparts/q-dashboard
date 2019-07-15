@@ -44,6 +44,7 @@
                                         <tr>
                                             <td><h:outputLabel value="Quotation Status" styleClass="q-bold"/></td>
                                             <td>
+                                                <h:outputText value="Waiting for Transfer" rendered="#{quotationDetailsBean.quotation.status eq 'T'}" styleClass="w3-tag w3-yellow" />
                                                 <h:outputText value="Waiting for Quotation" rendered="#{quotationDetailsBean.quotation.status eq 'W'}" styleClass="w3-tag w3-indigo" />
                                                 <h:outputText value="Archived" rendered="#{quotationDetailsBean.quotation.status eq 'X'}" styleClass="w3-tag" />
                                                 <h:outputText value="Closed" rendered="#{quotationDetailsBean.quotation.status eq 'C'}" styleClass="w3-tag w3-orange w3-text-white" />
@@ -362,10 +363,20 @@
                                     </div>
                                     <div class="w3-row">
                                         <div class="w3-col s6 m1">
+                                            <h:outputText value="Wallet" styleClass="w3-text-red" />
+                                        </div>
+                                        <div class="w3-col s6 m1">
+                                            <h:outputText value="#{quotationDetailsBean.unlockedWalletAmount}" styleClass="w3-text-red">
+                                                <f:convertNumber type="currency" currencySymbol="SR "/>
+                                            </h:outputText>
+                                        </div>
+                                    </div>
+                                    <div class="w3-row">
+                                        <div class="w3-col s6 m1">
                                             <h:outputText value="Total" styleClass="q-bold"/>
                                         </div>
                                         <div class="w3-col s6 m1">
-                                            <h:outputText value="#{quotationDetailsBean.quotation.totalSalesPrice + 35 + ((quotationDetailsBean.quotation.totalSalesPrice  + 35) * 0.05)}"
+                                            <h:outputText value="#{quotationDetailsBean.quotation.totalSalesPrice + 35 + ((quotationDetailsBean.quotation.totalSalesPrice  + 35) * 0.05) - quotationDetailsBean.unlockedWalletAmount}"
                                                           styleClass="q-bold">
                                                 <f:convertNumber type="currency" currencySymbol="SR "/>
                                             </h:outputText>
@@ -391,31 +402,31 @@
     <h:form id="cart-form">
         <p:dialog styleClass="q-dialog" header="Cart" widgetVar="cartDlgwv">
             <h:panelGroup id="cart-panel">
-                <h:dataTable value="#{quotationDetailsBean.cart.cartProducts}" var="cp" styleClass="w3-table w3-striped w3-border">
+                <h:dataTable id="cart-table" value="#{quotationDetailsBean.cartRequest.cartItems}" var="ci" styleClass="w3-table w3-striped w3-border">
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="PRODUCT ID"/>
                     </f:facet>
-                    <h:outputText value="#{cp.productHolder.product.id}"/>
+                    <h:outputText value="#{ci.productHolder.product.id}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="DESC."/>
                     </f:facet>
-                    <h:outputText value="#{cp.productHolder.product.desc}"/>
+                    <h:outputText value="#{ci.productHolder.product.desc}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="NUMBER"/>
                     </f:facet>
-                    <h:outputText value="#{cp.productHolder.product.productNumber}"/>
+                    <h:outputText value="#{ci.productHolder.product.productNumber}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="QUANTITY"/>
                     </f:facet>
-                    <h:selectOneMenu value="#{cp.newQuantity}">
-                        <f:selectItems value="#{cp.quantityArray20}" var="q" itemLabel="#{q}" itemValue="#{q}"/>
+                    <h:selectOneMenu value="#{ci.quantity}">
+                        <f:selectItems value="#{ci.quantityArray20}" var="q" itemLabel="#{q}" itemValue="#{q}"/>
                         <f:ajax execute="@this" render="cart-form:cart-panel"/>
                     </h:selectOneMenu>
                 </h:column>
@@ -423,7 +434,7 @@
                     <f:facet name="header">
                         <h:outputText value="UNIT PRICE"/>
                     </f:facet>
-                    <h:outputText value="#{cp.productHolder.averageSalesPrices}">
+                    <h:outputText value="#{ci.productHolder.averageSalesPrices}">
                         <f:convertNumber type="currency" currencySymbol="SR "/>
                     </h:outputText>
                 </h:column>
@@ -431,7 +442,7 @@
                     <f:facet name="header">
                         <h:outputText value="GROSS PRICE"/>
                     </f:facet>
-                    <h:outputText value="#{cp.productHolder.averageSalesPrices * cp.newQuantity}">
+                    <h:outputText value="#{ci.productHolder.averageSalesPrices * ci.quantity}">
                         <f:convertNumber type="currency" currencySymbol="SR "/>
                     </h:outputText>
                 </h:column>
@@ -441,7 +452,7 @@
                             <h:outputText value="Total Products"/>
                         </div>
                         <div class="w3-col s6">
-                            <h:outputText value="#{quotationDetailsBean.cart.productsTotalNewQuantity}">
+                            <h:outputText value="#{quotationDetailsBean.cartRequest.productsTotal}">
                                 <f:convertNumber type="currency" currencySymbol="SR "/>
                             </h:outputText>
                         </div>
@@ -451,7 +462,7 @@
                             <h:outputText value="Delivery"/>
                         </div>
                         <div class="w3-col s6">
-                            <h:outputText value="#{quotationDetailsBean.cart.deliveryFees}">
+                            <h:outputText value="#{quotationDetailsBean.cartRequest.deliveryCharges}">
                                 <f:convertNumber type="currency" currencySymbol="SR "/>
                             </h:outputText>
                         </div>
@@ -461,7 +472,7 @@
                             <h:outputText value="Subtotal" styleClass="q-bold"/>
                         </div>
                         <div class="w3-col s6">
-                            <h:outputText value="#{quotationDetailsBean.cart.subTotalNewQuantity}"
+                            <h:outputText value="#{quotationDetailsBean.cartRequest.subTotal}"
                                           styleClass="q-bold">
                                 <f:convertNumber type="currency" currencySymbol="SR "/>
                             </h:outputText>
@@ -472,7 +483,17 @@
                             <h:outputText value="VAT"/>
                         </div>
                         <div class="w3-col s6">
-                            <h:outputText value="#{quotationDetailsBean.cart.vatNewQuantity}">
+                            <h:outputText value="#{quotationDetailsBean.cartRequest.vat}">
+                                <f:convertNumber type="currency" currencySymbol="SR "/>
+                            </h:outputText>
+                        </div>
+                    </div>
+                    <div class="w3-row">
+                        <div class="w3-col s6">
+                            <h:outputText value="Wallet"/>
+                        </div>
+                        <div class="w3-col s6">
+                            <h:outputText value="#{quotationDetailsBean.unlockedWalletAmount}">
                                 <f:convertNumber type="currency" currencySymbol="SR "/>
                             </h:outputText>
                         </div>
@@ -482,7 +503,7 @@
                             <h:outputText value="Total" styleClass="q-bold"/>
                         </div>
                         <div class="w3-col s6">
-                            <h:outputText value="#{quotationDetailsBean.cart.grandTotalNewQuantity}"
+                            <h:outputText value="#{quotationDetailsBean.cartRequest.grandTotal - quotationDetailsBean.unlockedWalletAmount}"
                                           styleClass="q-bold">
                                 <f:convertNumber type="currency" currencySymbol="SR "/>
                             </h:outputText>
@@ -493,11 +514,11 @@
                 <br/>
                 <h:panelGrid columns="2">
                     <h:outputText value="Delivery Charges"/>
-                    <h:inputText value="#{quotationDetailsBean.cart.cartDelivery.deliveryCharges}" required="true">
-                        <f:ajax execute="@this" render="cart-form:cart-panel"/>
+                    <h:inputText value="#{quotationDetailsBean.cartRequest.deliveryCharges}" required="true">
+                        <f:ajax execute="@this" render=":cart-form:cart-panel"/>
                     </h:inputText>
                     <h:outputText value="Address"/>
-                    <h:selectOneMenu value="#{quotationDetailsBean.cart.cartDelivery.addressId}" required="true">
+                    <h:selectOneMenu value="#{quotationDetailsBean.cartRequest.addressId}" required="true">
                         <f:selectItems value="#{quotationDetailsBean.customer.addresses}" var="address" itemValue="#{address.id}" itemLabel="#{address.title}"/>
                     </h:selectOneMenu>
                     <h:outputText value="Payment Method"/>

@@ -15,6 +15,7 @@ public class AppConstants {
     private final static String PRODUCT_SERVICE = SysProps.getValue("productService");
     private final static String INVOICE_SERVICE = SysProps.getValue("invoiceService");
     private final static String CART_SERVICE = SysProps.getValue("cartService");
+    private final static String PUBLIC_CART_SERVICE = SysProps.getValue("cartPublicService");
     private final static String LOCATION_SERVICE = SysProps.getValue("locationService");
 
     private final static String CATALOG_SERVICE = PRODUCT_SERVICE + "catalog/";
@@ -68,7 +69,7 @@ public class AppConstants {
     public final static String PUT_CANCEL_TRANSFER = CART_SERVICE + "cancel-transfer";
     public final static String GET_NOTIFICATION_CARTS = CART_SERVICE + "carts-notification";
     public final static String POST_EMPTY_WALLET = CART_SERVICE + "empty-wallet";
-    public final static String POST_CART_WIRE_TRANSFER = CART_SERVICE + "cart/wire-transfer";
+    public final static String POST_CART_WIRE_TRANSFER = PUBLIC_CART_SERVICE + "cart/wire-transfer";
     public final static String POST_CART_PRODUCT_COMPARE = CART_SERVICE + "cart-product-compare";
     public final static String POST_NEW_SHIPMENT = CART_SERVICE + "new-shipment";
     public final static String PUT_NEW_SHIPMENT = CART_SERVICE + "shipment";
@@ -80,6 +81,11 @@ public class AppConstants {
     public final static String getShipmentsReport(int year, int month, int courierId, long cartId) {
         return CART_SERVICE + "shipments/year/" + year + "/month/" + month + "/courier/" + courierId + "/cart/" + cartId;
     }
+
+    public final static String getUnlockedWalletAmount(long customerId){
+        return CART_SERVICE + "unlocked-wallet-amount/" + customerId;
+    }
+
 
 
     public final static String getSoldCartProducts(long cid) {
@@ -228,7 +234,9 @@ public class AppConstants {
 
 
     //QUOTATION SERVICE CALLS//
-    public final static String POST_NEW_QUOTAITON = PUBLIC_QUOTATION_SERVICE+ "quotation";
+    public final static String POST_QUOTATIONS_FROM_IDS = QUOTATION_SERVICE + "quotations-from-ids";
+    public final static String POST_NEW_QUOTATION = PUBLIC_QUOTATION_SERVICE+ "quotation";
+    public final static String PUT_UPDATE_QUOTATION = QUOTATION_SERVICE + "quotation";
     public final static String POST_QUOTATION_COMMENT = QUOTATION_SERVICE + "comment";
     public final static String POST_BILL = QUOTATION_SERVICE + "bill";
     public final static String PUT_BILL_ITEM = QUOTATION_SERVICE + "bill-item";

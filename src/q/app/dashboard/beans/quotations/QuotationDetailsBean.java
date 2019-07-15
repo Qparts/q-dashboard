@@ -4,9 +4,7 @@ import q.app.dashboard.beans.common.LoginBean;
 import q.app.dashboard.beans.common.Requester;
 import q.app.dashboard.helper.AppConstants;
 import q.app.dashboard.helper.Helper;
-import q.app.dashboard.model.cart.Cart;
-import q.app.dashboard.model.cart.CartDelivery;
-import q.app.dashboard.model.cart.CartProduct;
+import q.app.dashboard.model.cart.*;
 import q.app.dashboard.model.customer.Customer;
 import q.app.dashboard.model.customer.EmailSent;
 import q.app.dashboard.model.product.ProductHolder;
@@ -31,7 +29,9 @@ public class QuotationDetailsBean implements Serializable {
     private Customer customer;
     private Comment newComment;
     private QuotationItem newQuotationItem;
-    private Cart cart;
+    //private Cart cart;
+    private CartRequest cartRequest;
+    private double unlockedWalletAmount;
 
     @Inject
     private Requester reqs;
@@ -49,13 +49,25 @@ public class QuotationDetailsBean implements Serializable {
             initQuotation(s);
             initCustomer();
             initProducts();
+            initUnlockedWalletAmount();
             quotation.setCustomer(customer);
             newQuotationItem = new QuotationItem();
-            cart = new Cart();
+//            cart = new Cart();
+            cartRequest = new CartRequest();
             newComment = new Comment();
 
         } catch (Exception ex) {
             Helper.redirect("quotation-search");
+        }
+    }
+
+    private void initUnlockedWalletAmount(){
+        Response r = reqs.getSecuredRequest(AppConstants.getUnlockedWalletAmount(customer.getId()));
+        System.out.println(r.getStatus());
+        if(r.getStatus() == 200){
+            Map<String,Object> map = r.readEntity(Map.class);
+            double amount = ((Number) map.get("amount")).doubleValue();
+            this.unlockedWalletAmount = amount;
         }
     }
 
@@ -112,41 +124,49 @@ public class QuotationDetailsBean implements Serializable {
 
     public void initCart(){
         if(quotation.getStatus() == 'S'){
-            cart = new Cart();
-            cart.setCustomerId(customer.getId());
-            cart.setCartDelivery(new CartDelivery(35));
-            cart.getCartDelivery().setCreatedBy(loginBean.getLoggedUserId());
-            cart.setCartProducts(new ArrayList<>());
-            cart.setVatPercentage(0.05);
-            cart.setPaymentMethod('W');
+            cartRequest = new CartRequest();
+//            cart = new Cart();
+            cartRequest.setCustomerId(customer.getId());
+//            cart.setCustomerId(customer.getId());
+            cartRequest.setDeliveryCharges(35);
+//            cart.setCartDelivery(new CartDelivery(35));
+            cartRequest.setCartItems(new ArrayList<>());
+//            cart.getCartDelivery().setCreatedBy(loginBean.getLoggedUserId());
+  //          cart.setCartProducts(new ArrayList<>());
+//            cart.setVatPercentage(0.05);
+            //cart.setPaymentMethod('W');
             for(BillItem bi : quotation.getAllBillItems()){
                 if(bi.getStatus() == 'C'){
                     var bir = bi.getBillItemResponse();
-                    CartProduct cp = new CartProduct();
-                    cp.setProductId(bir.getProductId());
-                    cp.setSalesPrice(bir.getProductHolder().getAverageSalesPrices());
-                    cp.setProductHolder(bir.getProductHolder());
-                    cp.setQuantity(bir.getQuantity());
-                    cp.setNewQuantity(bir.getQuantity());
-                    cart.getCartProducts().add(cp);
+                    //CartProduct cp = new CartProduct();
+                    CartItemRequest ci = new CartItemRequest();
+                    ci.setProductId(bir.getProductId());
+//                    cp.setProductId(bir.getProductId());
+                    ci.setSalesPrice(bir.getProductHolder().getAverageSalesPrices());
+//                    cp.setSalesPrice(bir.getProductHolder().getAverageSalesPrices());
+                    ci.setProductHolder(bir.getProductHolder());
+ //                   cp.setProductHolder(bir.getProductHolder());
+                    ci.setQuantity(bir.getQuantity());
+//                    cp.setQuantity(bir.getQuantity());
+ //                   cp.setNewQuantity(bir.getQuantity());
+                    cartRequest.getCartItems().add(ci);
+//                    cart.getCartProducts().add(cp);
                 }
             }
         }
     }
 
     public void createCart(){
-        for(CartProduct cp : cart.getCartProducts()){
-            cp.setQuantity(cp.getNewQuantity());
-        }
-        cart.setAppCode(customer.getAppCode());
-        Response r = reqs.postSecuredRequest(AppConstants.POST_CART_WIRE_TRANSFER, cart);
+        cartRequest.setAppCode(customer.getAppCode());
+        cartRequest.setCreatedBy(loginBean.getLoggedUserId());
+        cartRequest.setWalletAmount(unlockedWalletAmount);
+        Response r = reqs.postSecuredRequest(AppConstants.POST_CART_WIRE_TRANSFER, cartRequest);
         if(r.getStatus() == 200){
             Helper.redirect("wire-transfers");
         }
         else{
             Helper.addErrorMessage("Error code " + r.getStatus());
         }
-
     }
 
 
@@ -201,13 +221,13 @@ public class QuotationDetailsBean implements Serializable {
         this.quotation = quotation;
     }
 
-    public Cart getCart() {
-        return cart;
-    }
+//    public Cart getCart() {
+  //      return cart;
+    //}
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
+    //public void setCart(Cart cart) {
+      //  this.cart = cart;
+    //}
 
     public Comment getNewComment() {
         return newComment;
@@ -223,5 +243,17 @@ public class QuotationDetailsBean implements Serializable {
 
     public void setNewQuotationItem(QuotationItem newQuotationItem) {
         this.newQuotationItem = newQuotationItem;
+    }
+
+    public double getUnlockedWalletAmount() {
+        return unlockedWalletAmount;
+    }
+
+    public CartRequest getCartRequest() {
+        return cartRequest;
+    }
+
+    public void setCartRequest(CartRequest cartRequest) {
+        this.cartRequest = cartRequest;
     }
 }

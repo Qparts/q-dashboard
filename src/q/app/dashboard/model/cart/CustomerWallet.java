@@ -21,6 +21,8 @@ public class CustomerWallet implements Serializable {
     private char walletType;//P = payment, S = sales, R = refund, T = return, V = refund after sales return
     private String ccCompany;
     private Integer bankId;
+    private boolean locked;
+
     @JsonIgnore
     private Customer customer;
 
@@ -134,5 +136,13 @@ public class CustomerWallet implements Serializable {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
     }
 }

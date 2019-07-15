@@ -313,6 +313,13 @@
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">
+                                                    <h:outputText value="Locked"/>
+                                                </f:facet>
+                                                <h:outputText value="Locked" rendered="#{wallet.locked eq true}" styleClass="w3-tag w3-red"/>
+                                                <h:outputText value="Open" rendered="#{wallet.locked eq false}" styleClass="w3-tag w3-green"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
                                                     <h:outputText value="Method"/>
                                                 </f:facet>
                                                 <h:outputText value="CC" rendered="#{wallet.method eq 'C'}" styleClass="w3-tag w3-blue"/>
@@ -369,6 +376,7 @@
                             <h:selectOneMenu value="#{customerDetailsBean.newQuotation.cityId}" required="true" id="city" requiredMessage="Select City">
                                 <f:selectItem noSelectionOption="true" itemLabel="--Select City--"/>
                                 <f:selectItems value="#{cityBean.getCitiesFromRegionId(customerDetailsBean.newQuotation.regionId)}" var="city" itemValue="#{city.id}" itemLabel="#{city.name}"/>
+                                <f:ajax render="@this" execute="@this"/>
                             </h:selectOneMenu>
                             <h:outputText value="Items"/>
                             <h:dataTable value="#{customerDetailsBean.newQuotation.quotationItems}" var="qi" id="table" styleClass="w3-table w3-striped w3-border" headerClass="w3-border-bottom" footerClass="w3-border-top">
@@ -396,6 +404,12 @@
                                         </div>
                                 </f:facet>
                             </h:dataTable>
+                            <h:outputText value="Payment Method"/>
+                            <h:selectOneMenu value="#{customerDetailsBean.newQuotation.paymentMethood}">
+                                <f:selectItem noSelectionOption="true" itemLabel="--Select Payment Method--"/>
+                                <f:selectItem itemValue="#{'W'}" itemLabel="Wire Transfer"/>
+                                <f:selectItem itemValue="#{'F'}" itemLabel="Free"/>
+                            </h:selectOneMenu>
                         </h:panelGrid>
                     </h:panelGroup>
                         <br/>
