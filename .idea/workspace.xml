@@ -21,8 +21,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/app/quotation-details.xhtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="527" column="240" selection-start-line="527" selection-start-column="240" selection-end-line="527" selection-end-column="240" />
+            <state relative-caret-position="145">
+              <caret line="390" column="248" selection-start-line="390" selection-start-column="248" selection-end-line="390" selection-end-column="248" />
             </state>
           </provider>
         </entry>
@@ -91,7 +91,6 @@
       <find>createQuotation</find>
       <find>createQu</find>
       <find>System</find>
-      <find>Create Cart</find>
       <find>SUBTOTA</find>
       <find>//CART</find>
       <find>fundWallet</find>
@@ -113,6 +112,7 @@
       <find>p</find>
       <find>Sales Price</find>
       <find>Create C</find>
+      <find>Create Cart</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -421,12 +421,12 @@
       <workItem from="1562906751068" duration="3448000" />
       <workItem from="1563046890988" duration="5088000" />
       <workItem from="1563077378481" duration="18134000" />
-      <workItem from="1563243969460" duration="2720000" />
+      <workItem from="1563243969460" duration="2848000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="757822000" />
+    <option name="totallyTimeSpent" value="757950000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -441,7 +441,7 @@
     <frame x="0" y="23" width="1440" height="797" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49787235" visible="true" weight="0.26824033" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49787235" visible="true" weight="0.26824033" />
       <window_info id="Structure" order="1" sideWeight="0.50212765" side_tool="true" weight="0.23381294" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -451,7 +451,7 @@
       <window_info id="Web" order="7" sideWeight="0.5019608" side_tool="true" weight="0.22517985" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32765958" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.2751773" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2751773" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1060,8 +1060,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/app/quotation-details.xhtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="527" column="240" selection-start-line="527" selection-start-column="240" selection-end-line="527" selection-end-column="240" />
+        <state relative-caret-position="145">
+          <caret line="390" column="248" selection-start-line="390" selection-start-column="248" selection-end-line="390" selection-end-column="248" />
         </state>
       </provider>
     </entry>
