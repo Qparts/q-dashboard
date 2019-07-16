@@ -196,6 +196,10 @@ public class AppConstants {
         return PRODUCT_SERVICE + "product/" + id;
     }
 
+    public final static String deleteProductPrice(long productPrice){
+        return PRODUCT_SERVICE + "product-price/" + productPrice;
+    }
+
     public final static String getSearchProductIds(String query){
         return PRODUCT_SERVICE + "products/search/" + query + "/id-only";
     }

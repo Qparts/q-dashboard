@@ -218,6 +218,12 @@
                                                 <f:convertNumber type="currency" currencySymbol="SR "/>
                                             </h:outputText>
                                         </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Archive Price"/>
+                                            </f:facet>
+                                            <p:commandButton value="Archive" styleClass="q-btn-red" actionListener="#{productDetailsBean.archivePrice(pp)}" update="@form" process="@this"/>
+                                        </h:column>
                                     </h:dataTable>
                                 </div>
                             </div>

@@ -85,6 +85,19 @@ public class ProductDetailsBean implements Serializable {
 
     }
 
+    public void archivePrice(ProductPrice productPrice){
+        if(productHolder.getProductPrices().size() > 1){
+            Response r =reqs.deleteSecuredRequest(AppConstants.deleteProductPrice(productPrice.getId()));
+            if(r.getStatus() == 201){
+                productHolder.getProductPrices().remove(productPrice);
+                Helper.addInfoMessage("Price Removed");
+            }
+        }
+        else{
+            Helper.addErrorMessage("Please add an active price before archiving");
+        }
+    }
+
     public void uploadImage() {
         try {
             String fileName = this.productHolder.getProduct().getId() + ".png";
