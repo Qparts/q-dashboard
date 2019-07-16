@@ -7,10 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b051513-06e8-4d02-8a21-6dcfa3f3a358" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/q_app_dashboard.war/q-app-dashboard.war" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/q_app_dashboard.war/q-app-dashboard.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/QuotationDetailsBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/QuotationDetailsBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/model/cart/CartItemRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/model/cart/CartItemRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/app/quotation-details.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/quotation-details.xhtml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,20 +18,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/app/quotation-details.xhtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="434">
-              <caret line="520" column="83" selection-start-line="520" selection-start-column="83" selection-end-line="520" selection-end-column="83" />
+            <state relative-caret-position="173">
+              <caret line="527" column="240" selection-start-line="527" selection-start-column="240" selection-end-line="527" selection-end-column="240" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/QuotationDetailsBean.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="194">
-              <caret line="147" column="55" selection-start-line="147" selection-start-column="55" selection-end-line="147" selection-end-column="55" />
+            <state relative-caret-position="224">
+              <caret line="149" column="14" lean-forward="true" selection-start-line="149" selection-start-column="14" selection-end-line="149" selection-end-column="14" />
               <folding>
                 <element signature="e#7205#7206#0" expanded="true" />
                 <element signature="e#7295#7296#0" expanded="true" />
@@ -86,7 +83,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>WALLETS</find>
       <find>fund wallet</find>
       <find>&quot;Fund&quot;</find>
       <find>fundWalletDlgwv</find>
@@ -116,6 +112,7 @@
       <find>paymentBaseQetaaCallbackUrl</find>
       <find>p</find>
       <find>Sales Price</find>
+      <find>Create C</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -175,7 +172,6 @@
         <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/cart/WireTransferBean.java" />
         <option value="$PROJECT_DIR$/src/q/app/dashboard/model/cart/CartDelivery.java" />
         <option value="$PROJECT_DIR$/src/q/app/dashboard/model/cart/Cart.java" />
-        <option value="$PROJECT_DIR$/web/app/quotation-details.xhtml" />
         <option value="$PROJECT_DIR$/src/q/app/dashboard/model/cart/CartRequest.java" />
         <option value="$PROJECT_DIR$/web/app/wire-transfers.xhtml" />
         <option value="$PROJECT_DIR$/src/q/app/dashboard/helper/AppConstants.java" />
@@ -183,6 +179,7 @@
         <option value="$PROJECT_DIR$/web/app/product-details.xhtml" />
         <option value="$PROJECT_DIR$/src/q/app/dashboard/model/cart/CartItemRequest.java" />
         <option value="$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/QuotationDetailsBean.java" />
+        <option value="$PROJECT_DIR$/web/app/quotation-details.xhtml" />
       </list>
     </option>
   </component>
@@ -216,6 +213,21 @@
               <item name="q-app-deshboard" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="dashboard" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="q-app-deshboard" type="b2602c69:ProjectViewProjectNode" />
+              <item name="q-app-deshboard" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
+              <item name="beans" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="q-app-deshboard" type="b2602c69:ProjectViewProjectNode" />
+              <item name="q-app-deshboard" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
+              <item name="beans" type="462c0819:PsiDirectoryNode" />
+              <item name="quotations" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="q-app-deshboard" type="b2602c69:ProjectViewProjectNode" />
@@ -409,12 +421,12 @@
       <workItem from="1562906751068" duration="3448000" />
       <workItem from="1563046890988" duration="5088000" />
       <workItem from="1563077378481" duration="18134000" />
-      <workItem from="1563243969460" duration="2534000" />
+      <workItem from="1563243969460" duration="2720000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="757636000" />
+    <option name="totallyTimeSpent" value="757822000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -429,7 +441,7 @@
     <frame x="0" y="23" width="1440" height="797" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49787235" visible="true" weight="0.26824033" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49787235" visible="true" weight="0.26824033" />
       <window_info id="Structure" order="1" sideWeight="0.50212765" side_tool="true" weight="0.23381294" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -439,7 +451,7 @@
       <window_info id="Web" order="7" sideWeight="0.5019608" side_tool="true" weight="0.22517985" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32765958" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2751773" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.2751773" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -998,13 +1010,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/app/quotation-details.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="520" column="83" selection-start-line="520" selection-start-column="83" selection-end-line="520" selection-end-column="83" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/model/cart/CartItemRequest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="208">
@@ -1035,8 +1040,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/q/app/dashboard/beans/quotations/QuotationDetailsBean.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="147" column="55" selection-start-line="147" selection-start-column="55" selection-end-line="147" selection-end-column="55" />
+        <state relative-caret-position="224">
+          <caret line="149" column="14" lean-forward="true" selection-start-line="149" selection-start-column="14" selection-end-line="149" selection-end-column="14" />
           <folding>
             <element signature="e#7205#7206#0" expanded="true" />
             <element signature="e#7295#7296#0" expanded="true" />
@@ -1050,6 +1055,13 @@
             <element signature="e#8150#8151#0" expanded="true" />
             <element signature="e#8255#8256#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/app/quotation-details.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="527" column="240" selection-start-line="527" selection-start-column="240" selection-end-line="527" selection-end-column="240" />
         </state>
       </provider>
     </entry>

@@ -525,7 +525,7 @@
                     <h:outputText value="Wire Transfer"/>
                 </h:panelGrid>
                 <div align="center">
-                    <p:commandButton value="Create Cart" styleClass="q-btn" actionListener="#{quotationDetailsBean.createCart()}" update=":form-g" oncomplete="PF('cartDlgwv').hide()"/>
+                    <p:commandButton value="Create Cart" styleClass="q-btn" actionListener="#{quotationDetailsBean.createCart()}" update=":form-g" oncomplete="PF('cartDlgwv').hide()" rendered="#{quotationDetailsBean.quotation.status eq 'S'}"/>
                 </div>
             </h:panelGroup>
         </p:dialog>
