@@ -17,7 +17,7 @@ public class CartItemRequest {
     public int[] getQuantityArray20(){
         int[] quantityArray = new int[20];
         for (int i = 0; i < quantityArray.length; i++) {
-            quantityArray[i] = i + 1;
+            quantityArray[i] = i;
         }
         return quantityArray;
     }

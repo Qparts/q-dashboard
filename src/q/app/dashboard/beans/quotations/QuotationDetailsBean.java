@@ -16,10 +16,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.core.Response;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Named
 @ViewScoped
@@ -125,32 +122,18 @@ public class QuotationDetailsBean implements Serializable {
     public void initCart(){
         if(quotation.getStatus() == 'S'){
             cartRequest = new CartRequest();
-//            cart = new Cart();
             cartRequest.setCustomerId(customer.getId());
-//            cart.setCustomerId(customer.getId());
             cartRequest.setDeliveryCharges(35);
-//            cart.setCartDelivery(new CartDelivery(35));
             cartRequest.setCartItems(new ArrayList<>());
-//            cart.getCartDelivery().setCreatedBy(loginBean.getLoggedUserId());
-  //          cart.setCartProducts(new ArrayList<>());
-//            cart.setVatPercentage(0.05);
-            //cart.setPaymentMethod('W');
             for(BillItem bi : quotation.getAllBillItems()){
                 if(bi.getStatus() == 'C'){
                     var bir = bi.getBillItemResponse();
-                    //CartProduct cp = new CartProduct();
                     CartItemRequest ci = new CartItemRequest();
                     ci.setProductId(bir.getProductId());
-//                    cp.setProductId(bir.getProductId());
                     ci.setSalesPrice(bir.getProductHolder().getAverageSalesPrices());
-//                    cp.setSalesPrice(bir.getProductHolder().getAverageSalesPrices());
                     ci.setProductHolder(bir.getProductHolder());
- //                   cp.setProductHolder(bir.getProductHolder());
                     ci.setQuantity(bir.getQuantity());
-//                    cp.setQuantity(bir.getQuantity());
- //                   cp.setNewQuantity(bir.getQuantity());
                     cartRequest.getCartItems().add(ci);
-//                    cart.getCartProducts().add(cp);
                 }
             }
         }
@@ -160,12 +143,27 @@ public class QuotationDetailsBean implements Serializable {
         cartRequest.setAppCode(customer.getAppCode());
         cartRequest.setCreatedBy(loginBean.getLoggedUserId());
         cartRequest.setWalletAmount(unlockedWalletAmount);
-        Response r = reqs.postSecuredRequest(AppConstants.POST_CART_WIRE_TRANSFER, cartRequest);
-        if(r.getStatus() == 200){
-            Helper.redirect("wire-transfers");
+        removeZeroQuantityItems();
+        if(cartRequest.getCartItems().isEmpty()){
+            Helper.addErrorMessage("No Product Selected");
         }
-        else{
-            Helper.addErrorMessage("Error code " + r.getStatus());
+        else {
+            Response r = reqs.postSecuredRequest(AppConstants.POST_CART_WIRE_TRANSFER, cartRequest);
+            if (r.getStatus() == 200) {
+                Helper.redirect("wire-transfers");
+            } else {
+                Helper.addErrorMessage("Error code " + r.getStatus());
+            }
+        }
+    }
+
+    private void removeZeroQuantityItems(){
+        Iterator iterator = cartRequest.getCartItems().iterator();
+        while(iterator.hasNext()){
+            CartItemRequest cri = (CartItemRequest) iterator.next();
+            if(cri.getQuantity() == 0){
+                iterator.remove();
+            }
         }
     }
 
@@ -175,6 +173,7 @@ public class QuotationDetailsBean implements Serializable {
         newComment.setCreatedBy(loginBean.getLoggedUserId());
         newComment.setQuotationId(quotation.getId());
         newComment.setStatus('A');
+
         Response r = reqs.postSecuredRequest(AppConstants.POST_QUOTATION_COMMENT, newComment);
         if(r.getStatus() == 201){
             Helper.redirect("quotation-details?id=" + quotation.getId());
