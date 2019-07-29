@@ -17,7 +17,7 @@ public class CreateQuotationRequest {
     private Boolean imageAttached;
     private Integer appCode;
     private List<CreateQuotationItemRequest> quotationItems;
-    private Character paymentMethood;
+    private Character paymentMethod;
     @JsonIgnore
     private int regionId;
     @JsonIgnore
@@ -126,11 +126,11 @@ public class CreateQuotationRequest {
         this.appCode = appCode;
     }
 
-    public Character getPaymentMethood() {
-        return paymentMethood;
+    public Character getPaymentMethod() {
+        return paymentMethod;
     }
 
-    public void setPaymentMethood(Character paymentMethood) {
-        this.paymentMethood = paymentMethood;
+    public void setPaymentMethod(Character paymentMethood) {
+        this.paymentMethod = paymentMethood;
     }
 }

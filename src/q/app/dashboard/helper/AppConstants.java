@@ -77,6 +77,7 @@ public class AppConstants {
     public final static String PUT_CART_DELIVERY_RETURN = CART_SERVICE + "cart-delivery/sales-return";
     public final static String PUT_CART_DELIVERY = CART_SERVICE + "cart-delivery/sales";
     public final static String POST_WALLET_SALES = CART_SERVICE + "wallet/sales";
+    public final static String POST_WALLET_MANUAL = CART_SERVICE + "wallet/manual";
 
     public final static String getShipmentsReport(int year, int month, int courierId, long cartId) {
         return CART_SERVICE + "shipments/year/" + year + "/month/" + month + "/courier/" + courierId + "/cart/" + cartId;
@@ -239,7 +240,8 @@ public class AppConstants {
 
     //QUOTATION SERVICE CALLS//
     public final static String POST_QUOTATIONS_FROM_IDS = QUOTATION_SERVICE + "quotations-from-ids";
-    public final static String POST_NEW_QUOTATION = PUBLIC_QUOTATION_SERVICE+ "quotation";
+    public final static String POST_NEW_QUOTATION_WIRE = PUBLIC_QUOTATION_SERVICE+ "quotation/wire-transfer";
+    public final static String POST_NEW_QUOTATION_FREE = QUOTATION_SERVICE+ "quotation/free";
     public final static String PUT_UPDATE_QUOTATION = QUOTATION_SERVICE + "quotation";
     public final static String POST_QUOTATION_COMMENT = QUOTATION_SERVICE + "comment";
     public final static String POST_BILL = QUOTATION_SERVICE + "bill";

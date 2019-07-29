@@ -1,12 +1,12 @@
 package q.app.dashboard.beans.customer;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import q.app.dashboard.beans.common.LoginBean;
 import q.app.dashboard.beans.common.MakesBean;
 import q.app.dashboard.beans.common.Requester;
 import q.app.dashboard.helper.AppConstants;
 import q.app.dashboard.helper.Helper;
 import q.app.dashboard.model.cart.Cart;
+import q.app.dashboard.model.cart.CartWireTransferRequest;
 import q.app.dashboard.model.cart.CustomerWallet;
 import q.app.dashboard.model.customer.Customer;
 import q.app.dashboard.model.customer.CustomerAddress;
@@ -23,6 +23,7 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Named
@@ -35,6 +36,7 @@ public class CustomerDetailsBean implements Serializable {
     private List<CustomerWallet> wallets;
     private CustomerAddress newAddress;
     private CustomerVehicle newVehicle;
+    private CustomerWallet newWallet;
     private int selectedMakeId;
     private int selectedModelId;
     private CreateQuotationRequest newQuotation;
@@ -64,6 +66,7 @@ public class CustomerDetailsBean implements Serializable {
             newQuotation = new CreateQuotationRequest();
             newQuotation.setQuotationItems(new ArrayList<>());
             newVehicle = new CustomerVehicle();
+            newWallet = new CustomerWallet();
             addQuotationItem();
         } catch (Exception ex) {
             Helper.redirect("customer-search");
@@ -105,7 +108,27 @@ public class CustomerDetailsBean implements Serializable {
         }
     }
 
-    public void createQuotation(){
+    private void createFreQuotation(){
+        Response r = reqs.postSecuredRequest(AppConstants.POST_NEW_QUOTATION_FREE, newQuotation);
+        if(r.getStatus() == 201){
+            Helper.redirect("customer-details?id=" + customer.getId());
+        }
+        else{
+            Helper.addErrorMessage("Error code " + r.getStatus());
+        }
+    }
+
+    private void createWireTransferQuotation(){
+        Response r = reqs.postSecuredRequest(AppConstants.POST_NEW_QUOTATION_WIRE, newQuotation);
+        if(r.getStatus() == 200){
+            Helper.redirect("customer-details?id=" + customer.getId());
+        }
+        else{
+            Helper.addErrorMessage("Error code " + r.getStatus());
+        }
+    }
+
+    private void prepareNewQuotation(){
         newQuotation.setCustomerId(customer.getId());
         newQuotation.setMakeId(getMakeIdFromVehicle());
         newQuotation.setMobile(customer.getMobile());
@@ -116,13 +139,34 @@ public class CustomerDetailsBean implements Serializable {
             qi.setTempId(index);
             index++;
         }
-        Response r = reqs.postSecuredRequest(AppConstants.POST_NEW_QUOTATION, newQuotation);
-        if(r.getStatus() == 200){
+    }
+
+    public void createQuotation(){
+        prepareNewQuotation();
+        if(newQuotation.getPaymentMethod() == 'F'){
+            createFreQuotation();
+        }
+        else if(newQuotation.getPaymentMethod() == 'W'){
+            createWireTransferQuotation();
+        }
+    }
+
+    public void createWallet(){
+        newWallet.setLocked(true);
+        newWallet.setTransactionId("Manually added");
+        newWallet.setCurrency("SAR");
+        newWallet.setCreatedBy(loginBean.getLoggedUserId());
+        newWallet.setCustomerId(customer.getId());
+        newWallet.setCreated(new Date());
+        newWallet.setWalletType('P');
+        Response r = reqs.postSecuredRequest(AppConstants.POST_WALLET_MANUAL, newWallet);
+        if(r.getStatus() == 201){
             Helper.redirect("customer-details?id=" + customer.getId());
         }
         else{
-            Helper.addErrorMessage("Error code " + r.getStatus());
+            Helper.addErrorMessage("Error code "+ r.getStatus());
         }
+
     }
 
     private int getMakeIdFromVehicle(){
@@ -267,5 +311,13 @@ public class CustomerDetailsBean implements Serializable {
 
     public void setSelectedModelId(int selectedModelId) {
         this.selectedModelId = selectedModelId;
+    }
+
+    public CustomerWallet getNewWallet() {
+        return newWallet;
+    }
+
+    public void setNewWallet(CustomerWallet newWallet) {
+        this.newWallet = newWallet;
     }
 }

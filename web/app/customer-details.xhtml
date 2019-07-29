@@ -188,47 +188,47 @@
                                     <p:panel toggleable="true" header="Quotations" collapsed="false"
                                              toggleSpeed="100">
                                         <p:commandButton value="+" onclick="PF('newQuotationDlgwv').show()" styleClass="q-btn" process="@this"/>
-                                    <h:dataTable value="#{customerDetailsBean.quotations}" var="qu" styleClass="w3-table w3-striped w3-border" headerClass="w3-light-grey w3-border-bottom">
-                                        <f:facet name="header">
-                                            <div align="center">
-                                                <h:outputText value="Quotations"/>
-                                            </div>
-                                        </f:facet>
-                                        <h:column>
+                                        <h:dataTable value="#{customerDetailsBean.quotations}" var="qu" styleClass="w3-table w3-striped w3-border" headerClass="w3-light-grey w3-border-bottom">
                                             <f:facet name="header">
-                                                <h:outputText value="ID"/>
+                                                <div align="center">
+                                                    <h:outputText value="Quotations"/>
+                                                </div>
                                             </f:facet>
-                                            <h:outputLink value="quotation-details?id=#{qu.id}">
-                                                <h:outputText value="#{qu.id}"/>
-                                            </h:outputLink>
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Created"/>
-                                            </f:facet>
-                                            <h:outputText value="#{qu.created}">
-                                                <f:convertDateTime pattern="dd-MMM-yyyy HH:mm"/>
-                                            </h:outputText>
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="City"/>
-                                            </f:facet>
-                                            <h:outputText value="#{cityBean.getCityFromId(qu.cityId).region.name} - #{cityBean.getCityFromId(qu.cityId).name}"/>
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Vehicle"/>
-                                            </f:facet>
-                                            <h:outputText value="#{makesBean.getModelYearFromId(customerDetailsBean.customer.getVehicleFromId(qu.customerVehicleId).vehicleYearId).fullName}"/>
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Status"/>
-                                            </f:facet>
-                                            <h:outputText value="#{qu.status}"/>
-                                        </h:column>
-                                    </h:dataTable>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="ID"/>
+                                                </f:facet>
+                                                <h:outputLink value="quotation-details?id=#{qu.id}">
+                                                    <h:outputText value="#{qu.id}"/>
+                                                </h:outputLink>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Created"/>
+                                                </f:facet>
+                                                <h:outputText value="#{qu.created}">
+                                                    <f:convertDateTime pattern="dd-MMM-yyyy HH:mm"/>
+                                                </h:outputText>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="City"/>
+                                                </f:facet>
+                                                <h:outputText value="#{cityBean.getCityFromId(qu.cityId).region.name} - #{cityBean.getCityFromId(qu.cityId).name}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Vehicle"/>
+                                                </f:facet>
+                                                <h:outputText value="#{makesBean.getModelYearFromId(customerDetailsBean.customer.getVehicleFromId(qu.customerVehicleId).vehicleYearId).fullName}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Status"/>
+                                                </f:facet>
+                                                <h:outputText value="#{qu.status}"/>
+                                            </h:column>
+                                        </h:dataTable>
                                     </p:panel>
                                 </div>
                             </div>
@@ -291,6 +291,7 @@
                             <div class="w3-col s12 w3-padding-24">
                                 <div class="w3-col s12">
                                     <p:panel toggleable="true" header="Wallets" collapsed="false" toggleSpeed="100">
+                                        <p:commandButton value="+" styleClass="q-btn" onclick="PF('newWalletDlgwv').show()" rendered="#{loginBean.hasAccess(act.actionAddWalletManual)}"/>
                                         <h:dataTable value="#{customerDetailsBean.wallets}" var="wallet" styleClass="w3-table w3-striped w3-border" headerClass="w3-light-grey w3-border-bottom">
                                             <f:facet name="header">
                                                 <div align="center">
@@ -358,6 +359,27 @@
                     </div>
                 </h:form>
 
+                <h:form id="newWalletForm">
+                    <p:dialog widgetVar="newWalletDlgwv" id="newWalletDlg" styleClass="q-dialog" header="New Wallet Amount">
+                        <h:panelGrid columns="2">
+                            <h:outputText value="Amount"/>
+                            <h:inputText value="#{customerDetailsBean.newWallet.amount}"/>
+                            <h:outputText value="Payment Method"/>
+                            <h:selectOneMenu value="#{customerDetailsBean.newWallet.method}">
+                                <f:selectItem itemValue="#{'W'}" itemLabel="Wire Transfer"/>
+                            </h:selectOneMenu>
+                            <h:outputText value="Bank"/>
+                            <h:selectOneMenu value="#{customerDetailsBean.newWallet.bankId}">
+                                <f:selectItem noSelectionOption="true" itemLabel="--Select Bank--"/>
+                                <f:selectItems value="#{banksBean.banks}" var="bank" itemValue="#{bank.id}" itemLabel="#{bank.name}"/>
+                            </h:selectOneMenu>
+                        </h:panelGrid>
+                        <br/>
+                        <p:commandButton value="Create Wallet" actionListener="#{customerDetailsBean.createWallet()}" styleClass="q-btn" update=":form-g"/>
+
+                    </p:dialog>
+                </h:form>
+
                 <h:form id="newQuotationForm">
                     <p:dialog widgetVar="newQuotationDlgwv" id="newQuotationDlg" styleClass="q-dialog" header="New Quotation">
                         <h:panelGroup id="grid">
@@ -405,7 +427,7 @@
                                 </f:facet>
                             </h:dataTable>
                             <h:outputText value="Payment Method"/>
-                            <h:selectOneMenu value="#{customerDetailsBean.newQuotation.paymentMethood}">
+                            <h:selectOneMenu value="#{customerDetailsBean.newQuotation.paymentMethod}">
                                 <f:selectItem noSelectionOption="true" itemLabel="--Select Payment Method--"/>
                                 <f:selectItem itemValue="#{'W'}" itemLabel="Wire Transfer"/>
                                 <f:selectItem itemValue="#{'F'}" itemLabel="Free"/>
