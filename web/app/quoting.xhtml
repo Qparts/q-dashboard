@@ -351,7 +351,9 @@
                                              process="@this part-number" update="found :form-g"/>
                         </div>
                         <br/>
+
                         <h:panelGroup id="found">
+                            <p:commandButton value="Quick Add" actionListener="#{productQuickAdd.prepareQuickAdd(productSearchBean.query)}" oncomplete="PF('dlg6wv').show(); PF('dlg3wv').hide()" styleClass="q-btn" update=":form6" rendered="#{productSearchBean.searched}" />
                             <h:dataTable value="#{productSearchBean.foundProductHolders}" var="holder"
                                          rendered="#{productSearchBean.foundProductHolders.size() gt 0}"
                                          styleClass="w3-table w3-striped w3-column">
@@ -397,6 +399,61 @@
                                             value="Select" oncomplete="PF('dlg4wv').hide()"/>
                                 </h:column>
                             </h:dataTable>
+                        </h:panelGroup>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="form6">
+                    <p:dialog widgetVar="dlg6wv" styleClass="q-dialog" header="Product Quick Add ">
+                        <h:panelGroup>
+                            <h:outputText value="Product not found"/>
+                            <h:panelGrid columns="2">
+                                <h:outputText value="Product Number"/>
+                                <h:inputText value="#{productQuickAdd.product.productNumber}" required="true"/>
+                                <h:outputText value="Product Name"/>
+                                <h:inputText value="#{productQuickAdd.product.desc}" required="true"/>
+                                <h:outputText value="Product Name Arabic"/>
+                                <h:inputText value="#{productQuickAdd.product.descAr}"/>
+                                <h:outputText value="Brand"/>
+                                <p:autoComplete placeholder="Type brand name" id="themeCustom" maxResults="10"
+                                                styleClass="q-auto-complete" required="true"
+                                                value="#{productQuickAdd.product.brand.id}" dropdown="true"
+                                                completeMethod="#{brandsBean.completeBrandIds}" var="b"
+                                                itemLabel="#{brandsBean.getBrandFromId(b).name}"
+                                                itemValue="#{brandsBean.getBrandFromId(b).id}"
+                                                forceSelection="true" style="width: 100%!important;">
+                                    <p:column>
+                                        <h:graphicImage value="#{brandsBean.getBrandFromId(b).brandImage}"
+                                                        alt="#{brandsBean.getBrandFromId(b).name}"
+                                                        styleClass="q-autocomplete-image"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <h:outputText value="#{brandsBean.getBrandFromId(b).name}"/>
+                                    </p:column>
+                                </p:autoComplete>
+                                <h:outputText value="Vendor"/>
+                                <p:autoComplete placeholder="Type Vendor name" id="vendorCustom"
+                                                maxResults="10"
+                                                styleClass="q-auto-complete" required="true"
+                                                value="#{productQuickAdd.productPrice.vendorId}" dropdown="true"
+                                                completeMethod="#{vendorsBean.completeVendorIds}" var="b"
+                                                itemLabel="#{vendorsBean.getVendorFromId(b).name}"
+                                                itemValue="#{vendorsBean.getVendorFromId(b).id}"
+                                                forceSelection="true" style="width: 100%!important;">
+                                    <p:ajax/>
+                                </p:autoComplete>
+                                <h:outputText value="Price W/V"/>
+                                <h:inputText value="#{productQuickAdd.productPrice.price}" required="true"/>
+                                <h:outputText value="Sales Percentage"/>
+                                <h:inputText value="#{productQuickAdd.productPrice.salesPercentage}" required="true">
+                                    <f:convertNumber type="percent"/>
+                                </h:inputText>
+                            </h:panelGrid>
+                            <div align="center">
+                                <p:commandButton value="Create Product" actionListener="#{productQuickAdd.create}" styleClass="q-btn" update=":form-g" oncomplete="PF('dlg6wv').hide()"/>
+                            </div>
+
                         </h:panelGroup>
                     </p:dialog>
                 </h:form>

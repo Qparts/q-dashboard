@@ -24,6 +24,7 @@ public class ProductSearchBean implements Serializable {
     private String query;
     private List<Product> foundProducts;
     private List<ProductHolder> foundProductHolders;
+    private boolean searched;
 
 
     @Inject
@@ -32,6 +33,7 @@ public class ProductSearchBean implements Serializable {
 
     @PostConstruct
     private void init(){
+        searched = false;
         foundProducts = new ArrayList<>();
         foundProductHolders = new ArrayList<>();
         query = "";
@@ -45,7 +47,9 @@ public class ProductSearchBean implements Serializable {
         Response r = reqs.postSecuredRequest(AppConstants.SEARCH_PRODUCT_BY_NUMBER,  map);
         if(r.getStatus() == 200){
             this.foundProductHolders = r.readEntity(new GenericType<List<ProductHolder>>(){});
+            searched = true;
          }
+
     }
 
 
@@ -93,5 +97,13 @@ public class ProductSearchBean implements Serializable {
 
     public void setFoundProductHolders(List<ProductHolder> foundProductHolders) {
         this.foundProductHolders = foundProductHolders;
+    }
+
+    public boolean isSearched() {
+        return searched;
+    }
+
+    public void setSearched(boolean searched) {
+        this.searched = searched;
     }
 }

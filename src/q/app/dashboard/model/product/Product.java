@@ -20,6 +20,10 @@ public class Product implements Serializable {
     private int createdBy;
     private char status;
 
+    public Product(){
+        brand = new Brand();
+    }
+
     @JsonIgnore
     public String getImage(){
         return AppConstants.getProductImage(id);
@@ -55,9 +59,7 @@ public class Product implements Serializable {
         this.status = status;
     }
 
-    public Product(){
-        brand = new Brand();
-    }
+
 
     public long getId() {
         return id;
