@@ -14,7 +14,11 @@ public class Vendor implements Serializable {
     private char status;
     private Date created;
     private int createdBy;
-    private int cityId;
+    private Integer cityId;
+    private String notes;
+    private String integrationSecretCode;
+    private Character integrationType;
+    private String endpointAddress;
     private List<VendorCategory> vendorCategories;
     private List<VendorContact> vendorContacts;
 
@@ -79,11 +83,11 @@ public class Vendor implements Serializable {
         this.createdBy = createdBy;
     }
 
-    public int getCityId() {
+    public Integer getCityId() {
         return cityId;
     }
 
-    public void setCityId(int cityId) {
+    public void setCityId(Integer cityId) {
         this.cityId = cityId;
     }
 
@@ -93,5 +97,37 @@ public class Vendor implements Serializable {
 
     public void setVendorContacts(List<VendorContact> vendorContacts) {
         this.vendorContacts = vendorContacts;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public String getIntegrationSecretCode() {
+        return integrationSecretCode;
+    }
+
+    public void setIntegrationSecretCode(String integrationSecretCode) {
+        this.integrationSecretCode = integrationSecretCode;
+    }
+
+    public Character getIntegrationType() {
+        return integrationType;
+    }
+
+    public void setIntegrationType(Character integrationType) {
+        this.integrationType = integrationType;
+    }
+
+    public String getEndpointAddress() {
+        return endpointAddress;
+    }
+
+    public void setEndpointAddress(String endpointAddress) {
+        this.endpointAddress = endpointAddress;
     }
 }

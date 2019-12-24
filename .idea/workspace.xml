@@ -7,15 +7,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b051513-06e8-4d02-8a21-6dcfa3f3a358" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/q/app/dashboard/beans/product/ProductQuickAdd.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/q_app_dashboard.war/q-app-dashboard.war" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/q_app_dashboard.war/q-app-dashboard.war" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/q-app-dashboard/q/app/dashboard/helper/AppConstants.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/q-app-dashboard/q/app/dashboard/helper/AppConstants.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/q-app-dashboard/q/app/dashboard/model/product/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/q-app-dashboard/q/app/dashboard/model/product/Product.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/beans/product/ProductSearchBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/beans/product/ProductSearchBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/q-app-dashboard/q/app/dashboard/model/vendor/Vendor.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/q-app-dashboard/q/app/dashboard/model/vendor/Vendor.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/helper/AppConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/helper/AppConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/model/product/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/model/product/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/app/quoting.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/quoting.xhtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/model/vendor/Vendor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/model/vendor/Vendor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/app/vendors.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/vendors.xhtml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -45,6 +43,11 @@
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="q-app-deshboard" />
     <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1564261021463" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -217,7 +220,18 @@
       <workItem from="1563777601118" duration="3701000" />
       <workItem from="1564329935328" duration="3012000" />
       <workItem from="1575891522844" duration="5000" />
-      <workItem from="1575964545206" duration="4824000" />
+      <workItem from="1575964545206" duration="5356000" />
+      <workItem from="1576051933950" duration="713000" />
+      <workItem from="1576057698239" duration="626000" />
+      <workItem from="1576108237796" duration="2353000" />
+      <workItem from="1576415887159" duration="952000" />
+      <workItem from="1576432403909" duration="58000" />
+      <workItem from="1576434512037" duration="127000" />
+      <workItem from="1576488127009" duration="1181000" />
+      <workItem from="1576490190700" duration="1243000" />
+      <workItem from="1576569147567" duration="847000" />
+      <workItem from="1577146389989" duration="116000" />
+      <workItem from="1577147072888" duration="452000" />
     </task>
     <servers />
   </component>

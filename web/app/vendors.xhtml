@@ -176,7 +176,19 @@
                         <h:column>
                             <f:facet name="header">
                                 <div align="center">
-                                    <h:outputText value="City"/>
+                                    <h:outputText value="QVM"/>
+                                </div>
+                            </f:facet>
+                            <div align="center">
+                                <h:outputText value="None" styleClass="w3-tag w3-red" rendered="#{vendor.integrationType eq null}"/>
+                                <h:outputText value="Integrated" rendered="#{vendor.integrationType eq 'I'}" styleClass="w3-tag w3-green"/>
+                                <h:outputText value="Viewer" rendered="#{vendor.integrationType eq 'V'}" styleClass="w3-tag w3-orange w3-text-white"/>
+                            </div>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <div align="center">
+                                    <h:outputText value="Status"/>
                                 </div>
                             </f:facet>
                             <div align="center">

@@ -229,9 +229,6 @@ public class AppConstants {
         return CATALOG_SERVICE + "parts/make/"+makeId+"/car/" + carId +"/group/" + groupId + "/criteria/" + criteria;
     }
 
-
-
-
     //VENDOR SERVICE CALLS//
     public final static String POST_VENDOR = VENDOR_SERVICE + "vendor";
     public final static String GET_ALL_VENDORS = VENDOR_SERVICE + "vendors";
