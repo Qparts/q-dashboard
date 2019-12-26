@@ -7,13 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b051513-06e8-4d02-8a21-6dcfa3f3a358" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/q/app/dashboard/model/vendor/Branch.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/q_app_dashboard.war/q-app-dashboard.war" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/q_app_dashboard.war/q-app-dashboard.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/q-app-dashboard/q/app/dashboard/helper/AppConstants.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/q-app-dashboard/q/app/dashboard/helper/AppConstants.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/q-app-dashboard/q/app/dashboard/model/vendor/Vendor.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/q-app-dashboard/q/app/dashboard/model/vendor/Vendor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/helper/AppConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/helper/AppConstants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/model/vendor/Vendor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/model/vendor/Vendor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/app/vendors.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/vendors.xhtml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -59,23 +55,23 @@
     <property name="settings.editor.selected.configurable" value="preferences.applicationServers" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="q.app.dashboard.model.cart" />
+      <recent name="q.app.dashboard.helper" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="q.app.dashboard.model.vendor" />
+      <recent name="q.app.dashboard.model.cart" />
+      <recent name="q.app.dashboard.model.customer" />
+      <recent name="q.app.dashboard.model" />
+      <recent name="q.app.dashboard.beans.purchase" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/q/app/dashboard/model/quotation" />
       <recent name="$PROJECT_DIR$/web/app" />
       <recent name="$PROJECT_DIR$/src/q/app/dashboard/beans/cart" />
       <recent name="$PROJECT_DIR$/src/q/app/dashboard/model/cart" />
       <recent name="$PROJECT_DIR$/src/q/app/dashboard/model/purchase" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="q.app.dashboard.model.cart" />
-      <recent name="q.app.dashboard.model.customer" />
-      <recent name="q.app.dashboard.model" />
-      <recent name="q.app.dashboard.beans.purchase" />
-      <recent name="q.app.dashboard.beans.sales" />
-    </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="q.app.dashboard.model.cart" />
-      <recent name="q.app.dashboard.helper" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -231,7 +227,8 @@
       <workItem from="1576490190700" duration="1243000" />
       <workItem from="1576569147567" duration="847000" />
       <workItem from="1577146389989" duration="116000" />
-      <workItem from="1577147072888" duration="452000" />
+      <workItem from="1577147072888" duration="3793000" />
+      <workItem from="1577353676607" duration="884000" />
     </task>
     <servers />
   </component>

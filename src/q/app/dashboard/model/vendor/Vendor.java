@@ -21,10 +21,20 @@ public class Vendor implements Serializable {
     private String endpointAddress;
     private List<VendorCategory> vendorCategories;
     private List<VendorContact> vendorContacts;
+    private List<Branch> branches;
 
     public Vendor(){
         this.vendorCategories = new ArrayList<>();
         this.vendorContacts = new ArrayList<>();
+        this.branches = new ArrayList<>();
+    }
+
+    public List<Branch> getBranches() {
+        return branches;
+    }
+
+    public void setBranches(List<Branch> branches) {
+        this.branches = branches;
     }
 
     public List<VendorCategory> getVendorCategories() {
