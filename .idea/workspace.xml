@@ -7,9 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b051513-06e8-4d02-8a21-6dcfa3f3a358" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/q/app/dashboard/model/vendor/Branch.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/model/vendor/Vendor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/model/vendor/Vendor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/model/vendor/Branch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/model/vendor/Branch.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -229,6 +228,7 @@
       <workItem from="1577146389989" duration="116000" />
       <workItem from="1577147072888" duration="3793000" />
       <workItem from="1577353676607" duration="884000" />
+      <workItem from="1577538003769" duration="300000" />
     </task>
     <servers />
   </component>
