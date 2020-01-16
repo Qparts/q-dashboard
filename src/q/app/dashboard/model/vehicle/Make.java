@@ -2,6 +2,7 @@ package q.app.dashboard.model.vehicle;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import q.app.dashboard.model.product.Brand;
 import q.app.dashboard.model.product.Category;
 
@@ -9,6 +10,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Make implements Serializable{
 
 	private static final long serialVersionUID = 1L;

@@ -1,10 +1,13 @@
 package q.app.dashboard.model.vendor;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Vendor implements Serializable {
 
     private static final long serialVersionUID = 1L;

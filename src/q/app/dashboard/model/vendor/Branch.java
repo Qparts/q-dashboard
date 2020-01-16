@@ -9,7 +9,6 @@ public class Branch implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private int id;
-    private String sompak;
     private String clientBranchId;
     private String name;
     private int vendorId;
@@ -20,7 +19,7 @@ public class Branch implements Serializable {
     private int cityId;
     private int countryId;
     private String note;
-    
+
 
     public int getVendorId() {
         return vendorId;
