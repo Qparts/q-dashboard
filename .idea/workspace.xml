@@ -8,11 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0b051513-06e8-4d02-8a21-6dcfa3f3a358" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/model/vehicle/Make.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/model/vehicle/Make.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/model/vehicle/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/model/vehicle/Model.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/model/vehicle/ModelYear.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/model/vehicle/ModelYear.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/model/vendor/Branch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/model/vendor/Branch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/model/vendor/Vendor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/model/vendor/Vendor.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -243,7 +238,8 @@
       <workItem from="1578926063331" duration="467000" />
       <workItem from="1579096046199" duration="3000" />
       <workItem from="1579130356566" duration="13000" />
-      <workItem from="1579169336086" duration="30000" />
+      <workItem from="1579169336086" duration="383000" />
+      <workItem from="1579558108138" duration="636000" />
     </task>
     <servers />
   </component>
