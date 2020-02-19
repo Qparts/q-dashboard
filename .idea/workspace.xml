@@ -7,7 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b051513-06e8-4d02-8a21-6dcfa3f3a358" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/model/vendor/Branch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/model/vendor/Branch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/beans/notifications/NotificationBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/beans/notifications/NotificationBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/app/cities.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/cities.xhtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/app/countries.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/countries.xhtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/app/regions.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/regions.xhtml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -240,7 +244,16 @@
       <workItem from="1579130356566" duration="13000" />
       <workItem from="1579169336086" duration="383000" />
       <workItem from="1579558108138" duration="636000" />
-      <workItem from="1580723986743" duration="24000" />
+      <workItem from="1580723986743" duration="178000" />
+      <workItem from="1581245231046" duration="3297000" />
+      <workItem from="1581300558090" duration="604000" />
+      <workItem from="1581301469680" duration="36000" />
+      <workItem from="1581333123541" duration="141000" />
+      <workItem from="1581417133377" duration="492000" />
+      <workItem from="1581420296023" duration="783000" />
+      <workItem from="1581842500880" duration="1057000" />
+      <workItem from="1582051947931" duration="437000" />
+      <workItem from="1582150602455" duration="53000" />
     </task>
     <servers />
   </component>

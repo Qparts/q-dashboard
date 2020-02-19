@@ -52,6 +52,7 @@ public class NotificationBean implements Serializable {
     public void destroy() {
         customerClient.close();
         quotationClient.close();
+        cartClient.close();
     }
 
     private void initCustomerWebSocket() {
@@ -126,7 +127,7 @@ public class NotificationBean implements Serializable {
 
 
 
-    private void changeOccurred(String data){
+    private void  changeOccurred(String data){
         try {
             if (data != null) {
                 String[] messages = data.split(",");
