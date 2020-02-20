@@ -93,6 +93,16 @@ public class CityBean implements Serializable{
 	}
 	
 	public void createCity(){
+		System.out.println("city name " + city.getName());
+		System.out.println("city name ar " + city.getNameAr());
+		System.out.println("region name " + city.getRegion().getName());
+		System.out.println("country name" + city.getCountry().getName());
+		System.out.println("customer status " + city.getCustomerStatus());
+		System.out.println("internal status " + city.getInternalStatus());
+		System.out.println("lang lat" + city.getLongitude() +", " + city.getLatitude());
+		System.out.println("map zoom " + city.getMapZoom());
+
+
 		Response r= reqs.postSecuredRequest(AppConstants.POST_CITY, city);
 		if(r.getStatus() == 201){
 			init();

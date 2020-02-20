@@ -8,12 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0b051513-06e8-4d02-8a21-6dcfa3f3a358" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/q_app_dashboard.war/q-app-dashboard.war" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/q_app_dashboard.war/q-app-dashboard.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/q-app-dashboard/q/app/dashboard/model/vehicle/Make.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/q-app-dashboard/q/app/dashboard/model/vehicle/Make.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/q-app-dashboard/q/app/dashboard/model/vehicle/Model.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/q-app-dashboard/q/app/dashboard/model/vehicle/Model.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/q-app-dashboard/q/app/dashboard/model/vehicle/ModelYear.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/q-app-dashboard/q/app/dashboard/model/vehicle/ModelYear.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/q-app-dashboard/q/app/dashboard/model/vendor/Vendor.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/q-app-dashboard/q/app/dashboard/model/vendor/Vendor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/converters/RegionConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/converters/RegionConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/beans/common/CityBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/beans/common/CityBean.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/app/cities.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/cities.xhtml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -256,7 +251,7 @@
       <workItem from="1581420296023" duration="783000" />
       <workItem from="1581842500880" duration="1057000" />
       <workItem from="1582051947931" duration="437000" />
-      <workItem from="1582150602455" duration="1051000" />
+      <workItem from="1582150602455" duration="1811000" />
     </task>
     <servers />
   </component>
