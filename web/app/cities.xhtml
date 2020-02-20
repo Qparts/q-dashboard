@@ -43,10 +43,12 @@
 								<f:ajax listener="#{cityBean.resetMap()}" execute="@this"
 									render="@form :form1" />
 							</h:selectOneMenu>
-							<h:outputText value="Country" />
+							<h:outputText value="Region" />
 							<h:selectOneMenu value="#{cityBean.city.region}"
 								converter="#{regionConverter}">
-								<f:selectItems value="#{cityBean.city.country.regions}"
+								<f:selectItem noSelectionOption="true"
+											  itemLabel="--Select Region--" />
+								<f:selectItems value="#{regionBean.getRegionsFromCountryId(cityBean.city.country.id)}"
 									var="var" itemValue="#{var}" itemLabel="#{var.name}" />
 								<f:ajax listener="#{cityBean.resetMapToRegion()}"
 									execute="@this" render="@form :form1 :form-g" />

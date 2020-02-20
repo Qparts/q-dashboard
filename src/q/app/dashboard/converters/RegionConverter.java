@@ -30,8 +30,8 @@ public class RegionConverter implements Converter {
 	@Override
 	public String getAsString(FacesContext context, UIComponent uic, Object object) {
 		try{
-			Region country = (Region) object;
-			return String.valueOf(country.getId());
+			Region region = (Region) object;
+			return String.valueOf(region.getId());
 		}catch (Exception ex){
 			return "";
 		}
