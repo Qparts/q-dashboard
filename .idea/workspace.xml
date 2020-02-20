@@ -8,10 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0b051513-06e8-4d02-8a21-6dcfa3f3a358" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/q/app/dashboard/beans/notifications/NotificationBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/q/app/dashboard/beans/notifications/NotificationBean.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/app/cities.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/cities.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/app/countries.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/countries.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/app/regions.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/regions.xhtml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -253,7 +250,7 @@
       <workItem from="1581420296023" duration="783000" />
       <workItem from="1581842500880" duration="1057000" />
       <workItem from="1582051947931" duration="437000" />
-      <workItem from="1582150602455" duration="53000" />
+      <workItem from="1582150602455" duration="348000" />
     </task>
     <servers />
   </component>

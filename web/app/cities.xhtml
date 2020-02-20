@@ -37,7 +37,7 @@
 							<h:selectOneMenu value="#{cityBean.city.country}"
 								converter="#{countryConverter}">
 								<f:selectItem noSelectionOption="true"
-									itemValue="--Select Country--" />
+									itemLabel="--Select Country--" />
 								<f:selectItems value="#{countryBean.countries}" var="var"
 									itemValue="#{var}" itemLabel="#{var.name}" />
 								<f:ajax listener="#{cityBean.resetMap()}" execute="@this"
