@@ -15,6 +15,7 @@ public class SysProps {
     static{
         try {
             loadFile();
+            System.out.println("Number of props loaded: " prop.entrySet().size());
         } catch (Exception e) {
             e.printStackTrace();
         }
