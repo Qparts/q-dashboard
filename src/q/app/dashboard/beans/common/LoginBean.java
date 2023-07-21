@@ -72,7 +72,7 @@ public class LoginBean implements Serializable {
     public void login(){
         HashMap<String,Object> map = new HashMap<>();
         map.put("username", username);
-        map.put("password", password);
+        map.put("code", password);
         System.out.println("Requesting " + AppConstants.USER_LOGIN);
         Response r = reqs.postSecuredRequest(AppConstants.USER_LOGIN, map);
         System.out.println("response status:" + r.getStatus());
