@@ -73,10 +73,14 @@ public class LoginBean implements Serializable {
         HashMap<String,Object> map = new HashMap<>();
         map.put("username", username);
         map.put("password", password);
+        System.out.println("Requesting " + AppConstants.USER_LOGIN);
         Response r = reqs.postSecuredRequest(AppConstants.USER_LOGIN, map);
+        System.out.println("response status:" + r.getStatus());
         if(r.getStatus() == 200){
             this.userHolder = r.readEntity(UserHolder.class);
             doLogin();
+        }else{
+            System.out.println("Login failed");
         }
     }
 
